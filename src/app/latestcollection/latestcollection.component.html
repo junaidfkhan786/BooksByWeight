@@ -1,0 +1,27 @@
+<div class="card p-2 btc">
+  <div class="row">
+    <div class="col">
+      <span class="font-weight-bolder org" style="font-size: large;"
+        >LATEST COLLECTION ON BOOKS</span
+      >
+      <span class="float-right button--next" (click)="owlCar.next()">
+        <span class="material-icons org">
+          navigate_next
+        </span>
+      </span>
+      <span class="float-right button--previous" (click)="owlCar.prev()">
+        <span class="material-icons org">
+          navigate_before
+        </span>
+      </span>
+    </div>
+  </div>
+</div>
+<owl-carousel-o [options]="customOptions" #owlCar>
+  <ng-container *ngFor="let books of books$.books">
+    <ng-template carouselSlide>
+  <app-latestitem [latestitem] = "books" [addedToWishlist]= "wid1.indexOf(books._id) >= 0 "></app-latestitem>
+</ng-template>
+  
+  </ng-container>
+</owl-carousel-o>

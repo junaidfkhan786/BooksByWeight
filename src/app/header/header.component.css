@@ -1,0 +1,99 @@
+nav{
+  background-color: #f6f6f6 !important;
+  opacity: 0.8;
+  font-weight: bolder;
+}
+
+.navbar, .nav-tabs{
+  margin-bottom: 0;
+}
+
+.nav-link:hover{
+  color: orangered !important;
+}
+
+
+
+
+@keyframes fadeInUp {
+  from {
+      transform: translate3d(0,15px,0)
+  }
+
+}
+
+@-webkit-keyframes fadeInUp {
+  from {
+      transform: translate3d(0,15px,0)
+  }
+}
+
+
+
+.overlay {
+  padding: 0;
+  height: 30%;
+  width: 100%;
+  display: none;
+  position: fixed;
+  z-index: 21;
+  top: 0;
+  left: 0;
+background: #cfcfcd none repeat scroll 0 0;
+}
+
+.overlay-content {
+  position: relative;
+  top: 30%;
+  
+  width: 90%;
+  text-align: center;
+  margin-top: 30px;
+  margin: auto;
+}
+
+.overlay .closebtn {
+  position: absolute;
+  top: 70px;
+  right: 70px;
+  font-size: 3rem;
+  cursor: pointer;
+  color: rgb(253, 253, 253);
+  transition: all 1s;
+}
+
+.overlay .closebtn:hover {
+  color: #ff4136;
+  -ms-transform: rotate(360deg); /* IE 9 */
+  transform: rotate(360deg) scale(2); /* Standard syntax */
+  
+
+}
+
+.overlay input[type=text] {
+  padding: 20px;
+  font-size: 17px;
+  border: none;
+  float: left;
+  width: 90%;
+  background: white;
+}
+
+.overlay input[type=text]:hover {
+  background: white;
+}
+
+.overlay button {
+  float: left;
+  width: 5%;
+  padding: 21px;
+  background:white;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.overlay button:hover {
+  background: #ff4136;
+  color: white;
+}

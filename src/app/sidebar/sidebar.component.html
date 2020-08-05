@@ -1,0 +1,85 @@
+<ul class="list-group">
+  <li class="list-group-item bg-dark text-white" aria-current="true">
+    <span class="material-icons">menu</span> BROWSE CATEGORIES
+  </li>
+
+  <li class=" dropright list-group-item bg-color" *ngFor="let item of category$"  >
+      <span   >
+        <span   class="material-icons org ">
+          {{item.icon_name}}
+          </span> &nbsp; <span (click)="productCat(item._id)" class="text-wrap"> {{item.category}} </span>
+     <span class="material-icons org float-right">
+      navigate_next
+      </span>
+      </span>
+    <!-- <div style="padding: 10px;" class="dropdown-menu drop-menu-right animate__animated animate__fadeInRight animate__faster">
+<div *ngFor="let sub of item.subcategory">
+ <a class=" nav-link active org " style="color: black; cursor: pointer;">
+   {{sub + "\n"}}
+ </a>
+</div>
+
+
+
+    </div> -->
+  </li>
+
+</ul>
+<br>
+<ul class="list-group" style="cursor: pointer;">
+  <li class="list-group-item bg-dark text-white" aria-current="true">
+    <span class="material-icons">menu</span> BOOKS BY PRICE
+  </li>
+  <li class="list-group-item" aria-current="true">
+    <a target="_blank" >
+      <span (click)="price()">
+        &#8377;100 - &#8377;200
+      
+      </span>
+    </a>
+   
+
+  </li>
+  <li class="list-group-item" aria-current="true">
+    <span (click)="price1()">
+      &#8377;200 - &#8377;300
+    </span>
+
+  </li>
+  <li class="list-group-item" aria-current="true">
+    <span (click)="price2()">
+      &#8377;300 - &#8377;400
+    </span>
+
+  </li>
+  <li class="list-group-item" aria-current="true">
+    <span  (click)="price3()">
+      &#8377;400 - &#8377;500
+    </span>
+
+  </li>
+  <li class="list-group-item" aria-current="true">
+    <span  (click)="price4()">
+      &#8377;500 Onwards
+    </span>
+
+  </li>
+  <li class="list-group-item" aria-current="true">
+    <span style="font-weight: bolder;" (click)="lowTohigh()">
+Price Low To High
+    </span>
+
+  </li>
+
+  <li class="list-group-item" aria-current="true">
+    <span style="font-weight: bolder;" (click)="highTolow()">
+Price High To Low
+    </span>
+
+  </li>
+
+
+</ul>
+
+
+

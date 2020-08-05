@@ -1,0 +1,82 @@
+<span style="justify-content: center;  margin-left: auto; margin-right: auto; width: 40%; display: block;">
+  <div class="alert alert-danger" *ngIf="Error">{{message}}</div>
+  <div class="alert alert-success" *ngIf="Success">{{succ_message}}</div>
+  
+  <form #myform="ngForm" id="registerform">
+
+    <br>
+    <div class="mb-3">
+
+      <input placeholder="Enter Name" [(ngModel)]="user.name" name="name"
+        style="width: 100%; border-top: none; border-left: none; border-right: none; background: transparent !important ;"
+        type="text" id="name" required>
+
+    </div>
+    <div class="mb-3">
+
+      <input placeholder="Enter Phone Number" [(ngModel)]="user.phonenumber" name="phonenumber"
+        style="width: 100%; border-top: none; border-left: none; border-right: none; background: transparent !important ;"
+        type="text" id="phone" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
+        autocomplete="off" maxlength="10" aria-describedby="phoneHelp" required>
+    </div>
+    <div class="mb-3">
+
+      <input placeholder="Enter Email" [(ngModel)]="user.email" name="email"
+        style="width: 100%; border-top: none; border-left: none; border-right: none; background: transparent !important ;"
+        type="email" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+
+    <div class="mb-3">
+
+      <input placeholder="Enter Password" [(ngModel)]="user.password" name="password"
+        style="width: 100%; border-top: none; border-left: none; border-right: none; background: transparent !important ;"
+        minlength="6" type="password" id="password" required>
+    </div>
+    <div class="mb-3 form-check">
+      <div class="row">
+        <div class="col-sm-6">
+
+        </div>
+        <div class="col-sm-6">
+
+          <a class="nav-link float-right org" [routerLink]="['/forgot']"  routerLinkActive="router-link-active"><h6>FORGOT PASSWORD</h6></a>
+
+        </div>
+      </div>
+    </div>
+    <button [disabled]="myform.invalid" (click)="register()" id="register"
+      style="justify-content: center; margin-left: auto; margin-right: auto; display: block;"
+      class="c btn btn-outline-dark bg-org btn-lg">Submit</button>
+  </form>
+  <br>
+  <svg width="2em" (click)="arrow()" style="cursor: pointer;" height="2em" viewBox="0 0 16 16"
+    class="bi bi-arrow-left-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd"
+      d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+    <path fill-rule="evenodd"
+      d="M8.354 11.354a.5.5 0 0 0 0-.708L5.707 8l2.647-2.646a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708 0z" />
+    <path fill-rule="evenodd" d="M11.5 8a.5.5 0 0 0-.5-.5H6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5z" />
+  </svg>
+  <form id="otpform" >
+
+
+    <br>
+    <br>
+
+    <div class="mb-3">
+      <input placeholder="Enter Otp" id="otp" name="otp" [(ngModel)]="user.otp" required
+        style="width: 100%; border-top: none; border-left: none; border-right: none; background: transparent !important ;"
+        type="text" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;" maxlength="6"
+        autocomplete="off" aria-describedby="phoneHelp">
+      <div id="phoneHelp" class="form-text" style="color: red;">*Please Enter 6 Digit Opt Code ( eg 123456 )</div>
+    </div>
+
+    <a (click)="resendOtp()" id="resend" class="org" style="text-decoration: none;cursor: pointer;">Resend Otp</a>
+
+    <br><br>
+    <button   id="sendOtp"  (click)="verifyOtp()"
+      style="justify-content: center; margin-left: auto; margin-right: auto; display: block;"
+      class="c btn btn-outline-dark bg-org btn-lg">Register</button>
+  </form>
+</span>

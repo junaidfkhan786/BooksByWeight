@@ -1,0 +1,122 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~animate.css/animate.min.css';
+
+
+body{
+
+  font-family: 'Poppins', sans-serif !important;
+ 
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+}
+.sticky-top {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 20 !important;
+}
+
+.dropdown:hover .dropdown-menu,
+.btn-group:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu {
+  margin-top: 0;
+}
+
+.dropright:hover .dropdown-menu {
+  display: block;
+}
+
+.section1 {
+  background: #fff;
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+
+  clear: both;
+}
+
+
+.stickyfooter {
+
+  position: sticky;
+  bottom: 0;
+
+}
+
+
+:root {
+  --main-text-color: #3d73b9;
+  --grey-color: #737f8a;
+  --background: #e6ecf5;
+}
+
+.material-icons {
+  display: inline-flex;
+  vertical-align: top;
+
+}
+
+.bg-f {
+  background-color: #f6f6f6;
+}
+
+.org:hover {
+  color: #ff4136 !important;
+}
+
+.bg-org:hover {
+  background: #ff4136 !important;
+}
+
+.c:hover {
+  color: white !important;
+}
+
+.nopadding {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.dropdown {
+  text-align: center;
+}
+
+.dropdown-menu {
+  margin: 10px auto
+}
+
+.dropdown-menu {
+  width: 200px;
+  left: 50%;
+  margin-left: -100px;
+}
+
+.btc {
+  border-top-color: #ff4136;
+}
+
+.round:hover {
+
+  display: inline-block;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+}
+
+.list-group-item:hover {
+  color: #ff4136 !important;
+}
+
+.card {
+  border-radius: 0;
+}
+
+.list-group {
+  border-radius: 0;
+
+}

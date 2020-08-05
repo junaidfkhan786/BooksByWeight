@@ -1,0 +1,56 @@
+<br><br>
+<div class="section1">
+  <app-header></app-header>
+
+<div class="bg-image">
+
+<br>
+<br>
+
+
+<span style="justify-content: center;  margin-left: auto; margin-right: auto; width: 45%; display: block;">
+
+  <form #myform="ngForm">
+    <br>
+    <h2 class="text-center" style="color: orangered;">FORGOT PASSWORD</h2>
+    <div class="alert alert-danger" *ngIf="Error">{{message}}</div>
+    <div class="alert alert-success" *ngIf="Success">{{succ_message}}</div>
+    
+      <br>
+      <br>
+<div class="row">
+  <div id="phone1">
+    <input name="phonenumber" [(ngModel)]="user.phonenumber" placeholder="Enter Phone Number*" style="width: 100%; border-top: none; border-left: none; border-right: none; background: transparent !important ;" type="text"  id="phone" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;" maxlength="10" autocomplete="off" aria-describedby="phoneHelp" required>
+    
+  </div>
+  
+
+</div>
+<a  (click)="sendOtp()"   class="org nav-link float-right "  style="cursor: pointer; color: black;"><h6>SEND OTP</h6></a>
+ 
+
+    <div class="mb-3">
+      <input placeholder="Enter Otp"  [(ngModel)]="user.otp" name="otp" style="width: 100%; border-top: none; border-left: none; border-right: none; background: transparent !important ;" type="text"  onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;" maxlength="6" autocomplete="off" aria-describedby="phoneHelp" required>
+      <div id="phoneHelp" class="form-text" style="color: red;">*Please Enter 6 Digit Opt Code ( eg 123456 )</div>
+    </div>
+    <div class="mb-3" >
+
+      <input placeholder="Enter Password" name="password"  [(ngModel)]="user.password"  style="width: 100%; border-top: none; border-left: none; border-right: none; background: transparent !important ;" type="password" minlength="6" id="password" required>
+      <br>
+      <a [routerLink]="['/login']" routerLinkActive="router-link-active" style=" color: black;" class="nav-link float-right org"><h6>LOGIN/REGISTER</h6></a>
+    </div>
+    <br>
+    <br>
+ 
+    <button [disabled]="myform.invalid" (click)="changePw()" style="justify-content: center; margin-left: auto; margin-right: auto; display: block;" class="c btn btn-outline-dark bg-org btn-lg">Change Password</button>
+
+  </form> 
+
+
+</span>
+</div>
+</div>
+
+<div class="stickyfooter">
+  <app-footer></app-footer>
+</div>

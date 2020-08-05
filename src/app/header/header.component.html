@@ -1,0 +1,120 @@
+<nav class=" navbar justify-content-center navbar-expand-md navbar-light navbar-fixed sticky-top bg-white" style="padding-bottom: 30px;  ">
+  <div class="container nopadding"   >
+
+    <a [routerLink]="[ '/' ]" routerLinkActive="active"><img src="../../assets/images/logo.png" alt=""></a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+      <ul class="navbar-nav nav nav-fill mr-auto mb- mb-lg-0">
+        <li class="nav-item " style="padding-left: 60px;">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item"style="padding-left: 30px;">
+          <a class="nav-link active"  href="#">New Books</a>
+        </li>
+        <li class="nav-item" style="padding-left: 30px; ">
+          <a class="nav-link active" href="#">Pre-Owned Books</a>
+        </li>
+        <li class="dropdown " style="padding-left: 30px;" >
+          <a [routerLink]="['/books']" routerLinkActive="router-link-active"  class="nav-link active " >
+            Books
+          </a>
+          <!-- <ul class="dropdown-menu animate__animated animate__fadeInUp animate__faster">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul> -->
+        </li>
+        <li class="dropdown" style="padding-left: 30px; " >
+          <a class="nav-link  active ">
+            Information
+          </a>
+          <ul class="dropdown-menu animate__animated animate__fadeInUp animate__faster">
+            <li><a class="dropdown-item" href="#">About</a></li>
+            <li><a class="dropdown-item" href="#">Terms & Conditions</a></li>
+            <li><a class="dropdown-item" href="#">Return & Exchange</a></li>
+            <li><a class="dropdown-item" href="#">Shipping & Delivery</a></li>
+            <li><a class="dropdown-item" href="#">Checkout</a></li>
+            <li><a class="dropdown-item" href="#">Privacy Policy</a></li>
+          </ul>
+        </li>
+        <li style="padding-left: 30px;">
+         <a href="#" class="nav-link  active ">Contact</a>
+        </li>
+
+      </ul>
+     <div class="d-flex">
+      <ul class="navbar-nav mr-auto mb- mb-lg-0">
+      <li class="nav-item">
+        <a  (click)="openSearch()" class="nav-link " >
+          <span class="material-icons">
+            search
+            </span>
+        </a>
+        
+      </li>
+      <li class="dropdown" *ngIf="session">
+        <a class="nav-link active " href="#"  id="navbarDropdown" role="button" data-toggle="dropdown"  aria-expanded="false">
+          <span class="material-icons">
+            person_outline
+            </span>
+        </a>
+        <ul class="dropdown-menu animate__animated animate__fadeInUp animate__faster">
+          <li class="dropdown-item" >{{UserData.name}}</li>
+          <li><a class="dropdown-item">Edit Profile</a></li>
+          <li><a class="dropdown-item" [routerLink]="['/login']" routerLinkActive="router-link-active" >LogOut</a></li>
+        </ul>
+      </li>
+     
+      <li class="nav-item" *ngIf="!session"data-toggle="tooltip"  data-placement="top" title="LOGIN / REGISTER" >
+        <a  [routerLink]="['/login']" routerLinkActive="router-link-active" class="nav-link" >
+          <span class="material-icons" >
+             person_outline
+            </span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['/wish']" routerLinkActive="router-link-active"  class="nav-link">
+          <span class="material-icons">
+            favorite_border
+            </span>
+            <span *ngIf="book$.books "  class="badge rounded-pill bg-danger">{{book$.books.length}}</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['/cart']" routerLinkActive="router-link-active"  class="nav-link">
+          <span class="material-icons">
+            add_shopping_cart
+            </span>
+            <span *ngIf="book1$.cartItems"  class="badge rounded-pill bg-danger">{{book1$.cartItems[0].cart.length}}</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link">
+          <span class="material-icons">
+            menu
+            </span>
+        </a>
+      </li>
+      </ul>
+     </div>
+    </div>
+  </div>
+</nav>
+
+<div id="myOverlay" class="overlay">
+  <span class="closebtn" (click)="closeSearch()" ><span class="material-icons">
+    close
+    </span></span>
+  <div class="overlay-content">
+    <form>
+      <input type="text" placeholder="Search.." name="search">
+      <button type="submit"><span class="material-icons">
+        search
+        </span></button>
+    </form>
+  </div>
+</div>

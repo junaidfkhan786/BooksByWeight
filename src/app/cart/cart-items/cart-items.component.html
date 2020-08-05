@@ -1,0 +1,83 @@
+<div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <table style="text-align: center; width:100%;">
+          <tr style="border: 1px solid #c1c1c1;">
+            <th style="border: 1px solid #c1c1c1;">BOOK COVER</th>
+            <th style="border: 1px solid #c1c1c1;">BOOK TITLE</th>
+            <th style="border: 1px solid #c1c1c1;">PRICE(₹)</th>
+            <th style="border: 1px solid #c1c1c1;">BOOK WEIGHT</th>
+            <th style="border: 1px solid #c1c1c1;">QUANTITY</th>
+            <th style="border: 1px solid #c1c1c1;">TOTAL</th>
+            <th style="border: 1px solid #c1c1c1;">REMOVE</th>
+          </tr>
+          <tr style="border-width: 1px;" *ngFor="let item of productItem.cart">
+            <td style="border-width: 1px"><a><img src="{{item.book.book_img[0]}}" class="high"></a></td>
+            <td style="border-width: 1px"><a href="#"
+                style="font-size: 14px; color: #6f6f6f; font-weight: 700; text-decoration: none;">{{item.book.book_name}}</a></td>
+            <td style="border-width: 1px"><span
+                style="font-size: 14px; color: #6f6f6f; font-weight: 700;">{{item.price}}</span>
+            </td>
+            <td style="border-width: 1px"><span>{{item.book.weight / 1000}}Kg </span></td>
+            <td style="border-width: 1px"><div class="row d-flex justify-content-center">
+              <button  (click)="decrement(counterValue,item.book._id,item.total);" style="width: 10px; margin-left: 20px; height: 30px;">-</button>
+               <input [value]="item.quantity"  style="width: 30px; margin-left: 10px; height: 30px; " type="text" >
+               <button (click)="increment(counterValue,item.book._id,item.total);" style="width: 10px; margin-left: 5px; height: 30px;">+</button></div></td>
+            <td style="border-width: 1px"><span
+                style="font-size: 14px; color: #6f6f6f; font-weight: 700;">{{item.total}}</span>
+            </td>
+            <td style="border-width: 1px"><a (click)="delCart(item._id)" ><img src="../../assets/images/bin.png"></a> </td>
+          </tr>
+          
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="container" style="margin-top: 44px;">
+    <div class="row">
+      <div class="col-sm-6">
+        <button class="button button1"><a href="#" class="shop"
+            style="font-size: 12px; color: white; font-weight: 700; text-decoration: none; font-family: sans-serif;">CONTINUE
+            SHOPPING</a></button>
+        <br>
+        <h3 class="coup">COUPON</h3>
+        <p>Enter your coupon code if you have one.</p>
+        <input type="text" placeholder="Coupon code">
+        <button class="button button1" style="margin-top: 0px;"><a href="#" class="shop"
+            style="font-size: 12px; color: white; font-weight: 700; text-decoration: none; font-family: sans-serif;">APPLY
+            COUPON</a></button>
+      </div>
+      <div class="col-sm-6" style="text-align: right;">
+        <div class="cart-totals">
+          <h2>CART TOTALS</h2>
+          <div class="row g-0">
+            <div class="col" style="font-weight: bolder;">
+              <span>SUBTOTAL</span>
+              <br><br>
+              <span>TOTAL BOOK WEIGHT</span>
+              <br><br>
+              <span>SHIPPING</span>
+              <br><br><br>
+              <span style="font-size: 2rem;">TOTAL</span>
+            </div>
+            <div class="col" style="font-weight: bolder;">
+              <span>&#8377;{{subtotal}}</span>
+              <br><br>
+              <span>{{cartitem5 / 1000}}KG</span>
+              <br><br>
+              <span>FLAT RATE: &#8377;50.00/ BOOK FREE <br>
+                Free Shipping Above &#8377;500
+              </span>
+              <br><br>
+              <span style="font-size: 2rem;">&#8377;{{subtotal }}  </span>
+            </div>
+          </div>
+          <div class="wc-proceed-to-checkout org" style="list-style-type: none;">
+            <button class="button button2" style="margin-top: 30px;"><a href="#" class="shop"
+                style="font-size: 12px; color: white; font-weight: 700; text-decoration: none; font-family: sans-serif;">Proceed
+                to Checkout</a></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

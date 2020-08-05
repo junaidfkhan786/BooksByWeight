@@ -1,0 +1,168 @@
+<div class="row g-0" style="padding-bottom: 30px;">
+  <div class="col-xs-12 col-md-6 col-lg-6">
+    <div class="row g-0">
+      <div class="col-md-3 p-1">
+        <div
+          class="row g-1"
+          style="padding-bottom: 5px;"
+          *ngFor="let img of details.book_img"
+        >
+          <img
+            src="{{ img }}"
+            class="img-fluid"
+            style="height: 150px; width: 150px;"
+          />
+        </div>
+      </div>
+      <div class="col-md-9 p-1">
+        <img src="{{ details.book_img[0] }}" class="img-fluid" width="450px" />
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-md-6 col-xl-6 col-lg-6">
+    <form>
+      <div class="container-fluid">
+        <h1>
+          {{ details.book_name }}
+        </h1>
+        <br />
+        <div>by {{ details.author_name }}</div>
+        <br />
+        <div><b>ISBN:</b> {{ details.Isbn_no }}</div>
+
+        <div><b>Publisher: </b> {{ details.publisher }}</div>
+        <br />
+        <div style="padding-bottom: 10px;">
+          <b>Condition:</b>
+        </div>
+        <div class="col-xs-12 col-lg-8">
+          <select
+            style="border-radius: 0px !important;"
+            class="form-select"
+            aria-label="Default select example"
+          >
+            <option slected value="1">{{ details.condition }}</option>
+            <option value="2">Pre-Owned Good</option>
+            <option value="3">Pre-Owned Like New</option>
+          </select>
+          <br />
+          <div style="padding-bottom: 10px;">
+            <b>Print Type:</b>
+          </div>
+
+          <select
+            style="border-radius: 0px !important;"
+            class="form-select"
+            aria-label="Default select example"
+          >
+            <option selected value="1">HardBack</option>
+            <option value="2">PaperBack</option>
+          </select>
+          <br />
+        </div>
+        <div>
+          <b>MRP:</b> <s>{{ details.mrp }}&#8377;</s>
+        </div>
+        <br />
+        <div>
+          <b>Selling Price:</b
+          ><span style="color: #ff4136; font-size: 2rem;">
+            &#8377;{{ details.selling_price }}</span
+          >
+        </div>
+        <br />
+        <div>
+          <b>You save </b> <s>&#8377;{{ details.saved_price }}</s>
+        </div>
+        <br />
+        <div style="color: blue; font-size: 2rem;">
+          <b>Sale Price: &#8377;{{ details.sale_price }}</b>
+        </div>
+        <br />
+        <div>Quantity: {{ details.quantity }}</div>
+        <br />
+        <div class="row d-flex flex-row">
+          <div
+            class="c bg-org card text-center p-2"
+            style="width: 30%; cursor: pointer;"
+          >
+            ADD TO CART
+          </div>
+          &nbsp;&nbsp;&nbsp;
+          <div
+            *ngIf="!addedToWishlist"
+            class="c bg-org card text-center p-2"
+            style="width: 10%; cursor: pointer;"
+          >
+            <a>
+              <span (click)="addWish(details._id)" class="material-icons wish">
+                favorite_border
+              </span>
+            </a>
+          </div>
+
+          <div
+            *ngIf="addedToWishlist"
+            class="c bg-org card text-center p-2"
+            style="width: 10%; cursor: pointer;"
+          >
+            <a>
+              <span
+                (click)="deletePro(details._id)"
+                class="material-icons wish"
+              >
+                favorite
+              </span>
+            </a>
+          </div>
+          &nbsp;&nbsp;&nbsp;
+          <div
+            class="c bg-org card text-center p-2"
+            style="width: 10%; cursor: pointer;"
+          >
+            <span class="material-icons justify-content-center">
+              email
+            </span>
+          </div>
+        </div>
+
+        <div style="margin-top: 10px;">
+          <li class="list-group-item" style="border: none;">
+            <span
+              style="margin-right: 10px; text-decoration: none; color: #666666;"
+              >Share:</span
+            >
+            <a href="#" class="round" style="margin-right: 10px;"
+              ><img
+                src="../../assets/icons/facebook.png"
+                height="30px"
+                width="30px"
+                alt=""
+            /></a>
+            <a href="#" class="round" style="margin-right: 10px;"
+              ><img
+                src="../../assets/icons/twitter.png"
+                height="30px"
+                width="30px"
+                alt=""
+            /></a>
+            <a href="#" class="round" style="margin-right: 10px;"
+              ><img
+                src="../../assets/icons/instagram.png"
+                height="30px"
+                width="30px"
+                alt=""
+            /></a>
+            <a href="#" class="round" style="margin-right: 10px;"
+              ><img
+                src="../../assets/icons/google.png"
+                height="30px"
+                width="30px"
+                alt=""
+            /></a>
+          </li>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

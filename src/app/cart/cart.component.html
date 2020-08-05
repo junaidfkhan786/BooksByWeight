@@ -1,0 +1,30 @@
+<div class="p-2">
+  <div class="section1">
+
+    <app-header></app-header>
+
+    <div class="bg-image" style="position: relative;
+          text-align: center;">
+      <div style="  position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%); font-size: xx-large;" class="org">
+        BOOKS <br><br>
+        Home / Cart
+
+        <div  *ngIf="length == 0" class="" style=" margin-top: 50px; text-align: center;
+        font-size: 3rem;">Your cart Is Empty</div>
+
+      </div>
+
+    </div>
+    <div *ngFor="let item of book$.cartItems">
+
+      <app-cart-items [productItem]= "item"></app-cart-items>
+
+    </div>
+  </div>
+  <div class="stickyfooter">
+    <app-footer></app-footer>
+  </div>
+</div>
