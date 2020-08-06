@@ -28,19 +28,7 @@
     width: 80px;
   }
   
-  input {
-    background: #e5e5e5 none repeat scroll 0 0;
-    border: medium none;
-    border-radius: 3px;
-    color: #6f6f6f;
-    font-size: 15px;
-    font-weight: normal;
-    height: 40px;
-    padding: 0 5px 0 10px;
-    width: 60px;
-    font-family: sans-serif;
-  }
-  
+
   .button {
     background-color: black;
     border: none;
@@ -79,27 +67,7 @@
     background-color: white;
   }
   
-  input[type="submit"],
-  .buttons-cart a,
-  .coupon-info p.form-row input[type="submit"] {
-    background: #252525 none repeat scroll 0 0;
-    border: medium none;
-    border-radius: 0;
-    box-shadow: none;
-    color: #fff;
-    display: inline-block;
-    float: left;
-    font-size: 12px;
-    font-weight: 700;
-    height: 40px;
-    line-height: 40px;
-    margin-right: 15px;
-    padding: 0 15px;
-    text-shadow: none;
-    text-transform: uppercase;
-    transition: all 0.3s ease 0s;
-    white-space: nowrap;
-  }
+
   
   .cart-totals h2 {
     border-bottom: 2px solid #c1c1c1;

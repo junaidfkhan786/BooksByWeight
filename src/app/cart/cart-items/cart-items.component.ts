@@ -1,148 +1,97 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { ToastrService } from 'ngx-toastr';
-declare var $:any;
+declare var $: any;
 @Component({
   selector: 'app-cart-items',
   templateUrl: './cart-items.component.html',
-  styleUrls: ['./cart-items.component.css']
+  styleUrls: ['./cart-items.component.css'],
 })
 export class CartItemsComponent implements OnInit {
   @Input() productItem: any;
   decre: number;
-  incre:number;
-  book$:any = [];
-  cartitem :any = [];
-  cartitem1 :any = [];
-  price:any;
-  subtotal:any;
-total:any [];
-cartitem2:any= [];
-weight:any;
-weight2:any= [];
-cartitem4:any =[];
-c:any = [];
-cartitem5:any;
-constructor(
-    private cart:CartService,
-    private toastr: ToastrService
-  ) { }
+  incre: number;
+  book$: any = [];
+  cartitem: any = [];
+  cartitem1: any = [];
+  price: any;
+  subtotal: any;
+  total: any[];
+  cartitem2: any = [];
+  weight: any;
+  weight2: any = [];
+  cartitem4: any = [];
+  c: any = [];
+  quantity: any;
+  cartitem5: any;
+  qty: any = [];
+  qty1: any = [];
+  counterValue: number;
+  dec: boolean;
+  totalw:any;
+  constructor(private cart: CartService, private toastr: ToastrService) {}
 
   ngOnInit() {
-
-    let cartitem6 = this.cartitem2
-    for(let user of cartitem6){
-      console.log(user.weight)
+    let cartitem6 = this.cartitem2;
+    for (let user of cartitem6) {
     }
- this.loadcart();
- console.log(this.cartitem4)    
-this.jquery_code();
+    this.loadcart();
+
+    this.jquery_code();
   }
 
-
-
-  jquery_code(){
-    $(document).ready(function () { 
-
-     });
+  jquery_code() {
+    $(document).ready(function () {});
   }
 
-  loadcart(){
-    this.cart.getCart().subscribe(data => {
-
+  loadcart() {
+    this.cart.getCart().subscribe((data) => {
       this.book$ = data;
-      this.subtotal = this.book$.subtotal
-    
-//     const cartitem = this.book$.cartItems[0].cart;
-   
-//     for (var { total: prices } of cartitem) {
-//       this.price = prices;
-//       this.total.push(this.price)
 
+      this.subtotal = this.book$.subtotal;
 
-//       // for (var i=0; i<=this.total.length; i++){
-//       //   this.total1 += +this.total[i];
-//       // }
-
-//     }
-//     let sum = 0;
-
-//       for (let num of this.total){
-      
-//          sum = sum + num
-      
-//       }
-         
-// this.total1 = sum;
-// console.log(this.total1)
-
-    
-  const cartitem = this.book$.cartItems[0].cart;
-
-
-
- for (var { book: books } of cartitem) {
-  
-  this.cartitem1 = books
-  this.cartitem2.push(this.cartitem1)  
- } 
-
- const cartitem3 = this.cartitem2
-
-
-
-  for (var i = 0; i <= cartitem3.length; i++) {
-    this.c = cartitem3[i].weight;
-    this.cartitem4.push(this.c)
-    let sum = 0;
-
-    for (let r of this.cartitem4){
-    
-       sum = sum + r
-   
-    }
-    this.cartitem5 = sum
-  
-
-  }
-  let cartitem6 = this.cartitem2
-  console.log(cartitem6)
-  
+      if (this.book$.cartItems.length > 0) {
+        const cartitem = this.book$.cartItems[0].cart;
  
-//     for (var { weigth: weight1 } of cartitem3) {
-//       this.weight = weight1;
-//       this.weight2.push(this.weight)
+        for (var { quantity: qty } of cartitem) {
+          this.qty = qty;
+          this.qty1.push(this.qty);
+          console.log(this.qty1)
+          
+        }
 
-//     }
+    
 
-// console.log(this.weight2)
-   
-//     for (var { total: prices } of cartitem) {
-//       this.price = prices;
-//       this.total.push(this.price)
-
-
-//       // for (var i=0; i<=this.total.length; i++){
-//       //   this.total1 += +this.total[i];
-//       // }
-
-//     }
-//     let sum = 0;
-
-//       for (let num of this.total){
       
-//          sum = sum + num
+        
+        for (var { book: books } of cartitem) {
+          this.cartitem1 = books;
+          this.cartitem2.push(this.cartitem1);
+        }
       
-//       }
-         
-// this.total1 = sum;
-// console.log(this.total1)
+        let cartitem3 = this.cartitem2;
 
-    })
+        for (var i = 0; i <= cartitem3.length; i++) {
+          if (cartitem3[i] == undefined) {
+            return false;
+          }
+          this.c = cartitem3[i].weight ;
+          this.cartitem4.push(this.c);
+          let sum = 0;
+
+          for (let r of this.cartitem4) {
+            sum = sum + r;
+          }
+          this.cartitem5 = sum;
+          console.log(this.cartitem5)          
+        }
+
+      }
+    });
   }
 
-  delCart(_id){
-    this.cart.deleteProduct(_id).subscribe(()=>{
+  delCart(_id) {
+    this.cart.deleteProduct(_id).subscribe(() => {
       this.toastr.error('Product Has Been Remove', 'BooksByWeight', {
         timeOut: 1000,
       });
@@ -150,48 +99,38 @@ this.jquery_code();
       setTimeout(() => {
         window.location.reload();
       }, 1000);
-    })
+    });
   }
 
-  counterValue: number = 1;
-  increment(counterValue,_id,total) {
-    if (localStorage.getItem('User')!=null) {
-    this.counterValue++;
-    this.cart.updateqty(counterValue,_id,total).subscribe( () => {
-      this.toastr.success('Product Has Been updated', 'BooksByWeight', {
-        timeOut: 1000,
-      });
+  increment(quantity, _id, price) {
+    if (localStorage.getItem('User') != null) {
+      this.counterValue = quantity;
+      this.counterValue++;
 
+      this.cart.updateqty(this.counterValue, _id, price).subscribe((d) => {
+        this.toastr.success('Product Has Been updated', 'BooksByWeight', {
+          timeOut: 1000,
+        });
+      });
       setTimeout(() => {
         window.location.reload();
       }, 1000);
-
-    })
-
+    }
   }
-  
-    console.log(_id)
-    console.log(total)    
-    console.log(this.counterValue)
-  }
-  
-  decrement(counterValue,_id,total) {
-    if (localStorage.getItem('User')!=null) {
-    this.counterValue--;
-    this.cart.updateqty(counterValue,_id,total).subscribe( () => {
-      this.toastr.success('Product Has Been updated', 'BooksByWeight', {
-        timeOut: 1000,
+
+  decrement(quantity, _id, price) {
+    if (localStorage.getItem('User') != null) {
+      this.counterValue = quantity;
+      this.counterValue--;
+
+      this.cart.updateqty(this.counterValue, _id, price).subscribe(() => {
+        this.toastr.success('Product Has Been updated', 'BooksByWeight', {
+          timeOut: 1000,
+        });
       });
-
       setTimeout(() => {
         window.location.reload();
       }, 1000);
-
-    })
+    }
   }
-    console.log(_id)
-    console.log(total)
-    console.log(this.counterValue)
-  }
-
 }

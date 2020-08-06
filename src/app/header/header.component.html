@@ -89,7 +89,7 @@
           <span class="material-icons">
             add_shopping_cart
             </span>
-            <span *ngIf="book1$.cartItems"  class="badge rounded-pill bg-danger">{{book1$.cartItems[0].cart.length}}</span>
+            <span *ngIf="cartlen > 0"  class="badge rounded-pill bg-danger">{{book1$.cartItems[0].cart.length}}</span>
         </a>
       </li>
       <li class="nav-item">

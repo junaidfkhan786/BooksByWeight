@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
   book$: any = [];
   Error = false;
   length: any;
-
+  cartlen: any;
   constructor(
     private wish: WishlistService,
     private cart: CartService,
@@ -50,16 +50,17 @@ export class HeaderComponent implements OnInit {
   }
   
   loadcart() {
-    if (localStorage.getItem('User') !=null ) {
+
       this.cart.getCart().subscribe((data) => {
-    this.book1$ = data;
+        this.cartlen = data.cartItems.length;
+        if(data.cartItems.length > 0){
+          this.book1$ = data;
+        }
+  
     
        
-      },(error)=> {
-        console.log('oops', error)
-
       });
-    } 
+    
   }
   jquery_code() {
     $(document).ready(function () {
