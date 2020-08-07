@@ -16,6 +16,7 @@ export class CartItemsComponent implements OnInit {
   cartitem1: any = [];
   price: any;
   subtotal: any;
+  totalweight:any;
   total: any[];
   cartitem2: any = [];
   weight: any;
@@ -49,6 +50,7 @@ export class CartItemsComponent implements OnInit {
       this.book$ = data;
 
       this.subtotal = this.book$.subtotal;
+      this.totalweight = this.book$.totalweight;
 
       if (this.book$.cartItems.length > 0) {
         const cartitem = this.book$.cartItems[0].cart;
@@ -102,12 +104,12 @@ export class CartItemsComponent implements OnInit {
     });
   }
 
-  increment(quantity, _id, price) {
+  increment(quantity, _id, price,weight) {
     if (localStorage.getItem('User') != null) {
       this.counterValue = quantity;
       this.counterValue++;
 
-      this.cart.updateqty(this.counterValue, _id, price).subscribe((d) => {
+      this.cart.updateqty(this.counterValue, _id, price,weight).subscribe((d) => {
         this.toastr.success('Product Has Been updated', 'BooksByWeight', {
           timeOut: 1000,
         });
@@ -118,12 +120,12 @@ export class CartItemsComponent implements OnInit {
     }
   }
 
-  decrement(quantity, _id, price) {
+  decrement(quantity, _id, price,weight) {
     if (localStorage.getItem('User') != null) {
       this.counterValue = quantity;
       this.counterValue--;
 
-      this.cart.updateqty(this.counterValue, _id, price).subscribe(() => {
+      this.cart.updateqty(this.counterValue, _id, price,weight).subscribe(() => {
         this.toastr.success('Product Has Been updated', 'BooksByWeight', {
           timeOut: 1000,
         });

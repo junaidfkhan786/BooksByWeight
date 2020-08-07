@@ -27,7 +27,7 @@ export class CartService {
  return this.http.get<any[]>(`${API_LIVE}`+"/cart/User",httpOptionsauth);
    }
 }
-public postProduct(_id  , selling_price ){
+public postProduct(_id  , selling_price ,weight){
    
 
   const httpOptionsauth = {
@@ -38,7 +38,7 @@ public postProduct(_id  , selling_price ){
    })
  }
 
-return this.http.post(`${API_LIVE}`+"/cart/"+_id +"?quantity=1"+"&price="+selling_price,localStorage.getItem('User').slice(1,-1),httpOptionsauth);
+return this.http.post(`${API_LIVE}`+"/cart/"+_id +"?quantity=1"+"&price="+selling_price+"&weight="+weight,localStorage.getItem('User').slice(1,-1),httpOptionsauth);
 
 }
 
@@ -57,7 +57,7 @@ return this.http.delete(`${API_LIVE}`+"/cart/" +_id,httpOptionsauth);
 
 }
 
-public updateqty(countervalue,_id,selling_price ){
+public updateqty(countervalue,_id,selling_price ,weight){
    
 
   const httpOptionsauth = {
@@ -68,7 +68,7 @@ public updateqty(countervalue,_id,selling_price ){
    })
  }
  if(localStorage.getItem('User') != null){
-return this.http.put(`${API_LIVE}`+"/cart/update/quantity?quantity="+countervalue+"&bookId="+_id+"&price="+selling_price,localStorage.getItem('User').slice(1,-1),httpOptionsauth);
+return this.http.put(`${API_LIVE}`+"/cart/update/quantity?quantity="+countervalue+"&bookId="+_id+"&price="+selling_price+"&weight="+weight,localStorage.getItem('User').slice(1,-1),httpOptionsauth);
  }
 }
 }

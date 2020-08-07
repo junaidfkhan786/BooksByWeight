@@ -27,7 +27,7 @@ public getwish():Observable<any>{
      })
    }
    
- if(localStorage.getItem('User')!=null){
+ if(localStorage.getItem('User') != null){
   return this.http.get<any[]>(`${API_LIVE}`+"/wishlist/ByUser",httpOptionsauth);
  }
 
@@ -59,9 +59,9 @@ public deleteProduct(WishlistId ){
 
    })
  }
-const token = localStorage.getItem('User').slice(1,-1);
+ if(localStorage.getItem('User') != null){
 return this.http.delete(`${API_LIVE}`+"/wishlist/" +WishlistId,httpOptionsauth);
-
+ }
 }
 
 }

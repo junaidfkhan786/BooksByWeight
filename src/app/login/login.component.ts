@@ -96,7 +96,7 @@ export class LoginComponent implements OnInit {
       this.User = user;
     });
     
-    localStorage.removeItem('User');
+    
     this.setFormState();
 
    

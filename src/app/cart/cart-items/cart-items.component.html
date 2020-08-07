@@ -34,7 +34,7 @@
             }}</span>
           </td>
           <td style="border-width: 1px;">
-            <span>{{ item.book.weight / 1000 }}Kg </span>
+            <span>{{ item.weight / 1000 }}Kg </span>
           </td>
           <td style="border-width: 1px;">
             <div
@@ -47,7 +47,8 @@
                   decrement(
                     item.quantity,
                     item.book._id,
-                    item.book.selling_price
+                    item.book.selling_price,
+                    item.book.weight
                   )
                 "
                 style="width: 50px !important; height: 50px; border-radius: 0;"
@@ -74,7 +75,8 @@
                   increment(
                     item.quantity,
                     item.book._id,
-                    item.book.selling_price
+                    item.book.selling_price,
+                    item.book.weight
                   )
                 "
                 style="width: 50px !important; height: 50px; border-radius: 0;"
@@ -157,7 +159,7 @@
           <div class="col" style="font-weight: bolder;">
             <span>&#8377;{{ subtotal }}</span>
             <br /><br />
-            <span>{{ cartitem5 / 1000 }}KG</span>
+            <span>{{ totalweight / 1000 }}KG</span>
             <br /><br />
             <span
               >FLAT RATE: &#8377;50.00/ BOOK FREE <br />

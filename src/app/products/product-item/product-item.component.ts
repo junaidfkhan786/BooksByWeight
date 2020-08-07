@@ -92,10 +92,10 @@ w:any = [];
     });
   }
 
-  addCart(_id,selling_price){
+  addCart(_id,selling_price,weight){
     if (localStorage.getItem('User')!=null) {
 
-    this.cart.postProduct(_id,selling_price).subscribe(() =>{
+    this.cart.postProduct(_id,selling_price,weight).subscribe(() =>{
 
       this.toastr.success('Product Successfully Added to cart', 'BooksByWeight', {
         timeOut: 1000,

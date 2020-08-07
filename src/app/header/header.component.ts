@@ -62,6 +62,14 @@ export class HeaderComponent implements OnInit {
       });
     
   }
+  logout(){
+    localStorage.removeItem('User');
+    window.location.reload();
+    this.router.navigate(['/']);
+    this.toastr.success('Logout Successfull', 'BooksByWeight', {
+      timeOut: 1000,
+    });
+  }
   jquery_code() {
     $(document).ready(function () {
       // $(".dropdown").hover(function(){
