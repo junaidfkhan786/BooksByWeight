@@ -5,19 +5,74 @@
         <div
           class="row g-1"
           style="padding-bottom: 5px;"
-          *ngFor="let img of details.book_img"
+         
         >
-          <img
-            src="{{ img }}"
-            class="img-fluid"
-            style="height: 150px; width: 150px;"
-          />
+        <ng-template [ngIf]="bookimg.length > 0">
+          <div id="product-imgs">
+            <div *ngFor="let t of bookimg" class="product-preview">
+              <img [src]="t" alt="">
+            </div>
+          </div>
+        </ng-template>
+         <ng-template [ngIf]="bookimg.length === 0">
+           <div id="product-imgs">
+             <div class="product-preview">
+               <img [src]="details.book_img" alt="">
+             </div>
+           </div>
+         </ng-template>
         </div>
       </div>
       <div class="col-md-9 p-1">
-        <img src="{{ details.book_img[0] }}" class="img-fluid" width="450px" />
+        <div id="product-main-img" >
+          <ng-template [ngIf]="bookimg.length === 0">
+            <div class="product-preview">
+              <img [src]="detail.book_img" alt="">
+            </div>
+          </ng-template>
+          <ng-template [ngIf]="bookimg.length > 0">
+            <div class="product-preview" *ngFor="let t of bookimg">
+              <img [src]="t" alt="">
+            </div>
+          </ng-template>
+        </div>
       </div>
     </div>
+    
+        <!-- Product main img -->
+        <!-- <div class="col-md-5 col-md-push-2">
+          <div id="product-main-img" >
+            <ng-template [ngIf]="bookimg.length === 0">
+              <div class="product-preview">
+                <img [src]="detail.book_img" alt="">
+              </div>
+            </ng-template>
+            <ng-template [ngIf]="bookimg.length > 0">
+              <div class="product-preview" *ngFor="let t of bookimg">
+                <img [src]="t" alt="">
+              </div>
+            </ng-template>
+          </div>
+        </div> -->
+        <!-- /Product main img -->
+  
+        <!-- Product thumb imgs -->
+        <!-- <div class="col-md-2  col-md-pull-5 ">
+         <ng-template [ngIf]="bookimg.length > 0">
+           <div id="product-imgs">
+             <div *ngFor="let t of bookimg" class="product-preview">
+               <img [src]="t" alt="">
+             </div>
+           </div>
+         </ng-template>
+          <ng-template [ngIf]="bookimg.length === 0">
+            <div id="product-imgs">
+              <div class="product-preview">
+                <img [src]="details.book_img" alt="">
+              </div>
+            </div>
+          </ng-template>
+        </div> -->
   </div>
   <div class="col-xs-12 col-md-6 col-xl-6 col-lg-6">
     <form>

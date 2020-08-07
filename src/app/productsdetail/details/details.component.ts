@@ -1,19 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { WishlistService } from 'src/app/services/wishlist.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BooksService } from 'src/app/services/books.service';
 import { ToastrService } from 'ngx-toastr';
-
+declare let $: any;
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css'],
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnInit ,AfterViewInit {
   @Input() details: any;
 
   @Input() addedToWishlist: boolean;
-
+bookimg :any [] = [];
   constructor(
     private toastr: ToastrService,
     private router: Router,
@@ -22,7 +22,52 @@ export class DetailsComponent implements OnInit {
     private wish: WishlistService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit() {
+    this.loadimg();
+  }
+
+  ngAfterViewInit() {
+
+    this.loadslick();
+  }
+
+  loadslick(){
+       // Product Main img Slick
+       $('#product-main-img').slick({
+        infinite: true,
+        speed: 300,
+        dots: false,
+        arrows: false,
+        fade: true,
+        asNavFor: '#product-imgs',
+      });
+  
+      // Product imgs Slick
+      $('#product-imgs').slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        arrows: true,
+        centerMode: true,
+        focusOnSelect: true,
+        centerPadding: 0,
+        vertical: true,
+        asNavFor: '#product-main-img',
+        responsive: [{
+          breakpoint: 991,
+          settings: {
+            vertical: true,
+            arrows: false,
+            dots: false,
+          }
+        },
+        ]
+      });
+  
+  }
+loadimg(){
+  this.bookimg = this.details.book_img
+console.log(this.bookimg)
+}
 
   addWish(_id) {
     if (localStorage.getItem('User')) {

@@ -41,6 +41,7 @@ import { CartItemsComponent } from './cart/cart-items/cart-items.component';
 import { DetailsComponent } from './productsdetail/details/details.component';
 import { LatestitemComponent } from './latestcollection/latestitem/latestitem.component';
 import { PopularitemComponent } from './popularcollection/popularitem/popularitem.component';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { PopularitemComponent } from './popularcollection/popularitem/popularite
       positionClass: 'toast-bottom-right',
      
     }),
+    SlickCarouselModule
 
 
   ],

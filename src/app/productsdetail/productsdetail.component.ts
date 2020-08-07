@@ -22,19 +22,22 @@ export class ProductsdetailComponent implements OnInit {
     private wish: WishlistService,
     private newService: BooksService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    setInterval(() => {
-      this.loadwish();
-      
-  }, 1000);
+    if (localStorage.getItem('User') != null) {
+      setInterval(() => {
+        this.loadwish();
+
+      }, 1000);
+
+    }
     this.loaddetails();
-    
+
     this.jquery_code();
   }
 
-  jquery_code() {}
+  jquery_code() { }
 
   loaddetails() {
     this.newService
@@ -49,6 +52,7 @@ export class ProductsdetailComponent implements OnInit {
       });
   }
   loadwish() {
+    if (localStorage.getItem('User') != null) {
     this.wish.getwish().subscribe((data) => {
       this.wish$ = data;
 
@@ -64,5 +68,6 @@ export class ProductsdetailComponent implements OnInit {
       for (let w of this.wid1) {
       }
     });
+  }
   }
 }
