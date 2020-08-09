@@ -21,7 +21,7 @@ opened :boolean;
   togglesidebar(){
 
    this.openedevent.emit(this.opened = !this.opened) 
-console.log(this.opened)
+
   
   }
 

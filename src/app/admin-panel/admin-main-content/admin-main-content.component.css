@@ -1,0 +1,7 @@
+.shadow-right {
+    box-shadow: 8px 0 10px -6px black;
+  }
+
+  .shadow-bottom {
+    box-shadow: 0 8px 10px -6px black;
+  }

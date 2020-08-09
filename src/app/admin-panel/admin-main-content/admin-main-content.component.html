@@ -1,22 +1,38 @@
-<div class="p-3">
+<div class="p-3" >
 
-    <div class="row">
-        <div class="col-xl-3 col-md-6">
-           <div class="card-body">Primary Card</div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-           <div class="card-body">Warning Card</div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-           <div class="card-body">Success Card</div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-     <div class="card-body">Danger Card</div>
-        </div>
-    </div>
+   <div class="row p-3 g-3" >
+      <div class="col-xl-4 col-md-4 d-flex justify-content-center">
+         <div class="card shadow-right shadow-bottom" style="width: 18rem;background-color: #212529; color: white;">
+            <div class="card-body">
+              <h5 class="card-title">PRODUCTS <span class="d-flex justify-content-end">[{{totalBooks}}]</span></h5>
+              <a href="/admin/dashboard/view-products" style="text-decoration: none; color: white;" class="d-flex justify-content-end org ">View Products</a>
+            </div>
+          </div>
+      </div>
+      <div class="col-xl-4 col-md-4 d-flex justify-content-center">
+         <div class="card shadow-bottom" style="width: 18rem;background-color: #212529; color: white;">
+            <div class="card-body">
+              <h5 class="card-title">USERS <span class="d-flex justify-content-end">[{{count}}]</span></h5>
+              <a href="/admin/dashboard/view-products" style="text-decoration: none; color: white;" class="d-flex justify-content-end org ">View Users</a>
+            </div>
+          </div>
+      </div>
+      <div class="col-xl-4 col-md-4 d-flex justify-content-center">
+         <div class="card shadow-bottom" style="width: 18rem;background-color: #212529; color: white;">
+            <div class="card-body">
+              <h5 class="card-title">ORDERS</h5>
+              <a href="/admin/dashboard/view-products" style="text-decoration: none; color: white;" class="d-flex justify-content-end org ">View Orders</a>
+            </div>
+          </div>
+      </div>
 
-    <div *ngIf="router.url === '/admin/dashboard/view-products'">
-       <app-view-products></app-view-products>
-    </div>
-    
+   </div>
+
+   <div *ngIf="router.url === '/admin/dashboard/view-products'">
+      <app-view-products (totalbook1)= "recieve2($event)" ></app-view-products>
+   </div>
+   <div *ngIf="router.url === '/admin/dashboard/view-users'">
+      <app-view-users></app-view-users>
+   </div>
+
 </div>

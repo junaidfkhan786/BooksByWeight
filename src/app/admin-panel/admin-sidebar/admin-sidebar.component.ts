@@ -14,7 +14,7 @@ export class AdminSidebarComponent implements OnInit {
 @Input() openedside : boolean;
 
   ngOnInit() {
-    console.log(this.openedside)
+
     this.jquery_code();
   }
 
@@ -39,5 +39,7 @@ export class AdminSidebarComponent implements OnInit {
   viewproducts(){
     this.router.navigate(['admin/dashboard/view-products']);
   }
-
+  viewusers(){
+    this.router.navigate(['admin/dashboard/view-users']);
+  }
 }

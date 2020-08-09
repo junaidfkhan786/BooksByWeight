@@ -1,7 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 
-
 @import '~animate.css/animate.min.css';
+
+.shadow-bottom {
+  box-shadow: 0 8px 10px -6px black;
+}
+.shadow-top {
+  box-shadow: 0 -8px 10px -6px black;
+}
+.shadow-left {
+  box-shadow: -8px 0 10px -6px black;
+}
+.shadow-right {
+  box-shadow: 8px 0 10px -6px black;
+}
+
+
 
 #product-main-img .slick-prev {
   -webkit-transform: translateX(-15px);

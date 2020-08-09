@@ -15,7 +15,7 @@ export class PopularcollectionComponent implements OnInit {
   wish$: any = [];
   wid: any = [];
   wid1: any = [];
-
+spinner : boolean = true;
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
@@ -53,6 +53,7 @@ export class PopularcollectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadbook();
+    
     if(localStorage.getItem('User') !=null){
       setInterval(() => {
         this.loadwish();
@@ -67,7 +68,11 @@ export class PopularcollectionComponent implements OnInit {
   }
 
   loadbook() {
-    this.newService.getBooks().subscribe((data) => (this.books$ = data));
+    this.newService.getBooks().subscribe((data) => {
+      this.books$ = data;
+      this.spinner = false;
+
+    });
   }
   productHome(_id) {
     window.open('details/' + _id);

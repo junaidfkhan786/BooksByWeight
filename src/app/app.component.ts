@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from "ngx-spinner";
 import * as AOS from 'aos';
 declare var $:any;
 @Component({
@@ -7,6 +8,10 @@ declare var $:any;
   styleUrls: ['./app.component.css']
 })
 export class AppComponent  implements OnInit {
+constructor(
+  private spinner: NgxSpinnerService
+  ){}
+
   title = 'BooksByWeight';
   ngOnInit(): void {
 

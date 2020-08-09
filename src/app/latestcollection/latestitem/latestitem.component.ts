@@ -3,6 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { WishlistService } from 'src/app/services/wishlist.service';
 import { ToastrService } from 'ngx-toastr';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-latestitem',
@@ -14,11 +15,11 @@ export class LatestitemComponent implements OnInit {
 
   @Input() addedToWishlist: boolean;
 
-
   constructor(
     private toastr: ToastrService,
     private wish: WishlistService,
-    private router: Router
+    private router: Router,
+    private cart : CartService
   ) { }
 
   ngOnInit(): void {
@@ -65,5 +66,20 @@ export class LatestitemComponent implements OnInit {
 
     
     });
+  }
+
+  addCart(_id,selling_price,weight){
+    if (localStorage.getItem('User')!=null) {
+  
+    this.cart.postProduct(_id,selling_price,weight).subscribe(() =>{
+  
+      this.toastr.success('Product Successfully Added to cart', 'BooksByWeight', {
+        timeOut: 1000,
+      
+      });
+    })
+  }
+  
+  
   }
 }

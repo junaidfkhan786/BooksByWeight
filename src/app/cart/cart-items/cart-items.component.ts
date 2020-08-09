@@ -58,7 +58,7 @@ export class CartItemsComponent implements OnInit {
         for (var { quantity: qty } of cartitem) {
           this.qty = qty;
           this.qty1.push(this.qty);
-          console.log(this.qty1)
+        
           
         }
 
@@ -85,7 +85,7 @@ export class CartItemsComponent implements OnInit {
             sum = sum + r;
           }
           this.cartitem5 = sum;
-          console.log(this.cartitem5)          
+                 
         }
 
       }

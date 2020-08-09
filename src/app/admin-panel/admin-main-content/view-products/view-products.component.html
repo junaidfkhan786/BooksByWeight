@@ -1,1 +1,54 @@
-<p>view-products works!</p>
+<table class="table" *ngIf="book1 > 0">
+    <thead class="table-dark text-center">
+        <tr>
+            <th scope="col" >Sr.No
+                
+                <!-- &nbsp; <input class="form-check-input" type="checkbox" value="" > -->
+            
+            </th>
+            <th scope="col">Book Image</th>
+            <th scope="col">Book Name</th>
+            <th scope="col">Weight</th>
+            <th scope="col">Price</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+
+        </tr>
+    </thead>
+    <tbody class="align-middle">
+        <tr *ngFor="let books of book.books |
+      paginate: {  itemsPerPage: 10, currentPage: pages, totalItems: totalBooks}; let i = index">
+            <td>{{i+1}}
+
+                 <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input class="form-check-input" type="checkbox" value=""> -->
+
+                 </td>
+            <td> <ngx-spinner></ngx-spinner>
+                <img src="{{books.book_img[0]}}" class="img-fluid" height="50px" width="50px" alt=""></td>
+            <td>{{books.book_name}}</td>
+            <td>{{books.weight}}</td>
+            <td>{{books.selling_price}}</td>
+            <td> <button class="btn btn-success" style="border-radius: 0;">EDIT THIS</button> </td>
+            <td><button class="btn btn-outline-danger" style="border-radius: 0;">
+                    <span class="material-icons" style="font-size: 3rem; cursor: pointer;">delete_forever</span></button> </td>
+        </tr>
+    </tbody>
+
+</table>
+<pagination-controls class="d-flex justify-content-center" directionLinks="true" (pageChange)="onPageChange($event)"
+    autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next">
+</pagination-controls>
+
+
+
+
+    <div class="row  d-flex justify-content-center" style="height: 500px;" *ngIf="book1 == 0">
+        <div style="width: 50%; height: 50%; top: 80px; background-color: #212529; color: white; " class="card shadow-bottom align-middle">
+            <h5 style="margin-top: 15%;"  class="text-center card-title">YOU HAVE NO PRODUCT ADDED</h5>
+            <a style="text-decoration: none; color: white; cursor: pointer;" class="d-flex justify-content-center org "> CLick Here To Add It </a>
+            <span class="material-icons d-flex justify-content-center">
+                touch_app
+                </span>
+        </div>
+    </div>
+

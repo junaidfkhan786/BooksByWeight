@@ -3,6 +3,7 @@ import { Component, OnInit, Pipe } from '@angular/core';
 import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
+import { CartService } from '../services/cart.service';
 declare var $: any;
 @Component({
   selector: 'app-wishlist',
@@ -15,7 +16,12 @@ export class WishlistComponent implements OnInit {
   Error = false;
   message: any;
   length:any;
-  constructor(private toastr: ToastrService, private wish: WishlistService, private router: Router, private sanitizer: DomSanitizer) { }
+  constructor(
+    private toastr: ToastrService,
+     private wish: WishlistService,
+      private router: Router,
+      private cart : CartService,
+       private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
 this.loadwish();
@@ -59,5 +65,19 @@ this.jquery_code();
   });
 }
 
+addCart(_id,selling_price,weight){
+  if (localStorage.getItem('User')!=null) {
+
+  this.cart.postProduct(_id,selling_price,weight).subscribe(() =>{
+
+    this.toastr.success('Product Successfully Added to cart', 'BooksByWeight', {
+      timeOut: 1000,
+    
+    });
+  })
+}
+
+
+}
 
 }

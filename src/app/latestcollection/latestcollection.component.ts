@@ -14,7 +14,7 @@ export class LatestcollectionComponent implements OnInit {
   wish$: any = [];
   wid: any = [];
   wid1: any = [];
-
+  spinner : boolean = true;
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
@@ -68,7 +68,13 @@ if(localStorage.getItem('User') !=null){
   }
 
   loadbook() {
-    this.newService.getlatestBooks().subscribe((data) => (this.books$ = data));
+    this.newService.getlatestBooks().subscribe((data) => {
+
+      this.books$ = data;
+      this.spinner = false
+      
+  });
+
   }
 
   loadwish() {

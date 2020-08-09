@@ -1,9 +1,9 @@
-<div class="side-sticky p-3 d-none d-lg-block " style="background-color: #212529; color: white; height: 100vh;">
+<div class="side-sticky p-3  d-lg-block " style="background-color: #212529; color: white; height: 100vh;">
   <br>
   <span class="material-icons">
     palette
   </span>
-  <span style="font-size: 2rem;"> Dashboard </span>
+  <a style="text-decoration: none; color: white;" [routerLink]="['/admin/dashboard']" routerLinkActive="router-link-active"  ><span style="font-size: 2rem;"> Dashboard </span> </a>
 
   <br><br>
 
@@ -65,6 +65,12 @@
           </a>
           <a class="btn  btn-block text-left collapsed color_white">
             DELETE USERS
+            <span class="material-icons org float-right arrow">
+              navigate_next
+            </span>
+          </a>
+          <a class="btn  btn-block text-left collapsed color_white" (click)="viewusers();">
+            VIEW USERS
             <span class="material-icons org float-right arrow">
               navigate_next
             </span>

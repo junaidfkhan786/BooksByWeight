@@ -7,7 +7,7 @@ import { FilterService } from '../services/filter.service';
 import { CategoryService } from '../services/category.service';
 import { WishlistService } from '../services/wishlist.service';
 import { ToastrService } from 'ngx-toastr';
-
+import {NgxSpinnerService} from 'ngx-spinner'
 declare var $: any;
 
 @Component({
@@ -48,10 +48,13 @@ export class ProductsComponent implements OnInit {
     private newService: BooksService,
     private route: ActivatedRoute,
     private filter: FilterService,
-    private wish: WishlistService
+    private wish: WishlistService,
+    private spinner:NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
+this.spinner.show();
+
     if(localStorage.getItem('User') !=null){
       setInterval(() => {
         this.loadwish();
@@ -86,6 +89,7 @@ export class ProductsComponent implements OnInit {
 
       this.totalBooks = data.totalBooks.length;
       this.pages = 1;
+    this.spinner.hide();
     });
   }
 

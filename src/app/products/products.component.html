@@ -1,3 +1,6 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="line-scale-pulse-out" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" style="left: 0;" class="closebtn" (click)="off()" (click)="closeNav()">&times;</a>
 
@@ -104,7 +107,9 @@
           <div class="col-xs-12 col-sm-4 col-md-3" *ngFor="let books of books$.books |
        paginate: {  itemsPerPage: 8, currentPage: pages, totalItems: totalBooks} ">
 
-          <app-product-item [productItem]= "books"  [addedToWishlist]= "wid1.indexOf(books._id) >= 0 " ></app-product-item>
+
+            <app-product-item [productItem]="books" [addedToWishlist]="wid1.indexOf(books._id) >= 0 ">
+            </app-product-item>
 
           </div>
         </div>
@@ -114,8 +119,7 @@
 
         <pagination-controls class="d-flex justify-content-center" directionLinks="true"
           (pageChange)="onPageChange($event)" autoHide="true" responsive="true" previousLabel="Previous"
-          nextLabel="Next" 
-         >
+          nextLabel="Next">
         </pagination-controls>
 
       </div>

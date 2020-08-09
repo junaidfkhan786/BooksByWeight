@@ -20,6 +20,7 @@
 <owl-carousel-o [options]="customOptions" #owlCar>
   <ng-container *ngFor="let books of books$.books">
     <ng-template carouselSlide>
+      
   <app-latestitem [latestitem] = "books" [addedToWishlist]= "wid1.indexOf(books._id) >= 0 "></app-latestitem>
 </ng-template>
   

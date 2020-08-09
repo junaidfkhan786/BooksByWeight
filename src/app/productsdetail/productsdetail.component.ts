@@ -3,6 +3,7 @@ import { BooksService } from '../services/books.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { WishlistService } from '../services/wishlist.service';
+import { NgxSpinnerService } from 'ngx-spinner'
 declare var $: any;
 @Component({
   selector: 'app-productsdetail',
@@ -21,10 +22,12 @@ export class ProductsdetailComponent implements OnInit {
     private router: Router,
     private wish: WishlistService,
     private newService: BooksService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
+    this.spinner.show();
     if (localStorage.getItem('User') != null) {
       setInterval(() => {
         this.loadwish();
@@ -48,26 +51,26 @@ export class ProductsdetailComponent implements OnInit {
         for (var { _id: id } of this.book) {
           this.pid.push(id);
         }
-
+        this.spinner.hide()
       });
   }
   loadwish() {
     if (localStorage.getItem('User') != null) {
-    this.wish.getwish().subscribe((data) => {
-      this.wish$ = data;
+      this.wish.getwish().subscribe((data) => {
+        this.wish$ = data;
 
-      const size = this.wish$.books;
+        const size = this.wish$.books;
 
-      for (var { book: books } of size) {
-        this.wid = books;
+        for (var { book: books } of size) {
+          this.wid = books;
 
-        const size1 = books._id;
+          const size1 = books._id;
 
-        this.wid1.push(size1);
-      }
-      for (let w of this.wid1) {
-      }
-    });
-  }
+          this.wid1.push(size1);
+        }
+        for (let w of this.wid1) {
+        }
+      });
+    }
   }
 }

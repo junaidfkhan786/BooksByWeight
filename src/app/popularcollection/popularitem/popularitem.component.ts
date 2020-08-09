@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { WishlistService } from 'src/app/services/wishlist.service';
 import { Router } from '@angular/router';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-popularitem',
@@ -17,7 +18,8 @@ export class PopularitemComponent implements OnInit {
   constructor(
     private toastr: ToastrService,
     private wish: WishlistService,
-    private router: Router
+    private router: Router,
+    private cart : CartService
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +40,7 @@ export class PopularitemComponent implements OnInit {
           });
 
           this.addedToWishlist = true;
-          console.log(this.addedToWishlist)
+      
         },
         (err) => {
           this.toastr.warning('Product already Added', 'BooksByWeight', {
@@ -60,9 +62,24 @@ export class PopularitemComponent implements OnInit {
         timeOut: 1000,
       });
       this.addedToWishlist = false;
-      console.log(this.addedToWishlist)
+      
 
     
     });
+  }
+  
+  addCart(_id,selling_price,weight){
+    if (localStorage.getItem('User')!=null) {
+  
+    this.cart.postProduct(_id,selling_price,weight).subscribe(() =>{
+  
+      this.toastr.success('Product Successfully Added to cart', 'BooksByWeight', {
+        timeOut: 1000,
+      
+      });
+    })
+  }
+  
+  
   }
 }

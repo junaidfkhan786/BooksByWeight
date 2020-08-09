@@ -48,6 +48,8 @@ import { AdminSidebarComponent } from './admin-panel/admin-sidebar/admin-sidebar
 import { AdminMainContentComponent } from './admin-panel/admin-main-content/admin-main-content.component';
 import { AdminLoginComponent } from './admin-panel/admin-login/admin-login.component';
 import { ViewProductsComponent } from './admin-panel/admin-main-content/view-products/view-products.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { ViewUsersComponent } from './admin-panel/admin-main-content/view-users/view-users.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +80,8 @@ import { ViewProductsComponent } from './admin-panel/admin-main-content/view-pro
     AdminSidebarComponent,
     AdminMainContentComponent,
     AdminLoginComponent,
-    ViewProductsComponent
+    ViewProductsComponent,
+    ViewUsersComponent
   
 
 
@@ -97,6 +100,7 @@ import { ViewProductsComponent } from './admin-panel/admin-main-content/view-pro
       positionClass: 'toast-bottom-right',
      
     }),
+    NgxSpinnerModule,
     
 
 

@@ -13,7 +13,7 @@
                 </span>
               </a>
                 
-                <a href="#">
+                <a style="color: black;" (click)="addCart(popularitem._id,popularitem.selling_price,popularitem.weight)">
                     <span class="material-icons org">
                         add_shopping_cart &nbsp;&nbsp;
                 </span></a><a *ngIf="!addedToWishlist"

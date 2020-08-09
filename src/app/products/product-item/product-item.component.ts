@@ -64,7 +64,7 @@ w:any = [];
           });
 
           this.addedToWishlist = true;
-          console.log(this.addedToWishlist)
+         
         },
         (err) => {
           this.toastr.warning('Product already Added', 'BooksByWeight', {
@@ -86,7 +86,7 @@ w:any = [];
         timeOut: 1000,
       });
       this.addedToWishlist = false;
-      console.log(this.addedToWishlist)
+     
 
     
     });

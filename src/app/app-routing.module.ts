@@ -95,7 +95,12 @@ const routes: Routes = [
   {
     path : 'admin/dashboard/view-products',
     component : AdminPanelComponent
+  },
+  {
+    path : 'admin/dashboard/view-users',
+    component : AdminPanelComponent
   }
+  
 ];
 
 @NgModule({

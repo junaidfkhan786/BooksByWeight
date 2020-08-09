@@ -66,7 +66,7 @@ bookimg :any [] = [];
   }
 loadimg(){
   this.bookimg = this.details.book_img
-console.log(this.bookimg)
+
 }
 
   addWish(_id) {
@@ -78,7 +78,7 @@ console.log(this.bookimg)
           });
 
           this.addedToWishlist = true;
-          console.log(this.addedToWishlist)
+         
         },
         (err) => {
           this.toastr.warning('Product already Added', 'BooksByWeight', {
@@ -100,7 +100,7 @@ console.log(this.bookimg)
         timeOut: 2000,
       });
       this.addedToWishlist = false;
-      console.log(this.addedToWishlist)
+   
 
     });
   }
