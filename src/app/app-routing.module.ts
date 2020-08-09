@@ -10,7 +10,9 @@ import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ProductsdetailComponent } from './productsdetail/productsdetail.component';
-
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { AdminLoginComponent } from './admin-panel/admin-login/admin-login.component';
+import { AdminMainContentComponent } from './admin-panel/admin-main-content/admin-main-content.component';
 
 
 const routes: Routes = [
@@ -81,11 +83,19 @@ const routes: Routes = [
   {
     path : 'checkout',
     component : CheckoutComponent
+  },
+  {
+    path : 'admin',
+    component : AdminLoginComponent
+  },
+  {
+    path : 'admin/dashboard',
+    component : AdminPanelComponent
+  },
+  {
+    path : 'admin/dashboard/view-products',
+    component : AdminPanelComponent
   }
-  
-
-
-
 ];
 
 @NgModule({

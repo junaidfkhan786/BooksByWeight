@@ -1,0 +1,101 @@
+<div class="side-sticky p-3 " style="background-color: #212529; color: white; height: 100vh;">
+  <br>
+  <span class="material-icons">
+    palette
+  </span>
+  <span style="font-size: 2rem;"> Dashboard </span>
+
+  <br><br>
+
+  <div class="accordion" id="accordionExample">
+    <div class="card" style="background-color: #212529;">
+      <div class="card-header" id="headingOne">
+        <h2 class="mb-0">
+          <a class="btn btn-block text-left color_white" type="button" data-toggle="collapse" data-target="#collapseOne"
+            aria-expanded="true" aria-controls="collapseOne">
+            PRODUCTS
+            <span class="material-icons org float-right arrow">
+              navigate_next
+            </span>
+          </a>
+        </h2>
+      </div>
+
+      <div id="collapseOne" class="collapse " aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div class="card-body">
+          <a class="btn btn-block text-left color_white" (click)="viewproducts();">
+            VIEW PRODUCTS
+            <span class="material-icons org float-right arrow">
+              navigate_next
+            </span>
+          </a> <a class="btn btn-block text-left color_white">
+            ADD PRODUCTS
+            <span class="material-icons org float-right arrow">
+              navigate_next
+            </span>
+          </a> <a class="btn btn-block text-left color_white">
+            DELETE PRODUCTS
+            <span class="material-icons org float-right arrow">
+              navigate_next
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="card"  style="background-color: #212529;">
+      <div class="card-header" id="headingTwo">
+        <h2 class="mb-0">
+          <a class="btn  btn-block text-left collapsed color_white" type="button" data-toggle="collapse" data-target="#collapseTwo"
+            aria-expanded="false" aria-controls="collapseTwo">
+            USERS
+            <span class="material-icons org float-right arrow">
+              navigate_next
+            </span>
+          </a>
+
+        </h2>
+      </div>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+        <div class="card-body">
+          <a class="btn  btn-block text-left collapsed color_white">
+            ADD USERS
+            <span class="material-icons org float-right arrow">
+              navigate_next
+            </span>
+          </a>
+          <a class="btn  btn-block text-left collapsed color_white">
+            DELETE USERS
+            <span class="material-icons org float-right arrow">
+              navigate_next
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="card"  style="background-color: #212529;">
+      <div class="card-header" id="headingThree">
+        <h2 class="mb-0">
+          <a class="btn  btn-block text-left color_white collapsed" type="button" data-toggle="collapse"
+            data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            ORDERS
+            <span class="material-icons org float-right arrow">
+              navigate_next
+            </span>
+          </a>
+        </h2>
+      </div>
+      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+        <div class="card-body">
+          <a class="btn  btn-block text-left collapsed color_white">
+            VIEW ORDERS
+            <span class="material-icons org float-right arrow">
+              navigate_next
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

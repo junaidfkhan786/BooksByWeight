@@ -41,7 +41,13 @@ import { CartItemsComponent } from './cart/cart-items/cart-items.component';
 import { DetailsComponent } from './productsdetail/details/details.component';
 import { LatestitemComponent } from './latestcollection/latestitem/latestitem.component';
 import { PopularitemComponent } from './popularcollection/popularitem/popularitem.component';
-import { SlickCarouselModule } from 'ngx-slick-carousel';
+
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { AdminHeaderComponent } from './admin-panel/admin-header/admin-header.component';
+import { AdminSidebarComponent } from './admin-panel/admin-sidebar/admin-sidebar.component';
+import { AdminMainContentComponent } from './admin-panel/admin-main-content/admin-main-content.component';
+import { AdminLoginComponent } from './admin-panel/admin-login/admin-login.component';
+import { ViewProductsComponent } from './admin-panel/admin-main-content/view-products/view-products.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +72,13 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
     CartItemsComponent,
     DetailsComponent,
     LatestitemComponent,
-    PopularitemComponent
+    PopularitemComponent,
+    AdminPanelComponent,
+    AdminHeaderComponent,
+    AdminSidebarComponent,
+    AdminMainContentComponent,
+    AdminLoginComponent,
+    ViewProductsComponent
   
 
 
@@ -85,7 +97,7 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
       positionClass: 'toast-bottom-right',
      
     }),
-    SlickCarouselModule
+    
 
 
   ],

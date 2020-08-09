@@ -1,0 +1,15 @@
+.header-fixed{
+    position: sticky;
+    top: 0px;
+    width:100%;
+    z-index: 10;
+   
+  } 
+
+  .shadow-bottom {
+    box-shadow: 0 8px 10px -6px black;
+  }
+
+  .color_white{
+    color: white;
+      }

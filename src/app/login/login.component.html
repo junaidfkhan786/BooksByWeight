@@ -1,6 +1,6 @@
 <br><br>
 
-  <div class="section1">
+<div class="section1">
   <app-header></app-header>
 
 
@@ -8,11 +8,13 @@
     <br>
     <br>
     <br>
-    
+
     <nav style="justify-content: center;">
       <div class="nav nav-tabs" id="nav-tab" role="tablist" style="justify-content: center; border: none;">
-        <a class="nav-link org active" id="login-tab" data-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true" style="border: none; font-size: xx-large; ">LOGIN</a>
-        <a class="nav-link org" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false" style="border: none; font-size: xx-large; ">REGISTER</a>
+        <a class="nav-link org active" id="login-tab" data-toggle="tab" href="#login" role="tab" aria-controls="login"
+          aria-selected="true" style="border: none; font-size: xx-large; ">LOGIN</a>
+        <a class="nav-link org" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register"
+          aria-selected="false" style="border: none; font-size: xx-large; ">REGISTER</a>
         <!-- <a class="nav-link org" id="forgot-tab" data-toggle="tab" href="#forgot" role="tab" aria-controls="forgot" aria-selected="false" style="border: none; font-size: xx-large; "></a> -->
       </div>
     </nav>
@@ -21,53 +23,66 @@
         <span style="justify-content: center;  margin-left: auto; margin-right: auto; width: 45%; display: block;">
           <div class="alert alert-danger" *ngIf="Error">{{message}}</div>
           <div class="alert alert-success" *ngIf="Success">{{succ_message}}</div>
-          <form id="contact-form" [formGroup]="myform" >
+          <form id="contact-form" [formGroup]="myform">
             <br>
             <div class="mb-3">
-              
-              <input placeholder="Enter Phone Number" required formControlName="phonenumber"  name="phonenumber" style="width: 100%; border-top: none; border-left: none; border-right: none; background: transparent !important ;" type="text" id="phone" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"  autocomplete="off" aria-describedby="phoneHelp" maxlength="10">
-              
+
+              <input placeholder="Enter Phone Number" required formControlName="phonenumber" name="phonenumber"
+                style="width: 100%; border-top: none; border-left: none; border-right: none; background: transparent !important ;"
+                type="text" id="phone" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
+                autocomplete="off" aria-describedby="phoneHelp" maxlength="10">
+
             </div>
             <div class="mb-3" id="pass1">
-  
-              <input placeholder="Enter Password" required formControlName="password" name="password"  style="width: 100%; border-top: none; border-left: none; border-right: none; background: transparent !important ;" minlength="6" type="password" id="password">
+
+              <input placeholder="Enter Password" required formControlName="password" name="password"
+                style="width: 100%; border-top: none; border-left: none; border-right: none; background: transparent !important ;"
+                minlength="6" type="password" id="password">
             </div>
             <div class="mb-3 form-check">
               <div class="row">
                 <div class="col-sm-6">
-                 <input type="checkbox" class="form-check-input" id="exampleCheck1" checked>
-                 <label class="form-check-label" for="exampleCheck1">Remember Me</label>
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1" checked>
+                  <label class="form-check-label" for="exampleCheck1">Remember Me</label>
                 </div>
-                <div class="col-sm-6" >
-                  <a [routerLink]="['/forgot']" routerLinkActive="router-link-active" class="nav-link float-right org"> <h6>FORGOT PASSWORD</h6></a>
+                <div class="col-sm-6">
+                  <a [routerLink]="['/forgot']" routerLinkActive="router-link-active" class="nav-link float-right org">
+                    <h6>FORGOT PASSWORD</h6>
+                  </a>
                 </div>
-                </div>
+              </div>
             </div>
-  
-            <button [disabled]="myform.invalid" type="submit" (click)="onSubmit()" style="justify-content: center; margin-left: auto; margin-right: auto; display: block;"  class="c btn btn-outline-dark bg-org btn-lg">Submit</button>
+
+            <button [disabled]="myform.invalid" type="submit" (click)="onSubmit()"
+              style="justify-content: center; margin-left: auto; margin-right: auto; display: block;"
+              class="c btn btn-outline-dark bg-org btn-lg">Submit</button>
           </form>
         </span>
       </div>
-      <div class="tab-pane fade " id="register" role="tabpanel" aria-labelledby="register-tab"><app-register></app-register></div>
-  
-  
+      <div class="tab-pane fade " id="register" role="tabpanel" aria-labelledby="register-tab">
+        <app-register></app-register>
+      </div>
+
+
     </div>
 
     <br>
-    
-    <h5 class="d-flex justify-content-center org" > OR</h5>
+
+    <h5 class="d-flex justify-content-center org"> OR</h5>
     <li class=" d-flex justify-content-center " style="border: none;">
-      <a  (click)="signInWithFB()" style="margin-right: 10px;"><img 
-        data-toggle="tooltip"  data-placement="right" title="LOGIN WITH FACEBOOK" src="../../assets/icons/icons8-facebook-100.png" height="50px" width="50px" alt=""></a>
+      <a (click)="signInWithFB()" style="margin-right: 10px;"><img data-toggle="tooltip" data-placement="right"
+          title="LOGIN WITH FACEBOOK" src="../../assets/icons/icons8-facebook-100.png" height="50px" width="50px"
+          alt=""></a>
       <!-- <a href="#"class="round"style="margin-right: 10px;"><img src="../../assets/icons/twitter.png" height="30px" width="30px" alt=""></a>
       <a href="#"class="round"style="margin-right: 10px;"><img src="../../assets/icons/instagram.png" height="30px" width="30px" alt=""></a>  -->
-      <a  (click)="signInWithGoogle()" style=" cursor: pointer; margin-top: 5.5px;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1200px-Google_%22G%22_Logo.svg.png" height="40px" width="40px" alt="" 
-        data-toggle="tooltip"  data-placement="bottom" title="LOGIN WITH GOOGLE"></a>
-      
-      
-            </li>
-  
-  </div>  
+      <a (click)="signInWithGoogle()" style=" cursor: pointer; margin-top: 5.5px;"><img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1200px-Google_%22G%22_Logo.svg.png"
+          height="40px" width="40px" alt="" data-toggle="tooltip" data-placement="bottom" title="LOGIN WITH GOOGLE"></a>
+
+
+    </li>
+
+  </div>
 </div>
 
 <div class="stickyfooter">
@@ -75,4 +90,3 @@
 
 
 </div>
-

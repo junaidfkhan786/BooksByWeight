@@ -1,0 +1,30 @@
+.arrow{
+    -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    -o-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    -o-transition-property: -o-transform;
+    transition-property: transform;
+}
+
+.side-sticky{
+    position: fixed;
+    z-index: 9;
+  
+  } 
+  .shadow-right {
+    box-shadow: 8px 0 10px -6px black;
+  }
+
+
+  .color_white{
+  color :  #585B5E;
+/* color: white; */
+  }
+
+  .color_white:hover{
+    
+  color: white;
+    }
