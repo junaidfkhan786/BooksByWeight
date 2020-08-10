@@ -1,0 +1,29 @@
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">Sr.No
+                <!-- &nbsp; <input class="form-check-input" type="checkbox" value="" > -->
+            </th>
+            <th scope="col">Name</th>
+
+            <th scope="col">Email</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody class="align-middle">
+        <tr *ngFor="let user of user2 |
+      paginate: {  itemsPerPage: 5, currentPage: pages, totalItems: user2.length}; let i = index">
+            <td>{{i+1}}
+                <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input class="form-check-input" type="checkbox" value=""> -->
+            </td>
+            <td>{{user.name}}</td>
+            <td>{{user.local_email || user.google_email || user.facebook_email }}</td>
+            <td><button class="btn btn-outline-danger" style="border-radius: 0;">
+                    <span class="material-icons"
+                        style="font-size: 3rem; cursor: pointer;">delete_forever</span></button> </td>
+        </tr>
+    </tbody>
+</table>
+<pagination-controls class="d-flex justify-content-center" directionLinks="true" (pageChange)="onPageChange($event)"
+    autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next">
+</pagination-controls>

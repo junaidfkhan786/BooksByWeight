@@ -1,6 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
+import { OrdersService } from 'src/app/services/orders.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { Orders } from 'src/app/models/orders.model';
+import { error } from '@angular/compiler/src/util';
+
 declare var $: any;
 @Component({
   selector: 'app-cart-items',
@@ -16,7 +21,7 @@ export class CartItemsComponent implements OnInit {
   cartitem1: any = [];
   price: any;
   subtotal: any;
-  totalweight:any;
+  totalweight: any;
   total: any[];
   cartitem2: any = [];
   weight: any;
@@ -29,8 +34,19 @@ export class CartItemsComponent implements OnInit {
   qty1: any = [];
   counterValue: number;
   dec: boolean;
-  totalw:any;
-  constructor(private cart: CartService, private toastr: ToastrService) {}
+  totalw: any;
+  pid1: any = [];
+  message: any;
+  order1 = new Orders();
+  order2:any = [];
+  constructor(
+    private cart: CartService,
+    private toastr: ToastrService,
+    private order: OrdersService,
+    private router: Router
+  ) {
+
+  }
 
   ngOnInit() {
     let cartitem6 = this.cartitem2;
@@ -42,7 +58,7 @@ export class CartItemsComponent implements OnInit {
   }
 
   jquery_code() {
-    $(document).ready(function () {});
+    $(document).ready(function () { });
   }
 
   loadcart() {
@@ -54,30 +70,33 @@ export class CartItemsComponent implements OnInit {
 
       if (this.book$.cartItems.length > 0) {
         const cartitem = this.book$.cartItems[0].cart;
- 
+
         for (var { quantity: qty } of cartitem) {
           this.qty = qty;
           this.qty1.push(this.qty);
-        
-          
+
+
+        }
+        for (var { _id: id } of cartitem) {
+          this.pid1.push(id);
         }
 
-    
 
-      
-        
+
+
+
         for (var { book: books } of cartitem) {
           this.cartitem1 = books;
           this.cartitem2.push(this.cartitem1);
         }
-      
+
         let cartitem3 = this.cartitem2;
 
         for (var i = 0; i <= cartitem3.length; i++) {
           if (cartitem3[i] == undefined) {
             return false;
           }
-          this.c = cartitem3[i].weight ;
+          this.c = cartitem3[i].weight;
           this.cartitem4.push(this.c);
           let sum = 0;
 
@@ -85,11 +104,12 @@ export class CartItemsComponent implements OnInit {
             sum = sum + r;
           }
           this.cartitem5 = sum;
-                 
+
         }
 
       }
     });
+
   }
 
   delCart(_id) {
@@ -104,12 +124,12 @@ export class CartItemsComponent implements OnInit {
     });
   }
 
-  increment(quantity, _id, price,weight) {
+  increment(quantity, _id, price, weight) {
     if (localStorage.getItem('User') != null) {
       this.counterValue = quantity;
       this.counterValue++;
 
-      this.cart.updateqty(this.counterValue, _id, price,weight).subscribe((d) => {
+      this.cart.updateqty(this.counterValue, _id, price, weight).subscribe((d) => {
         this.toastr.success('Product Has Been updated', 'BooksByWeight', {
           timeOut: 1000,
         });
@@ -120,12 +140,12 @@ export class CartItemsComponent implements OnInit {
     }
   }
 
-  decrement(quantity, _id, price,weight) {
+  decrement(quantity, _id, price, weight) {
     if (localStorage.getItem('User') != null) {
       this.counterValue = quantity;
       this.counterValue--;
 
-      this.cart.updateqty(this.counterValue, _id, price,weight).subscribe(() => {
+      this.cart.updateqty(this.counterValue, _id, price, weight).subscribe(() => {
         this.toastr.success('Product Has Been updated', 'BooksByWeight', {
           timeOut: 1000,
         });
@@ -134,5 +154,34 @@ export class CartItemsComponent implements OnInit {
         window.location.reload();
       }, 1000);
     }
+  }
+
+  createorder(book = this.pid1, amount = this.subtotal, totalitems = this.cartitem2.length, totalweight = this.totalweight) {
+
+
+
+    //    this.order1.push(book,amount,totalitems,totalweight)
+
+    //    this.order2 = this.order1
+
+    // this.order.postorder(this.order2).subscribe((res)=> {
+    //   console.log(res)
+    // })
+
+
+    this.order1.book = book
+    this.order1.amount = amount;
+    this.order1.totalitems = totalitems;
+    this.order1.totalweight = totalweight;
+    console.log(this.order1)
+   
+    // console.log(amount)
+    // console.log(totalitems)
+    // console.log(totalweight)
+    let res = this.order.postorder(this.order1);
+    res.subscribe((response) => {
+      this.order2 = response
+      console.log(this.order2)
+    })
   }
 }
