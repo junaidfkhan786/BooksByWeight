@@ -1,31 +1,43 @@
 <div class="bg-image" style=" width: 100%;">
 
-<div style="top: 30%; left: 25%; width: 50%; background: transparent; border: none;" class="card d-flex justify-content-center">
+  <div style="top: 30%; left: 25%; width: 50%; background: transparent; border: none;"
+    class="card d-flex justify-content-center">
     <h3 class="text-center"> ADMIN LOGIN</h3>
-    <form>
-        <div class="mb-3">
-              
-            <input placeholder="Enter Email" required formControlName="phonenumber"  name="email" style="width: 100%; border-top: none; border-left: none; border-right: none; background: transparent !important ;" type="text" id="email"  autocomplete="off" aria-describedby="emailHelp" maxlength="10">
-            
-          </div>
-          <div class="mb-3" id="pass1">
+    <div class="alert alert-danger" *ngIf="Error">{{message}}</div>
+    <div class="alert alert-success" *ngIf="Success">{{succ_message}}</div>
+    <form [formGroup]="myform">
+      <div class="mb-3">
 
-            <input placeholder="Enter Password" required formControlName="password" name="password"  style="width: 100%; border-top: none; border-left: none; border-right: none; background: transparent !important ;" minlength="6" type="password" id="password">
-          </div>
-          <div class="mb-3 form-check">
-            <div class="row">
-              <div class="col-sm-6">
-               <input type="checkbox" class="form-check-input" id="exampleCheck1" checked>
-               <label class="form-check-label" for="exampleCheck1">Remember Me</label>
-              </div>
-              <div class="col-sm-6" >
-                <a [routerLink]="['/forgot']" routerLinkActive="router-link-active" class="nav-link float-right org"> <h6>FORGOT PASSWORD</h6></a>
-              </div>
-              </div>
-          </div>
+        <input placeholder="Enter Phone Number" required formControlName="phonenumber" name="phonenumber"
+          style="width: 100%; border-top: none; border-left: none; border-right: none; background: transparent !important ;"
+          type="text" id="phone" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
+          autocomplete="off" aria-describedby="phoneHelp" maxlength="10">
 
-          <button  type="submit" style="justify-content: center; margin-left: auto; margin-right: auto; display: block;"  class="c btn btn-outline-dark bg-org btn-lg">Submit</button>
+      </div>
+      <div class="mb-3" id="pass1">
+
+        <input placeholder="Enter Password" required formControlName="password" name="password"
+          style="width: 100%; border-top: none; border-left: none; border-right: none; background: transparent !important ;"
+          minlength="6" type="password" id="password" autocomplete= true>
+
+      </div>
+      <div class="mb-3 form-check">
+        <div class="row">
+          <div class="col-sm-6">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1" checked>
+            <label class="form-check-label" for="exampleCheck1">Remember Me</label>
+          </div>
+          <div class="col-sm-6">
+            <a [routerLink]="['/forgot']" routerLinkActive="router-link-active" class="nav-link float-right org">
+              <h6>FORGOT PASSWORD</h6>
+            </a>
+          </div>
+        </div>
+      </div>
+      <button [disabled]="myform.invalid" type="submit" (click)="onSubmit()"
+      style="justify-content: center; margin-left: auto; margin-right: auto; display: block;"
+      class="c btn btn-outline-dark bg-org btn-lg">Submit</button>
     </form>
-</div>
+  </div>
 
 </div>

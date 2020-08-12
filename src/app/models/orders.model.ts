@@ -1,9 +1,12 @@
 export class Orders {
+ 
+    book:[];
+    amount: number;
+    totalitems: number;
+    totalweight: number;
   
-         book: [];
-         amount: number;
-         totalitems: number;
-         totalweight: number;
+  
+         
  
 
 }

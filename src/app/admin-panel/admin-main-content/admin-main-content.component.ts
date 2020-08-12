@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-
 import { Router } from '@angular/router';
 import { BooksService } from 'src/app/services/books.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -9,7 +8,6 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./admin-main-content.component.css']
 })
 export class AdminMainContentComponent implements OnInit {
-
   constructor(
     public router: Router,
     private newService: BooksService,
@@ -22,36 +20,21 @@ export class AdminMainContentComponent implements OnInit {
   ngOnInit() {
     this.loadbook();
     this.loaduser();
-
   }
   totalbook1: number;
   recieve2($event) {
     this.totalbook1 = $event;
-
   }
-
   loadbook() {
-
-
     this.newService.getBooks().subscribe((data) => {
-
       this.book = data
-
-
-
       this.totalBooks = data.books.length;
-
-
     });
   }
   loaduser(){
-
     this.user.getUsers().subscribe( (user) => {
       this.users = user
     this.count = user.count  
-   
     })
-    
   }
-
 }

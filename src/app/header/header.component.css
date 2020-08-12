@@ -46,17 +46,25 @@ background: #cfcfcd none repeat scroll 0 0;
   position: relative;
   top: 30%;
   
-  width: 90%;
+  width: 80%;
   text-align: center;
   margin-top: 30px;
   margin: auto;
 }
 
+.select{
+  width: 200px;
+  height: 70px;
+  border: none;
+  border-radius: 0;
+  margin-right: 10px;
+ 
+}
 .overlay .closebtn {
-  position: absolute;
-  top: 70px;
-  right: 70px;
-  font-size: 3rem;
+position: relative;
+top: 20px; 
+right: 50px; 
+font-size: 2rem;
   cursor: pointer;
   color: rgb(253, 253, 253);
   transition: all 1s;
@@ -75,7 +83,7 @@ background: #cfcfcd none repeat scroll 0 0;
   font-size: 17px;
   border: none;
   float: left;
-  width: 90%;
+  width: 70%;
   background: white;
 }
 
@@ -84,7 +92,7 @@ background: #cfcfcd none repeat scroll 0 0;
 }
 
 .overlay button {
-  float: left;
+   
   width: 5%;
   padding: 21px;
   background:white;

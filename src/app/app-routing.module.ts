@@ -1,7 +1,6 @@
 import { CheckoutComponent } from './checkout/checkout.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { CartComponent } from './cart/cart.component';
-
 import { ForgotpassComponent } from './forgotpass/forgotpass.component';
 import { ProductsComponent } from './products/products.component';
 import { RegisterComponent } from './register/register.component';
@@ -12,9 +11,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProductsdetailComponent } from './productsdetail/productsdetail.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { AdminLoginComponent } from './admin-panel/admin-login/admin-login.component';
-import { AdminMainContentComponent } from './admin-panel/admin-main-content/admin-main-content.component';
-
-
+import { SearchComponent } from './search/search.component';
 const routes: Routes = [
   {
     path: '',
@@ -99,10 +96,13 @@ const routes: Routes = [
   {
     path : 'admin/dashboard/view-users',
     component : AdminPanelComponent
+  },
+  {
+    path : 'search',
+    component : SearchComponent
   }
-  
-];
 
+];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

@@ -1,4 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { NgxSpinner } from 'ngx-spinner/lib/ngx-spinner.enum';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-admin-panel',
@@ -7,11 +9,14 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class AdminPanelComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public spinner : NgxSpinnerService
+  ) { }
 
   ngOnInit(): void {
-
+    
   }
+
   opened:any
 
   receave($event){

@@ -15,6 +15,11 @@
   box-shadow: 8px 0 10px -6px black;
 }
 
+.shadow-box{
+  -moz-box-shadow: 0 0 5px 5px #888;
+-webkit-box-shadow: 0 0 5px 5px#888;
+box-shadow: 0 0 5px 5px #888;
+}
 
 
 #product-main-img .slick-prev {

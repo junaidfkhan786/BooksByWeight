@@ -11,14 +11,13 @@
                 transform: translate(-50%, -50%); font-size: xx-large;" class="org">
         BOOKS <br><br>
         Home / Wishlist<br><br>
-        <div  *ngIf="length == 0" class="" style=" margin-top: 50px; text-align: center;
-        font-size: 3rem;">Your Wishlist Is Empty</div>
+
       </div>
 
     </div>
-  
+
     <div class="container">
-      
+
       <div class="row">
         <div class="col-sm-12">
 
@@ -36,7 +35,7 @@
             <tr style="border-width: 1px;" *ngFor="let wish of book$.books">
               <td style="border-width: 1px; cursor: pointer;"><a>
 
-                    <span class="material-icons" (click)="deletePro(wish.book._id)"
+                  <span class="material-icons" (click)="deletePro(wish.book._id)"
                     style="font-size: 5rem;">delete_forever</span></a> </td>
               <td style="border-width: 1px"><a><img src="{{wish.book.book_img[0]}}" class="high"></a></td>
               <td style="border-width: 1px"><a href="#"
@@ -47,8 +46,8 @@
               </td>
               <td style="border-width: 1px"><span *ngIf="wish.book.quantity">In Stock</span>
                 <span *ngIf="!wish.book.quantity">Out Of Stock</span></td>
-              <td style="border-width: 1px ; padding: 10px;"> <button class="button button1" (click)="addCart(wish.book._id,wish.book.selling_price,wish.book.weight)"><a   class="shop"
-                    style="font-size: 12px; color: white; font-weight: 700;
+              <td style="border-width: 1px ; padding: 10px;"> <button class="button button1"
+                  (click)="addCart(wish.book._id,wish.book.selling_price,wish.book.weight)"><a class="shop" style="font-size: 12px; color: white; font-weight: 700;
                  text-decoration: none; ">ADD TO CART</a></button></td>
 
 
@@ -56,34 +55,24 @@
 
 
           </table>
-          <br><br>
-          <div style="margin-top: 10px; border-width: 1px; color: #6f6f6f;" *ngIf="length > 0">
-
-            <div class="justify-content-center" style="text-align: center;">
-              <span style=" text-decoration: none; color: #666666;">Share:</span><br>
-              <a href="#" class="round" style="margin-right: 10px;"><img src="../../assets/icons/facebook.png"
-                  height="30px" width="30px" alt=""></a>
-
-
-              <a href="#" class="round" style="margin-right: 10px;"><img src="../../assets/icons/twitter.png"
-                  height="30px" width="30px" alt=""></a>
-
-
-              <a href="#" class="round" style="margin-right: 10px;"><img src="../../assets/icons/instagram.png"
-                  height="30px" width="30px" alt=""></a>
-
-              <a href="#" class="round" style="margin-right: 10px;"><img src="../../assets/icons/google.png"
-                  height="30px" width="30px" alt=""></a>
-              <br><br><br><br><br>
-            </div>
-
-
-          </div>
         </div>
       </div>
 
     </div>
+    <div class="row  d-flex justify-content-center" style="height: 500px;" *ngIf="length == 0">
+      <div style="width: 50%; height: 50%; top: 80px; background-color: #212529; color: white; "
+        class="card shadow-bottom align-middle">
+        <h5 style="margin-top: 8%;" class="text-center card-title"><span style="font-size: 40px;">Your Wishlist Is
+            Empty</span> <br><br> YOU DONT HAVE ANY BOOK ADDED IN YOUR WISHLIST</h5>
+        <a href="/books" style="text-decoration: none; color: white; cursor: pointer;"
+          class="d-flex justify-content-center org "> CLick Here To Add It </a>
+        <span class="material-icons d-flex justify-content-center">
+          touch_app
+        </span>
+      </div>
+    </div>
   </div>
-  <div class="stickyfooter">
-    <app-footer></app-footer>
-  </div>
+</div>
+<div class="stickyfooter">
+  <app-footer></app-footer>
+</div>

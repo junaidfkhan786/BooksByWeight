@@ -1,21 +1,66 @@
 <div class="p-2">
     <div class="section1">
-      <app-header></app-header>
-      <div class="bg-image" style="position: relative;
+        <app-header></app-header>
+        <div class="bg-image" style="position: relative;
        text-align: center;">
-        <div style="  position: absolute;
+            <div style="  position: absolute;
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%); font-size: xx-large;" class="org">
-          Checkout <br><br>
-          Home / Checkout
+                Checkout <br><br>
+                Home / Checkout
+            </div>
         </div>
-      </div>
-      <!-- Write the code inside this div. -->
-      
+        <!-- Write the code inside this div. -->
+        <div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8">
+
+                        <!-- Start Payment Way -->
+                        <div class="our-payment-sestem">
+                            <h2 class="section-title-3">We Accept :</h2>
+                            <ul class="payment-menu">
+                                <li><a href="#"><img src="../../assets/images/1.jpg" alt="payment-img"></a></li>
+                                <li><a href="#"><img src="../../assets/images/2.jpg" alt="payment-img"></a></li>
+                            </ul>
+                            <ul class="checkout__dtl__btn">
+                                <li class="buy__now__btn"><a href="#">confirm &amp; pay</a></li>
+                            </ul>
+                        </div>
+                        <!-- End Payment Way -->
+                    </div>
+                    <div class="col-sm-4">
+                        <h2 class="section-title-5">Order Summary</h2>
+                        <p class="note-desc">Please verify your order before paying</p>
+                        <ul class="important-note">
+                            <li class="pay"><a href="#"><span class="material-icons">
+                                        play_circle_filled
+                                    </span>Items: {{cartitem2.length}}</a></li>
+                            <li class="pay"><a href="#"><span class="material-icons">
+                                        play_circle_filled
+                                    </span>Sub Total: {{subtotal}}</a></li>
+                            <li class="pay"><a href="#"><span class="material-icons">
+                                        play_circle_filled
+                                    </span>Total Weight: {{totalweight}} Kg</a></li>
+                            <li class="pay"><a href="#"><span class="material-icons">
+                                        play_circle_filled
+                                    </span>Shipping: ₹ {{shipping}} </a></li>
+                            <li class="pay"><a href="#"><span class="material-icons">
+                                        play_circle_filled
+                                    </span><b>Amount Payable: <span
+                                            class="important-note__prizes">₹ {{amountpayable}} </span></b></a></li>
+                        </ul>
+                        <div class="puick-contact-area mt--60">
+                            <h2 class="section-title-3">Send a Query</h2>
+                            <a href="info@booksbyweight.com">info@booksbyweight.com </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="stickyfooter">
-      <app-footer></app-footer>
+        <app-footer></app-footer>
     </div>
-  </div>
-  
+</div>

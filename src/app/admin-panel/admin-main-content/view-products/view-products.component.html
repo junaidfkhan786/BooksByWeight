@@ -1,4 +1,9 @@
-<table class="table" *ngIf="book1 > 0">
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="line-scale-pulse-out" [fullScreen]="false">
+    <p style="color: white"> Loading... </p>
+  </ngx-spinner>
+
+
+<table class="table  table-dark table-striped table-hover" *ngIf="book1 > 0">
     <thead class="table-dark text-center">
         <tr>
             <th scope="col" >Sr.No
@@ -23,10 +28,10 @@
                  <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input class="form-check-input" type="checkbox" value=""> -->
 
                  </td>
-            <td> <ngx-spinner></ngx-spinner>
+            <td> 
                 <img src="{{books.book_img[0]}}" class="img-fluid" height="50px" width="50px" alt=""></td>
             <td>{{books.book_name}}</td>
-            <td>{{books.weight}}</td>
+            <td>{{books.weight / 1000}}Kg</td>
             <td>{{books.selling_price}}</td>
             <td> <button class="btn btn-success" style="border-radius: 0;">EDIT THIS</button> </td>
             <td><button class="btn btn-outline-danger" style="border-radius: 0;">

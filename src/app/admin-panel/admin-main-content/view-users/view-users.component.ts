@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/services/users.service';
 
+import { NgxSpinnerService } from 'ngx-spinner';
+
 @Component({
   selector: 'app-view-users',
   templateUrl: './view-users.component.html',
@@ -10,56 +12,57 @@ export class ViewUsersComponent implements OnInit {
   pages: number = 1;
   users: any = [];
   user1: any
-user2:any = [];
-user3:any = [];
-id:any = [];
-id1:any = []
-count:number;
+  user2: any = [];
+  user3: any = [];
+  id: any= [];
+  id1: any = []
+  google: any = [];
+  local: any = [];
+  facebook: any = [];
+  count: number;
+  config: any;
 
-  constructor(private user: UsersService) { }
+  constructor(
+    private user: UsersService,
+    private spinner:NgxSpinnerService
+    ) {
 
+    this.config = {
+      itemsPerPage: 5,
+      currentPage: this.pages,
+      totalItems: this.count
+    };
+   }
   ngOnInit(): void {
+    this.spinner.show();
     this.loaduser();
-    this.pages;
+
+    console.log(this.user2)
   }
-
   loaduser() {
-
     this.user.getUsers().subscribe((user) => {
       this.users = user
-this.count = this.users.count
+      this.count = this.users.count
       this.user1 = user.users
+      var i: any
+      for (i = 0; i <= this.user1.length - 1; i++) {
+        this.user2.push(this.user1[i])
+      }
+      this.spinner.hide();
+    })
+  }
 
- var i:any
-var j:any
- for(i = 0; i <= this.user1.length; i++){
- if(this.user1[i] == undefined){
-   return false
+  pageChanged(event){
 
-}
-this.user2.push(this.user1[i].google || this.user1[i].local || this.user1[i].facebook);
-
-}
-console.log(this.user2)
-
-// for(j = 0; j <= this.user2.length; j++){
-  
-//   if(this.user2[j] != undefined){
-
-//     console.log(this.user2[j].google_email || this.user2[j].facebook_email || this.user2[j].local_email)
-  
-//   }
-// }
-})
-
+    this.config.currentPage = event;
 
   }
 
   onPageChange(page: number = 1) {
     this.pages = page;
-  
     window.scrollTo(0, 60);
   }
 
 
+ 
 }

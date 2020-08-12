@@ -3,7 +3,7 @@ import { Login } from './../models/login.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { API_URL, httpOptions } from '../models/api.model';
+import {httpOptions } from '../models/api.model';
 
 
 @Injectable({

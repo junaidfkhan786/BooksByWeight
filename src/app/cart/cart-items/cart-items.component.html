@@ -134,14 +134,8 @@
           </div>
         </div>
         <div class="wc-proceed-to-checkout org" style="list-style-type: none;">
-          <button (click)="createorder();" class="button button2" style="margin-top: 30px;">
-            <a  class="shop" style="
-                font-size: 12px;
-                color: white;
-                font-weight: 700;
-                text-decoration: none;
-                font-family: sans-serif;
-              ">Proceed to Checkout</a>
+          <button (click)="checkout()" class="button button2" style="margin-top: 30px;">
+            Proceed to Checkout
           </button>
         </div>
       </div>
@@ -149,9 +143,13 @@
   </div>
 </div>
 
-<div class="d-flex justify-content-center" *ngIf="productItem.cart.length == 0">
-  <button [routerLink]="['/books']" routerLinkActive="router-link-active" class="btn btn-outline-secondary bg-org"
-    style="background-color: black; color: white; margin-top: 50px;">
-    CONTINUE SHOPPING
-  </button>
+<div class="row  d-flex justify-content-center" style="height: 500px;"  *ngIf="productItem.cart.length == 0">
+  <div style="width: 50%; height: 50%; top: 80px; background-color: #212529; color: white; " class="card shadow-bottom align-middle">
+      <h5 style="margin-top: 7%;"  class="text-center card-title"><span style="font-size: 3rem;">Your Cart Is Empty</span> 
+        <br> <br> YOU DONT HAVE ANY BOOK ADDED IN YOUR CART</h5>
+      <a href="/books" style="text-decoration: none; color: white; cursor: pointer;" class="d-flex justify-content-center org "> CLick Here To Add It </a>
+      <span class="material-icons d-flex justify-content-center">
+          touch_app
+          </span>
+  </div>
 </div>

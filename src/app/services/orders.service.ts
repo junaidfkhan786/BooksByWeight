@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { API_LIVE, httpOptions, API_URL } from '../models/api.model';
 import {Orders } from '../models/orders.model'
 
-import { from, Observable, throwError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { Observable  } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,14 +21,10 @@ export class OrdersService {
   
       })
     }
-    const body=JSON.stringify(order);
-   return  this._http.post<any[]>(`${API_URL}` + '/order/create',body,httpOptionsauth).pipe(
-    map((data: any) => {
-      return data;
-    }), catchError( error => {
-      return throwError(error.error);
-    })
- )
+    
+   return  this._http.post<Orders>(`${API_LIVE}` + '/order/create',order,httpOptionsauth)
+  
+
 
   }
 

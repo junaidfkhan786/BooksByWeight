@@ -9,7 +9,7 @@ declare var $:any;
 })
 export class AppComponent  implements OnInit {
 constructor(
-  private spinner: NgxSpinnerService
+  public spinner: NgxSpinnerService
   ){}
 
   title = 'BooksByWeight';
@@ -27,7 +27,7 @@ this.jquery_code();
       var btn = $('#buttonarrow');
       
         $(window).scroll(function() {
-          if ($(window).scrollTop() > 400) {
+          if ($(window).scrollTop() > 500) {
             btn.show();
           } else {
             btn.hide();

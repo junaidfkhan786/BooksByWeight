@@ -1,8 +1,6 @@
 <nav class=" navbar justify-content-center navbar-expand-md navbar-light navbar-fixed sticky-top bg-white" style="padding-bottom: 30px;  ">
   <div class="container nopadding"   >
-
     <a [routerLink]="[ '/' ]" routerLinkActive="active"><img src="../../assets/images/logo.png" alt=""></a>
-
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -44,7 +42,6 @@
         <li style="padding-left: 30px;">
          <a href="#" class="nav-link  active ">Contact</a>
         </li>
-
       </ul>
      <div class="d-flex">
       <ul class="navbar-nav mr-auto mb- mb-lg-0">
@@ -54,7 +51,6 @@
             search
             </span>
         </a>
-        
       </li>
       <li class="dropdown" *ngIf="session">
         <a class="nav-link active " href="#"  id="navbarDropdown" role="button" data-toggle="dropdown"  aria-expanded="false">
@@ -68,7 +64,6 @@
           <li><a class="dropdown-item" (click)="logout()" >LogOut</a></li>
         </ul>
       </li>
-     
       <li class="nav-item" *ngIf="!session"data-toggle="tooltip"  data-placement="top" title="LOGIN / REGISTER" >
         <a  [routerLink]="['/login']" routerLinkActive="router-link-active" class="nav-link" >
           <span class="material-icons" >
@@ -104,17 +99,21 @@
     </div>
   </div>
 </nav>
-
 <div id="myOverlay" class="overlay">
-  <span class="closebtn" (click)="closeSearch()" ><span class="material-icons">
-    close
-    </span></span>
   <div class="overlay-content">
-    <form>
-      <input type="text" placeholder="Search.." name="search">
-      <button type="submit"><span class="material-icons">
-        search
-        </span></button>
-    </form>
-  </div>
+    <span class="closebtn material-icons float-right" (click)="closeSearch()" >
+      close 
+      </span> 
+      <div class="row">
+        <select [(ngModel)]="selected"  class="form-select select" aria-label="Default select example">
+          <option *ngFor="let select of selector" [value]="select.value" >{{select.name}}</option>
+        </select>
+        <input type="text" placeholder="search..." [(ngModel)]="Searchinput" name="searchinput">
+        <button type="submit" (click)="search(selected,Searchinput)" >
+          <span class="material-icons">
+          search
+          </span>
+        </button>
+      </div>
+     </div>
 </div>

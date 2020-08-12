@@ -1,0 +1,141 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="line-scale-pulse-out" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" style="left: 0;" class="closebtn" (click)="off()" (click)="closeNav()">&times;</a>
+
+  <br><br>
+
+  <ul class="list-group " style="cursor: pointer;">
+    <li class="list-group-item " aria-current="true" style="font-size: 2rem;">
+      BOOKS BY PRICE
+    </li>
+    <li class="list-group-item" aria-current="true">
+
+      <span (click)="price()">
+        &#8377;100 - &#8377;200
+
+      </span>
+
+
+
+    </li>
+    <li class="list-group-item" aria-current="true">
+      <span (click)="price1()">
+        &#8377;200 - &#8377;300
+      </span>
+
+    </li>
+    <li class="list-group-item" aria-current="true">
+      <span (click)="price2()">
+        &#8377;300 - &#8377;400
+      </span>
+
+    </li>
+    <li class="list-group-item" aria-current="true">
+      <span (click)="price3()">
+        &#8377;400 - &#8377;500
+      </span>
+
+    </li>
+    <li class="list-group-item" aria-current="true">
+      <span (click)="price4()">
+        &#8377;500 Onwards
+      </span>
+
+    </li>
+    <li class="list-group-item" aria-current="true">
+      <span style="font-weight: bolder;" (click)="lowTohigh()">
+        Price Low To High
+      </span>
+
+    </li>
+
+    <li class="list-group-item" aria-current="true">
+      <span style="font-weight: bolder;" (click)="highTolow()">
+        Price High To Low
+      </span>
+
+    </li>
+
+
+  </ul>
+
+</div>
+
+
+<div id="main">
+  <div id="overlay" (click)="closeNav()" (click)="off()"></div>
+  <div class="p-2">
+    <div class="section1">
+
+      <app-header></app-header>
+
+      <div class="bg-image" style="position: relative;
+            text-align: center;">
+        <div style="  position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%); font-size: xx-large;" class="org">
+          BOOKS <br><br>
+          Home / Books
+
+        </div>
+
+      </div>
+
+
+      <div style="padding: 5px 10px 0px 10px;">
+
+        <div class="row">
+          <div class="row justify-content-between">
+            <div class="col-4">
+              <h3 class="text-left">
+                <a style="text-decoration: none;" class="org" href="/books">Get All Books</a></h3>
+            </div>
+            <div class="col-4">
+              <h3 class="text-right" *ngIf="count > 0">
+                <a style="text-decoration: none; cursor: pointer;" class=" org" (click)="on()"
+                  (click)="openNav()">Filters</a>
+              </h3>
+            </div>
+          </div>
+       
+            <div class="col-xs-12 col-sm-4 col-md-3" *ngFor="let book of books.books |
+         paginate: {  itemsPerPage: 8, currentPage: pages, totalItems: totalBooks} ">
+
+
+              <app-searchitem [searchItem]="book" [addedToWishlist]="wid1.indexOf(books._id) >= 0 ">
+              </app-searchitem>
+
+
+            </div>
+          
+        </div>
+      </div>
+      <br>
+      <div class="card p-3 btc" *ngIf="count > 0">
+
+        <pagination-controls class="d-flex justify-content-center" directionLinks="true"
+          (pageChange)="onPageChange($event)" autoHide="true" responsive="true" previousLabel="Previous"
+          nextLabel="Next">
+        </pagination-controls>
+
+      </div>
+      <div class="row  d-flex justify-content-center" style="height: 200px;" *ngIf="count == 0">
+        <div style="width: 50%; height: 50%; top: 0px; background-color: #212529; color: white; "
+          class="card shadow-box align-middle">
+          <h5 style="margin-top: 3%;" class="text-center card-title"><span style="font-size: 3rem;">{{message}}</span>
+          </h5>
+
+        </div>
+      </div>
+
+      <br><br><br>
+    </div>
+  </div>
+  <div class="stickyfooter">
+    <app-footer></app-footer>
+  </div>
+</div>

@@ -1,29 +1,52 @@
-<table class="table">
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="line-scale-pulse-out" [fullScreen]="false">
+    <p style="color: white"> Loading... </p>
+  </ngx-spinner>
+ 
+ <table class="table  table-dark table-striped table-hover" *ngIf="count >= 0">
     <thead class="table-dark">
         <tr>
-            <th scope="col">Sr.No
-                <!-- &nbsp; <input class="form-check-input" type="checkbox" value="" > -->
-            </th>
+            <!-- <th scope="col">
+            Select All &nbsp; <input class="form-check-input" type="checkbox" value="" >
+            </th> -->
             <th scope="col">Name</th>
-
+            <th scope="col">Registration Type</th>
             <th scope="col">Email</th>
             <th scope="col">Delete</th>
         </tr>
     </thead>
     <tbody class="align-middle">
-        <tr *ngFor="let user of user2 |
-      paginate: {  itemsPerPage: 5, currentPage: pages, totalItems: user2.length}; let i = index">
-            <td>{{i+1}}
-                <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input class="form-check-input" type="checkbox" value=""> -->
-            </td>
-            <td>{{user.name}}</td>
-            <td>{{user.local_email || user.google_email || user.facebook_email }}</td>
+        <tr *ngFor="let user of user2 | paginate:config; let i = index">
+            <!-- <td >
+                <input class="form-check-input" type="checkbox" value="">
+            </td> -->
+            <td *ngIf="user.google">{{user.google.name}}</td>
+            <td *ngIf="user.facebook">{{user.facebook.name}}</td>
+            <td *ngIf="user.local">{{user.local.name}}</td>
+            <td>{{user.methods}}</td>
+            <td *ngIf="user.google">{{user.google.google_email}}</td>
+            <td *ngIf="user.facebook">{{user.facebook.facebook_email}}</td>
+            <td *ngIf="user.local">{{user.local.local_email}}</td>
             <td><button class="btn btn-outline-danger" style="border-radius: 0;">
-                    <span class="material-icons"
-                        style="font-size: 3rem; cursor: pointer;">delete_forever</span></button> </td>
+                    <span class="material-icons" style="font-size: 3rem; cursor: pointer;">delete_forever</span>
+                </button>
+            </td>
         </tr>
     </tbody>
 </table>
-<pagination-controls class="d-flex justify-content-center" directionLinks="true" (pageChange)="onPageChange($event)"
+<pagination-controls class="d-flex justify-content-center" directionLinks="true"
+
+(pageChange)="pageChanged($event)"
     autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next">
-</pagination-controls>
+</pagination-controls> 
+
+
+
+<div class="row  d-flex justify-content-center" style="height: 500px;" *ngIf="count == 0">
+    <div style="width: 50%; height: 50%; top: 80px; background-color: #212529; color: white; " class="card shadow-bottom align-middle">
+        <h5 style="margin-top: 15%;"  class="text-center card-title">YOU HAVE NO PRODUCT ADDED</h5>
+        <a style="text-decoration: none; color: white; cursor: pointer;" class="d-flex justify-content-center org "> CLick Here To Add It </a>
+        <span class="material-icons d-flex justify-content-center">
+            touch_app
+            </span>
+    </div>
+</div>

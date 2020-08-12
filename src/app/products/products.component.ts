@@ -1,4 +1,3 @@
-
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { BooksService } from '../services/books.service';
@@ -9,7 +8,6 @@ import { WishlistService } from '../services/wishlist.service';
 import { ToastrService } from 'ngx-toastr';
 import {NgxSpinnerService} from 'ngx-spinner'
 declare var $: any;
-
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -28,7 +26,6 @@ export class ProductsComponent implements OnInit {
   totalBooks: number;
   pages: number = 1;
   bookId: any;
-
   wish$: any = [];
   wid: any = {};
   size: any = {};
@@ -40,7 +37,6 @@ export class ProductsComponent implements OnInit {
   pid1: any = [];
   match: any;
   books: any = [];
-
   constructor(
     private toastr: ToastrService,
     private CatService: CategoryService,
@@ -51,48 +47,30 @@ export class ProductsComponent implements OnInit {
     private wish: WishlistService,
     private spinner:NgxSpinnerService
   ) {}
-
   ngOnInit(): void {
 this.spinner.show();
-
     if(localStorage.getItem('User') !=null){
       setInterval(() => {
         this.loadwish();
-        
     }, 1000);
     }
-   
-
-  
     this.loadcat();
     this.jquery_code();
     this.loadfilter();
-   
-    
-
- 
-
   }
-
   jquery_code() {}
-
   loadbook() {
     this.newService.getBooks().subscribe((data) => {
       this.books$ = data;
-
       const pid = data.books;
-
       for (var { _id: id } of pid) {
         this.pid1.push(id);
       }
- 
-
       this.totalBooks = data.totalBooks.length;
       this.pages = 1;
     this.spinner.hide();
     });
   }
-
   loadcat() {
     this.CatService.getCategoryById(this.route.snapshot.params._id).subscribe(
       (res) => {
@@ -100,25 +78,20 @@ this.spinner.show();
       }
     );
   }
-
   /* Set the width of the side navigation to 250px */
   public openNav() {
     $('#mySidenav').css('width', '400px');
   }
-
   /* Set the width of the side navigation to 0 */
   closeNav() {
     document.getElementById('mySidenav').style.width = '0';
   }
-
   on() {
     document.getElementById('overlay').style.display = 'block';
   }
-
   off() {
     document.getElementById('overlay').style.display = 'none';
   }
-
   filters(modal: String) {
     this.filter.priceDefine(modal).subscribe((res) => {
       this.books$ = res;
@@ -133,9 +106,6 @@ this.spinner.show();
     this.pages = page;
     window.scrollTo(0, 520);
   }
-
- 
-
   loadfilter() {
     if (this.router.url == '/books/sortBy100/200') {
       this.filters(this.first);
@@ -162,7 +132,6 @@ this.spinner.show();
       this.filtersSort(this.variant);
     }
   }
-
   public price() {
     this.router.navigate(['books/sortBy100/200']);
   }
@@ -184,18 +153,13 @@ this.spinner.show();
   public highTolow() {
     this.router.navigate(['books/sortBydesc']);
   }
-
   loadwish() {
     this.wish.getwish().subscribe((data) => {
       this.wish$ = data;
-
       const size = this.wish$.books;
-
       for (var { book: books } of size) {
         this.wid = books;
-
         const size1 = books._id;
-
         this.wid1.push(size1);
       }
       for (let w of this.wid1) {

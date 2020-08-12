@@ -50,6 +50,11 @@ import { AdminLoginComponent } from './admin-panel/admin-login/admin-login.compo
 import { ViewProductsComponent } from './admin-panel/admin-main-content/view-products/view-products.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ViewUsersComponent } from './admin-panel/admin-main-content/view-users/view-users.component';
+import { ProfileComponent } from './profile/profile.component';
+import { SearchComponent } from './search/search.component';
+import { SearchitemComponent } from './search/searchitem/searchitem.component';
+
+
 
 @NgModule({
   declarations: [
@@ -81,7 +86,12 @@ import { ViewUsersComponent } from './admin-panel/admin-main-content/view-users/
     AdminMainContentComponent,
     AdminLoginComponent,
     ViewProductsComponent,
-    ViewUsersComponent
+    ViewUsersComponent,
+    ProfileComponent,
+    SearchComponent,
+    SearchitemComponent,
+
+    
   
 
 

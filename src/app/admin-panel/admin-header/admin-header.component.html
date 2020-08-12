@@ -1,3 +1,6 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="line-scale-pulse-out" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>
 
 
  <nav class=" header-fixed navbar navbar-expand-lg navbar-light"  style="background-color: #343a40 ; ">
@@ -16,7 +19,8 @@
          
         </ul>
         <span class="navbar-text color_white">
-         <span class="material-icons"> person</span>
+         <span class="color_white">{{UserData}}</span> &nbsp;
+         <button class="btn btn-outline-secondary bg-org color_white"  *ngIf="session" (click)="logout()"> Logout </button>
         </span>
       </div>
     </div>

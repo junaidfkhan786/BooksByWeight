@@ -23,7 +23,10 @@ export class LoginComponent implements OnInit {
   loggedIn = false;
   succ : any;
   
-    constructor( private authService: SocialAuthService, private formbuilder : FormBuilder,private loginService : LoginService,
+    constructor(
+      private authService: SocialAuthService,
+      private formbuilder : FormBuilder,
+      private loginService : LoginService,
       private router : Router
       ) { }
 

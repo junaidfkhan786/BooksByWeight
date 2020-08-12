@@ -1,14 +1,14 @@
-<div >
-    <app-admin-header (openedevent)= "receave($event)"></app-admin-header>
-    <div class="row g-0">
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="line-scale-pulse-out" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+  </ngx-spinner>
 
-        <div class="col-lg-2"  *ngIf = "!opened">
-           <app-admin-sidebar [openedside] = "opened"></app-admin-sidebar>
-        </div>
 
-        <div class="col">
-            <app-admin-main-content></app-admin-main-content>
-        </div>
-
+<app-admin-header (openedevent)="receave($event)"></app-admin-header>
+<div class="row g-0">
+    <div class="col-lg-2" *ngIf="!opened">
+        <app-admin-sidebar [openedside]="opened"></app-admin-sidebar>
+    </div>
+    <div class="col">
+        <app-admin-main-content></app-admin-main-content>
     </div>
 </div>
