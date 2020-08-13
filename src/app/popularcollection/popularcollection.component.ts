@@ -23,7 +23,7 @@ spinner : boolean = true;
     pullDrag: true,
     dots: false,
     autoplay: false,
-    autoplayTimeout: 2000,
+    autoplayTimeout: 3000,
     autoplayHoverPause: true,
     navSpeed: 700,
     navText: [
@@ -68,7 +68,7 @@ spinner : boolean = true;
   }
 
   loadbook() {
-    this.newService.getBooks().subscribe((data) => {
+    this.newService.getPopularBooks().subscribe((data) => {
       this.books$ = data;
       this.spinner = false;
 

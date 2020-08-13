@@ -108,7 +108,7 @@
         <select [(ngModel)]="selected"  class="form-select select" aria-label="Default select example">
           <option *ngFor="let select of selector" [value]="select.value" >{{select.name}}</option>
         </select>
-        <input type="text" placeholder="search..." [(ngModel)]="Searchinput" name="searchinput">
+        <input type="text" placeholder="search..." [(ngModel)]="Searchinput" name="searchinput" (keyup.enter)="search(selected,Searchinput)" >
         <button type="submit" (click)="search(selected,Searchinput)" >
           <span class="material-icons">
           search

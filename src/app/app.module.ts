@@ -53,7 +53,10 @@ import { ViewUsersComponent } from './admin-panel/admin-main-content/view-users/
 import { ProfileComponent } from './profile/profile.component';
 import { SearchComponent } from './search/search.component';
 import { SearchitemComponent } from './search/searchitem/searchitem.component';
-
+import { UserordersComponent } from './profile/userorders/userorders.component';
+import { UseraddressComponent } from './profile/useraddress/useraddress.component';
+import { UserAccountEditComponent } from './profile/user-account-edit/user-account-edit.component';
+import { ModalModule } from 'ngb-modal';
 
 
 @NgModule({
@@ -90,6 +93,9 @@ import { SearchitemComponent } from './search/searchitem/searchitem.component';
     ProfileComponent,
     SearchComponent,
     SearchitemComponent,
+    UserordersComponent,
+    UseraddressComponent,
+    UserAccountEditComponent,
 
     
   
@@ -111,7 +117,7 @@ import { SearchitemComponent } from './search/searchitem/searchitem.component';
      
     }),
     NgxSpinnerModule,
-    
+    ModalModule
 
 
   ],

@@ -25,4 +25,11 @@ export class BooksService {
   public getDetailPackage(_id: number): Observable<any> {
     return this._http.get<any[]>(`${API_LIVE}`+"/book/"+ _id);
   }
+
+  public  getPopularBooks():Observable<any> {
+
+    return this._http.get<any[]>(`${API_LIVE}`+"/book/popular");
+
+
+  }
 }

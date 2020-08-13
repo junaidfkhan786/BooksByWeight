@@ -1,37 +1,28 @@
-
-  <div class="card p-2 btc">
-    <div class="row">
-      <div class="col ">
-  <span class="font-weight-bolder org" style="font-size: large;">POPULAR COLLECTION ON BOOKS</span>
-  <span class=" float-right  button--next"  (click)="owlCar.next()">
-          <span class="material-icons org">
-            navigate_next
-            </span>
+<div class="card p-2 btc">
+  <div class="row">
+    <div class="col">
+      <span class="font-weight-bolder org" style="font-size: large;"
+        >POPULAR COLLECTION ON BOOKS</span
+      >
+      <span class="float-right button--next" (click)="owlCar1.next()">
+        <span class="material-icons org">
+          navigate_next
         </span>
-        <span class=" float-right button--previous"  (click)="owlCar.prev()" >
-          <span class="material-icons org">
-            navigate_before
-            </span>
+      </span>
+      <span class="float-right button--previous" (click)="owlCar1.prev()">
+        <span class="material-icons org">
+          navigate_before
         </span>
-  
-      </div>
-  
+      </span>
     </div>
   </div>
-
-  <owl-carousel-o [options]="customOptions" #owlCar>
-    <ng-container *ngFor="let books of books$.books"> 
-
-      <ng-template carouselSlide>
-
-        <div *ngIf="spinner" class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
-
-        <app-popularitem *ngIf="!spinner" [popularitem] = "books" [addedToWishlist]= "wid1.indexOf(books._id) >= 0 "></app-popularitem>
-    </ng-template>
-    </ng-container>
-   
+</div>
+<owl-carousel-o [options]="customOptions" #owlCar1>
+  <ng-container *ngFor="let books of books$.books">
+    <ng-template carouselSlide>
+      
+  <app-popularitem [popularitem] = "books" [addedToWishlist]= "wid1.indexOf(books._id) >= 0 "></app-popularitem>
+</ng-template>
   
-
+  </ng-container>
 </owl-carousel-o>

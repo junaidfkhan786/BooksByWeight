@@ -2,6 +2,48 @@
 
 @import '~animate.css/animate.min.css';
 
+
+textarea:focus,
+select:focus,
+textarea[type="text"]:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {   
+  border-color: #ff4136;
+  box-shadow: 0 1px 1px #ff4136 inset, 0 0 2px #ff4136;
+  outline: 0 none;
+}
+.uneditable-textarea:focus {   
+  border-color: #ff4136;
+  box-shadow: 0 1px 1px #ff4136 inset, 0 0 2px #ff4136;
+  outline: 0 none;
+}
+.uneditable-select:focus {   
+  border-color: #ff4136;
+  box-shadow: 0 1px 1px #ff4136 inset, 0 0 2px #ff4136;
+  outline: 0 none;
+}
+active {   
+  border-color: #ff4136;
+  box-shadow: 0 1px 1px #ff4136 inset, 0 0 2px #ff4136;
+  outline: 0 none;
+}
+
+
+
+
 .shadow-bottom {
   box-shadow: 0 8px 10px -6px black;
 }
@@ -21,6 +63,15 @@
 box-shadow: 0 0 5px 5px #888;
 }
 
+.altimg{
+  background-image: url('assets/images/altimg.png');
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 340px;
+  
+}
 
 #product-main-img .slick-prev {
   -webkit-transform: translateX(-15px);
@@ -145,8 +196,10 @@ body{
 .material-icons {
   display: inline-flex;
   vertical-align: top;
+  cursor: pointer;
 
 }
+
 
 .bg-f {
   background-color: #f6f6f6;

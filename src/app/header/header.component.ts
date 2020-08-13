@@ -95,7 +95,7 @@ export class HeaderComponent implements OnInit {
 
     this.querys = Searchinput + "&" + selected
     console.log(this.querys)
-    this.router.navigate(['search', { query: this.querys }]);
+    this.router.navigate(['search',{query: this.querys}]);
   }
 
 
@@ -103,7 +103,7 @@ export class HeaderComponent implements OnInit {
     this.selector = [
       { name: "Book Name", value: "book_name=1" },
       { name: "Author Name", value: "author_name=1" },
-      { name: "ISBN", value: "Isbn=1" },
+      { name: "ISBN", value: "isbn=1" },
       { name: "Publisher", value: "publisher=1" },
     ];
     this.selected = this.selector[0].value

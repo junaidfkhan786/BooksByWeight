@@ -4,12 +4,12 @@
       <span class="font-weight-bolder org" style="font-size: large;"
         >LATEST COLLECTION ON BOOKS</span
       >
-      <span class="float-right button--next" (click)="owlCar.next()">
+      <span class="float-right button--next" (click)="owlCar1.next()">
         <span class="material-icons org">
           navigate_next
         </span>
       </span>
-      <span class="float-right button--previous" (click)="owlCar.prev()">
+      <span class="float-right button--previous" (click)="owlCar1.prev()">
         <span class="material-icons org">
           navigate_before
         </span>
@@ -17,7 +17,7 @@
     </div>
   </div>
 </div>
-<owl-carousel-o [options]="customOptions" #owlCar>
+<owl-carousel-o [options]="customOptions" #owlCar1>
   <ng-container *ngFor="let books of books$.books">
     <ng-template carouselSlide>
       

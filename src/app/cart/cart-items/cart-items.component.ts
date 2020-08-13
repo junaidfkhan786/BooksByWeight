@@ -4,7 +4,6 @@ import { OrdersService } from 'src/app/services/orders.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { Orders } from 'src/app/models/orders.model';
-import { error } from '@angular/compiler/src/util';
 declare var $: any;
 @Component({
   selector: 'app-cart-items',
@@ -30,16 +29,18 @@ export class CartItemsComponent implements OnInit {
   qty: any = [];
   qty1: any = [];
   counterValue: number;
-
+  order1 : Orders = new Orders();
+  order2:any = [];
   totalw: any;
   pid1: any = [];
   message: any;
-  order2: any = [];
+
 
   constructor(
     private cart: CartService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private order: OrdersService,
   ) {
   }
   ngOnInit() {
@@ -121,7 +122,19 @@ export class CartItemsComponent implements OnInit {
       }, 1000);
     }
   }
-  checkout(){
-    window.location.assign("/checkout")
+
+  createorder(book = this.pid1, amount = this.subtotal, totalitems = this.cartitem2.length, totalweight = this.totalweight) {
+    console.log(this.pid1)
+  this.order1.book = book;
+    this.order1.amount = amount;
+    this.order1.totalitems = totalitems;
+    this.order1.totalweight = totalweight;
+    console.log(this.order1)
+    let res = this.order.postorder(this.order1);
+    res.subscribe((response) => {
+      this.order2 = response
+      console.log(this.order2)
+    })
   }
+
 }

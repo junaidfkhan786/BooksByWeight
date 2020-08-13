@@ -4,18 +4,17 @@
       <div class="content">
         <div class="content-overlay"></div>
         <img
-          class="card-img-top"
-          height="340px"
+          class="card-img-top altimg" 
           src="{{ latestitem.book_img[0] }}"
-          alt=" BOOKS "
+          alt=""
         />
+        
         <div class="content-details fadeIn-bottom">
           <h3 class="content-title">
             <a
               target="_blank"
               style="color: black; cursor: pointer;"
-              (click)="productHome(latestitem._id)"
-            >
+              (click)="productHome(latestitem._id)">
               <span class="material-icons org">
                 add &nbsp;&nbsp;
               </span>
@@ -24,25 +23,20 @@
             <a style="color: black;" (click)="addCart(latestitem._id,latestitem.selling_price,latestitem.weight)">
               <span class="material-icons org">
                 add_shopping_cart &nbsp;&nbsp;
-              </span></a
-            ><a *ngIf="!addedToWishlist"
+              </span></a><a *ngIf="!addedToWishlist"
               ><span
                 (click)="addWish(latestitem._id)"
                 style="color: black; cursor: pointer;"
-                class="material-icons org"
-              >
+                class="material-icons org">
                 favorite_border
-              </span></a
-            >
+              </span></a >
             <a *ngIf="addedToWishlist"
               ><span
                 (click)="deletePro(latestitem._id)"
                 style="color: black; cursor: pointer;"
-                class="material-icons org"
-              >
+                class="material-icons org">
                 favorite
-              </span></a
-            >
+              </span></a >
           </h3>
         </div>
       </div>
@@ -50,8 +44,7 @@
 
     <div
       class="text-center"
-      style="text-align: center; padding: 0px 20px 0px 20px;"
-    >
+      style="text-align: center; padding: 0px 20px 0px 20px;" >
       {{ latestitem.book_name }}
       <br />
     </div>
@@ -65,4 +58,4 @@
     </div>
   </div>
 </div>
-<
+
