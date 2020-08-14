@@ -1,10 +1,13 @@
 export class useradd{
+
         mobileNumber:number;
-        pincode:number;
-        locality:string;
+        pinCode:number;
+        fullName:string;
         address:string;
         city:string;
         state:string;
         landmark:string;
         alternatePhoneNumber:number;   
+
+
 }

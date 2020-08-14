@@ -72,4 +72,19 @@ export class UserAddressService {
    }
   }
 
+  public deladd():Observable<any>{
+   
+
+    const httpOptionsauth = {
+     
+     headers: new HttpHeaders({
+       'Authorization': 'Bearer ' + localStorage.getItem('User').slice(1,-1)
+  
+     })
+   }
+   if(localStorage.getItem('User') != null){
+  return this.http.delete(`${API_LIVE}`+"/userAdd/address",httpOptionsauth);
+   }
+  }
+
 }

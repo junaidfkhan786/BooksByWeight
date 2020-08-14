@@ -4,6 +4,7 @@ import { OrdersService } from 'src/app/services/orders.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { Orders } from 'src/app/models/orders.model';
+import { UserAddressService } from 'src/app/services/user-address.service';
 declare var $: any;
 @Component({
   selector: 'app-cart-items',
@@ -29,11 +30,12 @@ export class CartItemsComponent implements OnInit {
   qty: any = [];
   qty1: any = [];
   counterValue: number;
-  order1 : Orders = new Orders();
-  order2:any = [];
+  order1: Orders = new Orders();
+  order2: any = [];
   totalw: any;
   pid1: any = [];
   message: any;
+  address1_id: any;
 
 
   constructor(
@@ -41,9 +43,11 @@ export class CartItemsComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private order: OrdersService,
+    private gettingadd: UserAddressService,
   ) {
   }
   ngOnInit() {
+    this.getadd();
     this.loadcart();
     this.jquery_code();
   }
@@ -123,18 +127,35 @@ export class CartItemsComponent implements OnInit {
     }
   }
 
-  createorder(book = this.pid1, amount = this.subtotal, totalitems = this.cartitem2.length, totalweight = this.totalweight) {
+  createorder( addressid = this.address1_id, book = this.pid1, amount = this.subtotal, totalitems = this.cartitem2.length, totalweight = this.totalweight) {
+
+
     console.log(this.pid1)
-  this.order1.book = book;
+    this.order1.book = book;
     this.order1.amount = amount;
     this.order1.totalitems = totalitems;
     this.order1.totalweight = totalweight;
-    console.log(this.order1)
-    let res = this.order.postorder(this.order1);
-    res.subscribe((response) => {
-      this.order2 = response
-      console.log(this.order2)
+    console.log(this.address1_id,this.order1)
+  //   let res = this.order.postorder(addressid,this.order1);
+  //   res.subscribe((response) => {
+  //     this.order2 = response
+  //     console.log(this.order2)
+  //   })
+  //   this.router.navigate[('checkout')];
+  }
+
+  getadd() {
+    this.gettingadd.getaddress().subscribe((resp) => {
+
+      this.address1_id = resp.address._id
+
+
+    }, (error) => {
+
+
+
     })
+
   }
 
 }

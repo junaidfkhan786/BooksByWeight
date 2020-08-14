@@ -4,6 +4,9 @@ import { UserAddressService } from './../../services/user-address.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { ModalManager } from 'ngb-modal';
+import { interval } from 'rxjs';
+import { HttpUrlEncodingCodec } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-useraddress',
@@ -15,10 +18,8 @@ export class UseraddressComponent implements OnInit {
   id:any;
   private modalRef;
   message: any;
-  add: useradd = new useradd();
-  div1: boolean = false;
-  div2: boolean = true;
-  messageadd: string;
+  add:useradd;
+    messageadd: string;
   err_message: string;
   Error = false;
   succ_message: string;
@@ -29,18 +30,21 @@ export class UseraddressComponent implements OnInit {
   public city: any;
   public state: any;
   public landmark: any;
-  public locality: any;
+  public fullName: any;
   public pincode: any;
   address1: any = [];
+  div:boolean;
   constructor(
     private gettingadd: UserAddressService,
-    private modalService: ModalManager
-  ) { }
+    private modalService: ModalManager,
+    private toastr: ToastrService,
+  ) { this.add = new useradd(); }
 
   ngOnInit(): void {
-    this.div1 = false;
-    this.div2 = true;
-    this.getadd();
+
+        this.getadd();
+ 
+   
 
   }
 
@@ -66,6 +70,17 @@ export class UseraddressComponent implements OnInit {
 
     this.id = id;
 }
+del(){
+
+    // return confirm("are you sure?");
+    this.gettingadd.deladd().subscribe((del) => {
+      this.toastr.error('Address Has Been Remove', 'BooksByWeight', {
+        timeOut: 1000,
+      });
+      window.location.reload()
+    })
+  
+}
 closeModal(){
     this.modalService.close(this.modalRef);
     //or this.modalRef.close();
@@ -75,47 +90,47 @@ closeModal(){
     this.gettingadd.getaddress().subscribe((resp) => {
 
       this.address1 = resp
-
-      console.log(this.address1)
+     
 
     }, (error) => {
 
-      this.message = error.error
-      console.log(this.message)
+if(error){
+  this.div = !this.div
+}
+
     })
 
   }
 
   submitadd() {
 
+
     let resp = this.gettingadd.postadd(this.add)
     resp.subscribe((response) => {
 
       console.log(response)
+      window.location.reload()
     }, (error) => {
       this.messageadd = error.error.message
       console.log(this.messageadd)
     })
-
-    this.div1 = false
-    this.div2 = true
+   
 
 
   }
-  addaddress() {
-    this.div1 = true
-    this.div2 = false
-  }
+
 edit(){
-  
-  let resp = this.gettingadd.editadd(this.id,this.add)
-  resp.subscribe((response) => {
+  console.log(this.id,this.add)
 
-    console.log(response)
-  }, (error) => {
-    this.messageadd = error.error.message
-    console.log(this.messageadd)
-  })
+  // let resp = this.gettingadd.editadd(this.id,this.add)
+  // resp.subscribe((response) => {
+
+  //   console.log(response)
+  // }, (error) => {
+  //   this.messageadd = error.error.message
+  //   console.log(this.messageadd)
+  // })
 
 }
+
 }

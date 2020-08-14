@@ -105,7 +105,13 @@ const routes: Routes = [
   {
     path : 'profile',
     component : ProfileComponent
+  },
+  {
+    path : 'profile/edit-add',
+    component : ProfileComponent
   }
+
+
 
 ];
 @NgModule({
