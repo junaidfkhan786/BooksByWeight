@@ -73,12 +73,13 @@ del(){
     confirmButtonText: 'Yes, delete it!',
     cancelButtonText: 'No, keep it'
   }).then((result) => {
-    this.gettingadd.deladd().subscribe((del) => {
-      this.toastr.error('Address Has Been Remove', 'BooksByWeight', {
-        timeOut: 1000,
-      });
-    })
+
     if (result.value) {
+      this.gettingadd.deladd().subscribe((del) => {
+        this.toastr.error('Address Has Been Remove', 'BooksByWeight', {
+          timeOut: 1000,
+        });
+      })
     Swal.fire(
       'Deleted!',
       'Your imaginary file has been deleted.',
@@ -89,7 +90,7 @@ del(){
     } else if (result.dismiss === Swal.DismissReason.cancel) {
     Swal.fire(
       'Cancelled',
-      'Your imaginary file is safe :)',
+      'Your imaginary Address is safe :)',
       'error'
     )
     }
