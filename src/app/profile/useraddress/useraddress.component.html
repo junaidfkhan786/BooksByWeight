@@ -1,3 +1,7 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="line-scale-pulse-out" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+  </ngx-spinner>
+
 <div class="row g-2">
     <div class="col-md" [hidden] = "!div">
 
@@ -7,16 +11,14 @@
                 </span>
             </div>
             <br>
-            <div class="alert alert-danger" *ngIf="Error">{{messageadd}}</div>
-            <div class="alert alert-success" *ngIf="Success">{{succ_message}}</div>
             <form #addform="ngForm" id="address">
                 <div class="input-group">
                     <input [(ngModel)]="add.fullName" name="fullName" type="text" class="form-control"
                         placeholder="Enter Full Name" #fullName required>
                 </div>
-                <br>
-                <div class="row">
-                    <div class="col">
+            <br>
+                <div class="row g-2">
+                    <div class="col-md-12">
                         <div class="input-group">
                             <input  [(ngModel)]="add.mobileNumber" type="text" name="mobileNumber" class="form-control"
                                 placeholder="Enter Phone-Number"
@@ -24,7 +26,7 @@
                                 autocomplete="off" maxlength="10" #mobileNumber required>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-md-12">
                         <div class="input-group">
                             <input [(ngModel)]="add.alternatePhoneNumber" name="alternatePhoneNumber" type="text"
                                 class="form-control" placeholder="Enter Alternate Phone-Number"
@@ -40,26 +42,26 @@
                         placeholder="Enter Address" #address required></textarea>
                 </div>
                 <br>
-                <div class="row">
+                <div class="row g-2">
                     <div class="col">
                         <div class="input-group">
                             <input [(ngModel)]="add.state" name="state" type="text" class="form-control"
                                 placeholder="Enter State" #state required>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-md-4">
                         <div class="input-group">
                             <input [(ngModel)]="add.city" name="city" type="text" class="form-control"
                                 placeholder="Enter City" #city required>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-md-4">
                         <div class="input-group">
                             <input [(ngModel)]="add.landmark" name="landmark" type="text" class="form-control"
                                 placeholder="Enter Landmark" #landmark required>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-md-4">
                         <div class="input-group">
                             <input [(ngModel)]="add.pinCode" name="pinCode" type="text" class="form-control"
                                 placeholder="Enter Pin-Code" #pinCode required>
@@ -126,8 +128,7 @@
         </table>
 
             <div style="float: right;">
-                <button class="btn btn-success" *ngIf="!button" (click)="showadd()">Add Address</button>
-                <button class="btn btn-success" *ngIf="button" (click)="showadd()">Hide Address Form</button>
+                <button class="btn btn-success" [hidden] = "address1.address.length == 2" (click)="showadd()">{{!button?'Show Address Form' : 'Hide Address Form'}}</button>
             </div>
         
 
