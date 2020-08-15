@@ -1,99 +1,110 @@
-<div>
-
-    <div class="row p-2" *ngIf="address1">
-
-        <div class="card p-1 shadow-box" *ngIf="address1.address">
-
-            <div class="row">
-                <div class="col">
-                    <span>Full Name: {{address1.address.fullName}} </span>
+<div class="row">
+    <div class="col-md" *ngIf="div">
+        <div >
+            <div class="card p-2 btc">
+                <span class="font-weight-bolder org text-center" style="font-size: large;">ADDRESS
+                </span>
+            </div>
+            <br>
+            <div class="alert alert-danger" *ngIf="Error">{{messageadd}}</div>
+            <div class="alert alert-success" *ngIf="Success">{{succ_message}}</div>
+            <form #addform="ngForm" id="address">
+                <div class="input-group">
+                    <input [(ngModel)]="add.fullName" name="fullname" type="text" class="form-control"
+                        placeholder="Enter Full Name" required>
                 </div>
-                <div class="col text-right">
-                    <span class="material-icons" (click)="on()" (click)="openModal()">create</span>
-                    &nbsp; <span class="material-icons" (click)="del()">close</span>
+                <br>
+                <div class="row">
+                    <div class="col">
+                        <div class="input-group">
+                            <input [(ngModel)]="add.mobileNumber" type="text" name="mobileNumber" class="form-control"
+                                placeholder="Enter Phone-Number"
+                                onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;" autocomplete="off"
+                                maxlength="10" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="input-group">
+                            <input [(ngModel)]="add.alternatePhoneNumber" name="alternatePhoneNumber" type="text"
+                                class="form-control" placeholder="Enter Alternate Phone-Number" aria-label="mobile-number"
+                                onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;" autocomplete="off"
+                                maxlength="10" required>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="input-group">
+                    <textarea [(ngModel)]="add.address" name="address" type="text" class="form-control"
+                        placeholder="Enter Address" required></textarea>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col">
+                        <div class="input-group">
+                            <input [(ngModel)]="add.state" name="state" type="text" class="form-control"
+                                placeholder="Enter State" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="input-group">
+                            <input [(ngModel)]="add.city" name="city" type="text" class="form-control" placeholder="Enter City"
+                                required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="input-group">
+                            <input [(ngModel)]="add.landmark" name="landmark" type="text" class="form-control"
+                                placeholder="Enter Landmark" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="input-group">
+                            <input [(ngModel)]="add.pinCode" name="pincode" type="text" class="form-control"
+                                placeholder="Enter Pin-Code" required>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-success" [disabled]="addform.invalid" style="border-radius: 0;"
+                        (click)="submitadd();"> Submit </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <div class="col-md" *ngIf="but">
+        <div>
+
+            <div class="row p-2" *ngIf="address1">
+        
+                <div class="card p-1 shadow-box" *ngIf="address1.address">
+        
+                    <div class="row">
+                        <div class="col">
+                            <span>Full Name: {{address1.address.fullName}} </span>
+                        </div>
+                        <div class="col text-right">
+                            <span class="material-icons" (click)="on()" (click)="openModal()">create</span>
+                            &nbsp; <span class="material-icons" (click)="del()">close</span>
+                        </div>
+                    </div>
+                    <span>Mob No : {{address1.address.mobileNumber}} </span>
+        
+                    <span>Alt Mob No : {{address1.address.alternatePhoneNumber}}</span>
+                    <span>Address : {{address1.address.address }} {{address1.address.landmark}} {{address1.address.city}}
+                        {{address1.address.state}}</span>
+        
                 </div>
             </div>
-            <span>Mob No : {{address1.address.mobileNumber}} </span>
-
-            <span>Alt Mob No : {{address1.address.alternatePhoneNumber}}</span>
-            <span>Address : {{address1.address.address }} {{address1.address.landmark}} {{address1.address.city}}
-                {{address1.address.state}}</span>
-
+            <br>
+        <div style="float: right;" >
+            <button class="btn btn-outline-success" (click)="showadd()" >Add Address</button>
         </div>
+        </div>
+ 
     </div>
-    <br>
-
-
 </div>
 
-<div *ngIf="div">
-    <div class="card p-2 btc">
-        <span class="font-weight-bolder org text-center" style="font-size: large;">ADDRESS
-        </span>
-    </div>
-    <br>
-    <div class="alert alert-danger" *ngIf="Error">{{messageadd}}</div>
-    <div class="alert alert-success" *ngIf="Success">{{succ_message}}</div>
-    <form #addform="ngForm" id="address">
-        <div class="input-group">
-            <input [(ngModel)]="add.fullName" name="fullname" type="text" class="form-control"
-                placeholder="Enter Full Name" required>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col">
-                <div class="input-group">
-                    <input [(ngModel)]="add.mobileNumber" type="text" name="mobileNumber" class="form-control"
-                        placeholder="Enter Phone-Number"
-                        onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;" autocomplete="off"
-                        maxlength="10" required>
-                </div>
-            </div>
-            <div class="col">
-                <div class="input-group">
-                    <input [(ngModel)]="add.alternatePhoneNumber" name="alternatePhoneNumber" type="text"
-                        class="form-control" placeholder="Enter Alternate Phone-Number" aria-label="mobile-number"
-                        onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;" autocomplete="off"
-                        maxlength="10" required>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="input-group">
-            <textarea [(ngModel)]="add.address" name="address" type="text" class="form-control"
-                placeholder="Enter Address" required></textarea>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col">
-                <div class="input-group">
-                    <input [(ngModel)]="add.state" name="state" type="text" class="form-control"
-                        placeholder="Enter State" required>
-                </div>
-            </div>
-            <div class="col">
-                <div class="input-group">
-                    <input [(ngModel)]="add.city" name="city" type="text" class="form-control" placeholder="Enter City"
-                        required>
-                </div>
-            </div>
-            <div class="col">
-                <div class="input-group">
-                    <input [(ngModel)]="add.landmark" name="landmark" type="text" class="form-control"
-                        placeholder="Enter Landmark" required>
-                </div>
-            </div>
-            <div class="col">
-                <div class="input-group">
-                    <input [(ngModel)]="add.pinCode" name="pincode" type="text" class="form-control"
-                        placeholder="Enter Pin-Code" required>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="d-flex justify-content-center">
-            <button class="btn btn-success" [disabled]="addform.invalid" style="border-radius: 0;"
-                (click)="submitadd();"> Submit </button>
-        </div>
-    </form>
-</div>
+
+

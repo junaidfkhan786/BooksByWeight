@@ -28,7 +28,10 @@ bookimg :any [] = [];
 
   ngAfterViewInit() {
 
-    this.loadslick();
+    setInterval(() =>{
+ this.loadslick();
+    },1000)
+   
   }
 
   loadslick(){
@@ -44,7 +47,7 @@ bookimg :any [] = [];
   
       // Product imgs Slick
       $('#product-imgs').slick({
-        slidesToShow: 3,
+        slidesToShow: 5,
         slidesToScroll: 1,
         arrows: true,
         centerMode: true,

@@ -1,13 +1,9 @@
 import { useradd } from './../../models/useraddress.model';
-
 import { UserAddressService } from './../../services/user-address.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-
 import { ModalManager } from 'ngb-modal';
-import { interval } from 'rxjs';
-import { HttpUrlEncodingCodec } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
-
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 @Component({
   selector: 'app-useraddress',
   templateUrl: './useraddress.component.html',
@@ -34,27 +30,26 @@ export class UseraddressComponent implements OnInit {
   public pincode: any;
   address1: any = [];
   div:boolean;
+  but :boolean;
   constructor(
     private gettingadd: UserAddressService,
     private modalService: ModalManager,
     private toastr: ToastrService,
   ) { this.add = new useradd(); }
-
   ngOnInit(): void {
-
+    this.div = false
+    this.but = !false
+    this.gettingadd.getrefresuser().subscribe(() => {
+      this.getadd();
+    })
         this.getadd();
- 
-   
-
   }
-
   on() {
     document.getElementById('overlay').style.display = 'block';
   }
   off() {
     document.getElementById('overlay').style.display = 'none';
   }
-
   openModal(id){
     this.modalRef = this.modalService.open(this.myModal, {
         size: "lg",
@@ -67,70 +62,78 @@ export class UseraddressComponent implements OnInit {
         closeOnOutsideClick: false,
         backdropClass: "modal-backdrop"
     })
-
     this.id = id;
 }
 del(){
-
-    // return confirm("are you sure?");
+  Swal.fire({
+    title: 'Are you sure?',
+    text: '',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'No, keep it'
+  }).then((result) => {
     this.gettingadd.deladd().subscribe((del) => {
       this.toastr.error('Address Has Been Remove', 'BooksByWeight', {
         timeOut: 1000,
       });
-      window.location.reload()
     })
-  
+    if (result.value) {
+    Swal.fire(
+      'Deleted!',
+      'Your imaginary file has been deleted.',
+      'success'
+    )
+    // For more information about handling dismissals please visit
+    // https://sweetalert2.github.io/#handling-dismissals
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+    Swal.fire(
+      'Cancelled',
+      'Your imaginary file is safe :)',
+      'error'
+    )
+    }
+  })
+
+
 }
 closeModal(){
     this.modalService.close(this.modalRef);
     //or this.modalRef.close();
 }
-
   getadd() {
     this.gettingadd.getaddress().subscribe((resp) => {
-
       this.address1 = resp
-     
-
     }, (error) => {
-
 if(error){
   this.div = !this.div
+  this.but = !this.but
 }
-
     })
-
   }
-
   submitadd() {
-
-
     let resp = this.gettingadd.postadd(this.add)
     resp.subscribe((response) => {
-
       console.log(response)
-      window.location.reload()
+      this.div = false;
+      this.but = true;
+      
     }, (error) => {
       this.messageadd = error.error.message
       console.log(this.messageadd)
     })
-   
-
-
   }
-
 edit(){
   console.log(this.id,this.add)
-
   // let resp = this.gettingadd.editadd(this.id,this.add)
   // resp.subscribe((response) => {
-
   //   console.log(response)
   // }, (error) => {
   //   this.messageadd = error.error.message
   //   console.log(this.messageadd)
   // })
-
 }
-
+showadd(){
+  this.div = !this.div
+}
 }

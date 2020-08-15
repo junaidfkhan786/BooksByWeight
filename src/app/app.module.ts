@@ -59,6 +59,7 @@ import { UserAccountEditComponent } from './profile/user-account-edit/user-accou
 import { ModalModule } from 'ngb-modal';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -96,6 +97,7 @@ import { ModalModule } from 'ngb-modal';
     UserordersComponent,
     UseraddressComponent,
     UserAccountEditComponent,
+    
 
     
   
