@@ -1,6 +1,6 @@
 import { useradd } from './../../models/useraddress.model';
 import { UserAddressService } from './../../services/user-address.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { NgForm } from '@angular/forms';
@@ -10,7 +10,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   templateUrl: './useraddress.component.html',
   styleUrls: ['./useraddress.component.css']
 })
-export class UseraddressComponent implements OnInit {
+export class UseraddressComponent implements OnInit, OnDestroy  {
   @ViewChild('addform') addform: NgForm;
   button: boolean;
   formbutton: boolean;
@@ -25,6 +25,7 @@ export class UseraddressComponent implements OnInit {
   address1: any = [];
   div: boolean;
   but: boolean;
+  length: any;
   constructor(
     private spinner: NgxSpinnerService,
     private gettingadd: UserAddressService,
@@ -41,10 +42,7 @@ export class UseraddressComponent implements OnInit {
       this.spinner.hide();
     })
     this.getadd();
-    if(this.address1.address.length == 2){
-      this.button = false
 
-    }
   }
   del(id) {
     Swal.fire({
@@ -82,11 +80,13 @@ export class UseraddressComponent implements OnInit {
   getadd() {
     this.gettingadd.getaddress().subscribe((resp) => {
       this.address1 = resp
+      this.length = this.address1.address.length;
       this.spinner.hide();
       if (this.address1.address.length == 0) {
         this.div = !this.div
-        this.but = !this.but
+        this.but = !this.but       
       }
+
     }, (error) => {
       if (error) {
         this.message = error.message
@@ -143,6 +143,7 @@ export class UseraddressComponent implements OnInit {
     this.formbutton = false
     this.addform.resetForm();
   }
-  ngOnDestroy(): void {
+  ngOnDestroy() {
+
   }
 }
