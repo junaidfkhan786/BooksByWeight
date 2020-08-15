@@ -132,7 +132,7 @@ import { ModalModule } from 'ngb-modal';
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              '630153345580-29pt86oukbipoj7sj3ofrhrdl5895rvq.apps.googleusercontent.com'
+              '334203302088-4gg488g1vi31oeolhoc3u4jbva686rt6.apps.googleusercontent.com'
             ),
           },
           {

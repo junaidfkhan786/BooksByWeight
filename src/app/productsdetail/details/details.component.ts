@@ -28,9 +28,8 @@ bookimg :any [] = [];
 
   ngAfterViewInit() {
 
-    setInterval(() =>{
  this.loadslick();
-    },1000)
+
    
   }
 

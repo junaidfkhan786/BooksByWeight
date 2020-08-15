@@ -1,18 +1,21 @@
 import { useradd } from './../../models/useraddress.model';
 import { UserAddressService } from './../../services/user-address.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ModalManager } from 'ngb-modal';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-useraddress',
   templateUrl: './useraddress.component.html',
   styleUrls: ['./useraddress.component.css']
 })
 export class UseraddressComponent implements OnInit {
-  @ViewChild('myModal') myModal;
-  id:any;
-  private modalRef;
+  @ViewChild('addform') addform:NgForm;
+  button : boolean;
+  formbutton:boolean;
+addid:any;
+
   message: any;
   add:useradd;
     messageadd: string;
@@ -20,51 +23,27 @@ export class UseraddressComponent implements OnInit {
   Error = false;
   succ_message: string;
   Success = false;
-  public mobileNumber: any;
-  public alternatePhoneNumber: any;
-  public address: any;
-  public city: any;
-  public state: any;
-  public landmark: any;
-  public fullName: any;
-  public pincode: any;
+
   address1: any = [];
   div:boolean;
   but :boolean;
   constructor(
     private gettingadd: UserAddressService,
-    private modalService: ModalManager,
     private toastr: ToastrService,
-  ) { this.add = new useradd(); }
+  ) {
+     this.add = new useradd();
+     }
+
   ngOnInit(): void {
     this.div = false
-    this.but = !false
+    this.but = true
     this.gettingadd.getrefresuser().subscribe(() => {
       this.getadd();
     })
         this.getadd();
   }
-  on() {
-    document.getElementById('overlay').style.display = 'block';
-  }
-  off() {
-    document.getElementById('overlay').style.display = 'none';
-  }
-  openModal(id){
-    this.modalRef = this.modalService.open(this.myModal, {
-        size: "lg",
-        modalClass: 'mymodal',
-        hideCloseButton: true,
-        centered: true,
-        backdrop: false,
-        animation: true,
-        keyboard: false,
-        closeOnOutsideClick: false,
-        backdropClass: "modal-backdrop"
-    })
-    this.id = id;
-}
-del(){
+
+del(id){
   Swal.fire({
     title: 'Are you sure?',
     text: '',
@@ -75,10 +54,8 @@ del(){
   }).then((result) => {
 
     if (result.value) {
-      this.gettingadd.deladd().subscribe((del) => {
-        this.toastr.error('Address Has Been Remove', 'BooksByWeight', {
-          timeOut: 1000,
-        });
+      this.gettingadd.deladd(id).subscribe((del) => {
+       
       })
     Swal.fire(
       'Deleted!',
@@ -98,43 +75,73 @@ del(){
 
 
 }
-closeModal(){
-    this.modalService.close(this.modalRef);
-    //or this.modalRef.close();
-}
+
   getadd() {
     this.gettingadd.getaddress().subscribe((resp) => {
       this.address1 = resp
+      console.log(this.address1)
     }, (error) => {
 if(error){
+  this.message = error.message
+  console.log(this.message)
   this.div = !this.div
   this.but = !this.but
+  
 }
     })
   }
   submitadd() {
+ if(this.addform.valid){
+
+  if(this.formbutton){
+    let respedit = this.gettingadd.editaddress(this.addid,this.add);
+    respedit.subscribe((res)=>{
+     this.addform.resetForm();
+     this.formbutton = false
+    })
+  }else{
     let resp = this.gettingadd.postadd(this.add)
     resp.subscribe((response) => {
       console.log(response)
       this.div = false;
       this.but = true;
+      this.formbutton = false
       
     }, (error) => {
       this.messageadd = error.error.message
       console.log(this.messageadd)
     })
   }
-edit(){
-  console.log(this.id,this.add)
-  // let resp = this.gettingadd.editadd(this.id,this.add)
-  // resp.subscribe((response) => {
-  //   console.log(response)
-  // }, (error) => {
-  //   this.messageadd = error.error.message
-  //   console.log(this.messageadd)
-  // })
+  
+ }
+  }
+
+ 
+
+edit(add ){
+  console.log(add)
+  this.button = true
+  this.formbutton = true
+  this.div= true
+
+  this.addform.setValue({
+    fullName: add.fullName,
+    mobileNumber : add.mobileNumber,
+    alternatePhoneNumber : add.alternatePhoneNumber,
+    address : add.address,
+    state : add.state,
+    city   : add.city,
+    landmark : add.landmark,
+    pinCode  : add.pinCode
+
+  })
+  this.addid = add._id 
 }
+
 showadd(){
   this.div = !this.div
+  this.button = !this.button
+  this.formbutton = false
+  this.addform.resetForm();
 }
 }

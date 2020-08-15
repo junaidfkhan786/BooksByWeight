@@ -13,7 +13,7 @@
         </tr>
         <tr style="border-width: 1px;" *ngFor="let item of productItem.cart">
           <td style="border-width: 1px;">
-            <a><img src="{{ item.book.book_img[0] }}" class="high" /></a>
+            <a (click)="productHome(item.book._id)"><img src="{{ item.book.book_img[0] }}" class="high" /></a>
           </td>
           <td style="border-width: 1px;">
             <a href="#" style="

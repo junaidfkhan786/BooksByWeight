@@ -54,6 +54,11 @@ export class CartItemsComponent implements OnInit {
   jquery_code() {
     $(document).ready(function () { });
   }
+
+  productHome(_id) {
+    this.router.navigate(['details/' + _id]);
+  }
+  
   loadcart() {
     this.cart.getCart().subscribe((data) => {
       this.book$ = data;

@@ -36,7 +36,7 @@ export class UserAddressService {
     return this.http.get<any>(`${API_LIVE}` + "/userAdd/get-addresses", httpOptionsauth);
   }
 
-  public editaddress() {
+  public editaddress(id, editadd: useradd) {
 
 
     const httpOptionsauth = {
@@ -48,7 +48,11 @@ export class UserAddressService {
       })
     }
     if (localStorage.getItem('User') != null) {
-      return this.http.put(`${API_LIVE}` + "/userAdd/address/" + localStorage.getItem('User').slice(1, -1), httpOptionsauth);
+      return this.http.post(`${API_LIVE}` + "/userAdd/new-address?add="+id,editadd, httpOptionsauth).pipe(
+        tap(() => {
+          this.userrefresh.next();
+        })
+      );
     }
   }
   public postadd(add: useradd): Observable<any> {
@@ -69,7 +73,7 @@ export class UserAddressService {
     }
   }
 
-  public editadd(id, add: useradd): Observable<any> {
+  public deladd(id): Observable<any> {
 
 
     const httpOptionsauth = {
@@ -80,22 +84,7 @@ export class UserAddressService {
       })
     }
     if (localStorage.getItem('User') != null) {
-      return this.http.put(`${API_LIVE}` + "/userAdd/address/" + id, add, httpOptionsauth);
-    }
-  }
-
-  public deladd(): Observable<any> {
-
-
-    const httpOptionsauth = {
-
-      headers: new HttpHeaders({
-        'Authorization': 'Bearer ' + localStorage.getItem('User').slice(1, -1)
-
-      })
-    }
-    if (localStorage.getItem('User') != null) {
-      return this.http.delete(`${API_LIVE}` + "/userAdd/address", httpOptionsauth).pipe(
+      return this.http.delete(`${API_LIVE}` + "/userAdd/address/"+id, httpOptionsauth).pipe(
         tap(() => {
           this.userrefresh.next();
         })

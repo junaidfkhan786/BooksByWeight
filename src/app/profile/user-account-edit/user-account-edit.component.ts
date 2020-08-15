@@ -22,7 +22,7 @@ user1:AudioNode;
   this.useredit.getuser().subscribe((user) => {
     
     this.user1 = user
-    console.log(this.user1);
+   
   })
   }
 
