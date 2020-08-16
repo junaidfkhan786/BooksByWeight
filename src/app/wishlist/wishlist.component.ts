@@ -24,6 +24,10 @@ export class WishlistComponent implements OnInit {
        private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
+    
+    this.wish.getwishlistload().subscribe(() => {
+      this.loadwish();
+    })
 this.loadwish();
 this.jquery_code();
 
@@ -59,9 +63,7 @@ this.jquery_code();
   public deletePro(WishlistId){
   this.wish.deleteProduct(WishlistId).subscribe(res => {
     this.toastr.error('Product Has Been Remove', 'BooksByWeight', { timeOut: 2000 });
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000);
+
   });
 }
 

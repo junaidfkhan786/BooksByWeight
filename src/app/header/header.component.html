@@ -76,7 +76,7 @@
           <span class="material-icons">
             favorite_border
             </span>
-            <span *ngIf="book$.books "  class="badge rounded-pill bg-danger">{{book$.books.length}}</span>
+            <span *ngIf="length1 >= 0 "  class="badge rounded-pill bg-danger">{{length1}}</span>
         </a>
       </li>
       <li class="nav-item">
@@ -84,7 +84,7 @@
           <span class="material-icons">
             add_shopping_cart
             </span>
-            <span *ngIf="cartlen > 0"  class="badge rounded-pill bg-danger">{{book1$.cartItems[0].cart.length}}</span>
+            <span *ngIf="cartlen >= 0"  class="badge rounded-pill bg-danger">{{book1$.cartItems[0].cart.length}}</span>
         </a>
       </li>
       <li class="nav-item">

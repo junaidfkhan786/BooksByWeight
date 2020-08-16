@@ -98,9 +98,6 @@ export class CartItemsComponent implements OnInit {
       this.toastr.error('Product Has Been Remove', 'BooksByWeight', {
         timeOut: 1000,
       });
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
     });
   }
   increment(quantity, _id, price, weight) {
@@ -112,9 +109,7 @@ export class CartItemsComponent implements OnInit {
           timeOut: 1000,
         });
       });
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+
     }
   }
   decrement(quantity, _id, price, weight) {
@@ -126,9 +121,7 @@ export class CartItemsComponent implements OnInit {
           timeOut: 1000,
         });
       });
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+
     }
   }
 

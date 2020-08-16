@@ -31,6 +31,7 @@ export class HeaderComponent implements OnInit {
   selector: any = [];
   selected: any;
   Searchinput: any;
+  length1:any;
   constructor(
     private wish: WishlistService,
     private cart: CartService,
@@ -42,18 +43,23 @@ export class HeaderComponent implements OnInit {
 
     this.selection();
     if (localStorage.getItem('User') != null) {
-      setInterval(() => {
-        this.loadwish();
+      this.cart.getcartload().subscribe(() => {
         this.loadcart();
-      }, 1000);
+      })
+      this.wish.getwishlistload().subscribe(() => {
+        this.loadwish();
+      })
+      this.loadwish();
+      this.loadcart();
     }
     this.jquery_code();
     this.isLogin();
   }
   loadwish() {
     this.wish.getwish().subscribe((data) => {
+  
       this.book$ = data;
-      //  this.length = this.book$.books.length;
+       this.length1 = this.book$.books.length;
     });
   }
   loadcart() {

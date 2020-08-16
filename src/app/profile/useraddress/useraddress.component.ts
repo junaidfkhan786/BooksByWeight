@@ -34,15 +34,17 @@ export class UseraddressComponent implements OnInit, OnDestroy  {
     this.add = new useradd();
   }
   ngOnInit(): void {
+    this.button = true
     this.spinner.show();
     this.div = false
     this.but = true
+    if(localStorage.getItem('User') !=null){
     this.gettingadd.getrefresuser().subscribe(() => {
       this.getadd();
       this.spinner.hide();
     })
     this.getadd();
-
+  }
   }
   del(id) {
     Swal.fire({
@@ -112,7 +114,8 @@ export class UseraddressComponent implements OnInit, OnDestroy  {
         resp.subscribe((response) => {
           this.div = false;
           this.but = true;
-          this.formbutton = false
+          this.formbutton = true
+          this.button = true
           this.spinner.show();
         }, (error) => {
           this.messageadd = error.error.message

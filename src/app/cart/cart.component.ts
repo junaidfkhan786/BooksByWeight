@@ -22,6 +22,9 @@ export class CartComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.cart.getcartload().subscribe(() => {
+      this.loadcart();
+    })
     this.loadcart();
 
     this.jquery_code();

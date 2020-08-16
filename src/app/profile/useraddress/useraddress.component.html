@@ -63,7 +63,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <input [(ngModel)]="add.pinCode" name="pinCode" type="text" class="form-control"
+                            <input [(ngModel)]="add.pinCode" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;" name="pinCode" type="text" class="form-control"
                                 placeholder="Enter Pin-Code" #pinCode required>
                         </div>
                     </div>
@@ -128,7 +128,7 @@
         </table>
 
             <div style="float: right;">
-                <button class="btn btn-success" [hidden] = "length == 2" (click)="showadd()">{{!button?'Add Address' : 'Hide Address Form'}}</button>
+                <button class="btn btn-success" [hidden] = "length == 3" (click)="showadd()">{{button?'Add Address' : 'Hide Address Form'}}</button>
             </div>
         
 

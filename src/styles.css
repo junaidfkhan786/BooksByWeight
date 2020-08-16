@@ -25,23 +25,23 @@ input[type="search"]:focus,
 input[type="tel"]:focus,
 input[type="color"]:focus,
 .uneditable-input:focus {   
-  border-color: #ff4136;
-  box-shadow: 0 1px 1px #ff4136 inset, 0 0 2px #ff4136;
+  border-color: none;
+  box-shadow: none;
   outline: 0 none;
 }
 .uneditable-textarea:focus {   
-  border-color: #ff4136;
-  box-shadow: 0 1px 1px #ff4136 inset, 0 0 2px #ff4136;
+  border-color: none;
+  box-shadow: none;
   outline: 0 none;
 }
 .uneditable-select:focus {   
-  border-color: #ff4136;
-  box-shadow: 0 1px 1px #ff4136 inset, 0 0 2px #ff4136;
+  border-color: none;
+  box-shadow: none;
   outline: 0 none;
 }
 active {   
-  border-color: #ff4136;
-  box-shadow: 0 1px 1px #ff4136 inset, 0 0 2px #ff4136;
+  border-color: none;
+  box-shadow: none;
   outline: 0 none;
 }
 
