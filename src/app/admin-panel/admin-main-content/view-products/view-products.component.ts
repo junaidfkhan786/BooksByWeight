@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { BooksService } from 'src/app/services/books.service';
 import { NgxSpinnerService } from "ngx-spinner";
+declare var $:any;
 @Component({
   selector: 'app-view-products',
   templateUrl: './view-products.component.html',
@@ -8,10 +9,10 @@ import { NgxSpinnerService } from "ngx-spinner";
 })
 export class ViewProductsComponent implements OnInit {
 
-
+booksearch:any = "";
 pid1: any = [];
  totalBooks: number;
- 
+ p:any
 
   @Output() totalbook1 = new EventEmitter<number>()
 
@@ -25,13 +26,21 @@ book : any = [];
   ) { }
 
   ngOnInit() {
+
+this.jquery_code();
+   
     this.totalbook1.emit(this.totalBooks)
-this.spinner.show();
+
     this.loadbook();
     
 
    
 
+  }
+  jquery_code(){
+    $(document).ready(function(){
+    
+    });
   }
 
   loadbook() {
@@ -39,8 +48,10 @@ this.spinner.show();
     
     this.newService.getBooks().subscribe((data) => {
       
-      this.book = data
+      this.book = data.books
+      console.log(this.book)
       const pid = data.books;
+
       this.book1  = pid.length
       for (var { _id: id } of pid) {
         this.pid1.push(id);

@@ -139,7 +139,7 @@ export class CartItemsComponent implements OnInit {
   //     this.order2 = response
   //     console.log(this.order2)
   //   })
-  //   this.router.navigate[('checkout')];
+  //   this.router.navigate[('/checkout')];
   }
 
   getadd() {

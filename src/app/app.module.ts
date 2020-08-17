@@ -57,6 +57,9 @@ import { UserordersComponent } from './profile/userorders/userorders.component';
 import { UseraddressComponent } from './profile/useraddress/useraddress.component';
 import { UserAccountEditComponent } from './profile/user-account-edit/user-account-edit.component';
 import { ModalModule } from 'ngb-modal';
+import { AdminFilterPipe } from './pipes/admin-filter.pipe';
+import { UserItemComponent } from './admin-panel/admin-main-content/view-users/user-item/user-item.component';
+import { AdminUserPipe } from './pipes/admin-user.pipe';
 
 
 
@@ -97,6 +100,9 @@ import { ModalModule } from 'ngb-modal';
     UserordersComponent,
     UseraddressComponent,
     UserAccountEditComponent,
+    AdminFilterPipe,
+    UserItemComponent,
+    AdminUserPipe,
     
 
     

@@ -15,11 +15,11 @@ export class RegisterService {
 
   }
 
-  public Verify(phonenumber, otp, user) {
+  public Verify(phonenumber, otp, user):Observable<any>{
     return this._http.post(`${API_LIVE}` + '/user/verify?phonenumber=' + phonenumber + '&code=' + otp, user);
   }
 
   resendOTp(phonenumber) {
-    return this._http.post(`${API_LIVE}` + '/user/resendOtp/' + phonenumber, httpOptions);
+    return this._http.post<any>(`${API_LIVE}` + '/user/resendOtp/' + phonenumber, httpOptions);
   }
 }

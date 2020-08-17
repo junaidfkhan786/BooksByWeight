@@ -22,7 +22,7 @@ opened :boolean;
 
 @Output() openedevent = new EventEmitter<boolean>()
   ngOnInit() {
-this.spinner.show();
+
     this.isLogin();
 
   }

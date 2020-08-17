@@ -64,7 +64,12 @@ export class HeaderComponent implements OnInit {
   }
   loadcart() {
     this.cart.getCart().subscribe((data) => {
-      this.cartlen = data.cartItems.length;
+      if(this.cartlen == undefined){
+this.cartlen = "0"
+      }
+
+this.cartlen = data.cartItems.length
+
       if (data.cartItems.length > 0) {
         this.book1$ = data;
       }

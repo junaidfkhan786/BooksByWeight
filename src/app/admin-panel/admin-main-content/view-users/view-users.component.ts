@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/services/users.service';
 
 import { NgxSpinnerService } from 'ngx-spinner';
+import { map, toArray } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view-users',
@@ -9,40 +10,49 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./view-users.component.css']
 })
 export class ViewUsersComponent implements OnInit {
+  usersearch: any = "";
   pages: number = 1;
-  users: any = [];
-  user1: any
+  users: any;
+  user1: any;
   user2: any = [];
-  user3: any = [];
-  id: any= [];
+  user3: any;
+  userlocal: any = []
+  usergoogle: any = [];
+  userfacebook: any = [];
+  id: any = [];
   id1: any = []
   google: any = [];
   local: any = [];
   facebook: any = [];
   count: number;
   config: any;
+  button: boolean;
 
   constructor(
     private user: UsersService,
-    private spinner:NgxSpinnerService
-    ) {
+    private spinner: NgxSpinnerService
+  ) {
 
     this.config = {
       itemsPerPage: 5,
       currentPage: this.pages,
       totalItems: this.count
     };
-   }
+  }
   ngOnInit(): void {
-    this.spinner.show();
+    this.spinner.show()
+    this.button = true
     this.loaduser();
+  }
 
-    console.log(this.user2)
+  block() {
+    this.button = !this.button
   }
   loaduser() {
     this.user.getUsers().subscribe((user) => {
       this.users = user
-      this.count = this.users.count
+  console.log(this.users)
+      this.count = this.users.totaluser
       this.user1 = user.users
       var i: any
       for (i = 0; i <= this.user1.length - 1; i++) {
@@ -52,11 +62,6 @@ export class ViewUsersComponent implements OnInit {
     })
   }
 
-  pageChanged(event){
-
-    this.config.currentPage = event;
-
-  }
 
   onPageChange(page: number = 1) {
     this.pages = page;
@@ -64,5 +69,5 @@ export class ViewUsersComponent implements OnInit {
   }
 
 
- 
+
 }

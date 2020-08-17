@@ -18,6 +18,7 @@ export class RegisterComponent implements OnInit {
   succ_message: string;
   Success = false;
   public phonenumber: any;
+  token: any;
   constructor(private service: RegisterService, private router: Router) { }
 
   ngOnInit(): void {
@@ -39,6 +40,7 @@ export class RegisterComponent implements OnInit {
     this.phonenumber = this.user.phonenumber;
     resp.subscribe(
       (data) => {
+        console.log(data)
         if (data) {
           $("#resend").show();
           this.Success = true;
@@ -48,7 +50,7 @@ export class RegisterComponent implements OnInit {
 
       },
       (error) => {
-       
+console.log(error)
         if (JSON.parse(JSON.stringify(error.error)) == '"Check Phonenumber"') {
           $("#resend").show();
           $("#otpform").hide();
@@ -61,13 +63,13 @@ export class RegisterComponent implements OnInit {
         } else {
           $("#resend").hide();
           $("#otpform").hide();
-      $(".bi").hide();
-      $("#registerform").show();
+          $(".bi").hide();
+          $("#registerform").show();
           console.error(error);
           this.Error = true;
           this.Success = false;
           this.message = "PHONENUMBER IS ALREADY REGISTERED";
-         
+
         }
 
       }
@@ -98,7 +100,7 @@ export class RegisterComponent implements OnInit {
     }, error => {
 
       this.Success = false;
-      
+
       this.Error = true;
       this.message = "CHECK PHONENUMBER";
 
@@ -111,22 +113,25 @@ export class RegisterComponent implements OnInit {
     resp.subscribe(
       (data) => {
         if (data) {
-          
+          this.token = data.token
           this.Error = false;
           this.Success = true;
+          localStorage.setItem("User", JSON.stringify(this.token));
           this.succ_message = "REGISTRATION SUCCESSFULL";
-          window.location.reload();
+          setTimeout(()=>{
+            this.router.navigate(['/']);
+          },2000);
         }
 
       },
       (error) => {
         if (JSON.parse(JSON.stringify(error.error)) == '"Verification Failed"') {
-          
+
           this.Error = true;
           this.Success = false;
           this.message = "OTP INCORRECT";
         } else {
-         
+
           this.Success = false;
           this.Error = true;
           this.message = "ENTER OTP CORRECTLY";
