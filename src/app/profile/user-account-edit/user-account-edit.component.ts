@@ -55,7 +55,6 @@ export class UserAccountEditComponent implements OnInit {
     this.useredit.getuser().subscribe(res => {
 
       this.user1 = res[0];
-      console.log(this.user1)
       if (this.user1.local) {
         this.userform.setValue({
 
