@@ -13,19 +13,19 @@
     <form #userform="ngForm" id="address">
         <div class="input-group">
             <input [(ngModel)]="user.name" name="name" type="text" class="form-control" placeholder="Enter Full Name"
-                #name required>
+                #name >
         </div>
         <br>
-        <div class="input-group">
+        <div *ngIf="phone" class="input-group">
             <input [(ngModel)]="user.phonenumber" type="text" name="phonenumber" class="form-control"
                 placeholder="Enter Phone-Number"
                 onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;" autocomplete="off"
-                maxlength="10" #phonenumber required>
+                maxlength="10" #phonenumber >
         </div>
         <br>
         <div class="input-group">
-            <input [(ngModel)]="user.email" name="email" type="text" class="form-control" placeholder="Enter State"
-                #email required>
+            <input [(ngModel)]="user.email" name="email" type="text" class="form-control" placeholder="Enter email"
+                #email >
         </div>
 
 

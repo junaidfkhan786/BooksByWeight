@@ -44,6 +44,9 @@ export class UseraddressComponent implements OnInit, OnDestroy  {
       this.spinner.hide();
     })
     this.getadd();
+  }if (localStorage.getItem('User') == null) {
+    this.spinner.hide()
+   window.location.assign('/login')
   }
   }
   del(id) {

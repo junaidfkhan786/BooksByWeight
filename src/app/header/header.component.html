@@ -60,7 +60,7 @@
         </a>
         <ul class="dropdown-menu animate__animated animate__fadeInUp animate__faster">
           <li class="dropdown-item" >{{UserData.name}}</li>
-          <li><a class="dropdown-item">Edit Profile</a></li>
+          <li><a class="dropdown-item" [routerLink]="['/profile']" routerLinkActive="router-link-active" >Edit Profile</a></li>
           <li><a class="dropdown-item" (click)="logout()" >LogOut</a></li>
         </ul>
       </li>
