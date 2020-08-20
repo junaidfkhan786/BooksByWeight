@@ -3,7 +3,7 @@
   </ngx-spinner>
 <div class="d-flex justify-content-end mb-1">
     <div class="input-group " style="width: 50%;" >
-        <span class="input-group-text">Search : </span>
+        <span class="input-group-text" style="background-color: #212529; color: white;">Search : </span>
         <input type="text"  [(ngModel)]="booksearch" aria-label="Search" class="form-control">
        
       </div>
@@ -28,7 +28,8 @@
         </tr>
     </thead>
     <tbody class="align-middle">
-        <tr *ngFor="let books of book | adminFilter:booksearch | paginate: {  itemsPerPage: 10, currentPage: pages, totalItems: i}; let i = index">
+        <ng-container *ngIf="( book | adminFilter:booksearch) as result">
+        <tr *ngFor="let books of result | paginate: {  itemsPerPage: 10, currentPage: pages, totalItems: i}; let i = index">
             <td>{{i+1}}
 
                  <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input class="form-check-input" type="checkbox" value=""> -->
@@ -44,6 +45,9 @@
             <td><button class="btn btn-outline-danger" style="border-radius: 0;">
                     <span class="material-icons" style="font-size: 3rem; cursor: pointer;">delete_forever</span></button> </td>
         </tr>
+        <p class="mt-2"
+        style="color: black; font-size: 3rem;" *ngIf="result.length === 0">No Result Found</p> 
+        </ng-container>
     </tbody>
 
 </table>

@@ -26,7 +26,7 @@ book : any = [];
   ) { }
 
   ngOnInit() {
-
+this.spinner.show();
 this.jquery_code();
    
     this.totalbook1.emit(this.totalBooks)
@@ -49,7 +49,6 @@ this.jquery_code();
     this.newService.getBooks().subscribe((data) => {
       
       this.book = data.books
-      console.log(this.book)
       const pid = data.books;
 
       this.book1  = pid.length

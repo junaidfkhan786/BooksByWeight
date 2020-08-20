@@ -85,6 +85,7 @@ export class UseraddressComponent implements OnInit, OnDestroy  {
   getadd() {
     this.gettingadd.getaddress().subscribe((resp) => {
       this.address1 = resp
+      console.log(this.address1)
       this.length = this.address1.address.length;
       this.spinner.hide();
       if (this.address1.address.length == 0) {

@@ -60,6 +60,10 @@ import { ModalModule } from 'ngb-modal';
 import { AdminFilterPipe } from './pipes/admin-filter.pipe';
 import { UserItemComponent } from './admin-panel/admin-main-content/view-users/user-item/user-item.component';
 import { AdminUserPipe } from './pipes/admin-user.pipe';
+import { NewbooksComponent } from './newbooks/newbooks.component';
+import { NewbooksitemComponent } from './newbooks/newbooksitem/newbooksitem.component';
+import { PrebooksComponent } from './prebooks/prebooks.component';
+import { PrebookitemsComponent } from './prebooks/prebookitems/prebookitems.component';
 
 
 
@@ -103,6 +107,10 @@ import { AdminUserPipe } from './pipes/admin-user.pipe';
     AdminFilterPipe,
     UserItemComponent,
     AdminUserPipe,
+    NewbooksComponent,
+    NewbooksitemComponent,
+    PrebooksComponent,
+    PrebookitemsComponent,
     
 
     

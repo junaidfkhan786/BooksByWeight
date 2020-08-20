@@ -10,10 +10,10 @@
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
         <li class="nav-item"style="padding-left: 30px;">
-          <a class="nav-link active"  href="#">New Books</a>
+          <a class="nav-link active" [routerLink]="['/newbooks']" routerLinkActive="router-link-active" >New Books</a>
         </li>
         <li class="nav-item" style="padding-left: 30px; ">
-          <a class="nav-link active" href="#">Pre-Owned Books</a>
+          <a class="nav-link active" [routerLink]="['/prebooks']" routerLinkActive="router-link-active" >Pre-Owned Books</a>
         </li>
         <li class="dropdown " style="padding-left: 30px;" >
           <a [routerLink]="['/books']" routerLinkActive="router-link-active"  class="nav-link active " >
@@ -84,7 +84,7 @@
           <span class="material-icons">
             add_shopping_cart
             </span>
-            <span *ngIf="cartlen >= 0"  class="badge rounded-pill bg-danger">{{book1$.cartItems[0].cart.length}}</span>
+            <span *ngIf="cartlen >= 0"  class="badge rounded-pill bg-danger">{{cartlen}}</span>
         </a>
       </li>
       <li class="nav-item">

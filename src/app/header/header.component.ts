@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
   selector: any = [];
   selected: any;
   Searchinput: any;
-  length1:any;
+  length1: any;
   constructor(
     private wish: WishlistService,
     private cart: CartService,
@@ -57,21 +57,26 @@ export class HeaderComponent implements OnInit {
   }
   loadwish() {
     this.wish.getwish().subscribe((data) => {
-  
+
       this.book$ = data;
-       this.length1 = this.book$.books.length;
+      this.length1 = this.book$.books.length;
     });
   }
   loadcart() {
+
     this.cart.getCart().subscribe((data) => {
-      if(this.cartlen == undefined){
-this.cartlen = "0"
+      if (this.cartlen === undefined) {
+        this.cartlen = "0"
+
       }
 
-this.cartlen = data.cartItems.length
+      if (data.cartItems[0]) {
 
-      if (data.cartItems.length > 0) {
-        this.book1$ = data;
+        this.cartlen = data.cartItems[0].cart.length
+        if (data.cartItems.length > 0) {
+          this.book1$ = data;
+        }
+
       }
     });
   }
@@ -106,7 +111,7 @@ this.cartlen = data.cartItems.length
 
     this.querys = Searchinput + "&" + selected
     console.log(this.querys)
-    this.router.navigate(['search',{query: this.querys}]);
+    this.router.navigate(['search', { query: this.querys }]);
   }
 
 

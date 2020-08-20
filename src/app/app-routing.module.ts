@@ -13,6 +13,8 @@ import { ProductsdetailComponent } from './productsdetail/productsdetail.compone
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { AdminLoginComponent } from './admin-panel/admin-login/admin-login.component';
 import { SearchComponent } from './search/search.component';
+import { NewbooksComponent } from './newbooks/newbooks.component';
+import { PrebooksComponent } from './prebooks/prebooks.component';
 const routes: Routes = [
   {
     path: '',
@@ -109,6 +111,70 @@ const routes: Routes = [
   {
     path : 'profile/edit-add',
     component : ProfileComponent
+  },
+  {
+    path : 'newbooks',
+    component : NewbooksComponent
+  },
+  {
+    path: 'newbooks/sortBy100/200',
+    component: NewbooksComponent
+  },
+  {
+    path: 'newbooks/sortBy200/300',
+    component: NewbooksComponent
+  },
+  {
+    path: 'newbooks/sortBy400/500',
+    component: NewbooksComponent
+  },
+  {
+    path: 'newbooks/sortBy300/400',
+    component: NewbooksComponent
+  },
+  {
+    path: 'newbooks/sortBy500',
+    component: NewbooksComponent
+  },
+  {
+    path : 'newbooks/sortByasc',
+    component : NewbooksComponent
+  },
+  {
+    path : 'newbooks/sortBydesc',
+    component : NewbooksComponent
+  },
+  {
+    path : 'prebooks',
+    component : PrebooksComponent
+  },
+  {
+    path: 'prebooks/sortBy100/200',
+    component: PrebooksComponent
+  },
+  {
+    path: 'prebooks/sortBy200/300',
+    component: PrebooksComponent
+  },
+  {
+    path: 'prebooks/sortBy400/500',
+    component: PrebooksComponent
+  },
+  {
+    path: 'prebooks/sortBy300/400',
+    component: PrebooksComponent
+  },
+  {
+    path: 'prebooks/sortBy500',
+    component: PrebooksComponent
+  },
+  {
+    path : 'prebooks/sortByasc',
+    component : PrebooksComponent
+  },
+  {
+    path : 'prebooks/sortBydesc',
+    component : PrebooksComponent
   }
 
 

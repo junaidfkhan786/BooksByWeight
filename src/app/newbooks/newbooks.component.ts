@@ -1,19 +1,18 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
-import { OwlOptions } from 'ngx-owl-carousel-o';
-import { BooksService } from '../services/books.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FilterService } from '../services/filter.service';
-import { CategoryService } from '../services/category.service';
-import { WishlistService } from '../services/wishlist.service';
+import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import {NgxSpinnerService} from 'ngx-spinner'
-declare var $: any;
+import { CategoryService } from '../services/category.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FilterService } from '../services/filter.service';
+import { WishlistService } from '../services/wishlist.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { BooksService } from '../services/books.service';
+declare var $:any
 @Component({
-  selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css'],
+  selector: 'app-newbooks',
+  templateUrl: './newbooks.component.html',
+  styleUrls: ['./newbooks.component.css']
 })
-export class ProductsComponent implements OnInit {
+export class NewbooksComponent implements OnInit {
   first: any = '100/200';
   second: any = '200/300';
   third: any = '300/400';
@@ -39,47 +38,41 @@ export class ProductsComponent implements OnInit {
   books: any = [];
   constructor(
     private toastr: ToastrService,
-    private CatService: CategoryService,
     private router: Router,
     private newService: BooksService,
     private route: ActivatedRoute,
     private filter: FilterService,
     private wish: WishlistService,
     private spinner:NgxSpinnerService
-  ) {}
-  ngOnInit(): void {
-this.spinner.show();
+  ) { }
+
+  ngOnInit() {
+    this.spinner.show();
     if(localStorage.getItem('User') !=null){
       this.wish.getwishlistload().subscribe(() => {
         this.loadwish();
       })
   
     }
-    this.loadwish();
-    this.loadcat();
+    this.loadbook();
     this.jquery_code();
     this.loadfilter();
   }
   jquery_code() {}
   loadbook() {
-    this.newService.getBooks().subscribe((data) => {
+    this.newService.getNewBooks().subscribe((data) => {
       this.books$ = data;
+
       const pid = data.books;
       for (var { _id: id } of pid) {
         this.pid1.push(id);
       }
-      this.totalBooks = data.totalBooks.length;
+      this.totalBooks = data.totalBooks;
       this.pages = 1;
     this.spinner.hide();
     });
   }
-  loadcat() {
-    this.CatService.getCategoryById(this.route.snapshot.params._id).subscribe(
-      (res) => {
-        this.books$ = res;
-      }
-    );
-  }
+  
   /* Set the width of the side navigation to 250px */
   public openNav() {
     $('#mySidenav').css('width', '400px');
@@ -95,15 +88,19 @@ this.spinner.show();
     document.getElementById('overlay').style.display = 'none';
   }
   filters(modal: String) {
-    this.filter.priceDefine(modal).subscribe((res) => {
+    this.filter.priceDefinenew(modal).subscribe((res) => {
       this.books$ = res;
+      console.log(this.books$)
+      this.totalBooks = this.books$.totalBooks
+      console.log(this.totalBooks)
       this.spinner.hide();
       
     });
   }
-  filtersSort(variant: String) {
-    this.filter.sortBy(variant).subscribe((res) => {
+  filtersSort(variant1: String) {
+    this.filter.sortBynew(variant1).subscribe((res) => {
       this.books$ = res;
+      this.totalBooks = this.books$.totalBooks
       this.spinner.hide();
     });
   }
@@ -112,54 +109,54 @@ this.spinner.show();
     window.scrollTo(0, 520);
   }
   loadfilter() {
-    if (this.router.url == '/books/sortBy100/200') {
+    if (this.router.url == '/newbooks/sortBy100/200') {
       this.filters(this.first);
 
     }
-    if (this.router.url == '/books/sortBy200/300') {
+    if (this.router.url == '/newbooks/sortBy200/300') {
       this.filters(this.second);
     }
-    if (this.router.url == '/books/sortBy300/400') {
+    if (this.router.url == '/newbooks/sortBy300/400') {
       this.filters(this.third);
     }
-    if (this.router.url == '/books/sortBy400/500') {
+    if (this.router.url == '/newbooks/sortBy400/500') {
       this.filters(this.fourth);
     }
-    if (this.router.url == '/books/sortBy500') {
+    if (this.router.url == '/newbooks/sortBy500') {
       this.filters(this.fifth);
     }
-    if (this.router.url == '/books') {
+    if (this.router.url == '/newbooks') {
       this.loadbook();
     }
-    if (this.router.url == '/books/sortByasc') {
+    if (this.router.url == '/newbooks/sortByasc') {
       this.filtersSort(this.variant1);
     }
-    if (this.router.url == '/books/sortBydesc') {
+    if (this.router.url == '/newbooks/sortBydesc') {
       this.filtersSort(this.variant);
 
     }
     
   }
   public price() {
-    this.router.navigate(['books/sortBy100/200']);
+    this.router.navigate(['newbooks/sortBy100/200']);
   }
   public price1() {
-    this.router.navigate(['books/sortBy200/300']);
+    this.router.navigate(['newbooks/sortBy200/300']);
   }
   public price2() {
-    this.router.navigate(['books/sortBy300/400']);
+    this.router.navigate(['newbooks/sortBy300/400']);
   }
   public price3() {
-    this.router.navigate(['books/sortBy400/500']);
+    this.router.navigate(['newbooks/sortBy400/500']);
   }
   public price4() {
-    this.router.navigate(['books/sortBy500']);
+    this.router.navigate(['newbooks/sortBy500']);
   }
   public lowTohigh() {
-    this.router.navigate(['books/sortByasc']);
+    this.router.navigate(['newbooks/sortByasc']);
   }
   public highTolow() {
-    this.router.navigate(['books/sortBydesc']);
+    this.router.navigate(['newbooks/sortBydesc']);
   }
   loadwish() {
     this.wish.getwish().subscribe((data) => {

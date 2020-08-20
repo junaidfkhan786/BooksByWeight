@@ -32,4 +32,12 @@ export class BooksService {
 
 
   }
+
+  public getNewBooks():Observable<any>{
+    return this._http.get<any[]>(`${API_LIVE}`+"/search/filter/new?sortBy=asc");
+  }
+  public getPreBooks():Observable<any>{
+    return this._http.get<any[]>(`${API_LIVE}`+"/search/filter/preowned?sortBy=asc");
+  }
+
 }

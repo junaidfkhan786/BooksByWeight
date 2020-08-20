@@ -15,4 +15,21 @@ export class FilterService {
   public sortBy(variant){
     return this._http.get(`${API_LIVE}`+ '/filter/price?sortBy='+ variant);
   }
+
+  public sortBynew(variant){
+    return this._http.get(`${API_LIVE}`+ '/search/filter/new?sortBy='+variant);
+  }
+  public sortBypre(variant){
+    return this._http.get(`${API_LIVE}`+ '/search/filter/preowned?sortBy='+variant);
+  }
+  public priceDefinenew(modal) {
+    return this._http.get(`${API_LIVE}` + '/search/priceDefined/'+modal+"?condition=new" );
+  }
+  public priceDefinepre(modal) {
+    return this._http.get(`${API_LIVE}` + '/search/priceDefined/'+modal+"?condition=pre" );
+  }
+
+
+
+
 }
