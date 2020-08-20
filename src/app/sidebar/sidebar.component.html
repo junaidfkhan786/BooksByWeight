@@ -6,22 +6,22 @@
   <li class=" dropright list-group-item bg-color" *ngFor="let item of category$"  >
       <span   >
         <span   class="material-icons org ">
-          {{item.icon_name}}
+          {{item.icon}}
           </span> &nbsp; <span (click)="productCat(item._id)" class="text-wrap"> {{item.category}} </span>
      <span class="material-icons org float-right">
       navigate_next
       </span>
       </span>
-    <!-- <div style="padding: 10px;" class="dropdown-menu drop-menu-right animate__animated animate__fadeInRight animate__faster">
+    <div style="padding: 10px;" class="dropdown-menu drop-menu-right animate__animated animate__fadeInRight animate__faster">
 <div *ngFor="let sub of item.subcategory">
- <a class=" nav-link active org " style="color: black; cursor: pointer;">
-   {{sub + "\n"}}
+ <a class=" nav-link active org " (click)="productSubCat(sub._id)" style="color: black; cursor: pointer;">
+   {{sub.name + "\n"}}
  </a>
 </div>
 
 
 
-    </div> -->
+    </div>
   </li>
 
 </ul>

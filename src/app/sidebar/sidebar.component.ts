@@ -19,12 +19,11 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
 
     this.newService.getCategory()
-      .subscribe(data =>
-
+      .subscribe((data) =>{
         this.category$ = data
-
+      }
       );
-   
+
 
 
     this.jquery_code();
@@ -69,15 +68,20 @@ export class SidebarComponent implements OnInit {
 
     this.router.navigate(['books/sortBy500'])
   }
-  public lowTohigh(){
+  public lowTohigh() {
     this.router.navigate(['books/sortByasc'])
   }
-  public highTolow(){
-    
+  public highTolow() {
+
   }
-  public productCat(_id){
-    
-    this.router.navigate(['books/'+ _id])
-    
+  public productCat(_id) {
+
+    this.router.navigate(['books/' + _id])
+
+  }
+
+  public productSubCat(_id) {
+    this.router.navigate(['books/' + _id])
+
   }
 }

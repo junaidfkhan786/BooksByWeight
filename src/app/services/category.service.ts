@@ -18,10 +18,7 @@ export class CategoryService {
 
   }
   public  getCategoryById(_id) {
-
     return this._http.get(`${API_LIVE}`+"/book/categories/" + _id);
-
-
   }
 
 }

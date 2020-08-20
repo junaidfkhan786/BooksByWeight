@@ -30,13 +30,13 @@
     <tbody class="align-middle">
         <ng-container *ngIf="( book | adminFilter:booksearch) as result">
         <tr *ngFor="let books of result | paginate: {  itemsPerPage: 10, currentPage: pages, totalItems: i}; let i = index">
-            <td>{{i+1}}
+            <td>{{ 10 * (pages - 1) + i + 1 }}
 
                  <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input class="form-check-input" type="checkbox" value=""> -->
 
                  </td>
             <td> 
-                <img src="{{books.book_img[0]}}" class="img-fluid" height="50px" width="50px" alt=""></td>
+                <img src="{{books.book_img[0]}}" onerror="this.src='assets/images/altimg.png';" class="img-fluid" height="50px" width="50px" alt=""></td>
             <td>{{books.book_name}}</td>
             <td>{{books.Isbn_no}}</td>
             <td>{{books.weight / 1000}}Kg</td>

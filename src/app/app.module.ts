@@ -58,7 +58,6 @@ import { UseraddressComponent } from './profile/useraddress/useraddress.componen
 import { UserAccountEditComponent } from './profile/user-account-edit/user-account-edit.component';
 import { ModalModule } from 'ngb-modal';
 import { AdminFilterPipe } from './pipes/admin-filter.pipe';
-import { UserItemComponent } from './admin-panel/admin-main-content/view-users/user-item/user-item.component';
 import { AdminUserPipe } from './pipes/admin-user.pipe';
 import { NewbooksComponent } from './newbooks/newbooks.component';
 import { NewbooksitemComponent } from './newbooks/newbooksitem/newbooksitem.component';
@@ -105,7 +104,6 @@ import { PrebookitemsComponent } from './prebooks/prebookitems/prebookitems.comp
     UseraddressComponent,
     UserAccountEditComponent,
     AdminFilterPipe,
-    UserItemComponent,
     AdminUserPipe,
     NewbooksComponent,
     NewbooksitemComponent,
