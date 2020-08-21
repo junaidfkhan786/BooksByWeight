@@ -23,6 +23,7 @@
         <span style="justify-content: center;  margin-left: auto; margin-right: auto; width: 45%; display: block;">
           <div class="alert alert-danger" *ngIf="Error">{{message}}</div>
           <div class="alert alert-success" *ngIf="Success">{{succ_message}}</div>
+          <div class="alert alert-danger" *ngIf="Error1">{{errormess}}</div>
           <form id="contact-form" [formGroup]="myform">
             <br>
             <div class="mb-3">

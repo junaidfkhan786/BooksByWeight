@@ -16,12 +16,15 @@ export class LoginComponent implements OnInit {
   myform : FormGroup;
   message : string = "PHONENUMBER/PASSWORD INCORRECT";
   Error = false;
+  Error1 = false;
   succ_message : string;
   Success = false;
   user : Login = new Login()
   User: SocialUser = new SocialUser();
   loggedIn = false;
   succ : any;
+  mess : any;
+  errormess: string = "YOU HAVE BEEN BLOCKED BY BooksByWeight "
   
     constructor(
       private authService: SocialAuthService,
@@ -36,9 +39,14 @@ export class LoginComponent implements OnInit {
             
             
            this.loginService.loginGoogle(googleId = data.id,name=data.name,email = data.email).subscribe(result=>{
-            
-             if(result){
+            this.mess = result
+            if(this.mess.message == "User is Blocked"){
+              this.Error1 = true
+              this.Success = false
+            }else{
+           
                this.succ = result;
+              
               this.Success = true;
               this.Error = false;
               this.succ_message = "Login SuccessFull";
@@ -63,8 +71,11 @@ export class LoginComponent implements OnInit {
             
             
            this.loginService.loginFacebook(facebookId = data.id,name=data.name,email = data.email).subscribe(result=>{
-            
-             if(result){
+            this.mess = result
+            if(this.mess.message == "User is Blocked"){
+              this.Error1 = true
+              this.Success = false
+            }else{
                this.succ = result;
               this.Success = true;
               this.Error = false;

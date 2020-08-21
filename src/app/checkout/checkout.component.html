@@ -17,6 +17,63 @@
                 <div class="row">
                     <div class="col-sm-8">
 
+                        <!-- <select [(ngModel)]="selected" class="form-select select" aria-label="Default select example">
+                            <option *ngFor="let select of address" [value]="select._id">
+                                <span>{{select.fullName}}</span>
+                                <span>{{select.mobileNumber}}</span>
+                                <span>{{select.alternatePhoneNumber}}</span>
+                                <span> {{select.state}} </span>
+                                <span>{{select.}}</span>
+                            </option>
+                        </select> -->
+                      <div *ngIf="selected">
+                        <table class="table  table-dark table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <!-- <th scope="col">
+                                    Select All &nbsp; <input class="form-check-input" type="checkbox" value="" >
+                                    </th> -->
+                                    <th scope="col">Sr No</th>
+                                    <th scope="col">Fullname</th>
+                                    <th scope="col">Mob No</th>
+                                    <th scope="col">Alternate Mob No</th>
+                                    <th scope="col">Address</th>
+                                    <th scope="col">Select Address</th>
+                                </tr>
+                            </thead>
+                            <tbody class="align-middle">
+                                <tr  *ngFor="let add of address; let i = index;">
+                                    <td>
+                                        {{i + 1}}
+                                    </td>
+                                    <td>
+                                        {{add.fullName}}
+                                    </td>
+                                    <td>
+                                        {{add.mobileNumber}}
+                                    </td>
+                                    <td>
+                                        {{add.mobileNumber}}
+                                    </td>
+                                    <td>
+                                        {{add.address }}
+                                        {{add.landmark}}
+                                        {{add.city}}
+                                        {{add.state}}
+                                        {{add.pinCode}}
+                                    </td>
+                                    <td><button class="btn btn-success" style="border-radius: 0;" (click)="createorder(add._id)" >
+                                        deliver here
+                                        </button>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                      </div>
+                      <div style="float: right;" *ngIf="!selected">
+                        <button class="btn btn-success" (click)="showadd()" > change Address</button>
+                    </div>
                         <!-- Start Payment Way -->
                         <div class="our-payment-sestem">
                             <h2 class="section-title-3">We Accept :</h2>
@@ -48,8 +105,8 @@
                                     </span>Shipping: ₹ {{shipping}} </a></li>
                             <li class="pay"><a href="#"><span class="material-icons">
                                         play_circle_filled
-                                    </span><b>Amount Payable: <span
-                                            class="important-note__prizes">₹ {{amountpayable}} </span></b></a></li>
+                                    </span><b>Amount Payable: <span class="important-note__prizes">₹ {{amountpayable}}
+                                        </span></b></a></li>
                         </ul>
                         <div class="puick-contact-area mt--60">
                             <h2 class="section-title-3">Send a Query</h2>
