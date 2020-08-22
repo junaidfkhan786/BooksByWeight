@@ -14,6 +14,7 @@ declare var $: any;
   export class CheckoutComponent implements OnInit {
     shipping:any = 100;
     book$: any = [];
+    cartitemlength:any;
     cartitem: any = [];
     cartitem1: any = [];
     price: any;
@@ -49,6 +50,7 @@ placebutton : boolean;
     private gettingadd: UserAddressService,
   ) {}
   ngOnInit(): void {
+
 this.placebutton = false
     this.selected = true
     if(localStorage.getItem('User') !=null){
@@ -57,15 +59,12 @@ this.placebutton = false
 
       })
       this.getadd();
-      if(this.cartitem2.lenght == 0){
-        window.location.assign('/books')
-      }
-    }if (localStorage.getItem('User') == null) {
-     window.location.assign('/login')
+
     }
-    if(localStorage.getItem('User') !=null){
+   
 this.loadcart();
-    }
+    
+   
     this.jquery_code();
   
   }
@@ -75,46 +74,22 @@ this.loadcart();
   loadcart() {
     this.cart.getCart().subscribe((data) => {
       this.book$ = data;
+      this.cartitem = this.book$.cartItems[0].cart
+      console.log(this.cartitem.length)
+      if(this.cartitem.length == 0 ){
+        this.router.navigate(['/books']);
+      }
       this.subtotal = this.book$.subtotal;
       this.totalweight = this.book$.totalweight;
-
       this.amountpayable = this.subtotal + this.shipping;
-      if (this.book$.cartItems.length > 0) {
-        const cartitem = this.book$.cartItems[0].cart;
-        for (var { quantity: qty } of cartitem) {
-          this.qty = qty;
-          this.qty1.push(this.qty);
-        }
-        for (var { book: books } of cartitem) {
-          this.cartitem1 = books;
-          this.cartitem2.push(this.cartitem1);
-        }
-        let cartitem3 = this.cartitem2;
-        for (var { _id: id } of this.cartitem2) {
-          this.pid1.push(id);
-        }
-   
-        for (var i = 0; i <= cartitem3.length; i++) {
-          if (cartitem3[i] == undefined) {
-            return false;
-          }
-          this.c = cartitem3[i].weight;
-          this.cartitem4.push(this.c);
-          let sum = 0;
-          for (let r of this.cartitem4) {
-            sum = sum + r;
-          }
-          this.cartitem5 = sum;
-        }
-      }
+
     });
   }
 
   getadd() {
     this.gettingadd.getaddress().subscribe((resp) => {
       this.address = resp.address
-      this.selected = this.address[0]._id
-      console.log(this.address)
+     
       this.addlength = this.address.length;
 
 
