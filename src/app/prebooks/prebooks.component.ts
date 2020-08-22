@@ -53,7 +53,7 @@ export class PrebooksComponent implements OnInit {
       })
   
     }
-    this.loadbook();
+    
     this.jquery_code();
     this.loadfilter();
   }
@@ -152,10 +152,12 @@ export class PrebooksComponent implements OnInit {
     this.router.navigate(['prebooks/sortBy500']);
   }
   public lowTohigh() {
-    this.router.navigate(['prebooks/sortByasc']);
+    this.router.navigate(['/prebooks']);
+
   }
   public highTolow() {
     this.router.navigate(['prebooks/sortBydesc']);
+
   }
   loadwish() {
     this.wish.getwish().subscribe((data) => {

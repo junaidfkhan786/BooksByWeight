@@ -71,9 +71,13 @@
                             </tbody>
                         </table>
                       </div>
+                      <!-- <div style="float: left;">
+                        <button class="btn btn-success" [disabled] = "!placebutton" (click)="createorder()" > place Order</button>
+                    </div> -->
                       <div style="float: right;" *ngIf="!selected">
                         <button class="btn btn-success" (click)="showadd()" > change Address</button>
                     </div>
+                    <br><br>
                         <!-- Start Payment Way -->
                         <div class="our-payment-sestem">
                             <h2 class="section-title-3">We Accept :</h2>

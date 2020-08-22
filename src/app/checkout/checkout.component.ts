@@ -40,6 +40,7 @@ declare var $: any;
     addlength:any;
 amountpayable:any;
 selected: boolean;
+placebutton : boolean;
   constructor(
     private cart: CartService,
     private toastr: ToastrService,
@@ -48,6 +49,7 @@ selected: boolean;
     private gettingadd: UserAddressService,
   ) {}
   ngOnInit(): void {
+this.placebutton = false
     this.selected = true
     if(localStorage.getItem('User') !=null){
       this.gettingadd.getrefresuser().subscribe(() => {
@@ -55,10 +57,15 @@ selected: boolean;
 
       })
       this.getadd();
+      if(this.cartitem2.lenght == 0){
+        window.location.assign('/books')
+      }
     }if (localStorage.getItem('User') == null) {
      window.location.assign('/login')
     }
+    if(localStorage.getItem('User') !=null){
 this.loadcart();
+    }
     this.jquery_code();
   
   }
@@ -70,6 +77,7 @@ this.loadcart();
       this.book$ = data;
       this.subtotal = this.book$.subtotal;
       this.totalweight = this.book$.totalweight;
+
       this.amountpayable = this.subtotal + this.shipping;
       if (this.book$.cartItems.length > 0) {
         const cartitem = this.book$.cartItems[0].cart;
@@ -85,6 +93,7 @@ this.loadcart();
         for (var { _id: id } of this.cartitem2) {
           this.pid1.push(id);
         }
+   
         for (var i = 0; i <= cartitem3.length; i++) {
           if (cartitem3[i] == undefined) {
             return false;
@@ -113,20 +122,37 @@ this.loadcart();
   console.log(error)
     })
   }
+
+  getaddid(add){
+    this.address_id = add._id
+
+    this.placebutton = true
+    this.selected = !this.selected;
+    this.toastr.success('this is Address selected'+ ' ' + add.fullName + ' ' + add.address + ' ' + add.pinCode, 'BooksByWeight', {
+      timeOut: 3000,
+    
+    });
+    console.log(this.address_id)
+  }
   createorder(id) {
-   
    this.address_id = id
     this.order1.book = this.pid1;
     this.order1.amount = this.amountpayable;
     this.order1.totalitems = this.cartitem2.length;
     this.order1.totalweight = this.totalweight;
-    console.log(this.address_id,this.order1)
-    this.selected = !this.selected;
+console.log(this.address_id, this.order1)
+
     let res = this.order.postorder(this.address_id,this.order1);
     res.subscribe((response) => {
       this.order2 = response
       console.log(this.order2)
+      this.toastr.success('Order Successfully Created', 'BooksByWeight', {
+        timeOut: 1000,
+      
+      });
     })
+    this.placebutton = false
+    this.selected = false;
   }
  showadd(){
    this.selected = true

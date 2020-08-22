@@ -54,7 +54,6 @@ export class NewbooksComponent implements OnInit {
       })
   
     }
-    this.loadbook();
     this.jquery_code();
     this.loadfilter();
   }
@@ -153,11 +152,13 @@ export class NewbooksComponent implements OnInit {
     this.router.navigate(['newbooks/sortBy500']);
   }
   public lowTohigh() {
-    this.router.navigate(['newbooks/sortByasc']);
+    this.router.navigate(['/newbooks']);
   }
   public highTolow() {
     this.router.navigate(['newbooks/sortBydesc']);
+
   }
+
   loadwish() {
     this.wish.getwish().subscribe((data) => {
       this.wish$ = data;
