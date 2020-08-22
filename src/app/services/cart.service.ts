@@ -28,7 +28,7 @@ export class CartService {
 
     if (localStorage.getItem('User') != null) {
 
-      return this.http.get<any[]>(`${API_LIVE}` + "/cart/User", httpOptionsauth);
+      return this.http.get<any>(`${API_LIVE}` + "/cart/User", httpOptionsauth);
     }
   }
   public postProduct(_id, selling_price, weight) {

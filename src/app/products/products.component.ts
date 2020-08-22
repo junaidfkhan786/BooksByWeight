@@ -7,6 +7,7 @@ import { CategoryService } from '../services/category.service';
 import { WishlistService } from '../services/wishlist.service';
 import { ToastrService } from 'ngx-toastr';
 import {NgxSpinnerService} from 'ngx-spinner'
+import { CartService } from '../services/cart.service';
 declare var $: any;
 @Component({
   selector: 'app-products',
@@ -45,7 +46,8 @@ export class ProductsComponent implements OnInit {
     private route: ActivatedRoute,
     private filter: FilterService,
     private wish: WishlistService,
-    private spinner:NgxSpinnerService
+    private spinner:NgxSpinnerService,
+    private cart: CartService,
   ) {}
   ngOnInit(): void {
 this.spinner.show();
@@ -61,9 +63,12 @@ this.spinner.show();
     this.loadfilter();
   }
   jquery_code() {}
+  
+
   loadbook() {
     this.newService.getBooks().subscribe((data) => {
       this.books$ = data;
+      console.log(this.books$)
       const pid = data.books;
       for (var { _id: id } of pid) {
         this.pid1.push(id);

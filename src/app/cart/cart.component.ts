@@ -21,7 +21,7 @@ export class CartComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.cart.getcartload().subscribe(() => {
       this.loadcart();
     })

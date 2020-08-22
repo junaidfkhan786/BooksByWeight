@@ -34,6 +34,7 @@ export class CartItemsComponent implements OnInit {
   pid1: any = [];
   message: any;
   address1_id: any;
+  length:number;
 
 
   constructor(
@@ -45,6 +46,7 @@ export class CartItemsComponent implements OnInit {
   ) {
   }
   ngOnInit() {
+
     this.getadd();
     this.loadcart();
     this.jquery_code();

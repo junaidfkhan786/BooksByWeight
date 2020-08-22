@@ -14,10 +14,26 @@
       </div>
 
     </div>
-    <div *ngFor="let item of book$.cartItems">
+    <div *ngIf="cartitem.length > 0">
+      <div *ngFor="let item of book$.cartItems">
 
-      <app-cart-items [productItem]= "item"></app-cart-items>
+        <app-cart-items [productItem]="item"></app-cart-items>
 
+      </div>
+    </div>
+
+    <div class="row  d-flex justify-content-center" style="height: 500px;" *ngIf="cartitem.length == 0">
+      <div style="width: 50%; height: 50%; top: 80px; background-color: #212529; color: white; "
+        class="card shadow-bottom align-middle">
+        <h5 style="margin-top: 7%;" class="text-center card-title"><span style="font-size: 3rem;">Your Cart Is
+            Empty</span>
+          <br> <br> YOU DONT HAVE ANY BOOK ADDED IN YOUR CART</h5>
+        <a href="/books" style="text-decoration: none; color: white; cursor: pointer;"
+          class="d-flex justify-content-center org "> CLick Here To Add It </a>
+        <span class="material-icons d-flex justify-content-center">
+          touch_app
+        </span>
+      </div>
     </div>
   </div>
   <div class="stickyfooter">
