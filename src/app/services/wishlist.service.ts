@@ -32,9 +32,9 @@ export class WishlistService {
       })
     }
 
-    if (localStorage.getItem('User') != null) {
+
       return this.http.get<any[]>(`${API_LIVE}` + "/wishlist/ByUser", httpOptionsauth);
-    }
+    
 
 
 

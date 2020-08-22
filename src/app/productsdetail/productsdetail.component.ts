@@ -29,12 +29,11 @@ export class ProductsdetailComponent implements OnInit {
   ngOnInit(): void {
     this.spinner.show();
     if (localStorage.getItem('User') != null) {
-      setInterval(() => {
+      this.wish.getwishlistload().subscribe(() => {
         this.loadwish();
-
-      }, 1000);
-
+      })
     }
+    this.loadwish();
     this.loaddetails();
 
     this.jquery_code();

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from './../services/cart.service';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 declare var $: any;
 @Component({
   selector: 'app-cart',
@@ -18,10 +20,12 @@ export class CartComponent implements OnInit {
   constructor(
     private toastr: ToastrService,
     private cart: CartService,
-    private router: Router
+    private router: Router,
+    private spinner: NgxSpinnerService,
   ) {}
 
   ngOnInit() {
+    this.spinner.show();
     this.cart.getcartload().subscribe(() => {
       this.loadcart();
     })
@@ -41,6 +45,7 @@ export class CartComponent implements OnInit {
           this.cartitem = this.book$.cartItems[0].cart;
           this.length = this.cartitem.length;
         }
+        this.spinner.hide();
       });
     } else {
       this.Error = true;

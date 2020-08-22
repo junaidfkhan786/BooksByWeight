@@ -15,6 +15,7 @@ import { AdminLoginComponent } from './admin-panel/admin-login/admin-login.compo
 import { SearchComponent } from './search/search.component';
 import { NewbooksComponent } from './newbooks/newbooks.component';
 import { PrebooksComponent } from './prebooks/prebooks.component';
+import { AuthGuard } from './auth.guard';
 const routes: Routes = [
   {
     path: '',
@@ -70,7 +71,8 @@ const routes: Routes = [
   },
   {
     path : 'cart',
-    component : CartComponent
+    component : CartComponent,
+    canActivate: [AuthGuard]
   },
   {
     path : 'books/:_id',
@@ -78,11 +80,13 @@ const routes: Routes = [
   },
   {
     path : 'wish',
-    component : WishlistComponent
+    component : WishlistComponent,
+    canActivate: [AuthGuard]
   },
   {
     path : 'checkout',
-    component : CheckoutComponent
+    component : CheckoutComponent,
+    canActivate: [AuthGuard]
   },
   {
     path : 'admin',
@@ -106,11 +110,13 @@ const routes: Routes = [
   },
   {
     path : 'profile',
-    component : ProfileComponent
+    component : ProfileComponent,
+    canActivate: [AuthGuard]
   },
   {
     path : 'profile/edit-add',
-    component : ProfileComponent
+    component : ProfileComponent,
+    canActivate: [AuthGuard]
   },
   {
     path : 'newbooks',

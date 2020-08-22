@@ -6,7 +6,7 @@ import { FilterService } from '../services/filter.service';
 import { CategoryService } from '../services/category.service';
 import { WishlistService } from '../services/wishlist.service';
 import { ToastrService } from 'ngx-toastr';
-import {NgxSpinnerService} from 'ngx-spinner'
+import { NgxSpinnerService } from 'ngx-spinner'
 import { CartService } from '../services/cart.service';
 declare var $: any;
 @Component({
@@ -33,11 +33,16 @@ export class ProductsComponent implements OnInit {
   Error = false;
   message: any;
   length: any;
-  wid1: number [] = [];
+  wid1: number[] = [];
   pid: any = [];
   pid1: any = [];
   match: any;
   books: any = [];
+  book$: any = [];
+  cartitem: any = [];
+  book1 :any =[];
+  cartquantity:any =[];
+  cartquantity1:any =[];
   constructor(
     private toastr: ToastrService,
     private CatService: CategoryService,
@@ -46,36 +51,43 @@ export class ProductsComponent implements OnInit {
     private route: ActivatedRoute,
     private filter: FilterService,
     private wish: WishlistService,
-    private spinner:NgxSpinnerService,
+    private spinner: NgxSpinnerService,
     private cart: CartService,
-  ) {}
+  ) { }
   ngOnInit(): void {
-this.spinner.show();
-    if(localStorage.getItem('User') !=null){
+    this.spinner.show();
+ 
       this.wish.getwishlistload().subscribe(() => {
         this.loadwish();
       })
-  
-    }
+
+      // this.cart.getcartload().subscribe(() => {
+      //   this.loadcart();
+      // })
+      // this.loadcart();
+
+
+    
+
     this.loadwish();
     this.loadcat();
     this.jquery_code();
     this.loadfilter();
   }
-  jquery_code() {}
-  
+  jquery_code() { }
+
 
   loadbook() {
     this.newService.getBooks().subscribe((data) => {
       this.books$ = data;
-      console.log(this.books$)
+     
       const pid = data.books;
       for (var { _id: id } of pid) {
         this.pid1.push(id);
       }
       this.totalBooks = data.totalBooks.length;
       this.pages = 1;
-    this.spinner.hide();
+      this.spinner.hide();
     });
   }
   loadcat() {
@@ -103,7 +115,7 @@ this.spinner.show();
     this.filter.priceDefine(modal).subscribe((res) => {
       this.books$ = res;
       this.spinner.hide();
-      
+
     });
   }
   filtersSort(variant: String) {
@@ -143,7 +155,7 @@ this.spinner.show();
       this.filtersSort(this.variant);
 
     }
-    
+
   }
   public price() {
     this.router.navigate(['books/sortBy100/200']);
@@ -167,9 +179,11 @@ this.spinner.show();
     this.router.navigate(['books/sortBydesc']);
   }
   loadwish() {
+    if (localStorage.getItem('User') != null) {
     this.wish.getwish().subscribe((data) => {
       this.wish$ = data;
       const size = this.wish$.books;
+
       for (var { book: books } of size) {
         this.wid = books;
         const size1 = books._id;
@@ -179,4 +193,26 @@ this.spinner.show();
       }
     });
   }
+  }
+//   loadcart() {
+//     if (localStorage.getItem('User') != null) {
+//       this.cart.getCart().subscribe((data) => {
+//         this.book$ = data;
+
+
+//         if (this.book$.cartItems.length > 0) {
+//           this.cartitem = this.book$.cartItems[0].cart;
+//           this.length = this.cartitem.length;
+//         }
+//         this.cartquantity = this.book$.cartItems[0].cart;
+//         console.log(this.cartquantity)
+// for(var i = 0; i <= this.cartquantity.length; i++){
+//   this.cartquantity1.push(this.cartquantity[i].quantity)
+// console.log(this.cartquantity1)
+// }
+
+
+//       });
+//     }
+//   }
 }

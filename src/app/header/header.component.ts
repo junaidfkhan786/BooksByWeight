@@ -10,6 +10,7 @@ import { WishlistService } from '../services/wishlist.service';
 import { Observable } from 'rxjs';
 import { CartService } from '../services/cart.service';
 import { ToastrService } from 'ngx-toastr';
+import { UserEditService } from '../services/user-edit.service';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +19,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class HeaderComponent implements OnInit {
 
-  public searchresult1 = new Searchs();
   a: any = [];
   querys: any;
   session = false;
@@ -37,7 +37,8 @@ export class HeaderComponent implements OnInit {
     private cart: CartService,
     private toastr: ToastrService,
     private router: Router,
-    private Searching: SearchService
+    private Searching: SearchService,
+    private useredit: UserEditService,
   ) { }
   ngOnInit() {
 
@@ -49,11 +50,14 @@ export class HeaderComponent implements OnInit {
       this.wish.getwishlistload().subscribe(() => {
         this.loadwish();
       })
+
       this.loadwish();
       this.loadcart();
+      this.isLogin();
+
     }
     this.jquery_code();
-    this.isLogin();
+  
   }
   loadwish() {
     this.wish.getwish().subscribe((data) => {
@@ -101,6 +105,7 @@ export class HeaderComponent implements OnInit {
       this.session = true;
     }
   }
+
   openSearch() {
     document.getElementById('myOverlay').style.display = 'block';
   }

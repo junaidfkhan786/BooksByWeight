@@ -13,9 +13,10 @@
           </a>
 
           <a>
-            <span *ngIf="productItem.quantity > 0"  (click)="addCart(productItem._id,productItem.selling_price,productItem.weight)" class="material-icons org wish">
-              add_shopping_cart &nbsp;
-            </span></a>
+              <span  (click)="addCart(productItem._id,productItem.selling_price,productItem.weight)" class="material-icons org wish">
+                add_shopping_cart &nbsp;
+              </span>
+             </a>
         <a  *ngIf="!addedToWishlist" >
           <span (click)=" addWish(productItem._id)" class="material-icons org wish">
             favorite_border

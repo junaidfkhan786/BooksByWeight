@@ -63,7 +63,7 @@ import { NewbooksComponent } from './newbooks/newbooks.component';
 import { NewbooksitemComponent } from './newbooks/newbooksitem/newbooksitem.component';
 import { PrebooksComponent } from './prebooks/prebooks.component';
 import { PrebookitemsComponent } from './prebooks/prebookitems/prebookitems.component';
-
+import {AuthGuard} from 'src/app/auth.guard'
 
 
 @NgModule({
@@ -160,7 +160,7 @@ import { PrebookitemsComponent } from './prebooks/prebookitems/prebookitems.comp
         ],
       } as SocialAuthServiceConfig,
     },
-    CategoryService, ForgotpassService,RegisterService,LoginService],
+    CategoryService, ForgotpassService,RegisterService,LoginService,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
