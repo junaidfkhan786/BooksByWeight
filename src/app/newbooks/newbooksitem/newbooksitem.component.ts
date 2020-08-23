@@ -6,6 +6,8 @@ import { BooksService } from 'src/app/services/books.service';
 import { FilterService } from 'src/app/services/filter.service';
 import { WishlistService } from 'src/app/services/wishlist.service';
 import { CartService } from 'src/app/services/cart.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-newbooksitem',
@@ -17,7 +19,7 @@ export class NewbooksitemComponent implements OnInit {
 
   @Input() addedToWishlist: boolean;
 
- 
+  @Input() cartbutton:boolean;
 
 
   wish$: any = [];
@@ -38,10 +40,11 @@ w:any = [];
     private route: ActivatedRoute,
     private filter: FilterService,
     private wish: WishlistService,
-    private cart : CartService
+    private cart : CartService,
+    private spinner : NgxSpinnerService
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
   productHome(_id) {
@@ -51,13 +54,14 @@ w:any = [];
 
 
   addWish(_id) {
+    this.spinner.show();
     if (localStorage.getItem('User')) {
       this.wish.postProduct(_id).subscribe(
         () => {
           this.toastr.success('Product Successfully Added', 'BooksByWeight', {
             timeOut: 1000,
           });
-
+this.spinner.hide();
           this.addedToWishlist = true;
          
         },
@@ -76,10 +80,12 @@ w:any = [];
   }
 
   deletePro(WishlistId) {
+    this.spinner.show();
     this.wish.deleteProduct(WishlistId).subscribe(() => {
       this.toastr.error('Product Has Been Remove', 'BooksByWeight', {
         timeOut: 1000,
       });
+      this.spinner.hide();
       this.addedToWishlist = false;
      
 
@@ -88,17 +94,52 @@ w:any = [];
   }
 
   addCart(_id,selling_price,weight){
+    this.spinner.show();
     if (localStorage.getItem('User')!=null) {
 
     this.cart.postProduct(_id,selling_price,weight).subscribe(() =>{
-
+this.cartbutton = true
       this.toastr.success('Product Successfully Added to cart', 'BooksByWeight', {
         timeOut: 1000,
       
       });
+  this.spinner.hide();
     })
   }
 
+
+  }
+  
+  gotocart(){
+    // Swal.fire({
+    //   title: '<strong>Already Added?</strong>',
+    //   icon: 'info',
+    //   html:
+    //     '<b>If You Want To Increase Quantity Of Your Book</b>, ' +
+    //     '<a href="/Cart">Click Here</a> ',
+    //   showCloseButton: true,
+    //   showCancelButton: true,
+    //   focusConfirm: false,
+    //   confirmButtonText:
+    //     '<i class="fa fa-thumbs-up"></i> Great!',
+    //   confirmButtonAriaLabel: 'Thumbs up, great!',
+    //   cancelButtonText:
+    //     '<i class="fa fa-thumbs-down"></i>',
+    //   cancelButtonAriaLabel: 'Thumbs down'
+    // })
+    Swal.fire({
+      title: 'Already Added?',
+      text: "If You Want To Increase Quantity Of Your Book!",
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Click Here To Goto Cart!'
+    }).then((result) => {
+      if (result.value) {
+        window.location.assign('/cart')
+      }
+    })
 
   }
 }

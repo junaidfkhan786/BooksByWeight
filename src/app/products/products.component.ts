@@ -43,6 +43,8 @@ export class ProductsComponent implements OnInit {
   book1 :any =[];
   cartquantity:any =[];
   cartquantity1:any =[];
+cartpid : any = {};
+  cartpid1 : number[] = [];
   constructor(
     private toastr: ToastrService,
     private CatService: CategoryService,
@@ -56,31 +58,22 @@ export class ProductsComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.spinner.show();
- 
       this.wish.getwishlistload().subscribe(() => {
         this.loadwish();
       })
-
-      // this.cart.getcartload().subscribe(() => {
-      //   this.loadcart();
-      // })
-      // this.loadcart();
-
-
-    
-
+      this.cart.getcartload().subscribe(() => {
+        this.loadcart();
+      })
+      this.loadcart();
     this.loadwish();
     this.loadcat();
     this.jquery_code();
     this.loadfilter();
   }
   jquery_code() { }
-
-
   loadbook() {
     this.newService.getBooks().subscribe((data) => {
       this.books$ = data;
-     
       const pid = data.books;
       for (var { _id: id } of pid) {
         this.pid1.push(id);
@@ -115,7 +108,6 @@ export class ProductsComponent implements OnInit {
     this.filter.priceDefine(modal).subscribe((res) => {
       this.books$ = res;
       this.spinner.hide();
-
     });
   }
   filtersSort(variant: String) {
@@ -131,7 +123,6 @@ export class ProductsComponent implements OnInit {
   loadfilter() {
     if (this.router.url == '/books/sortBy100/200') {
       this.filters(this.first);
-
     }
     if (this.router.url == '/books/sortBy200/300') {
       this.filters(this.second);
@@ -153,9 +144,7 @@ export class ProductsComponent implements OnInit {
     }
     if (this.router.url == '/books/sortBydesc') {
       this.filtersSort(this.variant);
-
     }
-
   }
   public price() {
     this.router.navigate(['books/sortBy100/200']);
@@ -183,7 +172,6 @@ export class ProductsComponent implements OnInit {
     this.wish.getwish().subscribe((data) => {
       this.wish$ = data;
       const size = this.wish$.books;
-
       for (var { book: books } of size) {
         this.wid = books;
         const size1 = books._id;
@@ -194,25 +182,21 @@ export class ProductsComponent implements OnInit {
     });
   }
   }
-//   loadcart() {
-//     if (localStorage.getItem('User') != null) {
-//       this.cart.getCart().subscribe((data) => {
-//         this.book$ = data;
-
-
-//         if (this.book$.cartItems.length > 0) {
-//           this.cartitem = this.book$.cartItems[0].cart;
-//           this.length = this.cartitem.length;
-//         }
-//         this.cartquantity = this.book$.cartItems[0].cart;
-//         console.log(this.cartquantity)
-// for(var i = 0; i <= this.cartquantity.length; i++){
-//   this.cartquantity1.push(this.cartquantity[i].quantity)
-// console.log(this.cartquantity1)
-// }
-
-
-//       });
-//     }
-//   }
+  loadcart() {
+    if (localStorage.getItem('User') != null) {
+      this.cart.getCart().subscribe((data) => {
+        this.book$ = data;
+        if (this.book$.cartItems.length > 0) {
+          this.cartitem = this.book$.cartItems[0].cart;
+          this.length = this.cartitem.length;
+        }
+        this.cartquantity = this.book$.cartItems[0].cart;
+        for (var { book: books } of this.cartquantity) {
+          this.cartpid = books;
+          const size3 = books._id;
+          this.cartpid1.push(size3);
+        }
+      });
+    }
+  }
 }

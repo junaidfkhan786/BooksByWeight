@@ -109,7 +109,7 @@
          paginate: {  itemsPerPage: 8, currentPage: pages, totalItems: totalBooks} ">
   
   
-              <app-newbooksitem [productItem]="books" [addedToWishlist]="wid1.indexOf(books._id) >= 0 ">
+              <app-newbooksitem [productItem]="books"  [cartbutton]="cartpid1.indexOf(books._id) >= 0" [addedToWishlist]="wid1.indexOf(books._id) >= 0 ">
               </app-newbooksitem>
   
             </div>

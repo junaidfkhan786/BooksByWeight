@@ -6,6 +6,7 @@ import { FilterService } from '../services/filter.service';
 import { WishlistService } from '../services/wishlist.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BooksService } from '../services/books.service';
+import { CartService } from '../services/cart.service';
 declare var $:any
 @Component({
   selector: 'app-newbooks',
@@ -36,6 +37,14 @@ export class NewbooksComponent implements OnInit {
   pid1: any = [];
   match: any;
   books: any = [];
+
+  book$: any = [];
+  cartitem: any = [];
+  book1 :any =[];
+  cartquantity:any =[];
+  cartquantity1:any =[];
+cartpid : any = {};
+  cartpid1 : number[] = [];
   constructor(
     private toastr: ToastrService,
     private router: Router,
@@ -43,7 +52,8 @@ export class NewbooksComponent implements OnInit {
     private route: ActivatedRoute,
     private filter: FilterService,
     private wish: WishlistService,
-    private spinner:NgxSpinnerService
+    private spinner:NgxSpinnerService,
+    private cart: CartService,
   ) { }
 
   ngOnInit() {
@@ -52,7 +62,10 @@ export class NewbooksComponent implements OnInit {
       this.wish.getwishlistload().subscribe(() => {
         this.loadwish();
       })
-  
+      this.cart.getcartload().subscribe(() => {
+        this.loadcart();
+      })
+      this.loadcart();
     }
     this.jquery_code();
     this.loadfilter();
@@ -171,5 +184,22 @@ export class NewbooksComponent implements OnInit {
       for (let w of this.wid1) {
       }
     });
+  }
+  loadcart() {
+    if (localStorage.getItem('User') != null) {
+      this.cart.getCart().subscribe((data) => {
+        this.book$ = data;
+        if (this.book$.cartItems.length > 0) {
+          this.cartitem = this.book$.cartItems[0].cart;
+          this.length = this.cartitem.length;
+        }
+        this.cartquantity = this.book$.cartItems[0].cart;
+        for (var { book: books } of this.cartquantity) {
+          this.cartpid = books;
+          const size3 = books._id;
+          this.cartpid1.push(size3);
+        }
+      });
+    }
   }
 }

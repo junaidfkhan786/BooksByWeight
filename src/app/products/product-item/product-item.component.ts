@@ -7,7 +7,7 @@ import { FilterService } from 'src/app/services/filter.service';
 import { WishlistService } from 'src/app/services/wishlist.service';
 import { CartService } from 'src/app/services/cart.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 @Component({
   selector: 'app-product-item',
   templateUrl: './product-item.component.html',
@@ -17,7 +17,7 @@ export class ProductItemComponent implements OnInit {
   @Input() productItem: any;
 
   @Input() addedToWishlist: boolean;
-  
+  @Input() cartbutton:boolean;
 
   wish$: any = [];
   wid: any = [];
@@ -47,11 +47,6 @@ cartquantity1:any =[];
   ) { }
 
   ngOnInit() {
-
-  //   this.cart.getcartload().subscribe(() => {
-  //     this.loadcart();
-  //   })
-  //   this.loadcart();
   }
 
 
@@ -109,9 +104,11 @@ cartquantity1:any =[];
     if (localStorage.getItem('User')!=null) {
     this.cart.postProduct(_id,selling_price,weight).subscribe(() =>{
 this.spinner.hide();
+this.cartbutton = true
       this.toastr.success('Product Successfully Added to cart', 'BooksByWeight', {
         timeOut: 1000,
       });
+     
     })
   } else {
     this.router.navigate(['/login']);
@@ -121,8 +118,40 @@ this.spinner.hide();
   }
 
 
+
   }
 
- 
+  gotocart(){
+    // Swal.fire({
+    //   title: '<strong>Already Added?</strong>',
+    //   icon: 'info',
+    //   html:
+    //     '<b>If You Want To Increase Quantity Of Your Book</b>, ' +
+    //     '<a href="/Cart">Click Here</a> ',
+    //   showCloseButton: true,
+    //   showCancelButton: true,
+    //   focusConfirm: false,
+    //   confirmButtonText:
+    //     '<i class="fa fa-thumbs-up"></i> Great!',
+    //   confirmButtonAriaLabel: 'Thumbs up, great!',
+    //   cancelButtonText:
+    //     '<i class="fa fa-thumbs-down"></i>',
+    //   cancelButtonAriaLabel: 'Thumbs down'
+    // })
+    Swal.fire({
+      title: 'Already Added?',
+      text: "If You Want To Increase Quantity Of Your Book!",
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Click Here To Goto Cart!'
+    }).then((result) => {
+      if (result.value) {
+        window.location.assign('/cart')
+      }
+    })
+
+  }
   
 }
