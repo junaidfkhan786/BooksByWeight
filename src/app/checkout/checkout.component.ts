@@ -5,11 +5,14 @@ import { Router } from '@angular/router';
 import { Orders } from '../models/orders.model';
 import { OrdersService } from '../services/orders.service';
 import { UserAddressService } from '../services/user-address.service';
+import { WindowRefService } from '../services/window-ref.service'
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 declare var $: any;
 @Component({
     selector: 'app-checkout',
     templateUrl: './checkout.component.html',
-    styleUrls: ['./checkout.component.css']
+    styleUrls: ['./checkout.component.css'],
+    providers: [WindowRefService]
   })
   export class CheckoutComponent implements OnInit {
     shipping:any = 100;
@@ -42,12 +45,14 @@ declare var $: any;
 amountpayable:any;
 selected: boolean;
 placebutton : boolean;
+rzp1:any;
   constructor(
     private cart: CartService,
     private toastr: ToastrService,
     private router: Router,
     private order: OrdersService,
     private gettingadd: UserAddressService,
+    public windowref : WindowRefService
   ) {}
   ngOnInit(): void {
 
@@ -66,8 +71,49 @@ this.loadcart();
     
    
     this.jquery_code();
-  
   }
+
+    options = {
+       "key": "rzp_test_t9SNkyK0AYA0iV",
+           "key_secret" : "2dNBmblDu5Pg4fc1zuDxiOwf",
+        "currency": "INR",
+        "amount": '',
+        "name": "BooksByweight",
+        "description": "Razor Test Transaction",
+        "image": "https://previews.123rf.com/images/subhanbaghirov/subhanbaghirov1605/subhanbaghirov160500087/56875269-vector-light-bulb-icon-with-concept-of-idea-brainstorming-idea-illustration-.jpg",
+        "order_id": '',
+        "handler": function (response){
+       if(response.razorpay_signature){
+        Swal.fire(
+          'Payment Successfull!',
+          'success'
+        )
+       }else{
+        Swal.fire(
+          'Payment Failed!',
+          'error'
+        )
+       }
+         console.log(response.razorpay_payment_id)
+   console.log(response.razorpay_order_id)
+    console.log(response.razorpay_signature)
+      }
+    ,
+        
+        "theme": {
+            "color": "#227254"
+        }
+    };
+
+    public initPay():void {
+       this.rzp1 = new this.windowref.nativeWindow.Razorpay(this.options);
+
+       this.rzp1.open();
+
+    }
+paymenthandler(){
+  
+}
   jquery_code() {
     $(document).ready(function () { });
   }
@@ -75,6 +121,9 @@ this.loadcart();
     this.cart.getCart().subscribe((data) => {
       this.book$ = data;
       this.cartitem = this.book$.cartItems[0].cart
+      if(this.book$.cartItems[0] == undefined){
+        return false
+      }
       console.log(this.cartitem.length)
       if(this.cartitem.length == 0 ){
         this.router.navigate(['/books']);
@@ -120,6 +169,9 @@ console.log(this.address_id, this.order1)
     let res = this.order.postorder(this.address_id,this.order1);
     res.subscribe((response) => {
       this.order2 = response
+      this.options.order_id = response.sub.id
+      this.options.amount = response.sub.amount
+
       console.log(this.order2)
       this.toastr.success('Order Successfully Created', 'BooksByWeight', {
         timeOut: 1000,
@@ -132,4 +184,5 @@ console.log(this.address_id, this.order1)
  showadd(){
    this.selected = true
  }
+
 }
