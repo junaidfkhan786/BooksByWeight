@@ -26,58 +26,59 @@
                                 <span>{{select.}}</span>
                             </option>
                         </select> -->
-                      <div *ngIf="selected">
-                        <table class="table  table-dark table-striped table-hover">
-                            <thead class="table-dark">
-                                <tr>
-                                    <!-- <th scope="col">
+                        <div *ngIf="selected">
+                            <table class="table  table-dark table-striped table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <!-- <th scope="col">
                                     Select All &nbsp; <input class="form-check-input" type="checkbox" value="" >
                                     </th> -->
-                                    <th scope="col">Sr No</th>
-                                    <th scope="col">Fullname</th>
-                                    <th scope="col">Mob No</th>
-                                    <th scope="col">Alternate Mob No</th>
-                                    <th scope="col">Address</th>
-                                    <th scope="col">Select Address</th>
-                                </tr>
-                            </thead>
-                            <tbody class="align-middle">
-                                <tr  *ngFor="let add of address; let i = index;">
-                                    <td>
-                                        {{i + 1}}
-                                    </td>
-                                    <td>
-                                        {{add.fullName}}
-                                    </td>
-                                    <td>
-                                        {{add.mobileNumber}}
-                                    </td>
-                                    <td>
-                                        {{add.mobileNumber}}
-                                    </td>
-                                    <td>
-                                        {{add.address }}
-                                        {{add.landmark}}
-                                        {{add.city}}
-                                        {{add.state}}
-                                        {{add.pinCode}}
-                                    </td>
-                                    <td><button class="btn btn-success" style="border-radius: 0;" (click)="createorder(add._id)" >
-                                        deliver here
-                                        </button>
-                                    </td>
+                                        <th scope="col">Sr No</th>
+                                        <th scope="col">Fullname</th>
+                                        <th scope="col">Mob No</th>
+                                        <th scope="col">Alternate Mob No</th>
+                                        <th scope="col">Address</th>
+                                        <th scope="col">Select Address</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="align-middle">
+                                    <tr *ngFor="let add of address; let i = index;">
+                                        <td>
+                                            {{i + 1}}
+                                        </td>
+                                        <td>
+                                            {{add.fullName}}
+                                        </td>
+                                        <td>
+                                            {{add.mobileNumber}}
+                                        </td>
+                                        <td>
+                                            {{add.mobileNumber}}
+                                        </td>
+                                        <td>
+                                            {{add.address }}
+                                            {{add.landmark}}
+                                            {{add.city}}
+                                            {{add.state}}
+                                            {{add.pinCode}}
+                                        </td>
+                                        <td><button class="btn btn-success" style="border-radius: 0;"
+                                                (click)="createorder(add._id)">
+                                                deliver here
+                                            </button>
+                                        </td>
 
-                                </tr>
-                            </tbody>
-                        </table>
-                      </div>
-                      <!-- <div style="float: left;">
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- <div style="float: left;">
                         <button class="btn btn-success" [disabled] = "!placebutton" (click)="createorder()" > place Order</button>
                     </div> -->
-                      <div style="float: right;" *ngIf="!selected">
-                        <button class="btn btn-success" (click)="showadd()" > change Address</button>
-                    </div>
-                    <br><br>
+                        <div style="float: right;" *ngIf="!selected">
+                            <button class="btn btn-success" (click)="showadd()"> change Address</button>
+                        </div>
+                        <br><br>
                         <!-- Start Payment Way -->
                         <div class="our-payment-sestem">
                             <h2 class="section-title-3">We Accept :</h2>
@@ -88,7 +89,7 @@
                             <!-- <ul class="checkout__dtl__btn">
                                 <li class="buy__now__btn"><a href="#">confirm &amp; pay</a></li>
                             </ul> -->
-                            <button class="btn btn-outline-success"(click)="initPay();"  id="rzp-button1"> PAY </button>
+                            <button class="btn btn-outline-success" (click)="initPay();" id="rzp-button1"> PAY </button>
                         </div>
                         <!-- End Payment Way -->
                     </div>
@@ -120,6 +121,16 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div hidden>
+
+            orderid : <input id="orderid" type="text" />
+            <br>
+            paymentid : <input id="paymentid" type="text" />
+            <br>
+            SIGNATURE : <input id="signature" type="text" />
+
         </div>
     </div>
     <div class="stickyfooter">

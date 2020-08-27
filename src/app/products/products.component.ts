@@ -187,6 +187,9 @@ cartpid : any = {};
       this.cart.getCart().subscribe((data) => {
         this.book$ = data;
         if (this.book$.cartItems.length > 0) {
+          if(this.book$.cartItems[0].cart == undefined){
+            return false
+                    }
           this.cartitem = this.book$.cartItems[0].cart;
           this.length = this.cartitem.length;
         }
