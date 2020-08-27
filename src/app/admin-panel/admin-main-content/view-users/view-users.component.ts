@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/services/users.service';
 
 import { NgxSpinnerService } from 'ngx-spinner';
-import { map, toArray, catchError } from 'rxjs/operators';
+import { map} from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -71,7 +71,55 @@ export class ViewUsersComponent implements OnInit {
     })
   }
   loaduser() {
-    this.user.getUsers().subscribe((user) => {
+    this.user.getUsers()
+    .pipe(
+      map((data)=>{
+
+        let user = data.users
+        let local = []
+        let google = []
+        let facebook = []
+
+
+        for (let i = 0; i < user.length; i++) {
+      
+       
+      if(user[i].local){
+       
+        user[i].local['email'] = user[i].local['local_email']  
+         delete user[i].local['local_email']  
+         
+      
+    
+       
+      }
+        }
+        for (let i = 0; i < user.length; i++) {
+          if(user[i].google){
+            user[i].google['email'] = user[i].google['google_email']  
+            delete user[i].google['google_email'] 
+        
+          }
+           
+         }
+         for (let i = 0; i < user.length; i++) {
+          if(user[i].facebook){
+            user[i].facebook['email'] = user[i].facebook['facebook_email']  
+            delete user[i].facebook['facebook_email'] 
+          
+          }   
+           
+         }
+ 
+
+
+        return data
+       
+    
+
+      })
+    )
+   .subscribe((user) => {
       this.users = user
 
       this.count = this.users.totaluser
@@ -80,10 +128,7 @@ export class ViewUsersComponent implements OnInit {
       var i: any
       for (i = 0; i <= this.user1.length - 1; i++) {
         this.user2.push(this.user1[i])
-
-   
       }
-      console.log(this.user2)
       this.spinner.hide();
     })
   }

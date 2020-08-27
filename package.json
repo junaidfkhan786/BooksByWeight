@@ -30,6 +30,7 @@
     "express": "^4.17.1",
     "jquery": "^3.5.1",
     "jwt-decode": "^2.2.0",
+    "lodash": "^4.17.20",
     "material-design-icons": "^3.0.1",
     "ngb-modal": "^2.0.3",
     "ngx-owl-carousel-o": "^3.0.1",

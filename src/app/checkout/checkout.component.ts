@@ -128,7 +128,7 @@ if(response.razorpay_order_id){
   console.log(response)
 }else{
   Swal.fire(
-    'Payment Failer!',
+    'Payment Failed!',
     'error'
   )
 }

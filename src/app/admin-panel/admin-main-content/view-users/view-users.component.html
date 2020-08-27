@@ -33,9 +33,9 @@
                     <td *ngIf="user.facebook">{{user.facebook.name}}</td>
                     <td *ngIf="user.local">{{user.local.name}}</td>
                     <td>{{user.methods}}</td>
-                    <td *ngIf="user.google">{{user.google.google_email}}</td>
-                    <td *ngIf="user.facebook">{{user.facebook.facebook_email}}</td>
-                    <td *ngIf="user.local">{{user.local.local_email}}</td>
+                    <td *ngIf="user.google">{{user.google.email}}</td>
+                    <td *ngIf="user.facebook">{{user.facebook.email}}</td>
+                    <td *ngIf="user.local">{{user.local.email}}</td>
                    
                     <td><button *ngIf="user.isActive" (click)="block(user._id)" class="btn btn-danger" style="border-radius: 0;">
                             Block
