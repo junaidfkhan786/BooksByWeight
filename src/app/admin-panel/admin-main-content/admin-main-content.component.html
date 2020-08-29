@@ -29,7 +29,7 @@
    </div>
 
    <div *ngIf="router.url === '/admin/dashboard/view-products'">
-      <app-view-products (totalbook1)= "recieve2($event)" ></app-view-products>
+      <app-view-products (totalbook1)="recieve2($event)" ></app-view-products>
    </div>
    <div *ngIf="router.url === '/admin/dashboard/view-users'">
       <app-view-users></app-view-users>

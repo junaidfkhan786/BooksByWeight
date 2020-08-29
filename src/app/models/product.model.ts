@@ -18,4 +18,6 @@ export class Product{
     saved_price: number;
     selling_price : number;
     weight : number;
+    sku:string;
+    categories: string = "5f3e5e840ea9ea23b901b5fd";
 }
