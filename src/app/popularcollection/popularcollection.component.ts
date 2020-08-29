@@ -55,9 +55,11 @@ spinner : boolean = true;
     this.loadbook();
     
     if(localStorage.getItem('User') !=null){
-      setInterval(() => {
+      this.wish.getwishlistload().subscribe(() => {
         this.loadwish();
-      }, 1000);
+      })
+
+      this.loadwish();
     }
       
     this.jquery_code();

@@ -7,7 +7,7 @@ import { WishlistService } from '../services/wishlist.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BooksService } from '../services/books.service';
 import { CartService } from '../services/cart.service';
-declare var $:any
+declare var $: any
 @Component({
   selector: 'app-newbooks',
   templateUrl: './newbooks.component.html',
@@ -32,7 +32,7 @@ export class NewbooksComponent implements OnInit {
   Error = false;
   message: any;
   length: any;
-  wid1: number [] = [];
+  wid1: number[] = [];
   pid: any = [];
   pid1: any = [];
   match: any;
@@ -40,11 +40,11 @@ export class NewbooksComponent implements OnInit {
 
   book$: any = [];
   cartitem: any = [];
-  book1 :any =[];
-  cartquantity:any =[];
-  cartquantity1:any =[];
-cartpid : any = {};
-  cartpid1 : number[] = [];
+  book1: any = [];
+  cartquantity: any = [];
+  cartquantity1: any = [];
+  cartpid: any = {};
+  cartpid1: number[] = [];
   constructor(
     private toastr: ToastrService,
     private router: Router,
@@ -52,13 +52,13 @@ cartpid : any = {};
     private route: ActivatedRoute,
     private filter: FilterService,
     private wish: WishlistService,
-    private spinner:NgxSpinnerService,
+    private spinner: NgxSpinnerService,
     private cart: CartService,
   ) { }
 
   ngOnInit() {
     this.spinner.show();
-    if(localStorage.getItem('User') !=null){
+    if (localStorage.getItem('User') != null) {
       this.wish.getwishlistload().subscribe(() => {
         this.loadwish();
       })
@@ -70,7 +70,7 @@ cartpid : any = {};
     this.jquery_code();
     this.loadfilter();
   }
-  jquery_code() {}
+  jquery_code() { }
   loadbook() {
     this.newService.getNewBooks().subscribe((data) => {
       this.books$ = data;
@@ -81,10 +81,10 @@ cartpid : any = {};
       }
       this.totalBooks = data.totalBooks;
       this.pages = 1;
-    this.spinner.hide();
+      this.spinner.hide();
     });
   }
-  
+
   /* Set the width of the side navigation to 250px */
   public openNav() {
     $('#mySidenav').css('width', '400px');
@@ -106,7 +106,7 @@ cartpid : any = {};
       this.totalBooks = this.books$.totalBooks
       console.log(this.totalBooks)
       this.spinner.hide();
-      
+
     });
   }
   filtersSort(variant1: String) {
@@ -147,7 +147,7 @@ cartpid : any = {};
       this.filtersSort(this.variant);
 
     }
-    
+
   }
   public price() {
     this.router.navigate(['newbooks/sortBy100/200']);
@@ -193,11 +193,13 @@ cartpid : any = {};
           this.cartitem = this.book$.cartItems[0].cart;
           this.length = this.cartitem.length;
         }
-        this.cartquantity = this.book$.cartItems[0].cart;
-        for (var { book: books } of this.cartquantity) {
-          this.cartpid = books;
-          const size3 = books._id;
-          this.cartpid1.push(size3);
+        if (this.book$.cartItems.length > 0) {
+          this.cartquantity = this.book$.cartItems[0].cart;
+          for (var { book: books } of this.cartquantity) {
+            this.cartpid = books;
+            const size3 = books._id;
+            this.cartpid1.push(size3);
+          }
         }
       });
     }

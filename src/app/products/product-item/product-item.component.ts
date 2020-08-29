@@ -122,22 +122,7 @@ this.cartbutton = true
   }
 
   gotocart(){
-    // Swal.fire({
-    //   title: '<strong>Already Added?</strong>',
-    //   icon: 'info',
-    //   html:
-    //     '<b>If You Want To Increase Quantity Of Your Book</b>, ' +
-    //     '<a href="/Cart">Click Here</a> ',
-    //   showCloseButton: true,
-    //   showCancelButton: true,
-    //   focusConfirm: false,
-    //   confirmButtonText:
-    //     '<i class="fa fa-thumbs-up"></i> Great!',
-    //   confirmButtonAriaLabel: 'Thumbs up, great!',
-    //   cancelButtonText:
-    //     '<i class="fa fa-thumbs-down"></i>',
-    //   cancelButtonAriaLabel: 'Thumbs down'
-    // })
+
     Swal.fire({
       title: 'Already Added?',
       text: "If You Want To Increase Quantity Of Your Book!",

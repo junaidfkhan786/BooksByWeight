@@ -1,5 +1,3 @@
 ^(\s)*$\n
-
-
 key_id rzp_live_Ztkdvk7oPSuPCy
 key_secret	ooHzXexh9cIX2wXnZbVt3wg1

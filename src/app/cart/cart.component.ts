@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from './../services/cart.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 declare var $: any;
 @Component({
   selector: 'app-cart',
@@ -22,9 +22,12 @@ export class CartComponent implements OnInit {
     private cart: CartService,
     private router: Router,
     private spinner: NgxSpinnerService,
+    private activatedRoute: ActivatedRoute,
+    private ngZone: NgZone,
   ) {}
 
   ngOnInit() {
+this.loadroute();
     this.spinner.show();
     this.cart.getcartload().subscribe(() => {
       this.loadcart();
@@ -36,7 +39,26 @@ export class CartComponent implements OnInit {
   jquery_code() {
     /* Jquery here */
   }
+loadroute(){
+  this.activatedRoute.params.subscribe(res => {
+    var message = res['query'];
+    if (message){
+      Swal.fire({
+                 title: 'Your Order Has Been Confirmed?',
+                 text: 'We Inform You When Your Order Has Been Shipped?',
+                 icon: 'success',
+                 showCancelButton: false,
+                 confirmButtonColor: '#3085d6',
+                 confirmButtonText: 'Done'
+               }).then((result) => {
+                 if (result.value) {
 
+                  this.ngZone.run(() => this.router.navigate(['/books'])).then();
+                 }
+               })
+    }
+  });
+}
   loadcart() {
     if (localStorage.getItem('User') != null) {
       this.cart.getCart().subscribe((data) => {

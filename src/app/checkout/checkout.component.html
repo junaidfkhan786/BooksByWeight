@@ -63,7 +63,7 @@
                                             {{add.pinCode}}
                                         </td>
                                         <td><button class="btn btn-success" style="border-radius: 0;"
-                                                (click)="createorder(add._id)">
+                                                (click)="getbillingadd(add)">
                                                 deliver here
                                             </button>
                                         </td>
@@ -78,7 +78,9 @@
                         <div style="float: right;" *ngIf="!selected">
                             <button class="btn btn-success" (click)="showadd()"> change Address</button>
                         </div>
-                        <br><br>
+                        <br>
+                        <h3 style="color: #ff4136;" [hidden]="paymentbutton">NOTE : *PLEASE SELECT ADDRESS TO GET PAYMENT DONE</h3>
+                       <br>
                         <!-- Start Payment Way -->
                         <div class="our-payment-sestem">
                             <h2 class="section-title-3">We Accept :</h2>
@@ -89,7 +91,8 @@
                             <!-- <ul class="checkout__dtl__btn">
                                 <li class="buy__now__btn"><a href="#">confirm &amp; pay</a></li>
                             </ul> -->
-                            <button class="btn btn-outline-success" (click)="initPay();" id="rzp-button1"> PAY </button>
+                            <button class="btn btn-lg btn-outline-success" [hidden]="!paymentbutton" (click)="initPay();" id="rzp-button1"> PAY </button>
+                       <!-- <button class="btn btn-success btn-lg" (click)="shipping()"> shipping button </button> -->
                         </div>
                         <!-- End Payment Way -->
                     </div>
@@ -99,16 +102,14 @@
                         <ul class="important-note">
                             <li class="pay"><a href="#"><span class="material-icons">
                                         play_circle_filled
-                                    </span>Items: {{cartitem.length}}</a></li>
+                                    </span>Items: {{totalitems}}</a></li>
                             <li class="pay"><a href="#"><span class="material-icons">
                                         play_circle_filled
                                     </span>Sub Total: {{subtotal}}</a></li>
                             <li class="pay"><a href="#"><span class="material-icons">
                                         play_circle_filled
                                     </span>Total Weight: {{totalweight}} Kg</a></li>
-                            <li class="pay"><a href="#"><span class="material-icons">
-                                        play_circle_filled
-                                    </span>Shipping: ₹ {{shipping}} </a></li>
+
                             <li class="pay"><a href="#"><span class="material-icons">
                                         play_circle_filled
                                     </span><b>Amount Payable: <span class="important-note__prizes">₹ {{amountpayable}}
@@ -121,16 +122,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div hidden>
-
-            orderid : <input id="orderid" type="text" />
-            <br>
-            paymentid : <input id="paymentid" type="text" />
-            <br>
-            SIGNATURE : <input id="signature" type="text" />
-
         </div>
     </div>
     <div class="stickyfooter">

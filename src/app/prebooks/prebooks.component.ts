@@ -5,7 +5,8 @@ import { BooksService } from '../services/books.service';
 import { WishlistService } from '../services/wishlist.service';
 import { FilterService } from '../services/filter.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-declare var $:any;
+import { CartService } from '../services/cart.service';
+declare var $: any;
 @Component({
   selector: 'app-prebooks',
   templateUrl: './prebooks.component.html',
@@ -30,11 +31,18 @@ export class PrebooksComponent implements OnInit {
   Error = false;
   message: any;
   length: any;
-  wid1: number [] = [];
+  wid1: number[] = [];
   pid: any = [];
   pid1: any = [];
   match: any;
   books: any = [];
+  book$: any = [];
+  cartitem: any = [];
+  book1: any = [];
+  cartquantity: any = [];
+  cartquantity1: any = [];
+  cartpid: any = {};
+  cartpid1: number[] = [];
   constructor(
     private toastr: ToastrService,
     private router: Router,
@@ -42,22 +50,47 @@ export class PrebooksComponent implements OnInit {
     private route: ActivatedRoute,
     private filter: FilterService,
     private wish: WishlistService,
-    private spinner:NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private cart: CartService
   ) { }
 
   ngOnInit(): void {
     this.spinner.show();
-    if(localStorage.getItem('User') !=null){
+    if (localStorage.getItem('User') != null) {
       this.wish.getwishlistload().subscribe(() => {
         this.loadwish();
       })
-  
+
     }
-    
+    this.loadcart();
     this.jquery_code();
     this.loadfilter();
   }
-  jquery_code() {}
+
+  loadcart() {
+    if (localStorage.getItem('User') != null) {
+      this.cart.getCart().subscribe((data) => {
+        this.book$ = data;
+        if (this.book$.cartItems.length > 0) {
+          if (this.book$.cartItems[0] == undefined) {
+            return false
+          }
+
+          this.cartitem = this.book$.cartItems[0].cart;
+          this.length = this.cartitem.length;
+        }
+        if (this.book$.cartItems.length > 0) {
+          this.cartquantity = this.book$.cartItems[0].cart;
+          for (var { book: books } of this.cartquantity) {
+            this.cartpid = books;
+            const size3 = books._id;
+            this.cartpid1.push(size3);
+          }
+        }
+      });
+    }
+  }
+  jquery_code() { }
   loadbook() {
     this.newService.getPreBooks().subscribe((data) => {
       this.books$ = data;
@@ -68,10 +101,10 @@ export class PrebooksComponent implements OnInit {
       }
       this.totalBooks = data.totalBooks;
       this.pages = 1;
-    this.spinner.hide();
+      this.spinner.hide();
     });
   }
-  
+
   /* Set the width of the side navigation to 250px */
   public openNav() {
     $('#mySidenav').css('width', '400px');
@@ -93,7 +126,7 @@ export class PrebooksComponent implements OnInit {
       this.totalBooks = this.books$.totalBooks
       console.log(this.totalBooks)
       this.spinner.hide();
-      
+
     });
   }
   filtersSort(variant1: String) {
@@ -134,7 +167,7 @@ export class PrebooksComponent implements OnInit {
       this.filtersSort(this.variant);
 
     }
-    
+
   }
   public price() {
     this.router.navigate(['prebooks/sortBy100/200']);
@@ -170,6 +203,7 @@ export class PrebooksComponent implements OnInit {
       }
       for (let w of this.wid1) {
       }
+
     });
   }
 }

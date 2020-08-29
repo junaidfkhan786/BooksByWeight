@@ -53,9 +53,11 @@ export class LatestcollectionComponent implements OnInit {
     this.loadbook();
 
 if(localStorage.getItem('User') !=null){
-  setInterval(() => {
+  this.wish.getwishlistload().subscribe(() => {
     this.loadwish();
-  }, 1000);
+  })
+
+  this.loadwish();
 }
   
 

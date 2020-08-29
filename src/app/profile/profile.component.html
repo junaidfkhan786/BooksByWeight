@@ -1,39 +1,53 @@
 <div class="p-2">
-    <div class="section1">
-        <app-header></app-header>
-        <div class="bg-image" style="position: relative;
+  <div class="section1">
+    <app-header></app-header>
+    <div class="bg-image" style="position: relative;
        text-align: center;">
-            <div style="  position: absolute;
+      <div style="  position: absolute;
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%); font-size: xx-large;" class="org">
-                Profile <br><br>
-                Home / Profile
-            </div>
-        </div>
-        <!-- Write the code inside this div. -->
+        Profile <br><br>
+        Home / Profile
+      </div>
+    </div>
+    <!-- Write the code inside this div. -->
 
 
     <div class="row p-3 " style="margin-left: 10px; margin-right: 10px;">
-        <div class="col-3 " >
-          <div class="list-group " id="list-tab" role="tablist" style="height: 100%; width: 80%;">
-            <a class="list-group-item list-group-item-action active " id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">My Orders</a>
-            <a class="list-group-item list-group-item-action " id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">My Addresses</a>
-            <a class="list-group-item list-group-item-action " id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Edit Account</a>
-          </div>
+      <br>
+      <ngx-avatar style="margin-left: 40px; padding: 10px; " facebookId="userFacebookID" skypeId="userSkypeID" googleId="google" name="Haithem Mosbahi"
+        src="https://image.freepik.com/free-vector/cute-young-boy-cartoon-character-holding-books_1308-46940.jpg"
+        value="28%" twitterId="twitter" gravatarId="" size="100" [round]="true">
+      </ngx-avatar>
+      <div class="col-3 ">
+        <div class="list-group " id="list-tab" role="tablist" style="height: 100%; width: 80%;">
+          <a class="list-group-item list-group-item-action active " id="list-home-list" data-toggle="list"
+            href="#list-home" role="tab" aria-controls="home">My Orders</a>
+          <a class="list-group-item list-group-item-action " id="list-profile-list" data-toggle="list"
+            href="#list-profile" role="tab" aria-controls="profile">My Addresses</a>
+          <a class="list-group-item list-group-item-action " id="list-messages-list" data-toggle="list"
+            href="#list-messages" role="tab" aria-controls="messages">Edit Account</a>
         </div>
-        <div class="col-9">
-          <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list"><app-userorders></app-userorders> </div>
-            <div class="tab-pane fade  " id="list-profile" role="tabpanel" aria-labelledby="list-profile-list"><app-useraddress></app-useraddress> </div>
-            <div class="tab-pane fade " id="list-messages" role="tabpanel" aria-labelledby="list-messages-list"><app-user-account-edit></app-user-account-edit> </div>
+      </div>
+      <div class="col-9">
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+            <app-userorders></app-userorders>
+          </div>
+          <div class="tab-pane fade  " id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+            <app-useraddress></app-useraddress>
+          </div>
+          <div class="tab-pane fade " id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+            <app-user-account-edit></app-user-account-edit>
           </div>
         </div>
       </div>
-
-
-</div>
-    <div class="stickyfooter">
-        <app-footer></app-footer>
     </div>
+
+
+  </div>
+  <div class="stickyfooter">
+    <app-footer></app-footer>
+  </div>
 </div>

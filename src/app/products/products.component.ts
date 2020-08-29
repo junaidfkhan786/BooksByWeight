@@ -40,11 +40,11 @@ export class ProductsComponent implements OnInit {
   books: any = [];
   book$: any = [];
   cartitem: any = [];
-  book1 :any =[];
-  cartquantity:any =[];
-  cartquantity1:any =[];
-cartpid : any = {};
-  cartpid1 : number[] = [];
+  book1: any = [];
+  cartquantity: any = [];
+  cartquantity1: any = [];
+  cartpid: any = {};
+  cartpid1: number[] = [];
   constructor(
     private toastr: ToastrService,
     private CatService: CategoryService,
@@ -57,14 +57,15 @@ cartpid : any = {};
     private cart: CartService,
   ) { }
   ngOnInit(): void {
+
     this.spinner.show();
-      this.wish.getwishlistload().subscribe(() => {
-        this.loadwish();
-      })
-      this.cart.getcartload().subscribe(() => {
-        this.loadcart();
-      })
+    this.wish.getwishlistload().subscribe(() => {
+      this.loadwish();
+    })
+    this.cart.getcartload().subscribe(() => {
       this.loadcart();
+    })
+    this.loadcart();
     this.loadwish();
     this.loadcat();
     this.jquery_code();
@@ -169,35 +170,35 @@ cartpid : any = {};
   }
   loadwish() {
     if (localStorage.getItem('User') != null) {
-    this.wish.getwish().subscribe((data) => {
-      this.wish$ = data;
-      const size = this.wish$.books;
-      for (var { book: books } of size) {
-        this.wid = books;
-        const size1 = books._id;
-        this.wid1.push(size1);
-      }
-      for (let w of this.wid1) {
-      }
-    });
-  }
+      this.wish.getwish().subscribe((data) => {
+        this.wish$ = data;
+        const size = this.wish$.books;
+        for (var { book: books } of size) {
+          this.wid = books;
+          const size1 = books._id;
+          this.wid1.push(size1);
+        }
+      });
+    }
   }
   loadcart() {
     if (localStorage.getItem('User') != null) {
       this.cart.getCart().subscribe((data) => {
         this.book$ = data;
         if (this.book$.cartItems.length > 0) {
-          if(this.book$.cartItems[0].cart == undefined){
-            return false
-                    }
+
+
           this.cartitem = this.book$.cartItems[0].cart;
           this.length = this.cartitem.length;
         }
-        this.cartquantity = this.book$.cartItems[0].cart;
-        for (var { book: books } of this.cartquantity) {
-          this.cartpid = books;
-          const size3 = books._id;
-          this.cartpid1.push(size3);
+        if (this.book$.cartItems.length > 0) {
+          this.cartquantity = this.book$.cartItems[0].cart;
+
+          for (var { book: books } of this.cartquantity) {
+            this.cartpid = books;
+            const size3 = books._id;
+            this.cartpid1.push(size3);
+          }
         }
       });
     }

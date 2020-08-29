@@ -6,6 +6,7 @@ import { BooksService } from 'src/app/services/books.service';
 import { FilterService } from 'src/app/services/filter.service';
 import { WishlistService } from 'src/app/services/wishlist.service';
 import { CartService } from 'src/app/services/cart.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-prebookitems',
@@ -17,7 +18,7 @@ export class PrebookitemsComponent implements OnInit {
 
   @Input() addedToWishlist: boolean;
 
- 
+  @Input() cartbutton:boolean;
 
 
   wish$: any = [];
@@ -98,6 +99,24 @@ w:any = [];
     })
   }
 
+
+  }
+  
+  gotocart(){
+
+    Swal.fire({
+      title: 'Already Added?',
+      text: "If You Want To Increase Quantity Of Your Book!",
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Click Here To Goto Cart!'
+    }).then((result) => {
+      if (result.value) {
+        window.location.assign('/cart')
+      }
+    })
 
   }
 }

@@ -80,10 +80,8 @@ export class ViewUsersComponent implements OnInit {
         let google = []
         let facebook = []
 
-
         for (let i = 0; i < user.length; i++) {
       
-       
       if(user[i].local){
        
         user[i].local['email'] = user[i].local['local_email']  
@@ -112,7 +110,6 @@ export class ViewUsersComponent implements OnInit {
          }
  
 
-
         return data
        
     
@@ -124,7 +121,7 @@ export class ViewUsersComponent implements OnInit {
 
       this.count = this.users.totaluser
       this.user1 = user.users
-    
+
       var i: any
       for (i = 0; i <= this.user1.length - 1; i++) {
         this.user2.push(this.user1[i])

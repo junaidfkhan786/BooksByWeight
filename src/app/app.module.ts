@@ -56,7 +56,6 @@ import { SearchitemComponent } from './search/searchitem/searchitem.component';
 import { UserordersComponent } from './profile/userorders/userorders.component';
 import { UseraddressComponent } from './profile/useraddress/useraddress.component';
 import { UserAccountEditComponent } from './profile/user-account-edit/user-account-edit.component';
-import { ModalModule } from 'ngb-modal';
 import { AdminFilterPipe } from './pipes/admin-filter.pipe';
 import { AdminUserPipe } from './pipes/admin-user.pipe';
 import { NewbooksComponent } from './newbooks/newbooks.component';
@@ -64,7 +63,7 @@ import { NewbooksitemComponent } from './newbooks/newbooksitem/newbooksitem.comp
 import { PrebooksComponent } from './prebooks/prebooks.component';
 import { PrebookitemsComponent } from './prebooks/prebookitems/prebookitems.component';
 import {AuthGuard} from 'src/app/auth.guard'
-
+import { AvatarModule } from 'ngx-avatar';
 
 @NgModule({
   declarations: [
@@ -131,7 +130,7 @@ import {AuthGuard} from 'src/app/auth.guard'
      
     }),
     NgxSpinnerModule,
-    ModalModule
+    AvatarModule,
 
 
   ],

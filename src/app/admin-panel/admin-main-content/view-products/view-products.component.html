@@ -1,6 +1,33 @@
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="line-scale-pulse-out" [fullScreen]="false">
     <p style="color: white"> Loading... </p>
   </ngx-spinner>
+  
+  <div>
+    <div class="card p-2 btc">
+        <span class="font-weight-bolder org text-center" style="font-size: large;">PRODUCT
+        </span>
+    </div>
+    <br>
+    <form #productform="ngForm" id="product">
+        Book Name:
+        <div class="input-group">
+            
+            <input name="bookname" [(ngModel)]="product.book_name" type="text" class="form-control"
+                placeholder="Enter Book Name" #bookname required>
+        </div>
+    <br>
+    Author Name :
+    <div class="input-group">
+        <input name="authorname" [(ngModel)]="product.author_name" type="text" class="form-control"
+            placeholder="Enter Author Name" #authorname required>
+    </div>
+        <br>
+
+
+      
+
+    </form>
+</div>
 <div class="d-flex justify-content-end mb-1">
     <div class="input-group " style="width: 50%;" >
         <span class="input-group-text" style="background-color: #212529; color: white;">Search : </span>
@@ -41,7 +68,7 @@
             <td>{{books.Isbn_no}}</td>
             <td>{{books.weight / 1000}}Kg</td>
             <td>{{books.selling_price}}</td>
-            <td> <button class="btn btn-success" style="border-radius: 0;">EDIT THIS</button> </td>
+            <td> <button class="btn btn-success" style="border-radius: 0;" (click)="edit(books)">EDIT THIS</button> </td>
             <td><button class="btn btn-outline-danger" style="border-radius: 0;">
                     <span class="material-icons" style="font-size: 3rem; cursor: pointer;">delete_forever</span></button> </td>
         </tr>

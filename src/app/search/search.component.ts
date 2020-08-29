@@ -39,11 +39,7 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.Spinner.show()
 this.loadroute();
-if(localStorage.getItem('User') !=null){
-  setInterval(() => {
-    this.loadwish();
-}, 1000);
-}
+this.loadwish();
 this.jquery_code();
 this.loadfilter();
 }

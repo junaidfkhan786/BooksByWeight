@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Orders } from 'src/app/models/orders.model';
 import { UserAddressService } from 'src/app/services/user-address.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import * as jwt_decode from 'jwt-decode';
 declare var $: any;
 @Component({
   selector: 'app-cart-items',
@@ -20,7 +21,7 @@ export class CartItemsComponent implements OnInit {
   price: any;
   subtotal: any;
   totalweight: any;
-  total: any[];
+  total:number;
   cartitem2: any = [];
   weight: any;
   weight2: any = [];
@@ -36,8 +37,10 @@ export class CartItemsComponent implements OnInit {
   message: any;
   address1_id: any;
   length:number;
-
-
+totalitems:number;
+orderid:any;
+  UserData: any;
+  userid: any;
   constructor(
     private cart: CartService,
     private toastr: ToastrService,
@@ -55,15 +58,28 @@ export class CartItemsComponent implements OnInit {
   jquery_code() {
     $(document).ready(function () { });
   }
-
   productHome(_id) {
     this.router.navigate(['details/' + _id]);
   }
-  
   loadcart() {
     this.cart.getCart().subscribe((data) => {
       this.book$ = data;
+      let cart = this.book$.cartItems[0].cart
+      var sum = 0
+      for (let i = 0; i < cart.length; i++) {
+       if(cart[i].quantity){
+         sum += +cart[i].quantity
+        }
+      }
+      this.totalitems = sum
       this.subtotal = this.book$.subtotal;
+      this.total = this.subtotal
+    if(this.total <= 500){
+      var cal =  50 * this.totalitems 
+      this.total += cal
+    }else{
+      this.total = this.total
+    }
       this.totalweight = this.book$.totalweight;
     });
   }
@@ -85,7 +101,6 @@ export class CartItemsComponent implements OnInit {
           timeOut: 1000,
         });
       });
-
     }
   }
   decrement(quantity, _id, price, weight) {
@@ -98,27 +113,25 @@ export class CartItemsComponent implements OnInit {
           timeOut: 1000,
         });
       });
-
     }
   }
-
-
-
   getadd() {
     this.gettingadd.getaddress().subscribe((resp) => {
-
       this.address1_id = resp.address._id
-
-
     }, (error) => {
-
-
-
     })
-
   }
   gotocheckout(){
+    var token = localStorage.getItem('User');
+    var decode = jwt_decode(token);
+    this.UserData = decode
+    this.userid = this.UserData.userId
+   this.order.postorder(this.total,this.userid).subscribe((data)=>{
+    let response =  data
+    console.log(response)
+    this.orderid = response.sub.id
+    localStorage.setItem('orderid', this.orderid)
     this.router.navigate(['/checkout'])
+   })
   }
-
 }

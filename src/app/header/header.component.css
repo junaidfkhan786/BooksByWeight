@@ -63,8 +63,8 @@ background: #cfcfcd none repeat scroll 0 0;
 .overlay .closebtn {
 position: relative;
 top: 20px; 
-right: 50px; 
-font-size: 2rem;
+right:20px; 
+font-size: 3em;
   cursor: pointer;
   color: rgb(253, 253, 253);
   transition: all 1s;
