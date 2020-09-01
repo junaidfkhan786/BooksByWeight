@@ -4,7 +4,7 @@
         </span>
     </div>
     <br>
-    <form #productform="ngForm" id="product">
+    <form #productform="ngForm" enctype="multipart/form-data">
         Book Name:
         <div class="input-group">
 
@@ -149,12 +149,12 @@
 
                 <div class="col-6">
                     <div class="form-file">
-                        <input type="file" (change)="selectfiles($event)" id="customFile"
+                        <input type="file" name="book_img" accept="image/*" (change)="selectfiles($event)" #fileinput
                             multiple>
                     </div>
                 </div>
                 <div class="col-6">
-                    <img class="p-1" *ngFor="let url of book_img" height="100px" width="100px" [src]="url">
+                    <img class="p-1" *ngFor="let url of urls" height="100px" width="100px" [src]="url">
                 </div>
             </div>
         </div>

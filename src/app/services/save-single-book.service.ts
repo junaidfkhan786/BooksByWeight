@@ -13,9 +13,10 @@ export class SaveSingleBookService {
     private http : HttpClient,
   ) { }
 
-  public savesinglebook(book : Product):Observable<any>{
+  public savesinglebook(book):Observable<any>{
     
-   return this.http.post<any>(`${API_URL}` + '/book/singleBook/',book,httpOptions)
+    
+   return this.http.post<any>(`${API_URL}` + '/book/singleBook/',book)
   
 
 

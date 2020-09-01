@@ -128,6 +128,8 @@ orderid:any;
     this.userid = this.UserData.userId
    this.order.postorder(this.total,this.userid).subscribe((data)=>{
     let response =  data
+    let token = data.token
+    localStorage.setItem('shiprocket', token)
     console.log(response)
     this.orderid = response.sub.id
     localStorage.setItem('orderid', this.orderid)

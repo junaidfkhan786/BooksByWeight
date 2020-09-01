@@ -142,8 +142,7 @@ export class CheckoutComponent implements OnInit {
 
       this.order.verifypayment(this.orderid, this.paymentid, this.sig, this.ordermodel)
         .subscribe((data) => {
-          let token = data.token
-          localStorage.setItem('shiprocket', token)
+         console.log(data)
           this.getorder(this.orderid);
           // this.ngZone.run(() => this.router.navigate(['/cart', { query: "completed" }])).then();
         })
@@ -178,7 +177,7 @@ export class CheckoutComponent implements OnInit {
             delete orders[i]['bookdetail']
           }
         }
-
+console.log(data)
         return data
       }))
       .subscribe((data) => {
@@ -201,7 +200,6 @@ export class CheckoutComponent implements OnInit {
     this.shiprocketmodel.order_items = orders[0].order_items
     this.shiprocketmodel.weight = this.totalweight
     this.order.shiprocketorder(this.shiprocketmodel).subscribe((data) => {
-      localStorage.removeItem('shiprocket')
       console.log(data)
       this.ngZone.run(() => this.router.navigate(['/cart', { query: "completed" }])).then();
     })

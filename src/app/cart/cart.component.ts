@@ -42,6 +42,7 @@ this.loadroute();
 loadroute(){
   this.activatedRoute.params.subscribe(res => {
     var message = res['query'];
+    localStorage.removeItem('shiprocket')
     if (message){
       Swal.fire({
                  title: 'Your Order Has Been Confirmed?',

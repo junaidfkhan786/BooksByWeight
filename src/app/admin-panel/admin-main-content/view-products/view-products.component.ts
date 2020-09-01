@@ -1,9 +1,10 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { BooksService } from 'src/app/services/books.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { NgForm } from '@angular/forms';
 import { Product } from "src/app/models/product.model"
 import { SaveSingleBookService } from 'src/app/services/save-single-book.service';
+import { JsonPipe } from '@angular/common';
 declare var $: any;
 @Component({
   selector: 'app-view-products',
@@ -12,25 +13,25 @@ declare var $: any;
 })
 export class ViewProductsComponent implements OnInit {
   @ViewChild('productform') productform: NgForm;
+  // @ViewChild("fileUpload", { static: false }) fileUpload: ElementRef; files = [];
   booksearch: any = "";
   pid1: any = [];
   totalBooks: number;
   p: any
-  product: Product
   @Output() totalbook1 = new EventEmitter<number>()
   pages: number = 1;
   book: any = [];
   book1: any;
   formbutton: boolean;
   button: boolean;
-  book_img:any = [];
+  book_img: any = [];
   div: boolean;
   constructor(
     private spinner: NgxSpinnerService,
     private newService: BooksService,
-    private singelbook : SaveSingleBookService
+    private singelbook: SaveSingleBookService
   ) {
-    this.product = new Product();
+
   }
   ngOnInit() {
     this.button = true
@@ -64,7 +65,7 @@ export class ViewProductsComponent implements OnInit {
   }
 
   edit(books) {
-    this.book_img = books.book_img
+    this.urls = books.book_img
     this.button = false
     this.formbutton = true
     this.div = true
@@ -91,38 +92,97 @@ export class ViewProductsComponent implements OnInit {
 
     })
   }
+  urls = []
+  product = {
+    book_img : [null],
+    book_name: "",
+    author_name: "",
+    Isbn_no: "",
+    condition : "",
+    description : "",
+    dimensions : "",
+    language : "",
+    mrp : 0,
+    no_Of_pages: 0,
+    print_type : "",
+    publication_year : "",
+    publisher : "",
+    quantity : 0,
+    sale_price : 0,
+    saved_price: 0,
+    selling_price : 0,
+    weight : 0,
+    sku:"",
+    categories : "5f3e5e840ea9ea23b901b5fd"
+}
 
   selectfiles(event) {
-    this.book_img.splice(0, this.book_img.length)
-    // if (event.target.files.length > 0) {
-    //   this.book_img = event.target.files;
-    // }
-    if(event.target.files){
-      
-      for (let i = 0; i <= File.length; i++) {
+    this.urls.splice(0, this.urls.length)
+
+
+    if (event.target.files) {
+      for (let i = 0; i <= 2; i++) {
+
         var reader = new FileReader();
         reader.readAsDataURL(event.target.files[i]);
-        reader.onload = (event : any) => {
-          this.book_img.push(event.target.result)
+        reader.onload = (event: any) => {
+          this.urls.push(event.target.result as string)
         }
       }
+      if (event.target.files.length > 0) {
+       this.product.book_img = event.target.files;
+      }
+console.log(this.product.book_img)
     }
-console.log(this.book_img)
-  }
-  submitbook() {
-    if (this.productform.valid) {
-      this.product.book_img = this.book_img
-//       if (this.formbutton) {
 
-// console.log('update')
-//       } else {
-// console.log("add")
-//       }
-console.log(this.product)
-let resp = this.singelbook.savesinglebook(this.product)
-resp.subscribe((data) => {
-console.log(data)
-})
+  }
+
+
+
+  //   imgupdate(){
+  // for (let i = 0; i < this.book_img.length; i++) {
+  //   console.log(this.book_img[i].name)
+  //   if(this.book_img[i].File){
+  //     this.book_img[i]['name'] = this.book_img[i].File['name']
+  //     this.book_img[i]['lastModified'] = this.book_img[i].File['lastModified']
+  //     this.book_img[i]['size'] = this.book_img[i].File['size']
+  //     this.book_img[i]['type'] = this.book_img[i].File['type']
+  //     this.book_img[i]['webkitRelativePath'] = this.book_img[i].File['webkitRelativePath']
+  //     delete this.book_img[i].File['name']
+  //     delete this.book_img[i].File['lastModified']
+  //     delete this.book_img[i].File['size']
+  //     delete this.book_img[i].File['type']
+  //     delete this.book_img[i].File['webkitRelativePath']
+  // console.log('hello')
+  //   }else{
+  //     // console.log(this.book_img)  
+  //   }
+  // }
+
+  //   }
+
+  submitbook() {
+
+    if (this.productform.valid) {
+      const form = new FormData();
+      for (const key in this.product) {
+        if (this.product.hasOwnProperty(key)) {
+  
+            form.append(key, this.product[key]);
+          
+        }
+      }
+      //       if (this.formbutton) {
+
+      // console.log('update')
+      //       } else {
+      // console.log("add")
+      //       }
+      console.log(form)
+      let resp = this.singelbook.savesinglebook(form)
+      resp.subscribe((data) => {
+        console.log(data)
+      })
     }
   }
 
