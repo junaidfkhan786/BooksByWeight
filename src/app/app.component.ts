@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from "ngx-spinner";
 import * as AOS from 'aos';
+import { BooksService } from './services/books.service';
 declare var $:any;
 @Component({
   selector: 'app-root',
@@ -9,12 +10,11 @@ declare var $:any;
 })
 export class AppComponent  implements OnInit {
 constructor(
-  public spinner: NgxSpinnerService
+  public spinner: NgxSpinnerService,
   ){}
 
   title = 'BooksByWeight';
   ngOnInit(): void {
-
 
 this.jquery_code();
 

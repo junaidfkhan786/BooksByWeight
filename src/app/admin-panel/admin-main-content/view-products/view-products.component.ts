@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import { Product } from "src/app/models/product.model"
 import { SaveSingleBookService } from 'src/app/services/save-single-book.service';
 import { JsonPipe } from '@angular/common';
+import { Toast, ToastrService } from 'ngx-toastr';
 declare var $: any;
 @Component({
   selector: 'app-view-products',
@@ -26,19 +27,26 @@ export class ViewProductsComponent implements OnInit {
   button: boolean;
   book_img: any = [];
   div: boolean;
+
   constructor(
     private spinner: NgxSpinnerService,
     private newService: BooksService,
-    private singelbook: SaveSingleBookService
+    private singelbook: SaveSingleBookService,
+    private toastr: ToastrService,
   ) {
 
   }
   ngOnInit() {
+    this.spinner.show();
     this.button = true
     this.div = false
     // this.spinner.show();
     this.jquery_code();
-    this.totalbook1.emit(this.totalBooks)
+    this.totalbook1.emit(this.totalBooks);
+
+    this.singelbook.getbookload().subscribe(() => {
+      this.loadbook();
+    })
     this.loadbook();
   }
   jquery_code() {
@@ -47,6 +55,7 @@ export class ViewProductsComponent implements OnInit {
   }
   loadbook() {
     this.newService.getBooks().subscribe((data) => {
+      this.spinner.hide();
       this.book = data.books
       const pid = data.books;
       this.book1 = pid.length
@@ -70,6 +79,8 @@ export class ViewProductsComponent implements OnInit {
     this.formbutton = true
     this.div = true
     console.log(books)
+    
+
     this.productform.setValue({
       bookname: books.book_name,
       authorname: books.author_name,
@@ -94,7 +105,7 @@ export class ViewProductsComponent implements OnInit {
   }
   urls = []
   product = {
-    book_img : [null],
+    book_img : [],
     book_name: "",
     author_name: "",
     Isbn_no: "",
@@ -121,19 +132,23 @@ export class ViewProductsComponent implements OnInit {
 
 
     if (event.target.files) {
-      for (let i = 0; i <= 2; i++) {
+      if (event.target.files.length > 0) {
+        this.product.book_img = event.target.files;
+       }
+       console.log(this.product.book_img)
+
+      for (let i = 0; i <= event.target.files ; i++) {
 
         var reader = new FileReader();
         reader.readAsDataURL(event.target.files[i]);
         reader.onload = (event: any) => {
-          this.urls.push(event.target.result as string)
+          this.urls.push(event.target.result)
         }
       }
-      if (event.target.files.length > 0) {
-       this.product.book_img = event.target.files;
-      }
-console.log(this.product.book_img)
+    
     }
+
+
 
   }
 
@@ -167,17 +182,27 @@ console.log(this.product.book_img)
       const form = new FormData();
       for (const key in this.product) {
         if (this.product.hasOwnProperty(key)) {
-  
-            form.append(key, this.product[key]);
+          if (key === 'book_img') {
+        for (let i = 0; i < this.product.book_img.length; i++) {
+          form.append(
+            'book_img',
+            this.product.book_img[i],
+            this.product.book_img[i].name
+          );
           
         }
+      }else{
+        form.append(key, this.product[key]);
       }
+    }
+  }
       //       if (this.formbutton) {
 
       // console.log('update')
       //       } else {
       // console.log("add")
       //       }
+      console.log(this.product)
       console.log(form)
       let resp = this.singelbook.savesinglebook(form)
       resp.subscribe((data) => {
@@ -192,5 +217,15 @@ console.log(this.product.book_img)
     this.button = !this.button
     this.formbutton = false
     this.productform.resetForm();
+  }
+  deletebook(id){
+    this.spinner.show();
+    this.singelbook.deletebook(id).subscribe((data)=>{
+      console.log(data)
+      this.toastr.error(data.message, 'BooksByWeight', {
+        timeOut: 1000,
+      });
+
+    })
   }
 }
