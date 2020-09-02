@@ -21,7 +21,7 @@
     <div style="margin-left: 50px; margin-right: 50px;">
       <div class="row g-0" *ngFor="let book of books$.books">
 
-       <app-details [details] = "book" [addedToWishlist]= "wid1.indexOf(book._id) >= 0 " ></app-details>
+       <app-details [details] = "book" [cartbutton]="cartpid1.indexOf(book._id) >= 0" [addedToWishlist]="wid1.indexOf(book._id) >= 0" ></app-details>
       </div>
     </div>
 

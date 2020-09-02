@@ -38,4 +38,17 @@ export class SaveSingleBookService {
       })
     );
   }
+
+  public bulkbook(book):Observable<any>{
+    
+    
+    return this.http.post<any>('https://bbw-backend.herokuapp.com/api/book/saveBook/',book).pipe(
+     tap(() => {
+       this.bookload.next();
+     })
+   );
+   
+ 
+ 
+   }
 }

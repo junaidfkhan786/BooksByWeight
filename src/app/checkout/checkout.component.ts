@@ -15,6 +15,7 @@ import { identifierModuleUrl } from '@angular/compiler';
 import { useradd } from '../models/useraddress.model';
 import { ShipRocketOrders } from '../models/shiprocketorder.model';
 import { map } from 'rxjs/operators';
+
 declare var $: any;
 @Component({
   selector: 'app-checkout',
@@ -64,6 +65,9 @@ export class CheckoutComponent implements OnInit {
   ordermodel: Orders;
   paymentbutton: boolean
   shiprocketmodel: ShipRocketOrders
+kilo :string = ""
+  shiporderid: any;
+  shippingid: any;
   constructor(
     private cart: CartService,
     private toastr: ToastrService,
@@ -73,6 +77,7 @@ export class CheckoutComponent implements OnInit {
     public windowref: WindowRefService,
     private activatedRoute: ActivatedRoute,
     private ngZone: NgZone,
+
   ) {
     this.ordermodel = new Orders();
     this.shiprocketmodel = new ShipRocketOrders();
@@ -115,11 +120,18 @@ export class CheckoutComponent implements OnInit {
       if (response.razorpay_order_id) {
         this.ordersaved(response);
 
-      } else {
+      } else if (!response.razorpay_order_id) {
         Swal.fire(
           'Payment Aborted!',
           'error'
         )
+      } else {
+        Swal.fire(
+          ' Canceled By User!',
+          'error'
+        )
+
+
       }
     });
     this.rzp1 = new this.windowref.nativeWindow.Razorpay(options);
@@ -142,50 +154,50 @@ export class CheckoutComponent implements OnInit {
 
       this.order.verifypayment(this.orderid, this.paymentid, this.sig, this.ordermodel)
         .subscribe((data) => {
-         console.log(data)
+          console.log(data)
           this.getorder(this.orderid);
-          // this.ngZone.run(() => this.router.navigate(['/cart', { query: "completed" }])).then();
         })
 
   }
   getorder(orderid) {
     this.orderid = orderid
     this.order.GetOrderById(this.orderid)
-      .pipe(map((data) => {
-        let orders: any = data[0].order_items
-
-
-        for (var i = 0; i < orders.length; i++) {
-          delete orders[i]['_id']
-          if (orders[i].bookdetail) {
-            orders[i].bookdetail['name'] = orders[i].bookdetail['book_name']
-            delete orders[i].bookdetail['book_name']
-            delete orders[i].bookdetail['id']
-            delete orders[i].bookdetail['_id']
-            orders[i].bookdetail['units'] = orders[i]['units']
-            delete orders[i]['units']
-            orders[i]['name'] = orders[i].bookdetail['name']
-            orders[i]['selling_price'] = orders[i].bookdetail['selling_price']
-            orders[i]['sku'] = orders[i].bookdetail['sku']
-            orders[i]['units'] = orders[i].bookdetail['units']
-            orders[i]['weight'] = orders[i].bookdetail['weight']
-            delete orders[i].bookdetail['name']
-            delete orders[i].bookdetail['selling_price']
-            delete orders[i].bookdetail['sku']
-            delete orders[i].bookdetail['units']
-            delete orders[i].bookdetail['weight']
-            delete orders[i]['bookdetail']
+      .pipe(
+        map(
+          (data) => {
+            let orders: any = data[0].order_items
+            for (var i = 0; i < orders.length; i++) {
+              delete orders[i]['_id']
+              if (orders[i].bookdetail) {
+                orders[i].bookdetail['name'] = orders[i].bookdetail['book_name']
+                delete orders[i].bookdetail['book_name']
+                delete orders[i].bookdetail['id']
+                delete orders[i].bookdetail['_id']
+                orders[i].bookdetail['units'] = orders[i]['units']
+                delete orders[i]['units']
+                orders[i]['name'] = orders[i].bookdetail['name']
+                orders[i]['selling_price'] = orders[i].bookdetail['selling_price']
+                orders[i]['sku'] = orders[i].bookdetail['sku']
+                orders[i]['units'] = orders[i].bookdetail['units']
+                orders[i]['weight'] = orders[i].bookdetail['weight']
+                delete orders[i].bookdetail['name']
+                delete orders[i].bookdetail['selling_price']
+                delete orders[i].bookdetail['sku']
+                delete orders[i].bookdetail['units']
+                delete orders[i].bookdetail['weight']
+                delete orders[i]['bookdetail']
+              }
+            }
+            console.log(data)
+            return data
           }
-        }
-console.log(data)
-        return data
-      }))
+        )
+      )
       .subscribe((data) => {
         this.shipping(data)
       })
   }
   shipping(data) {
-
     let orders: any = data
 
     this.shiprocketmodel.order_id = orders[0].orderid;
@@ -199,10 +211,33 @@ console.log(data)
     this.shiprocketmodel.billing_phone = orders[0].address.mobilenumber
     this.shiprocketmodel.order_items = orders[0].order_items
     this.shiprocketmodel.weight = this.totalweight
-    this.order.shiprocketorder(this.shiprocketmodel).subscribe((data) => {
-      console.log(data)
-      this.ngZone.run(() => this.router.navigate(['/cart', { query: "completed" }])).then();
-    })
+    this.order.shiprocketorder(this.shiprocketmodel).subscribe(
+      (data) => {
+        console.log(data)
+        this.shippingresponse(data);
+      }
+    )
+
+  }
+  shippingresponse(data) {
+    var token = localStorage.getItem('User');
+    var decode = jwt_decode(token);
+    this.UserData = decode
+    this.userid = this.UserData.userId
+    this.orderid
+    this.shippingid = data.shipment_id;
+    this.shiporderid = data.order_id
+    this.order.shiprocketresponse(this.userid,this.orderid, this.shippingid, this.shiporderid)
+    .subscribe((data1) => {
+      console.log(data1)
+      this.ngZone.run(
+        () => this.router.navigate(['/cart', { query: "completed" }])
+      ).then();
+    },
+      (error) => console.log(error),
+      () => console.log("completed")
+
+    )
 
   }
   jquery_code() {
@@ -221,36 +256,22 @@ console.log(data)
         this.cartitem1 = books;
         this.cartitem2.push(this.cartitem1);
       }
-
-
-      // let cartitem3 = this.cartitem2;
-      // console.log(this.cartitem2)
-      // for (var { _id: id } of this.cartitem2) {
-      //   this.pid1.push(id);
-      // }
-
-
       if (this.cartitem.length == 0) {
         this.router.navigate(['/books']);
       }
       let cart = this.book$.cartItems[0].cart
       var sum = 0
-
       for (let i = 0; i < cart.length; i++) {
 
         this.pid1.push({
           bookdetail: cart[i].book._id,
           units: cart[i].quantity
         })
-
-
         if (cart[i].quantity) {
-
           sum += +cart[i].quantity
         }
 
       }
-
 
       this.totalitems = sum
       this.subtotal = this.book$.subtotal;
@@ -265,6 +286,11 @@ console.log(data)
       this.subtotal = this.book$.subtotal;
       this.totalweight = this.book$.totalweight;
       this.amountpayable = this.total;
+      if(this.totalweight > 0.999){
+        this.kilo = "Kg"
+      }else{
+        this.kilo = "g"
+      }
     });
   }
   getadd() {
@@ -285,7 +311,6 @@ console.log(data)
     this.paymentbutton = true
     this.placebutton = true
     this.selected = !this.selected;
-
     this.toastr.success('This Address Is Selected' + ' ' + adds.fullName + ' ' + adds.address + ' ' + adds.city + ' ' + adds.state + ' ' + adds.pinCode, 'BooksByWeight', {
       timeOut: 5000,
     });

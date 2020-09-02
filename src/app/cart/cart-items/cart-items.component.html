@@ -13,7 +13,7 @@
         </tr>
         <tr style="border-width: 1px;" *ngFor="let item of productItem.cart">
           <td style="border-width: 1px;">
-            <a (click)="productHome(item.book._id)"><img src="{{ item.book.book_img[0] }}" class="high" /></a>
+            <a (click)="productHome(item.book._id)"><img src="{{ item.book.book_img[0] }}" onerror="this.src='assets/images/altimg.png';" class="high" /></a>
           </td>
           <td style="border-width: 1px;">
             <a href="#" style="
@@ -124,7 +124,7 @@
           <div class="col" style="font-weight: bolder;">
             <span>&#8377;{{ subtotal }}</span>
             <br /><br />
-            <span>{{ totalweight }}KG</span>
+            <span>{{ totalweight }} {{kilo}}</span>
             <br /><br />
             <span>FLAT RATE: &#8377;50.00/ BOOK<br />
               Free Shipping Above &#8377;500

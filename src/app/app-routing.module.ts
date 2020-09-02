@@ -105,6 +105,14 @@ const routes: Routes = [
     component : AdminPanelComponent
   },
   {
+    path : 'admin/dashboard/add-bulk-products',
+    component : AdminPanelComponent
+  },
+  {
+    path : 'admin/dashboard/view-orders',
+    component : AdminPanelComponent
+  },
+  {
     path : 'search',
     component : SearchComponent
   },

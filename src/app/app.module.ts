@@ -64,6 +64,7 @@ import { PrebooksComponent } from './prebooks/prebooks.component';
 import { PrebookitemsComponent } from './prebooks/prebookitems/prebookitems.component';
 import {AuthGuard} from 'src/app/auth.guard'
 import { AvatarModule } from 'ngx-avatar';
+import { ViewOrdersComponent } from './admin-panel/admin-main-content/view-orders/view-orders.component';
 
 @NgModule({
   declarations: [
@@ -108,6 +109,7 @@ import { AvatarModule } from 'ngx-avatar';
     NewbooksitemComponent,
     PrebooksComponent,
     PrebookitemsComponent,
+    ViewOrdersComponent,
     
 
     

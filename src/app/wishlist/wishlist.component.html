@@ -40,7 +40,7 @@
               <td style="border-width: 1px; cursor: pointer;"><a (click)="deletePro(wish.book._id)">
 
                 <img src="../../assets/images/bin.png" /></a> </td>
-              <td style="border-width: 1px"><a><img src="{{wish.book.book_img[0]}}" class="high"></a></td>
+              <td style="border-width: 1px"><a><img src="{{wish.book.book_img[0]}}" onerror="this.src='assets/images/altimg.png';" class="high"></a></td>
               <td style="border-width: 1px"><a href="#"
                   style="font-size: 14px; color: #6f6f6f; font-weight: 700; text-decoration: none;"></a>{{wish.book.book_name}}
               </td>

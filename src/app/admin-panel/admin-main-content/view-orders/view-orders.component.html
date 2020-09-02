@@ -1,0 +1,84 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="line-scale-pulse-out" [fullScreen]="false">
+    <p style="color: white"> Loading... </p>
+  </ngx-spinner>
+ 
+  
+    <table class="table  table-dark table-striped table-hover" *ngIf="orderslength >= 0">
+        <thead class="table-dark">
+            <tr>
+                <!-- <th scope="col">
+                Select All &nbsp; <input class="form-check-input" type="checkbox" value="" >
+                </th> -->
+                <th scope="col">Sr No</th>
+                <th scope="col">Name</th>
+                <th scope="col">Mob Number</th>
+                <th scope="col">Order Items </th>
+                <th scope="col">Payment Done </th>
+                <th scope="col">Order Status</th>
+                <th scope="col">View Details</th>
+                <th scope="col">Cancel</th>
+            </tr>
+        </thead>
+        <tbody class="align-middle">
+            <ng-container >
+                <tr *ngFor="let orders of orders$; let i = index;" >
+                    <td >
+                        {{i + 1}}
+                    </td>
+                    <td *ngIf="orders.address ">
+                        {{orders.address.fullname}}
+                    </td>
+                    <td *ngIf="orders.address ">
+                        {{orders.address.mobilenumber}}
+                    </td>
+                    <td>
+                       {{orders.order_items.length}} 
+                    </td>
+                    <td *ngIf="orders.isPaymentCompleted == true">
+                        Payment Completed
+                    </td>
+                    <td *ngIf="orders.isPaymentCompleted == false">
+                        Payment Not Completed
+                    </td>
+                    <td *ngIf="orders.isOrderComleted == true">
+                        Order Completed
+                    </td>
+                    <td *ngIf="orders.isOrderComleted == false">
+                        Processing
+                    </td>
+                    <td>
+                        <button  (click)="viewdetails(orders)" class="btn btn-success" style="border-radius: 0;">
+                            View-Details
+                        </button>
+                    </td>
+                    <td>
+                        <button (click)="cancelorder(orders._id)" class="btn btn-danger" style="border-radius: 0;">
+                            Cancel
+                        </button>
+                    </td>
+    
+                </tr>
+                <p class="mt-2"
+                 style="color: black; font-size: 3rem;" *ngIf="orderslength == 0">No Result Found</p> 
+            </ng-container>
+
+        </tbody>
+    </table>
+
+<pagination-controls class="d-flex justify-content-center" directionLinks="true"
+
+(pageChange)="onPageChange($event)"
+    autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next">
+</pagination-controls> 
+
+
+
+<div class="row  d-flex justify-content-center" style="height: 500px;" *ngIf="orderslength == 0">
+    <div style="width: 50%; height: 50%; top: 80px; background-color: #212529; color: white; " class="card shadow-bottom align-middle">
+        <h5 style="margin-top: 15%;"  class="text-center card-title">YOU HAVE NO PRODUCT ADDED</h5>
+        <a style="text-decoration: none; color: white; cursor: pointer;" class="d-flex justify-content-center org "> CLick Here To Add It </a>
+        <span class="material-icons d-flex justify-content-center">
+            touch_app
+            </span>
+    </div>
+</div>

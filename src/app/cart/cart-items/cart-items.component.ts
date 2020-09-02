@@ -41,6 +41,7 @@ totalitems:number;
 orderid:any;
   UserData: any;
   userid: any;
+  kilo:string = ""
   constructor(
     private cart: CartService,
     private toastr: ToastrService,
@@ -81,6 +82,11 @@ orderid:any;
       this.total = this.total
     }
       this.totalweight = this.book$.totalweight;
+      if(this.totalweight > 0.999){
+        this.kilo = "Kg"
+      }else{
+        this.kilo = "g"
+      }
     });
   }
   delCart(_id) {

@@ -44,7 +44,7 @@ export class ProductsComponent implements OnInit {
   cartquantity: any = [];
   cartquantity1: any = [];
   cartpid: any = {};
-  cartpid1: number[] = [];
+  cartpid1: any[] = [];
   constructor(
     private toastr: ToastrService,
     private CatService: CategoryService,
@@ -186,7 +186,6 @@ export class ProductsComponent implements OnInit {
       this.cart.getCart().subscribe((data) => {
         this.book$ = data;
         if (this.book$.cartItems.length > 0) {
-
 
           this.cartitem = this.book$.cartItems[0].cart;
           this.length = this.cartitem.length;

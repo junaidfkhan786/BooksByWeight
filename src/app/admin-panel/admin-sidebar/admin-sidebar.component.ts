@@ -42,4 +42,10 @@ export class AdminSidebarComponent implements OnInit {
   viewusers(){
     this.router.navigate(['admin/dashboard/view-users']);
   }
+  addbulkproducts(){
+    this.router.navigate(['admin/dashboard/add-bulk-products']);
+  }
+  vieworders(){
+    this.router.navigate(['admin/dashboard/view-orders']);
+  }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgxSpinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AdminOrdersService } from '../services/admin-orders.service';
+import { OrdersService } from '../services/orders.service';
 
 @Component({
   selector: 'app-admin-panel',
@@ -8,13 +10,25 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./admin-panel.component.css']
 })
 export class AdminPanelComponent implements OnInit {
-
+  orderslength:any
+  orders$:any
   constructor(
-    public spinner : NgxSpinnerService
-  ) { }
+    public spinner : NgxSpinnerService,
+    private allorders: AdminOrdersService,
+    private orders: OrdersService
+  ) {
+    this.allorders.totalorders.subscribe(
+      (total) => {
+        this.orderslength = total
+      }
+    )
+   }
 
-  ngOnInit(): void {
-    
+  ngOnInit() {
+  this.orders.getorderload().subscribe(()=>{
+    this.GetAllOrders();
+  })
+    this.GetAllOrders();
   }
 
   opened:any
@@ -22,6 +36,20 @@ export class AdminPanelComponent implements OnInit {
   receave($event){
     this.opened = $event;
 
+  }
+
+  GetAllOrders() {
+    this.allorders.getallorders().subscribe(
+      (orders) => {
+        this.allorders.totalorders.next(orders.length)
+      },
+      (error) => {
+        if (error) {
+          console.error(error)
+        }
+      },
+      () => console.log("All Orders Fetched SuccessFully In Admin Panel For Order Count Only")
+    )
   }
 
 }

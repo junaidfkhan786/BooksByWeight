@@ -20,8 +20,8 @@
       <div class="col-xl-4 col-md-4 d-flex justify-content-center">
          <div class="card shadow-bottom" style="width: 18rem;background-color: #212529; color: white;">
             <div class="card-body">
-              <h5 class="card-title">ORDERS</h5>
-              <a href="/admin/dashboard/view-products" style="text-decoration: none; color: white;" class="d-flex justify-content-end org ">View Orders</a>
+              <h5 class="card-title">ORDERS <span class="d-flex justify-content-end">[{{orderslength}}]</span></h5>
+              <a href="/admin/dashboard/view-orders" style="text-decoration: none; color: white;" class="d-flex justify-content-end org ">View Orders</a>
             </div>
           </div>
       </div>
@@ -29,10 +29,37 @@
    </div>
 
    <div *ngIf="router.url === '/admin/dashboard/view-products'">
-      <app-view-products (totalbook1)="recieve2($event)" ></app-view-products>
+      <app-view-products ></app-view-products>
    </div>
    <div *ngIf="router.url === '/admin/dashboard/view-users'">
       <app-view-users></app-view-users>
+   </div>
+   <div *ngIf="router.url === '/admin/dashboard/view-orders'">
+      <app-view-orders></app-view-orders>
+   </div>
+   <div *ngIf="router.url === '/admin/dashboard/add-bulk-products'">
+   
+      <div class="row  d-flex justify-content-center" style="height: 500px;">
+         <div style="width: 50%; height: 50%; top: 80px; background-color: #212529; color: white; "
+           class="card shadow-bottom align-middle">
+           <h5 style="margin-top: 7%;" class="text-center card-title"><span style="font-size: 2rem;">UPLOAD YOUR EXCEL FILE</span>
+             <br> <br> <input (change)="getfile($event)" name="excel_file" #file hidden type="file"></h5>
+           <a style="text-decoration: none; color:  white; cursor: pointer;"
+             class="d-flex justify-content-center org "(click)="file.click()"> CLick Here To Add It </a>
+           <span class="material-icons d-flex justify-content-center">
+             touch_app
+           </span>
+         
+           <div class="d-flex justify-content-center">
+            <button  height="40px" width="40px" alt="" data-toggle="tooltip" data-placement="right" title="Click Here To Upload"
+             [hidden]="button" class="btn btn-outline-dark" (click)="addbulk()" style=" margin-top: 10px;cursor: pointer;">
+               <span class="material-icons org"
+               style="font-size: 2rem; cursor: pointer;">cloud_done</span>
+            </button>
+           </div> 
+     
+         </div>
+       </div>
    </div>
 
 </div>
