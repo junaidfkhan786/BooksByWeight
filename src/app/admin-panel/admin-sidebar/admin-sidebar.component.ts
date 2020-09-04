@@ -48,4 +48,7 @@ export class AdminSidebarComponent implements OnInit {
   vieworders(){
     this.router.navigate(['admin/dashboard/view-orders']);
   }
+  ViewCatSubcat(){
+    this.router.navigate(['admin/dashboard/View-Cat-&&-SubCat']);
+  }
 }

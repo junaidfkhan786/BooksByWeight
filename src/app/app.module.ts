@@ -65,6 +65,7 @@ import { PrebookitemsComponent } from './prebooks/prebookitems/prebookitems.comp
 import {AuthGuard} from 'src/app/auth.guard'
 import { AvatarModule } from 'ngx-avatar';
 import { ViewOrdersComponent } from './admin-panel/admin-main-content/view-orders/view-orders.component';
+import { AddCatSubcatComponent } from './admin-panel/admin-main-content/add-cat-subcat/add-cat-subcat.component';
 
 @NgModule({
   declarations: [
@@ -110,6 +111,7 @@ import { ViewOrdersComponent } from './admin-panel/admin-main-content/view-order
     PrebooksComponent,
     PrebookitemsComponent,
     ViewOrdersComponent,
+    AddCatSubcatComponent,
     
 
     

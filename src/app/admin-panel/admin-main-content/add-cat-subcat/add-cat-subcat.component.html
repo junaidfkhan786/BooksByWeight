@@ -1,0 +1,149 @@
+<div class="d-flex justify-content-center">
+    <button class="btn btn-lg btn-outline-success" (click)="addcategory()">
+        {{!div? 'Hide Category Form':'Add Categories And Add SubCategories'}}
+    </button>
+</div>
+<br><br>
+<div [hidden]="div">
+    <div class="card p-2">
+        <div class="row" style="margin-bottom: 20px;">
+            <div class="col-3">
+              <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Add SubCategories</a>
+                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Add Categories</a>
+           </div>
+            </div>
+            <div class="col-9">
+              <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                   <div class="row">
+                       <div class="col">
+                        Add Subcategory Name: <br>
+                        <input type="text" placeholder="Enter SubCategory Name" class="form-control subcat" name="name" #subs>
+                       </div>
+                       <div class="col">
+                           <br>
+                        <button class="btn btn-success sub" id="sub" style="width: 100%;" (click)="addsubcat(subs.value)"> add
+                            subcategory
+                        </button>
+                       </div>
+                    </div>
+
+
+                </div>
+                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                    <div class="row">
+                        <div class="col">
+                            categories Name: <br>
+                            <input type="text" placeholder="Enter Category Name" class="form-control subcat" name="name"
+                                #cats>
+                        </div>
+                        <div class="col">
+                            <br>
+                            <select [(ngModel)]="selected" class="form-select select"
+                                aria-label="Default select example">
+                                <option *ngFor="let allsub of sub" [value]="allsub._id">{{allsub.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <br>
+                            <button style="width: 40%;" class="btn btn-success sub" id="sub" (click)="addcat(cats.value)">ADD
+                            </button>
+                            &nbsp;
+                            <button style="width: 40%;" class="btn btn-success sub" id="sub" (click)="submitcat()"> SUBMIT
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+                </div>
+            </div>
+          </div>
+
+
+
+        <div class="card p-2">
+            category name: &nbsp;
+            {{catdata.category}} <br><br>
+            subcategory name:
+            <div *ngFor="let subcat1 of catdata.subcategory; let i = index">
+                {{i+1}} &nbsp; {{subcat1}} <br>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+<br><br>
+<div class="card p-2 btc">
+    <span class="font-weight-bolder org text-center" style="font-size: large;">Categories & SubCategories
+    </span>
+</div>
+<div class="card p-2">
+    <div class="row">
+        <div class="col-md-1">
+            Sr No:
+        </div>
+        <div class="col-md-3">
+            Categories Names
+        </div>
+        <div class="col-1">
+            &nbsp;
+        </div>
+        <div class="col">
+            SubCategories Names
+        </div>
+    </div>
+</div>
+
+<div *ngFor="let allcat of cat | paginate: {  itemsPerPage: 5, currentPage: pages, totalItems: cat.length}; let i = index">
+    <div class="card p-2">
+        <div class="row">
+            <div class="col-1">
+
+                {{ 5 * (pages - 1) + i + 1 }}
+            </div>
+            <div class="col-md-4">
+                {{allcat.category}}
+            </div>
+            <div class="col-md-7">
+                <div class="row" *ngFor="let SubCategories of allcat.subcategory; let i = index">
+                    <div class="col">
+                        {{i + 1 }} &nbsp; {{SubCategories.name}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<pagination-controls class="d-flex justify-content-center" directionLinks="true" (pageChange)="onPageChange($event)"
+    autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next">
+</pagination-controls>
+
+
+<!-- <div class="accordion" id="accordionExample">
+    <div class="card"  *ngFor="let allcat of cat | paginate: {  itemsPerPage: 5, currentPage: pages, totalItems: i}; let i = index">
+      <div class="card-header" id="headingOne">
+        <h2 class="mb-0">
+          <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+     {{allcat.category}}
+          </button>
+        </h2>
+      </div>
+  
+      <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div class="card-body">
+            <div class="row" *ngFor="let SubCategories of allcat.subcategory; let i = index">
+                <div class="col">
+                    {{i + 1 }} &nbsp; {{SubCategories.name}}
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <pagination-controls class="d-flex justify-content-center" directionLinks="true" (pageChange)="onPageChange($event)"
+    autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next">
+</pagination-controls> -->

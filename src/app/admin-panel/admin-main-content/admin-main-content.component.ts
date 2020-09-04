@@ -131,41 +131,17 @@ export class AdminMainContentComponent implements OnInit {
         this.exceljson = data
         console.log(this.exceljson, this.Allcategories)
 
-
-
-        // for (let j = 0; j < this.Allcategories.length; j++) {
-        // console.log("j =" + j)
-        //   for (let i = 0; i < this.exceljson.length; i++) {
-
-        //     if(  this.Allcategories[i]['category'] == this.exceljson[i]['categories'] == true){
-        //       this.exceljson[i]['categories'] = this.Allcategories[i]['_id']
-        //       console.log(this.exceljson[i])
-              
-        //     }else{
-        //       this.exceljson[i]['categories'] =  this.exceljson[i]['categories'] 
-        //     }
-        //     console.log("[ i ]="+ i)
-           
-        //   }
-        
-        // }
-
-
         for (let i = 0; i < this.exceljson.length; i++) {
-          for (let j = 0; j < this.Allcategories.length; j++) {   
-          // console.log("[i] = " + i);
-         
-         
-              // console.log("j = " + j);
+          for (let j = 0; j < this.Allcategories.length; j++) {     
+            for (let k = 0; k < this.Allcategories[j].subcategory.length; k++) {
               if(this.exceljson[i]['categories'] == this.Allcategories[j]['category']){
-                this.exceljson[i]['categories'] = this.Allcategories[j]['_id']
-                console.log(true)
-                 
-              }else{
-                console.log(false)
+                this.exceljson[i]['categories'] = this.Allcategories[j]['_id']      
               }
+              if(this.exceljson[i]['subcategory'] == this.Allcategories[j].subcategory[k]['name']){
+                this.exceljson[i]['subcategory'] = this.Allcategories[j].subcategory[k]['_id'] 
+              }
+            }
               
-
             }
               console.log(this.exceljson[i])
            

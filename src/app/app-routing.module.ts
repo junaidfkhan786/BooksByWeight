@@ -113,6 +113,11 @@ const routes: Routes = [
     component : AdminPanelComponent
   },
   {
+    path : 'admin/dashboard/View-Cat-&&-SubCat',
+    component : AdminPanelComponent
+  },
+ 
+  {
     path : 'search',
     component : SearchComponent
   },
