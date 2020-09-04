@@ -12,6 +12,7 @@
   },
   "private": true,
   "dependencies": {
+    "-": "0.0.1",
     "@angular/animations": "~10.0.0",
     "@angular/cdk": "^10.1.2",
     "@angular/cli": "^10.0.4",
@@ -28,6 +29,7 @@
     "aos": "^2.3.4",
     "bootstrap": "^5.0.0-alpha1",
     "express": "^4.17.1",
+    "file-saver": "^2.0.2",
     "jquery": "^3.5.1",
     "jwt-decode": "^2.2.0",
     "material-design-icons": "^3.0.1",
@@ -41,10 +43,12 @@
     "razorpay": "^2.0.6",
     "rellax": "^1.12.1",
     "rxjs": "~6.5.5",
+    "save": "^2.4.0",
     "script-loader": "^0.7.2",
     "sweetalert2": "^9.17.1",
     "tslib": "^2.0.0",
     "typescript": "~3.9.5",
+    "xlsx": "^0.16.6",
     "zone.js": "~0.10.3"
   },
   "devDependencies": {
