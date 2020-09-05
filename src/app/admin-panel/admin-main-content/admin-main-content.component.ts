@@ -159,8 +159,6 @@ export class AdminMainContentComponent implements OnInit {
   }
 
   exportexcel(exceljson){
-    // let date = new Date()
-    // let time = date.toTimeString()
       let filename = new Date() +"BooksByWeight"
       this.excelexp.exportExcel(exceljson, filename);
   }

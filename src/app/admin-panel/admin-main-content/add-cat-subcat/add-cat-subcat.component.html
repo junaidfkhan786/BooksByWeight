@@ -48,10 +48,13 @@
                         <div class="col">
                             <br>
                             <button style="width: 40%;" class="btn btn-success sub" id="sub" (click)="addcat(cats.value)">ADD
-                            </button>
-                            &nbsp;
+                            </button> &nbsp;
                             <button style="width: 40%;" class="btn btn-success sub" id="sub" (click)="submitcat()"> SUBMIT
                             </button>
+                            &nbsp;
+                            <button style="width: 85%; margin-top: 10px" class="btn btn-danger" id="sub" (click)="clear()">Clear All
+                            </button>
+
                         </div>
                     </div>
 
@@ -91,13 +94,22 @@
         <div class="col-1">
             &nbsp;
         </div>
-        <div class="col">
+        <div class="col-3">
             SubCategories Names
+        </div>
+        <div class="col">
+           
+                <div class="input-group ">
+                    <span class="input-group-text" style="background-color: #212529; color: white;">Search : </span>
+                    <input type="text" [(ngModel)]="categoriessearch" aria-label="Search" class="form-control">
+            
+                </div>
+           
         </div>
     </div>
 </div>
-
-<div *ngFor="let allcat of cat | paginate: {  itemsPerPage: 5, currentPage: pages, totalItems: cat.length}; let i = index">
+<ng-container *ngIf="( cat | adminCategory:categoriessearch) as result">
+<div *ngFor="let allcat of result | paginate: {  itemsPerPage: 5, currentPage: pages, totalItems: i}; let i = index">
     <div class="card p-2">
         <div class="row">
             <div class="col-1">
@@ -117,6 +129,10 @@
         </div>
     </div>
 </div>
+<div class="d-flex justify-content-center">
+    <p class="mt-3"  style="color: black; font-size: 2rem;" *ngIf="result.length === 0">No Result Found</p>
+</div>
+</ng-container>
 <br>
 <pagination-controls class="d-flex justify-content-center" directionLinks="true" (pageChange)="onPageChange($event)"
     autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next">
