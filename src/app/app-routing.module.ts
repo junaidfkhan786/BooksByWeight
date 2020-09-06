@@ -16,6 +16,8 @@ import { SearchComponent } from './search/search.component';
 import { NewbooksComponent } from './newbooks/newbooks.component';
 import { PrebooksComponent } from './prebooks/prebooks.component';
 import { AuthGuard } from './auth.guard';
+import{AdminauthGuard} from './adminauth.guard'
+import { from } from 'rxjs';
 const routes: Routes = [
   {
     path: '',
@@ -94,27 +96,38 @@ const routes: Routes = [
   },
   {
     path : 'admin/dashboard',
-    component : AdminPanelComponent
+    component : AdminPanelComponent,
+    canActivate:[AdminauthGuard]
   },
   {
     path : 'admin/dashboard/view-products',
-    component : AdminPanelComponent
+    component : AdminPanelComponent,
+    canActivate:[AdminauthGuard]
   },
   {
     path : 'admin/dashboard/view-users',
-    component : AdminPanelComponent
+    component : AdminPanelComponent,
+    canActivate:[AdminauthGuard]
   },
   {
     path : 'admin/dashboard/add-bulk-products',
-    component : AdminPanelComponent
+    component : AdminPanelComponent,
+    canActivate:[AdminauthGuard]
   },
   {
     path : 'admin/dashboard/view-orders',
-    component : AdminPanelComponent
+    component : AdminPanelComponent,
+    canActivate:[AdminauthGuard]
   },
   {
     path : 'admin/dashboard/View-Cat-&&-SubCat',
-    component : AdminPanelComponent
+    component : AdminPanelComponent,
+    canActivate:[AdminauthGuard]
+  },
+  {
+    path : 'admin/dashboard/Coupon',
+    component : AdminPanelComponent,
+    canActivate:[AdminauthGuard]
   },
  
   {

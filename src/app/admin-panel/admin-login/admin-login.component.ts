@@ -53,7 +53,7 @@ export class AdminLoginComponent implements OnInit {
          this.succ = data;
         if(this.succ){
           
-          this.succ = "AAWEZ"
+          this.succ = "SuperAdmin"
           this.myform.reset();
           this.Success = true;
           this.Error = false;

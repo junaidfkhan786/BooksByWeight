@@ -19,23 +19,21 @@
                 <th scope="col">Name</th>
                 <th scope="col">Registration Type</th>
                 <th scope="col">Email</th>
+                <th scope="col">PhoneNumber</th>
                 <th scope="col">Delete</th>
             </tr>
         </thead>
         <tbody class="align-middle">
-            <ng-container *ngIf="( user2 | adminUser: usersearch) as result">
+            <ng-container *ngIf="( user1 | adminUser: usersearch) as result">
                 <tr *ngFor="let user of result | paginate: {  itemsPerPage: 5, currentPage: pages, totalItems: i}; let i = index ">
                     <!-- <td >
                         <input class="form-check-input" type="checkbox" value="">
                     </td> -->
                     <td>{{ 5 * (pages - 1) + i + 1 }}</td>
-                    <td *ngIf="user.google">{{user.google.name}}</td>
-                    <td *ngIf="user.facebook">{{user.facebook.name}}</td>
-                    <td *ngIf="user.local">{{user.local.name}}</td>
+                    <td >{{user.name}}</td>
                     <td>{{user.methods}}</td>
-                    <td *ngIf="user.google">{{user.google.email}}</td>
-                    <td *ngIf="user.facebook">{{user.facebook.email}}</td>
-                    <td *ngIf="user.local">{{user.local.email}}</td>
+                    <td >{{user.email}}</td>
+                    <td>{{user.phonenumber}}</td>
                    
                     <td><button *ngIf="user.isActive" (click)="block(user._id)" class="btn btn-danger" style="border-radius: 0;">
                             Block

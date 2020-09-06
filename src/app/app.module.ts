@@ -67,6 +67,7 @@ import { AvatarModule } from 'ngx-avatar';
 import { ViewOrdersComponent } from './admin-panel/admin-main-content/view-orders/view-orders.component';
 import { AddCatSubcatComponent } from './admin-panel/admin-main-content/add-cat-subcat/add-cat-subcat.component';
 import { AdminCategoryPipe } from './pipes/admin-category.pipe';
+import { CouponComponent } from './admin-panel/admin-main-content/coupon/coupon.component';
 
 @NgModule({
   declarations: [
@@ -114,6 +115,7 @@ import { AdminCategoryPipe } from './pipes/admin-category.pipe';
     ViewOrdersComponent,
     AddCatSubcatComponent,
     AdminCategoryPipe,
+    CouponComponent,
     
 
     

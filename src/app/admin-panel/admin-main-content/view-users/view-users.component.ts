@@ -15,16 +15,10 @@ export class ViewUsersComponent implements OnInit {
   pages: number = 1;
   users: any;
   user1: any;
-  user2: any = [];
-  user3: any;
-  userlocal: any = []
-  usergoogle: any = [];
-  userfacebook: any = [];
+
   id: any = [];
   id1: any = []
-  google: any = [];
-  local: any = [];
-  facebook: any = [];
+
   count: number;
   config: any;
   button: boolean;
@@ -85,17 +79,23 @@ export class ViewUsersComponent implements OnInit {
       if(user[i].local){
        
         user[i].local['email'] = user[i].local['local_email']  
-         delete user[i].local['local_email']  
-         
-      
+        user[i]['email'] = user[i].local['email']  
+        user[i]['name'] = user[i].local['name']  
+        user[i]['phonenumber'] = user[i].local['phonenumber']  
+        user[i]['password'] = user[i].local['password']  
+         delete user[i].local  
     
        
       }
         }
         for (let i = 0; i < user.length; i++) {
           if(user[i].google){
-            user[i].google['email'] = user[i].google['google_email']  
-            delete user[i].google['google_email'] 
+            user[i].google['email'] = user[i].google['google_email']
+            user[i]['email'] = user[i].google['email']
+            user[i]['googleId'] = user[i].google['googleId']
+            user[i]['name'] = user[i].google['name'] 
+            user[i]['phonenumber'] = user[i]['phonenumber']
+            delete user[i].google
         
           }
            
@@ -103,7 +103,11 @@ export class ViewUsersComponent implements OnInit {
          for (let i = 0; i < user.length; i++) {
           if(user[i].facebook){
             user[i].facebook['email'] = user[i].facebook['facebook_email']  
-            delete user[i].facebook['facebook_email'] 
+            user[i]['email'] = user[i].facebook['email']
+            user[i]['facebookId'] = user[i].facebook['facebookId']
+            user[i]['name'] = user[i].facebook['name'] 
+            user[i]['phonenumber'] = user[i]['phonenumber']
+            delete user[i].facebook
           
           }   
            
@@ -118,14 +122,9 @@ export class ViewUsersComponent implements OnInit {
     )
    .subscribe((user) => {
       this.users = user
-
       this.count = this.users.totaluser
       this.user1 = user.users
 
-      var i: any
-      for (i = 0; i <= this.user1.length - 1; i++) {
-        this.user2.push(this.user1[i])
-      }
       this.spinner.hide();
     })
   }

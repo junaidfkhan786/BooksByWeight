@@ -51,4 +51,7 @@ export class AdminSidebarComponent implements OnInit {
   ViewCatSubcat(){
     this.router.navigate(['admin/dashboard/View-Cat-&&-SubCat']);
   }
+  Coupon(){
+    this.router.navigate(['admin/dashboard/Coupon']);
+  }
 }

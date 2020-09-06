@@ -153,29 +153,6 @@ export class ViewProductsComponent implements OnInit {
   }
 
 
-
-  //   imgupdate(){
-  // for (let i = 0; i < this.book_img.length; i++) {
-  //   console.log(this.book_img[i].name)
-  //   if(this.book_img[i].File){
-  //     this.book_img[i]['name'] = this.book_img[i].File['name']
-  //     this.book_img[i]['lastModified'] = this.book_img[i].File['lastModified']
-  //     this.book_img[i]['size'] = this.book_img[i].File['size']
-  //     this.book_img[i]['type'] = this.book_img[i].File['type']
-  //     this.book_img[i]['webkitRelativePath'] = this.book_img[i].File['webkitRelativePath']
-  //     delete this.book_img[i].File['name']
-  //     delete this.book_img[i].File['lastModified']
-  //     delete this.book_img[i].File['size']
-  //     delete this.book_img[i].File['type']
-  //     delete this.book_img[i].File['webkitRelativePath']
-  // console.log('hello')
-  //   }else{
-  //     // console.log(this.book_img)  
-  //   }
-  // }
-
-  //   }
-
   submitbook() {
 
     if (this.productform.valid) {
