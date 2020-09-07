@@ -12,14 +12,10 @@ export class AdminOrdersService {
   constructor(
     private http : HttpClient,
     private order : OrdersService
-  ) {
-    this.order.getorderload().subscribe(()=>[
-      this.totalorders
-    ])
-   }
+  ) {   }
   
   
-  totalorders = new BehaviorSubject<any>(null);
+  totalorders = new BehaviorSubject<any>("loading...");
 
   public getallorders():Observable<any> {
 

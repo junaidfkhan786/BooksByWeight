@@ -11,6 +11,7 @@ import { newArray } from '@angular/compiler/src/util';
 import { CategoryService } from 'src/app/services/category.service';
 import { ExcelexportService } from 'src/app/services/excelexport.service';
 import { NgxSpinnerService } from 'ngx-spinner'
+import { AdminCouponService } from 'src/app/services/admin-coupon.service';
 @Component({
   selector: 'app-admin-main-content',
   templateUrl: './admin-main-content.component.html',
@@ -26,14 +27,19 @@ export class AdminMainContentComponent implements OnInit {
     private allorders: AdminOrdersService,
     private cat: CategoryService,
     private excelexp: ExcelexportService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private couponservice: AdminCouponService
   ) {
     this.allorders.totalorders.subscribe(
       (total) => {
         this.orderslength = total
       }
     )
+  this.couponservice.totalcoupons.subscribe((totalcoupons) => {
+    this.couponslength = totalcoupons
+  })
   }
+  couponslength:any
   orderslength: any
   book: any = [];
   users: any;

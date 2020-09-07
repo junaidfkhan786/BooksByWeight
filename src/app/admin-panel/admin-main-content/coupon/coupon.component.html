@@ -1,48 +1,108 @@
-
-<div class="d-flex justify-content-center" >
-    <div class="card p-3 mt-5 w-50" style="background-color: #212529; color: white;">
-<form #coupon="ngForm">
-    <span style="font-size: 1rem;">Coupon Code:</span>
-    <div class="mt-1">
-        <input type="text" class="form-control " name="coupon_code" [(ngModel)]="coupons.coupon_code"
-            placeholder="Enter Coupon Code">
-    </div>
-    <br>
-
-        <span style="font-size: 1rem; color: red;" class="mt-3">
-            <div class="pretty p-icon p-jelly p-round p-bigger">
-                <input type="checkbox" #check name="percentage" [(ngModel)]="coupons.percentage" />
-                <div class="state p-info">
-                   
-                    <i class="icon material-icons">done</i>
-                    <label></label>
+<div class="d-flex justify-content-center">
+    <button class="btn btn-lg btn-outline-dark w-50" (click)="addcoupon()">
+        {{!button?"Add Coupon":"Hide Coupon Form"}} </button>
+</div>
+<div *ngIf="button">
+    <div class="d-flex justify-content-center">
+        <div class="card p-3 mt-5 w-50" style="background-color: #212529; color: white;">
+            <form #coupon="ngForm">
+                <span style="font-size: 1rem;">Coupon Code:</span>
+                <div class="mt-1">
+                    <input type="text" class="form-control " name="coupon_code" [(ngModel)]="coupons.coupon_code"
+                        placeholder="Enter Coupon Code">
                 </div>
+                <br>
+
+                <span style="font-size: 1rem; color: red;" class="mt-3">
+                    <div class="pretty p-icon p-jelly p-round p-bigger">
+                        <input type="checkbox" #check name="percentage" [(ngModel)]="coupons.percentage" />
+                        <div class="state p-info">
+
+                            <i class="icon material-icons">done</i>
+                            <label></label>
+                        </div>
+                    </div>
+                    <span style="cursor: pointer;" (click)="check.click()"> <span style="font-size: 2rem;">*</span> IF
+                        Coupon Code Amount Is In Percentage Then Click On Circle</span>
+                </span>
+
+
+                <br><br>
+                <span style="font-size: 1rem;" class="mt-3">Coupon Code Amount Or Percentage:</span>
+                <div class="mt-1">
+                    <input type="text" class="form-control " placeholder="Enter Coupon Code Value"
+                        [(ngModel)]="coupons.coupon_amount" name="coupon_amount">
+                </div>
+                <br><br>
+                <span style="font-size: 1rem;" class="mt-3">Date:</span>
+                <div class="mt-1">
+                    <input type="date" class="form-control " [(ngModel)]="coupons.expiry_date" name="expiry_date">
+                </div>
+
+
+                <button class="btn btn-outline-success mt-3 " [disabled]="coupon.invalid" (click)="submit()"> Submit
+                </button>
+
+            </form>
+            <div class="mt-2">
+                Coupon code: {{coupons.coupon_code}}<br>
+                Percentage: {{coupons.percentage}} <br>
+                Coupon Amount Or Percentage: {{coupons.coupon_amount}}<br>
+                Coupon Expiry Date: {{coupons.expiry_date}}
             </div>
-         <span style="cursor: pointer;" (click)="check.click()"> <span style="font-size: 2rem;">*</span> IF Coupon Code Amount Is In Percentage Then Click On Circle</span> 
-        </span>
-
-  
-    <br><br>
-    <span style="font-size: 1rem;" class="mt-3">Coupon Code Amount Or Percentage:</span>
-    <div class="mt-1">
-        <input type="text" class="form-control " placeholder="Enter Coupon Code Value"
-            [(ngModel)]="coupons.coupon_amount" name="coupon_amount">
-    </div>
-    <br><br>
-    <span style="font-size: 1rem;" class="mt-3">Date:</span>
-    <div class="mt-1">
-        <input type="date" class="form-control " [(ngModel)]="coupons.expiry_date" name="expiry_date">
-    </div>
-
-
-    <button class="btn btn-outline-success mt-3 " [disabled]="coupon.invalid" (click)="submit()"> Submit </button>
-
-</form>
-        <div class="mt-2">
-            Coupon code: {{coupons.coupon_code}}<br>
-            Percentage: {{coupons.percentage}} <br>
-            Coupon Amount Or Percentage: {{coupons.coupon_amount}}<br>
-            Coupon Expiry Date: {{coupons.expiry_date}}
         </div>
     </div>
 </div>
+
+
+
+<br>
+<div class="d-flex justify-content-center">
+    <table class="table  table-dark table-striped table-hover w-75">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Sr.No
+
+                    <!-- &nbsp; <input class="form-check-input" type="checkbox" value="" > -->
+
+                </th>
+                <th scope="col">coupon_code</th>
+                <th scope="col">coupon_amount / Percentage</th>
+                <th>expiry_date</th>
+                <th scope="col">Delete</th>
+
+            </tr>
+        </thead>
+        <tbody class="align-middle">
+
+            <tr *ngFor="let coupon of allcoupons | paginate: {  itemsPerPage: 5, currentPage: pages, totalItems: i}; let i = index">
+                <td>
+                    {{ 5 * (pages - 1) + i + 1 }}
+                </td>
+                <td>
+                    {{coupon.coupon_code}}
+                </td>
+                <td  *ngIf="coupon.percentage == true">
+                    {{coupon.coupon_amount}} %
+                </td>
+                <td  *ngIf="coupon.percentage == false">
+                    {{ coupon.coupon_amount | currency:'INR'}}
+                </td>
+                <td>
+                    {{coupon.expiry_date}}
+                </td>
+                <td>
+                    <button class="btn btn-outline-danger"> <span class="material-icons"
+                            style="font-size: 3rem; cursor: pointer;">
+                            delete_forever
+                        </span> </button>
+                </td>
+                <td *ngIf="coupon.length == 0">No Coupons</td>
+            </tr>
+        </tbody>
+
+    </table>
+</div>
+<pagination-controls class="d-flex justify-content-center" directionLinks="true" (pageChange)="onPageChange($event)"
+autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next">
+</pagination-controls>

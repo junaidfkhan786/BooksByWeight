@@ -7,6 +7,10 @@ import { Orders } from 'src/app/models/orders.model';
 import { UserAddressService } from 'src/app/services/user-address.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as jwt_decode from 'jwt-decode';
+import { AdminCouponService } from 'src/app/services/admin-coupon.service';
+import { useradd } from 'src/app/models/useraddress.model';
+import { Coupons } from 'src/app/models/coupons.model';
+import { CoupontransferService } from 'src/app/services/coupontransfer.service';
 declare var $: any;
 @Component({
   selector: 'app-cart-items',
@@ -21,7 +25,7 @@ export class CartItemsComponent implements OnInit {
   price: any;
   subtotal: any;
   totalweight: any;
-  total:number;
+  total: number;
   cartitem2: any = [];
   weight: any;
   weight2: any = [];
@@ -36,24 +40,39 @@ export class CartItemsComponent implements OnInit {
   pid1: any = [];
   message: any;
   address1_id: any;
-  length:number;
-totalitems:number;
-orderid:any;
+  length: number;
+  totalitems: number;
+  orderid: any;
   UserData: any;
   userid: any;
-  kilo:string = ""
+  kilo: string = ""
+  allcoupons: any = []
+  pages: number;
+  coupons: Coupons
+  // coupons = {
+  //   _id: null,
+  //   coupon_code: null,
+  //   coupon_amount: null,
+  //   percentage:null,
+  //   expiry_date: null
+  // }
+  couponhide: boolean = true
   constructor(
     private cart: CartService,
     private toastr: ToastrService,
     private router: Router,
     private order: OrdersService,
     private gettingadd: UserAddressService,
-    private spinner : NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private couponservice: AdminCouponService,
+   private coupontransfer:CoupontransferService
   ) {
+    this.coupons = new Coupons();
   }
   ngOnInit() {
     this.getadd();
     this.loadcart();
+    this.getallcoupons();
     this.jquery_code();
   }
   jquery_code() {
@@ -63,28 +82,30 @@ orderid:any;
     this.router.navigate(['details/' + _id]);
   }
   loadcart() {
+    console.log('cartloaded')
     this.cart.getCart().subscribe((data) => {
+      this.spinner.hide();
       this.book$ = data;
       let cart = this.book$.cartItems[0].cart
       var sum = 0
       for (let i = 0; i < cart.length; i++) {
-       if(cart[i].quantity){
-         sum += +cart[i].quantity
+        if (cart[i].quantity) {
+          sum += +cart[i].quantity
         }
       }
       this.totalitems = sum
       this.subtotal = this.book$.subtotal;
       this.total = this.subtotal
-    if(this.total <= 500){
-      var cal =  50 * this.totalitems 
-      this.total += cal
-    }else{
-      this.total = this.total
-    }
+      if (this.total <= 500) {
+        var cal = 50 * this.totalitems
+        this.total += cal
+      }else {
+        this.total = this.total
+      }
       this.totalweight = this.book$.totalweight;
-      if(this.totalweight > 0.999){
+      if (this.totalweight > 0.999) {
         this.kilo = "Kg"
-      }else{
+      } else {
         this.kilo = "g"
       }
     });
@@ -127,19 +148,111 @@ orderid:any;
     }, (error) => {
     })
   }
-  gotocheckout(){
+  gotocheckout() {
+
+    if(this.coupons.coupon_code == null){
+      this.coupons._id = null
+      this.coupons.coupon_amount = null
+      this.coupons.coupon_code = null
+      this.coupons.expiry_date = null
+      this.coupons.percentage = null
+    }
     var token = localStorage.getItem('User');
     var decode = jwt_decode(token);
     this.UserData = decode
     this.userid = this.UserData.userId
-   this.order.postorder(this.total,this.userid).subscribe((data)=>{
-    let response =  data
-    let token = data.token
-    localStorage.setItem('shiprocket', token)
-    console.log(response)
-    this.orderid = response.sub.id
-    localStorage.setItem('orderid', this.orderid)
-    this.router.navigate(['/checkout'])
-   })
+    this.order.postorder(this.total, this.userid).subscribe((data) => {
+      let response = data
+      let token = data.token
+      localStorage.setItem('shiprocket', token)
+      console.log(response)
+      this.orderid = response.sub.id
+      localStorage.setItem('orderid', this.orderid)
+      this.spinner.show();
+      this.router.navigate(['/checkout'])
+    })
   }
+
+  getallcoupons() {
+    this.couponservice.getcoupon().subscribe((data) => {
+
+      this.allcoupons = data
+    })
+  }
+
+  onPageChange(page: number = 1) {
+    this.pages = page;
+    window.scrollTo(0, 60);
+  }
+
+  select(data) {
+    let coup = data
+    var token = localStorage.getItem('User');
+    var decode = jwt_decode(token);
+    this.UserData = decode.userId;
+    let a: boolean = false
+    for (let i = 0; i < coup.user.length; i++) {
+      if (coup.user[i]._id == this.UserData) {
+        a = true
+        break
+      }
+
+    }
+    if (a == true) {
+      alert('coupon is expired')
+    } else {
+
+      this.couponhide = false
+      this.coupons.coupon_code = coup.coupon_code
+      this.coupons.coupon_amount = coup.coupon_amount 
+      this.coupons.expiry_date = coup.expiry_date
+      this.coupons._id = coup._id 
+      this.coupons.percentage = coup.percentage
+      this.coupontransfer.coupon_code.next(this.coupons.coupon_code)
+      this.coupontransfer.coupon_amount.next(  this.coupons.coupon_amount)
+      this.coupontransfer.couponid.next( this.coupons._id)
+      this.coupontransfer.expiry_date.next( this.coupons.expiry_date)
+      this.coupontransfer.percentage.next(this.coupons.percentage)
+
+      console.log(this.coupons)
+      // localStorage.setItem('couponid',this.coupons._id)
+      // localStorage.setItem('coupon_code',this.coupons.coupon_code)
+      // localStorage.setItem('coupon_amount',this.coupons.coupon_amount)
+      // localStorage.setItem('expiry_date',this.coupons.expiry_date)
+      // localStorage.setItem('percentage',this.coupons.percentage)
+      if(this.coupons.percentage == false){
+        if(this.coupons.coupon_amount == this.total){
+          this.total = 0
+          this.subtotal = 0
+        }else{
+          this.subtotal -= this.coupons.coupon_amount
+          this.total -= this.coupons.coupon_amount
+        }
+
+      }else{
+        if(this.coupons.coupon_amount == 100){
+          this.total = 0
+          this.subtotal = 0
+        }else{
+         this.subtotal-= this.subtotal/100*this.coupons.coupon_amount
+         this.total-= this.total/100*this.coupons.coupon_amount
+        }
+      }
+    }
+
+  }
+
+  togglecoupon() {
+    this.spinner.show();
+    this.loadcart();
+
+    this.couponhide = true
+    localStorage.removeItem('couponid')
+    localStorage.removeItem('coupon_code')
+    localStorage.removeItem('coupon_amount')
+    localStorage.removeItem('expiry_date')
+    localStorage.removeItem('percentage')
+
+  }
+
 }

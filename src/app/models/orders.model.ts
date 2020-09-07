@@ -9,5 +9,7 @@ export class Orders {
     address:string;
     city:string;
     state:string;
+    isCouponApplied:boolean;
+    coupon_code:string;
 }
 

@@ -15,6 +15,9 @@ import { identifierModuleUrl } from '@angular/compiler';
 import { useradd } from '../models/useraddress.model';
 import { ShipRocketOrders } from '../models/shiprocketorder.model';
 import { map } from 'rxjs/operators';
+import { Coupons } from '../models/coupons.model';
+import { CoupontransferService } from '../services/coupontransfer.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 declare var $: any;
 @Component({
@@ -65,9 +68,10 @@ export class CheckoutComponent implements OnInit {
   ordermodel: Orders;
   paymentbutton: boolean
   shiprocketmodel: ShipRocketOrders
-kilo :string = ""
+  kilo: string = ""
   shiporderid: any;
   shippingid: any;
+  coupons: Coupons
   constructor(
     private cart: CartService,
     private toastr: ToastrService,
@@ -77,12 +81,39 @@ kilo :string = ""
     public windowref: WindowRefService,
     private activatedRoute: ActivatedRoute,
     private ngZone: NgZone,
+    private coupontransfer:CoupontransferService,
+    private spinner : NgxSpinnerService
 
   ) {
     this.ordermodel = new Orders();
     this.shiprocketmodel = new ShipRocketOrders();
+    this.coupons = new Coupons();
+    this.coupontransfer.couponid.subscribe((couponid)=>{
+      this.couponid = couponid
+    })
+    this.coupontransfer.coupon_code.subscribe((coupon_code)=>{
+      this.coupon_code = coupon_code
+    })
+    this.coupontransfer.coupon_amount.subscribe((coupon_amount)=>{
+      this.coupon_amount = coupon_amount
+    })
+    this.coupontransfer.percentage.subscribe((percentage)=>{
+      this.percentage = percentage
+    })
+    this.coupontransfer.expiry_date.subscribe((expiry_date)=>{
+      this.expiry_date = expiry_date
+    })
   }
+
+  couponid: any
+  coupon_code: any
+  coupon_amount: any
+  percentage: any
+  expiry_date: any
+  
+
   ngOnInit(): void {
+this.spinner.show();
     this.paymentbutton = false
     this.placebutton = false
     this.selected = true
@@ -92,8 +123,12 @@ kilo :string = ""
       })
       this.getadd();
     }
+    this.getcoupon();
     this.loadcart();
     this.jquery_code();
+    setTimeout(() => {
+      this.getcoupon();
+    }, 2000);
 
   }
 
@@ -150,13 +185,23 @@ kilo :string = ""
     this.ordermodel.amount = this.amountpayable,
       this.ordermodel.totalitems = this.totalitems,
       this.ordermodel.totalweight = this.totalweight
-    this.ordermodel.book = this.pid1,
+     this.ordermodel.book = this.pid1,
+    this.ordermodel.coupon_code = this.coupons._id
 
+    if(this.coupons.coupon_code != null){
+      this.ordermodel.isCouponApplied = true
+    }else{
+      this.ordermodel.isCouponApplied = false
+    }
+    console.log(this.ordermodel)
+    setTimeout(() => {
       this.order.verifypayment(this.orderid, this.paymentid, this.sig, this.ordermodel)
-        .subscribe((data) => {
-          console.log(data)
-          this.getorder(this.orderid);
-        })
+      .subscribe((data) => {
+        console.log(data)
+        this.getorder(this.orderid);
+      })
+    }, 1000);
+   
 
   }
   getorder(orderid) {
@@ -227,17 +272,17 @@ kilo :string = ""
     this.orderid
     this.shippingid = data.shipment_id;
     this.shiporderid = data.order_id
-    this.order.shiprocketresponse(this.userid,this.orderid, this.shippingid, this.shiporderid)
-    .subscribe((data1) => {
-      console.log(data1)
-      this.ngZone.run(
-        () => this.router.navigate(['/cart', { query: "completed" }])
-      ).then();
-    },
-      (error) => console.log(error),
-      () => console.log("completed")
+    this.order.shiprocketresponse(this.userid, this.orderid, this.shippingid, this.shiporderid)
+      .subscribe((data1) => {
+        console.log(data1)
+        this.ngZone.run(
+          () => this.router.navigate(['/cart', { query: "completed" }])
+        ).then();
+      },
+        (error) => console.log(error),
+        () => console.log("completed")
 
-    )
+      )
 
   }
   jquery_code() {
@@ -286,9 +331,9 @@ kilo :string = ""
       this.subtotal = this.book$.subtotal;
       this.totalweight = this.book$.totalweight;
       this.amountpayable = this.total;
-      if(this.totalweight > 0.999){
+      if (this.totalweight > 0.999) {
         this.kilo = "Kg"
-      }else{
+      } else {
         this.kilo = "g"
       }
     });
@@ -318,5 +363,46 @@ kilo :string = ""
 
   showadd() {
     this.selected = true
+  }
+  couponsobj = {
+    coupon_code: this.coupon_code,
+    percentage: this.percentage,
+    coupon_amount: this.coupon_amount,
+    expiry_date: this.expiry_date,
+    couponid:this.couponid
+  }
+
+  getcoupon() {
+      let coupon_code = this.coupon_code
+      let percentage = this.percentage
+      let coupon_amount = this.coupon_amount
+      let expiry_date = this.expiry_date
+      let couponid = this.couponid
+      this.coupons._id = couponid
+      this.coupons.coupon_code = coupon_code
+      this.coupons.percentage = percentage
+      this.coupons.coupon_amount = coupon_amount
+      this.coupons.expiry_date = expiry_date
+
+      if(this.coupons.percentage == false){
+        if(this.coupons.coupon_amount == this.amountpayable){
+          this.amountpayable = 0
+          this.subtotal = 0
+        }else{
+          this.subtotal -= this.coupons.coupon_amount
+          this.amountpayable -= this.coupons.coupon_amount
+        }
+
+      }else{
+        if(this.coupons.coupon_amount == 100){
+          this.amountpayable = 0
+          this.subtotal = 0
+        }else{
+         this.subtotal-= this.subtotal/100*this.coupons.coupon_amount
+         this.amountpayable-= this.total/100*this.coupons.coupon_amount
+        }
+      }
+      this.spinner.hide();
+      console.log(this.coupons)
   }
 }

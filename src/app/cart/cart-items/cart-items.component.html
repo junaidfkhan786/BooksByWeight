@@ -13,7 +13,8 @@
         </tr>
         <tr style="border-width: 1px;" *ngFor="let item of productItem.cart">
           <td style="border-width: 1px;">
-            <a (click)="productHome(item.book._id)"><img src="{{ item.book.book_img[0] }}" onerror="this.src='assets/images/altimg.png';" class="high" /></a>
+            <a (click)="productHome(item.book._id)"><img src="{{ item.book.book_img[0] }}"
+                onerror="this.src='assets/images/altimg.png';" class="high" /></a>
           </td>
           <td style="border-width: 1px;">
             <a href="#" style="
@@ -33,7 +34,7 @@
           </td>
           <td style="border-width: 1px;">
             <div class="row d-flex justify-content-center" style="padding-top: 20px;">
-              <div  *ngIf="item.quantity > 1" (click)="
+              <div *ngIf="item.quantity > 1" (click)="
                   decrement(
                     item.quantity,
                     item.book._id,
@@ -53,7 +54,7 @@
                   height: 40px;
                   margin-left: 0px;
                 " />
-                &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;
               <div *ngIf="item.book.quantity > item.quantity" (click)="
                   increment(
                     item.quantity,
@@ -83,30 +84,66 @@
   </div>
 </div>
 <div class="container" style="margin-top: 44px;">
+
   <div class="row">
     <div class="col-sm-6">
-      <button class="button button1">
-        <a href="#" class="shop" style="
-            font-size: 12px;
-            color: white;
-            font-weight: 700;
-            text-decoration: none;
-            font-family: sans-serif;
-          ">CONTINUE SHOPPING</a>
-      </button>
-      <br />
-      <h3 class="coup">COUPON</h3>
-      <p>Enter your coupon code if you have one.</p>
-      <input type="text" placeholder="Coupon code" />
-      <button class="button button1" style="margin-top: 0px;">
-        <a href="#" class="shop" style="
-            font-size: 12px;
-            color: white;
-            font-weight: 700;
-            text-decoration: none;
-            font-family: sans-serif;
-          ">APPLY COUPON</a>
-      </button>
+      <div class="d-flex justify-content-center" *ngIf="!couponhide"> 
+        <button class="btn btn-outline-success w-50" (click)="togglecoupon()"> Change Coupon </button>
+      </div>
+      <br>
+      <div *ngIf="couponhide">
+        <div class="card p-2 btc w-100">
+          <span class="font-weight-bolder org text-center" style="font-size: large;">Coupons
+          </span>
+        </div>
+  <br>
+     <div class="row">
+      <div class="card p-2"  style="background-color: #212529; color: white;">
+        <div class="row">
+          <div class="col">
+            Coupon_code
+          </div>
+          <div class="col">
+            Coupon_amount / Percentage
+          </div>
+          <div class="col">
+            Expiry_date
+          </div>
+          <div class="col">
+            select
+          </div>
+        </div>
+      </div>
+     </div>
+
+        <div class="row "
+          *ngFor="let coupon of allcoupons| paginate: {  itemsPerPage: 5, currentPage: pages, totalItems: i}; let i = index">
+          <div class="card p-2"style="background-color: #212529; color: white;">
+            <div class="row">
+              <div class="col">
+                {{coupon.coupon_code}}
+              </div>
+              <div class="col" *ngIf="coupon.percentage == true">
+                {{coupon.coupon_amount}} %
+              </div>
+              <div class="col" *ngIf="coupon.percentage == false">
+                {{coupon.coupon_amount | currency:'INR'}} 
+              </div>
+              <div class="col">
+                {{coupon.expiry_date}}
+              </div>
+              <div class="col">
+                <button class="btn btn-outline-success btn-sm" (click)="select(coupon)"> Select </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <pagination-controls class="d-flex justify-content-center" directionLinks="true"
+          (pageChange)="onPageChange($event)" autoHide="true" responsive="true" previousLabel="Previous"
+          nextLabel="Next">
+        </pagination-controls>
+
+      </div>
     </div>
     <div class="col-sm-6" style="text-align: right;">
       <div class="cart-totals">
@@ -142,4 +179,3 @@
     </div>
   </div>
 </div>
-
