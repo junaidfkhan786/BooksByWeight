@@ -1,6 +1,6 @@
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="line-scale-pulse-out" [fullScreen]="true">
     <p style="color: white"> GETTING PAYMENT DONE PLEASE WAIT.........</p>
-  </ngx-spinner>
+</ngx-spinner>
 <div class="p-2">
     <div class="section1">
         <app-header></app-header>
@@ -15,7 +15,7 @@
             </div>
         </div>
         <!-- Write the code inside this div. -->
-        <div> 
+        <div>
             <div class="container">
                 <div class="row">
                     <div class="col-sm-8">
@@ -72,8 +72,9 @@
                             <button class="btn btn-success" (click)="showadd()"> change Address</button>
                         </div>
                         <br>
-                        <h3 style="color: #ff4136;" [hidden]="paymentbutton">NOTE : *PLEASE SELECT ADDRESS TO GET PAYMENT DONE</h3>
-                       <br>
+                        <h3 style="color: #ff4136;" [hidden]="paymentbutton">NOTE : *PLEASE SELECT ADDRESS TO GET
+                            PAYMENT DONE</h3>
+                        <br>
                         <!-- Start Payment Way -->
                         <div class="our-payment-sestem">
                             <h2 class="section-title-3">We Accept :</h2>
@@ -84,8 +85,9 @@
                             <!-- <ul class="checkout__dtl__btn">
                                 <li class="buy__now__btn"><a href="#">confirm &amp; pay</a></li>
                             </ul> -->
-                            <button class="btn btn-lg btn-outline-success" [hidden]="!paymentbutton" (click)="initPay();" id="rzp-button1"> PAY </button>
-                       <!-- <button class="btn btn-success btn-lg" (click)="shipping()"> shipping button </button> -->
+                            <button class="btn btn-lg btn-outline-success" [hidden]="!paymentbutton"
+                                (click)="initPay();" id="rzp-button1"> PAY </button>
+                            <!-- <button class="btn btn-success btn-lg" (click)="shipping()"> shipping button </button> -->
                         </div>
                         <!-- End Payment Way -->
                     </div>
@@ -93,19 +95,29 @@
                         <h2 class="section-title-5">Order Summary</h2>
                         <p class="note-desc">Please verify your order before paying</p>
                         <ul class="important-note">
-                            <li class="pay"><a href="#"><span class="material-icons">
+                            <li class="pay"><a><span class="material-icons">
                                         play_circle_filled
                                     </span>Items: {{totalitems}}</a></li>
-                            <li class="pay"><a href="#"><span class="material-icons">
+                            <li class="pay"><a><span class="material-icons">
                                         play_circle_filled
                                     </span>Sub Total Without Shipping: {{subtotal}}</a></li>
-                            <li class="pay"><a href="#"><span class="material-icons">
+                            <li class="pay"><a><span class="material-icons">
                                         play_circle_filled
                                     </span>Total Weight: {{totalweight}} {{kilo}}</a></li>
-
-                            <li class="pay"><a href="#"><span class="material-icons">
+                            <li class="pay" *ngIf="coupons.coupon_code !== null"><a><span class="material-icons">
                                         play_circle_filled
-                                    </span><b>Amount Payable With Shipping: <span class="important-note__prizes">₹ {{amountpayable}}
+                                    </span><b>Coupon Applied: <span class="important-note__prizes">
+                                            {{coupons.coupon_code}}
+                                        </span></b></a></li>
+                                        <li class="pay" *ngIf="coupons.coupon_code == null"><a><span class="material-icons">
+                                            play_circle_filled
+                                        </span><b><span class="important-note__prizes">
+                                                No Coupon Applied
+                                            </span></b></a></li>
+                            <li class="pay"><a><span class="material-icons">
+                                        play_circle_filled
+                                    </span><b>Amount Payable With Shipping: <span class="important-note__prizes">₹
+                                            {{amountpayable}}
                                         </span></b></a></li>
                         </ul>
                         <div class="puick-contact-area mt--60">

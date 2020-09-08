@@ -18,6 +18,7 @@ import { PrebooksComponent } from './prebooks/prebooks.component';
 import { AuthGuard } from './auth.guard';
 import{AdminauthGuard} from './adminauth.guard'
 import { from } from 'rxjs';
+import { AboutusComponent } from './policies/aboutus/aboutus.component';
 const routes: Routes = [
   {
     path: '',
@@ -207,6 +208,10 @@ const routes: Routes = [
   {
     path : 'prebooks/sortBydesc',
     component : PrebooksComponent
+  },
+  {
+    path : 'About-Us',
+    component : AboutusComponent
   }
 
 

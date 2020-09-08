@@ -39,23 +39,33 @@
                                 #cats>
                         </div>
                         <div class="col">
+                            Icon Name: <a target="_blank" href="https://material.io/resources/icons/?style=baseline">Click Here For Icon Name</a> <br>
+                            <input type="text" placeholder="Enter icon Name" class="form-control subcat" name="icon"
+                                #icon>
+                        </div>
+                        <div class="col">
                             <br>
                             <select [(ngModel)]="selected" class="form-select select"
                                 aria-label="Default select example">
                                 <option *ngFor="let allsub of sub" [value]="allsub._id">{{allsub.name}}</option>
                             </select>
                         </div>
-                        <div class="col">
-                            <br>
-                            <button style="width: 40%;" class="btn btn-success sub" id="sub" (click)="addcat(cats.value)">ADD
-                            </button> &nbsp;
-                            <button style="width: 40%;" class="btn btn-success sub" id="sub" (click)="submitcat()"> SUBMIT
-                            </button>
-                            &nbsp;
-                            <button style="width: 85%; margin-top: 10px" class="btn btn-danger" id="sub" (click)="clear()">Clear All
-                            </button>
+                        
+        <div class="row mt-2" >
+            <div class="col">
+                <button  class="btn btn-success sub w-100" id="sub" (click)="addcat(cats.value,icon.value)">ADD
+                </button>
 
-                        </div>
+            </div>
+            <div class="col">
+                <button class="btn btn-success sub w-100"  id="sub" (click)="submitcat()"> SUBMIT
+                </button>
+            </div>
+            <div class="col">
+                <button  class="btn btn-danger w-100" id="sub" (click)="clear()">Clear All
+                </button>
+            </div>
+        </div>
                     </div>
 
                 </div>
@@ -68,6 +78,8 @@
         <div class="card p-2">
             category name: &nbsp;
             {{catdata.category}} <br><br>
+            Icon Name: &nbsp;
+            {{catdata.icon_name}} <br><br>
             subcategory name:
             <div *ngFor="let subcat1 of catdata.subcategory; let i = index">
                 {{i+1}} &nbsp; {{subcat1}} <br>

@@ -6,11 +6,11 @@ import { Subject, BehaviorSubject } from 'rxjs';
 })
 export class CoupontransferService {
 
-couponid:any = new BehaviorSubject(0)
-coupon_code:any = new BehaviorSubject(0)
-coupon_amount:any = new BehaviorSubject(0)
-percentage:any = new BehaviorSubject(0)
-expiry_date:any = new BehaviorSubject(0)
+couponid:any = new BehaviorSubject(null)
+coupon_code:any = new BehaviorSubject(null)
+coupon_amount:any = new BehaviorSubject(null)
+percentage:any = new BehaviorSubject(null)
+expiry_date:any = new BehaviorSubject(null)
 
 constructor() { }
 }

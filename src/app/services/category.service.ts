@@ -26,6 +26,7 @@ export class CategoryService {
   }
 
   public postcategory(categories):Observable<any>{
+    console.log(categories)
     return this._http.post<any>(`${API_LIVE}`+ "/categories/",categories,httpOptions)
     .pipe(
       tap(() => {

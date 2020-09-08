@@ -98,7 +98,7 @@
         </div>
   <br>
      <div class="row">
-      <div class="card p-2"  style="background-color: #212529; color: white;">
+      <div class="card p-2" >
         <div class="row">
           <div class="col">
             Coupon_code
@@ -117,10 +117,10 @@
      </div>
 
         <div class="row "
-          *ngFor="let coupon of allcoupons| paginate: {  itemsPerPage: 5, currentPage: pages, totalItems: i}; let i = index">
-          <div class="card p-2"style="background-color: #212529; color: white;">
+          *ngFor="let coupon of allcoupons; let i = index">
+          <div class="card p-2" *ngIf="coupon.coupon_code">
             <div class="row">
-              <div class="col">
+              <div class="col" >
                 {{coupon.coupon_code}}
               </div>
               <div class="col" *ngIf="coupon.percentage == true">
@@ -138,10 +138,6 @@
             </div>
           </div>
         </div>
-        <pagination-controls class="d-flex justify-content-center" directionLinks="true"
-          (pageChange)="onPageChange($event)" autoHide="true" responsive="true" previousLabel="Previous"
-          nextLabel="Next">
-        </pagination-controls>
 
       </div>
     </div>
@@ -156,6 +152,10 @@
             <br /><br />
             <span>SHIPPING</span>
             <br /><br /><br />
+            <span *ngIf="this.coupons.coupon_code !==null">
+              Coupon Applied
+              <br /><br />
+            </span>
             <span style="font-size: 2em;">TOTAL WITH SHIPPING</span>
           </div>
           <div class="col" style="font-weight: bolder;">
@@ -167,9 +167,15 @@
               Free Shipping Above &#8377;500
             </span>
             <br /><br />
+            <span *ngIf="this.coupons.coupon_code !==null">
+              {{coupons.coupon_code}}
+              <br /><br />
+            </span>
             <span style="font-size: 2rem;">&#8377;{{ total }} </span>
           </div>
         </div>
+        <br>  
+        <a style="text-decoration: solid ; color: red;" (click)="return()"><u>Click Here To Know About Return Policy</u></a> 
         <div class="wc-proceed-to-checkout org" style="list-style-type: none;">
           <button (click)="gotocheckout() " class="button button2" style="margin-top: 30px;">
             Proceed to Checkout

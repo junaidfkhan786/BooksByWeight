@@ -188,19 +188,19 @@ this.spinner.show();
      this.ordermodel.book = this.pid1,
     this.ordermodel.coupon_code = this.coupons._id
 
-    if(this.coupons.coupon_code != null){
-      this.ordermodel.isCouponApplied = true
-    }else{
+    if(this.coupons.coupon_code == null){
       this.ordermodel.isCouponApplied = false
+    }else{
+      this.ordermodel.isCouponApplied = true
     }
     console.log(this.ordermodel)
-    setTimeout(() => {
+
       this.order.verifypayment(this.orderid, this.paymentid, this.sig, this.ordermodel)
       .subscribe((data) => {
         console.log(data)
         this.getorder(this.orderid);
       })
-    }, 1000);
+
    
 
   }
@@ -233,12 +233,12 @@ this.spinner.show();
                 delete orders[i]['bookdetail']
               }
             }
-            console.log(data)
             return data
           }
         )
       )
       .subscribe((data) => {
+        console.log(data)
         this.shipping(data)
       })
   }

@@ -68,7 +68,15 @@ import { ViewOrdersComponent } from './admin-panel/admin-main-content/view-order
 import { AddCatSubcatComponent } from './admin-panel/admin-main-content/add-cat-subcat/add-cat-subcat.component';
 import { AdminCategoryPipe } from './pipes/admin-category.pipe';
 import { CouponComponent } from './admin-panel/admin-main-content/coupon/coupon.component';
-
+import { AboutusComponent } from './policies/aboutus/aboutus.component';
+import { CopyrightpolicyComponent } from './policies/copyrightpolicy/copyrightpolicy.component';
+import { PaymentComponent } from './policies/payment/payment.component';
+import { PrivacyComponent } from './policies/privacy/privacy.component';
+import { ReturnsRefundPolicyComponent } from './policies/returns-refund-policy/returns-refund-policy.component';
+import { ShippingComponent } from './policies/shipping/shipping.component';
+import { TermsConditionsComponent } from './policies/terms-conditions/terms-conditions.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 @NgModule({
   declarations: [
     AppComponent,
@@ -116,6 +124,13 @@ import { CouponComponent } from './admin-panel/admin-main-content/coupon/coupon.
     AddCatSubcatComponent,
     AdminCategoryPipe,
     CouponComponent,
+    AboutusComponent,
+    CopyrightpolicyComponent,
+    PaymentComponent,
+    PrivacyComponent,
+    ReturnsRefundPolicyComponent,
+    ShippingComponent,
+    TermsConditionsComponent,
     
 
     
@@ -139,7 +154,8 @@ import { CouponComponent } from './admin-panel/admin-main-content/coupon/coupon.
     }),
     NgxSpinnerModule,
     AvatarModule,
-
+    PdfViewerModule,
+    PdfJsViewerModule
 
   ],
   providers: [

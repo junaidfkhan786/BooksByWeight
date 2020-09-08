@@ -129,4 +129,34 @@ export class HeaderComponent implements OnInit {
     ];
     this.selected = this.selector[0].value
   }
+
+  abouts = 'assets/policies/AboutUs.pdf'
+  Payments = 'assets/policies/Payments.pdf'
+  PrivacyPolicy = 'assets/policies/PrivacyPolicy.pdf'
+  Returns = 'assets/policies/Returs&Refunds.pdf'
+  Shippings = 'assets/policies/Shipping.pdf'
+  terms = 'assets/policies/Terms&Conditions.pdf'
+  copy = 'assets/policies/CopyrightPolicy.pdf'
+  about(){
+    window.open(this.abouts);
+  }
+  Terms(){
+    window.open(this.terms);
+  }
+  Return(){
+    window.open(this.Returns);
+  }
+  Shipping(){
+    window.open(this.Shippings);
+  }
+  Copyright(){
+    window.open(this.copy);
+  }
+  Privacy(){
+    window.open(this.PrivacyPolicy);
+  }
+  Payment(){
+    window.open(this.Payments);
+  }
+
 }

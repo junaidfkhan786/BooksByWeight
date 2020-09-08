@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FilterService } from './../services/filter.service';
 import { ProductsComponent } from '../products/products.component';
+import { map } from 'rxjs/operators';
+import { NgxSpinnerService } from 'ngx-spinner';
 declare var $: any;
 @Component({
   selector: 'app-sidebar',
@@ -14,12 +16,28 @@ export class SidebarComponent implements OnInit {
 
   public product: ProductsComponent;
   category$: any;
-  constructor(private newService: CategoryService, private router: Router, private filter: FilterService) { }
+  constructor(private newService: CategoryService, private router: Router, private filter: FilterService,
+    private spinner: NgxSpinnerService
+    ) { }
 
   ngOnInit() {
-
-    this.newService.getCategory()
+this.spinner.show()
+    this.newService.getCategory().pipe(
+      map((data)=>{
+        var cat:any = []
+        cat = data
+        console.log(data)
+        for (let i = 0; i < cat.length; i++) {
+        if(cat[i].icon){
+          cat[i]['icon_name'] = cat[i]['icon']
+          delete cat[i]['icon']
+        }
+        }
+        return data
+      } )
+    )
       .subscribe((data) =>{
+        this.spinner.hide();
         this.category$ = data
       }
       );

@@ -20,6 +20,7 @@ export class AddCatSubcatComponent implements OnInit {
   sub: any = []
   catdata = {
     category: "",
+    icon_name:"",
     subcategory: []
   }
   selected: any;
@@ -77,8 +78,9 @@ export class AddCatSubcatComponent implements OnInit {
     $('.subcat').val(null)
   }
 
-  addcat(catvalue) {
+  addcat(catvalue,iconvalue) {
     this.catdata.category = catvalue
+    this.catdata.icon_name  = iconvalue
     if (this.catdata.subcategory.includes(this.selected)) {
       Swal.fire({
         icon: 'error',
@@ -160,6 +162,7 @@ export class AddCatSubcatComponent implements OnInit {
     for (let i = 0; i < this.cat.length; i++) {
       if (this.cat[i].category == this.catdata.category) {
         console.log(this.cat[i].category)
+        this.catdata.category == null
         this.m = true;
         break;
       } else {
@@ -174,6 +177,8 @@ export class AddCatSubcatComponent implements OnInit {
         title: 'Oops...',
         text: 'This Category Is Already Added Please Choose Different!',
       })
+      this.catdata.category= null
+      this.catdata.subcategory.splice(0,this.catdata.subcategory.length)
     } else if (this.catdata.category == null) {
       Swal.fire({
         icon: 'error',
@@ -190,45 +195,47 @@ export class AddCatSubcatComponent implements OnInit {
       this.spinner.show()
       let alldata: any = this.catdata
       console.log(alldata)
-      this.allcat.postcategory(alldata).subscribe(
-        (response) => {
-          if (response.message) {
-            this.selected = null
-            this.spinner.hide();
-            this.toastr.success(response.message, 'BooksByWeight', {
-              timeOut: 2000,
-            });
-            // setTimeout(() => {
-            //   window.location.reload();
-            // }, 2000);
+  if(this.catdata.category !== null){
+    this.allcat.postcategory(alldata).subscribe(
+      (response) => {
+        if (response.message) {
+          this.selected = null
+          this.spinner.hide();
+          this.toastr.success(response.message, 'BooksByWeight', {
+            timeOut: 2000,
+          });
+          // setTimeout(() => {
+          //   window.location.reload();
+          // }, 2000);
 
-          } else {
-            this.spinner.hide();
-            this.toastr.error("Somthing Went Wrong Contact Developer", 'BooksByWeight', {
-              timeOut: 2000,
-            });
-          }
-          $(this).closest('form').find("input[type=text], textarea").val("");
-          $('.subcat').val(null)
-          this.buttondisabled()
-          this.catdata.category = null
-          this.catdata.subcategory.splice(0, this.catdata.subcategory.length)
-          $(this).closest('form').find("input[type=text], textarea").val("");
-          $('.subcat').val(null)
-          this.div = true
+        } else {
+          this.spinner.hide();
+          this.toastr.error("Somthing Went Wrong Contact Developer", 'BooksByWeight', {
+            timeOut: 2000,
+          });
+        }
+        $(this).closest('form').find("input[type=text], textarea").val("");
+        $('.subcat').val(null)
+        this.buttondisabled()
+        this.catdata.category = null
+        this.catdata.subcategory.splice(0, this.catdata.subcategory.length)
+        $(this).closest('form').find("input[type=text], textarea").val("");
+        $('.subcat').val(null)
+        this.div = true
 
-        }, (error) => {
+      }, (error) => {
 
-          if (error) {
-            this.spinner.hide()
-            this.toastr.error("Please Fill All Details Correctly", 'BooksByWeight', {
-              timeOut: 2000,
-            });
-          }
+        if (error) {
+          this.spinner.hide()
+          this.toastr.error("Please Fill All Details Correctly", 'BooksByWeight', {
+            timeOut: 2000,
+          });
+        }
 
-        },
-        () => console.log("Categories And SubCategories Send To Server SuccessFull")
-      )
+      },
+      () => console.log("Categories And SubCategories Send To Server SuccessFull")
+    )
+  }
     }
 
 
@@ -240,6 +247,7 @@ export class AddCatSubcatComponent implements OnInit {
         this.spinner.hide();
         this.cat = cat
         this.selected = null
+        console.log(cat)
       }, (error) => {
         console.log(error)
       }, () => console.log(" All Categories Fetched Successfully ")

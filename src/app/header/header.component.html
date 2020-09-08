@@ -31,12 +31,13 @@
             Information
           </a>
           <ul class="dropdown-menu animate__animated animate__fadeInUp animate__faster">
-            <li><a class="dropdown-item" href="#">About</a></li>
-            <li><a class="dropdown-item" href="#">Terms & Conditions</a></li>
-            <li><a class="dropdown-item" href="#">Return & Exchange</a></li>
-            <li><a class="dropdown-item" href="#">Shipping & Delivery</a></li>
-            <li><a class="dropdown-item" href="#">Checkout</a></li>
-            <li><a class="dropdown-item" href="#">Privacy Policy</a></li>
+            <li><a class="dropdown-item" (click)="about()">About</a></li>
+            <li><a class="dropdown-item" href="#" (click)="Terms()">Terms & Conditions</a></li>
+            <li><a class="dropdown-item" href="#"(click)="Return()">Return & Exchange</a></li>
+            <li><a class="dropdown-item" href="#"(click)="Shipping()">Shipping & Delivery</a></li>
+            <li><a class="dropdown-item" href="#"(click)="Copyright()">CopyRight Policy</a></li>
+            <li><a class="dropdown-item" href="#"(click)="Privacy()">Privacy Policy</a></li>
+            <li><a class="dropdown-item" href="#"(click)="Payment()">Payment</a></li>
           </ul>
         </li>
         <li style="padding-left: 30px;">
@@ -87,13 +88,7 @@
             <span *ngIf="cartlen >= 0"  class="badge rounded-pill bg-danger">{{cartlen}}</span>
         </a>
       </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link">
-          <span class="material-icons">
-            menu
-            </span>
-        </a>
-      </li>
+
       </ul>
      </div>
     </div>

@@ -11,6 +11,8 @@ import { AdminCouponService } from 'src/app/services/admin-coupon.service';
 import { useradd } from 'src/app/models/useraddress.model';
 import { Coupons } from 'src/app/models/coupons.model';
 import { CoupontransferService } from 'src/app/services/coupontransfer.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+
 declare var $: any;
 @Component({
   selector: 'app-cart-items',
@@ -65,7 +67,7 @@ export class CartItemsComponent implements OnInit {
     private gettingadd: UserAddressService,
     private spinner: NgxSpinnerService,
     private couponservice: AdminCouponService,
-   private coupontransfer:CoupontransferService
+    private coupontransfer: CoupontransferService
   ) {
     this.coupons = new Coupons();
   }
@@ -82,7 +84,6 @@ export class CartItemsComponent implements OnInit {
     this.router.navigate(['details/' + _id]);
   }
   loadcart() {
-    console.log('cartloaded')
     this.cart.getCart().subscribe((data) => {
       this.spinner.hide();
       this.book$ = data;
@@ -99,7 +100,7 @@ export class CartItemsComponent implements OnInit {
       if (this.total <= 500) {
         var cal = 50 * this.totalitems
         this.total += cal
-      }else {
+      } else {
         this.total = this.total
       }
       this.totalweight = this.book$.totalweight;
@@ -150,7 +151,7 @@ export class CartItemsComponent implements OnInit {
   }
   gotocheckout() {
 
-    if(this.coupons.coupon_code == null){
+    if (this.coupons.coupon_code == null) {
       this.coupons._id = null
       this.coupons.coupon_amount = null
       this.coupons.coupon_code = null
@@ -175,8 +176,28 @@ export class CartItemsComponent implements OnInit {
 
   getallcoupons() {
     this.couponservice.getcoupon().subscribe((data) => {
-
+      var token = localStorage.getItem('User');
+      var decode = jwt_decode(token);
+      this.UserData = decode.userId;
       this.allcoupons = data
+      for (let i = 0; i < this.allcoupons.length; i++) {
+        for (let j = 0; j < this.allcoupons[i].user.length; j++) {
+
+          if (this.allcoupons[i].user[j]._id == this.UserData) {
+
+            delete this.allcoupons[i]['_id']
+            delete this.allcoupons[i]['coupon_amount']
+            delete this.allcoupons[i]['coupon_code']
+            delete this.allcoupons[i]['created_at']
+            delete this.allcoupons[i]['expiry_date']
+            delete this.allcoupons[i]['percentage']
+
+
+          }
+
+        }
+
+      }
     })
   }
 
@@ -199,43 +220,43 @@ export class CartItemsComponent implements OnInit {
 
     }
     if (a == true) {
-      alert('coupon is expired')
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'This Coupon Is Used By You Please Choose Different Coupon!',
+      })
     } else {
 
       this.couponhide = false
       this.coupons.coupon_code = coup.coupon_code
-      this.coupons.coupon_amount = coup.coupon_amount 
+      this.coupons.coupon_amount = coup.coupon_amount
       this.coupons.expiry_date = coup.expiry_date
-      this.coupons._id = coup._id 
+      this.coupons._id = coup._id
       this.coupons.percentage = coup.percentage
       this.coupontransfer.coupon_code.next(this.coupons.coupon_code)
-      this.coupontransfer.coupon_amount.next(  this.coupons.coupon_amount)
-      this.coupontransfer.couponid.next( this.coupons._id)
-      this.coupontransfer.expiry_date.next( this.coupons.expiry_date)
+      this.coupontransfer.coupon_amount.next(this.coupons.coupon_amount)
+      this.coupontransfer.couponid.next(this.coupons._id)
+      this.coupontransfer.expiry_date.next(this.coupons.expiry_date)
       this.coupontransfer.percentage.next(this.coupons.percentage)
 
       console.log(this.coupons)
-      // localStorage.setItem('couponid',this.coupons._id)
-      // localStorage.setItem('coupon_code',this.coupons.coupon_code)
-      // localStorage.setItem('coupon_amount',this.coupons.coupon_amount)
-      // localStorage.setItem('expiry_date',this.coupons.expiry_date)
-      // localStorage.setItem('percentage',this.coupons.percentage)
-      if(this.coupons.percentage == false){
-        if(this.coupons.coupon_amount == this.total){
+
+      if (this.coupons.percentage == false) {
+        if (this.coupons.coupon_amount == this.total) {
           this.total = 0
           this.subtotal = 0
-        }else{
+        } else {
           this.subtotal -= this.coupons.coupon_amount
           this.total -= this.coupons.coupon_amount
         }
 
-      }else{
-        if(this.coupons.coupon_amount == 100){
+      } else {
+        if (this.coupons.coupon_amount == 100) {
           this.total = 0
           this.subtotal = 0
-        }else{
-         this.subtotal-= this.subtotal/100*this.coupons.coupon_amount
-         this.total-= this.total/100*this.coupons.coupon_amount
+        } else {
+          this.subtotal -= this.subtotal / 100 * this.coupons.coupon_amount
+          this.total -= this.total / 100 * this.coupons.coupon_amount
         }
       }
     }
@@ -245,14 +266,18 @@ export class CartItemsComponent implements OnInit {
   togglecoupon() {
     this.spinner.show();
     this.loadcart();
-
+    this.coupons.coupon_code = null
+    this.coupons.coupon_amount = null
+    this.coupons.expiry_date = null
+    this.coupons._id = null
+    this.coupons.percentage = null
     this.couponhide = true
-    localStorage.removeItem('couponid')
-    localStorage.removeItem('coupon_code')
-    localStorage.removeItem('coupon_amount')
-    localStorage.removeItem('expiry_date')
-    localStorage.removeItem('percentage')
+
 
   }
-
+  
+  return(){
+    let Returns = 'assets/policies/Returs&Refunds.pdf'
+    window.open(Returns);
+  }
 }

@@ -3,23 +3,24 @@
     <span class="material-icons">menu</span> BROWSE CATEGORIES
   </li>
 
-  <li class=" dropright list-group-item bg-color" *ngFor="let item of category$"  >
-      <span   >
-        <span   class="material-icons org ">
-          {{item.icon}}
-          </span> &nbsp; <span (click)="productCat(item._id)" class="text-wrap"> {{item.category}} </span>
-     <span class="material-icons org float-right">
-      navigate_next
+  <li class=" dropright list-group-item bg-color" *ngFor="let item of category$">
+    <span>
+      <span class="material-icons org ">
+        {{item.icon_name}}
+      </span> &nbsp; <span (click)="productCat(item._id)" class="text-wrap"> {{item.category}} </span>
+      <span class="material-icons org float-right">
+        navigate_next
       </span>
-      </span>
-    <div style="padding: 10px;" class="dropdown-menu drop-menu-right animate__animated animate__fadeInRight animate__faster">
-<div *ngFor="let sub of item.subcategory">
- <a class=" nav-link active org " (click)="productSubCat(sub._id)" style="color: black; cursor: pointer;">
-   {{sub.name + "\n"}}
- </a>
-</div>
-
-
+    </span>
+    <div style="padding: 10px;width: 800px;"
+      class=" dropdown-menu drop-menu-right animate__animated animate__fadeInRight animate__faster">
+      <div class="row">
+        <div class="col-6"*ngFor="let sub of item.subcategory" >
+          <a class=" nav-link active org " (click)="productSubCat(sub._id)" style="color: black; cursor: pointer;">
+            {{sub.name}}
+          </a>
+        </div>
+      </div>
 
     </div>
   </li>
@@ -31,13 +32,13 @@
     <span class="material-icons">menu</span> BOOKS BY PRICE
   </li>
   <li class="list-group-item" aria-current="true">
-    <a target="_blank" >
+    <a target="_blank">
       <span (click)="price()">
         &#8377;100 - &#8377;200
-      
+
       </span>
     </a>
-   
+
 
   </li>
   <li class="list-group-item" aria-current="true">
@@ -53,33 +54,30 @@
 
   </li>
   <li class="list-group-item" aria-current="true">
-    <span  (click)="price3()">
+    <span (click)="price3()">
       &#8377;400 - &#8377;500
     </span>
 
   </li>
   <li class="list-group-item" aria-current="true">
-    <span  (click)="price4()">
+    <span (click)="price4()">
       &#8377;500 Onwards
     </span>
 
   </li>
   <li class="list-group-item" aria-current="true">
     <span style="font-weight: bolder;" (click)="lowTohigh()">
-Price Low To High
+      Price Low To High
     </span>
 
   </li>
 
   <li class="list-group-item" aria-current="true">
     <span style="font-weight: bolder;" (click)="highTolow()">
-Price High To Low
+      Price High To Low
     </span>
 
   </li>
 
 
 </ul>
-
-
-

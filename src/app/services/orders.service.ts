@@ -71,8 +71,6 @@ shiprocketUrl:any = "https://apiv2.shiprocket.in/v1/external/orders/create/adhoc
     
    return this._http.get<any>(`${API_LIVE}` + '/order/getorderbyid/'+orderid,httpOptions)
   
-
-
   }
   public shiprocketresponse(userid,orderid,shippingid,shiporderid):Observable<any>{
    return this._http.post(
