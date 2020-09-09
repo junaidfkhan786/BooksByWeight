@@ -1,7 +1,7 @@
 <div class="p-3">
 
   <div class="row g-2 p-3">
-    <div class="col-xl-3 col-md-3 d-flex justify-content-center">
+    <div class=" col d-flex justify-content-center">
       <div class="card shadow-bottom" style="width: 18rem;background-color: #212529; color: white;">
         <div class="card-body">
           <h5 class="card-title">PRODUCTS <span class="d-flex justify-content-end">[{{totalBooks}}]</span></h5>
@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-    <div class="col-xl-3 col-md-3 d-flex justify-content-center">
+    <div class=" col d-flex justify-content-center" *ngIf="role ==='SuperAdmin'" >
       <div class="card shadow-bottom" style="width: 18rem;background-color: #212529; color: white;">
         <div class="card-body">
           <h5 class="card-title">USERS <span class="d-flex justify-content-end">[{{count}}]</span></h5>
@@ -19,7 +19,7 @@
         </div>
       </div>
     </div>
-    <div class="col-xl-3 col-md-3 d-flex justify-content-center">
+    <div class=" col d-flex justify-content-center" *ngIf="role ==='SuperAdmin'" >
       <div class="card shadow-bottom" style="width: 18rem;background-color: #212529; color: white;">
         <div class="card-body">
           <h5 class="card-title">ORDERS <span class="d-flex justify-content-end">[{{orderslength}}]</span></h5>
@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-    <div class="col-xl-3 col-md-3 d-flex justify-content-center">
+    <div class=" col d-flex justify-content-center">
       <div class="card shadow-bottom" style="width: 18rem;background-color: #212529; color: white;">
         <div class="card-body">
           <h5 class="card-title">COUPONS <span class="d-flex justify-content-end">[{{couponslength}}]</span></h5>
@@ -55,7 +55,7 @@
       <div style="width: 50%; height: 50%; top: 80px; background-color: #212529; color: white; "
         class="card shadow-bottom align-middle">
         <h5 style="margin-top: 7%;" class="text-center card-title"><span style="font-size: 2rem;">UPLOAD YOUR EXCEL
-            FILE</span>
+            FILE To Convert IDs</span>
           <br> <br> <input (change)="getfile($event)" name="excel_file" #file hidden type="file"></h5>
         <a style="text-decoration: none; color:  white; cursor: pointer;" class="d-flex justify-content-center org "
           (click)="file.click()"> CLick Here To Add It </a>
@@ -80,6 +80,9 @@
   </div>
   <div *ngIf="router.url === '/admin/dashboard/Coupon'">
     <app-coupon></app-coupon>
+  </div>
+  <div *ngIf="router.url === '/admin/dashboard/Admin'">
+    <app-admin-create></app-admin-create>
   </div>
 
 </div>

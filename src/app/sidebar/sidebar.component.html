@@ -3,16 +3,15 @@
     <span class="material-icons">menu</span> BROWSE CATEGORIES
   </li>
 
-  <li class=" dropright list-group-item bg-color" *ngFor="let item of category$">
-    <span>
+  <li class=" dropright list-group-item bg-color"  *ngFor="let item of category$">
+   
       <span class="material-icons org ">
         {{item.icon_name}}
-      </span> &nbsp; <span (click)="productCat(item._id)" class="text-wrap"> {{item.category}} </span>
+      </span> &nbsp; <span style="cursor: pointer;" (click)="productCat(item._id)" class="text-wrap"> {{item.category}} </span>
       <span class="material-icons org float-right">
         navigate_next
       </span>
-    </span>
-    <div style="padding: 10px;width: 800px;"
+    <div style="padding: 10px;width: 500px;" [hidden]="item.subcategory.length == 0"
       class=" dropdown-menu drop-menu-right animate__animated animate__fadeInRight animate__faster">
       <div class="row">
         <div class="col-6"*ngFor="let sub of item.subcategory" >

@@ -3,6 +3,7 @@ import * as jwt_decode from 'jwt-decode';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+
 @Component({
   selector: 'app-admin-header',
   templateUrl: './admin-header.component.html',
@@ -11,48 +12,54 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class AdminHeaderComponent implements OnInit {
 
   session = false;
-  UserData: any;
+  name: string = ""
 
   constructor(
     private toastr: ToastrService,
     private router: Router,
     private spinner: NgxSpinnerService
   ) { }
-opened :boolean;
+  opened: boolean;
 
-@Output() openedevent = new EventEmitter<boolean>()
+  @Output() openedevent = new EventEmitter<boolean>()
   ngOnInit() {
 
     this.isLogin();
 
   }
 
-  togglesidebar(){
+  togglesidebar() {
 
-   this.openedevent.emit(this.opened = !this.opened) 
+    this.openedevent.emit(this.opened = !this.opened)
 
-  
+
   }
 
   isLogin() {
-    
-    if (localStorage.getItem('AdminUser') != null) {
-      var token = localStorage.getItem('AdminUser').slice(1,-1);
-     
-      this.UserData = token;
+
+    if (localStorage.getItem('SuperAdmin') != null) {
+      var token = localStorage.getItem('SuperAdmin').slice(1, -1);
+      var decode = jwt_decode(token);
+      this.name = decode.name;
+      this.session = true;
+      this.spinner.hide();
+    } else {
+      var token = localStorage.getItem('Admin').slice(1, -1);
+      var decode = jwt_decode(token);
+      this.name = decode.name;
       this.session = true;
       this.spinner.hide();
     }
   }
 
-  logout(){
-    localStorage.removeItem('AdminUser');
-    
+  logout() {
+    localStorage.removeItem('SuperAdmin');
+    localStorage.removeItem('Admin');
     this.toastr.success('Logout Successfull', 'BooksByWeight', {
       timeOut: 1000,
     });
-    
-    this.router.navigate(['/admin']); 
+
+    this.router.navigate(['/admin']);
   }
 
 }

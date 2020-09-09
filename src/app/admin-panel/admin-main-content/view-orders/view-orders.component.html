@@ -21,7 +21,7 @@
         </thead>
         <tbody class="align-middle">
             <ng-container >
-                <tr *ngFor="let orders of orders$; let i = index;" >
+                <tr *ngFor="let orders of orders$| paginate: {  itemsPerPage: 10, currentPage: pages, totalItems: i}; let i = index;" >
                     <td >
                         {{i + 1}}
                     </td>

@@ -75,8 +75,7 @@ import { PrivacyComponent } from './policies/privacy/privacy.component';
 import { ReturnsRefundPolicyComponent } from './policies/returns-refund-policy/returns-refund-policy.component';
 import { ShippingComponent } from './policies/shipping/shipping.component';
 import { TermsConditionsComponent } from './policies/terms-conditions/terms-conditions.component';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
+import { AdminCreateComponent } from './admin-panel/admin-main-content/admin-create/admin-create.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -131,6 +130,7 @@ import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
     ReturnsRefundPolicyComponent,
     ShippingComponent,
     TermsConditionsComponent,
+    AdminCreateComponent,
     
 
     
@@ -154,8 +154,6 @@ import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
     }),
     NgxSpinnerModule,
     AvatarModule,
-    PdfViewerModule,
-    PdfJsViewerModule
 
   ],
   providers: [

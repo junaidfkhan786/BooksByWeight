@@ -37,7 +37,7 @@ i:number
     this.coupons.coupon_code = null
     this.coupons.coupon_amount = null
     this.coupons.expiry_date = null
-    this.coupons.percentage = null
+    this.coupons.percentage = false
   }
   submit() {
     console.log(this.coupons)

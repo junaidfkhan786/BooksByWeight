@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import * as jwt_decode from 'jwt-decode';
 declare var $:any;
 @Component({
   selector: 'app-admin-sidebar',
@@ -7,14 +8,14 @@ declare var $:any;
   styleUrls: ['./admin-sidebar.component.css']
 })
 export class AdminSidebarComponent implements OnInit {
- 
+ role:string
 
   constructor(public router : Router) { }
 
 @Input() openedside : boolean;
 
   ngOnInit() {
-
+this.getadmin();
     this.jquery_code();
   }
 
@@ -53,5 +54,44 @@ export class AdminSidebarComponent implements OnInit {
   }
   Coupon(){
     this.router.navigate(['admin/dashboard/Coupon']);
+  }
+  admin(){
+    this.router.navigate(['admin/dashboard/Admin']);
+  }
+
+  getadmin(){
+    if(localStorage.getItem('SuperAdmin')){
+      var token = localStorage.getItem('SuperAdmin');
+      var decode = jwt_decode(token);
+      this.role = decode.role
+      if(this.role === "SuperAdmin" && this.router.url ==="/admin/dashboard/view-orders"){
+       
+      }
+      else if(this.role === "SuperAdmin" && this.router.url ==="/admin/dashboard/view-users"){
+      
+      }
+      else if(this.role === "SuperAdmin" && this.router.url ==="/admin/dashboard/Admin"){
+        
+      }else{
+        this.router.navigate(['/admin/dashboard'])
+      }
+      console.log(this.role)
+    }else if(localStorage.getItem('Admin')){
+      var token = localStorage.getItem('Admin');
+      var decode = jwt_decode(token);
+      this.role = decode.role
+      if(this.role === "Admin" && this.router.url ==="/admin/dashboard/view-orders"){
+        this.router.navigate(['/admin/dashboard'])
+      }
+      if(this.role === "Admin" && this.router.url ==="/admin/dashboard/view-users"){
+        this.router.navigate(['/admin/dashboard'])
+      }
+      if(this.role === "Admin" && this.router.url ==="/admin/dashboard/Admin"){
+        this.router.navigate(['/admin/dashboard'])
+      }
+      console.log(this.role)
+    }
+       
+    
   }
 }

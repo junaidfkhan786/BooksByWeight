@@ -1,0 +1,14 @@
+<div class="d-flex justify-content-center">
+    <div class=" w-50">
+        <form [formGroup]="admincreate">
+            <div class="mb-3">
+        
+                <input placeholder="Enter Phone Number" required formControlName="phonenumber" name="phonenumber"
+                  style="width: 100%; border-top: none; border-left: none; border-right: none; background: transparent !important ;"
+                  type="text" id="phone" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
+                  autocomplete="off" aria-describedby="phoneHelp" maxlength="10">
+        
+              </div>
+        </form>
+    </div>
+</div>

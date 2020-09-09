@@ -10,7 +10,7 @@ export class AdminLoginService {
 
   constructor(private http : HttpClient) { }
 
-  login(AdminLogins : AdminLogin): Observable<AdminLogin>{
-    return this.http.post<AdminLogin>(`${API_LIVE}` + '/admin/login' ,AdminLogins,httpOptions );
+  login(AdminLogins : AdminLogin): Observable<any>{
+    return this.http.post<any>(`${API_LIVE}` + '/admin/login' ,AdminLogins,httpOptions );
   }
 }

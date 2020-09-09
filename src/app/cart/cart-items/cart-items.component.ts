@@ -20,6 +20,7 @@ declare var $: any;
   styleUrls: ['./cart-items.component.css'],
 })
 export class CartItemsComponent implements OnInit {
+  i:number
   @Input() productItem: any;
   book$: any = [];
   cartitem: any = [];
@@ -51,6 +52,8 @@ export class CartItemsComponent implements OnInit {
   allcoupons: any = []
   pages: number;
   coupons: Coupons
+  t:any
+  s:any
   // coupons = {
   //   _id: null,
   //   coupon_code: null,
@@ -176,56 +179,56 @@ export class CartItemsComponent implements OnInit {
 
   getallcoupons() {
     this.couponservice.getcoupon().subscribe((data) => {
-      var token = localStorage.getItem('User');
-      var decode = jwt_decode(token);
-      this.UserData = decode.userId;
+      // var token = localStorage.getItem('User');
+      // var decode = jwt_decode(token);
+      // this.UserData = decode.userId;
       this.allcoupons = data
-      for (let i = 0; i < this.allcoupons.length; i++) {
-        for (let j = 0; j < this.allcoupons[i].user.length; j++) {
+      // for (let i = 0; i < this.allcoupons.length; i++) {
+      //   for (let j = 0; j < this.allcoupons[i].user.length; j++) {
 
-          if (this.allcoupons[i].user[j]._id == this.UserData) {
+      //     if (this.allcoupons[i].user[j]._id == this.UserData) {
 
-            delete this.allcoupons[i]['_id']
-            delete this.allcoupons[i]['coupon_amount']
-            delete this.allcoupons[i]['coupon_code']
-            delete this.allcoupons[i]['created_at']
-            delete this.allcoupons[i]['expiry_date']
-            delete this.allcoupons[i]['percentage']
+      //       delete this.allcoupons[i]['_id']
+      //       delete this.allcoupons[i]['coupon_amount']
+      //       delete this.allcoupons[i]['coupon_code']
+      //       delete this.allcoupons[i]['created_at']
+      //       delete this.allcoupons[i]['expiry_date']
+      //       delete this.allcoupons[i]['percentage']
 
 
-          }
+      //     }
 
-        }
+      //   }
 
-      }
+      // }
     })
   }
 
   onPageChange(page: number = 1) {
     this.pages = page;
-    window.scrollTo(0, 60);
+    window.scrollTo(0, 450);
   }
 
   select(data) {
     let coup = data
-    var token = localStorage.getItem('User');
-    var decode = jwt_decode(token);
-    this.UserData = decode.userId;
-    let a: boolean = false
-    for (let i = 0; i < coup.user.length; i++) {
-      if (coup.user[i]._id == this.UserData) {
-        a = true
-        break
-      }
+    // var token = localStorage.getItem('User');
+    // var decode = jwt_decode(token);
+    // this.UserData = decode.userId;
+    // let a: boolean = false
+    // for (let i = 0; i < coup.user.length; i++) {
+    //   if (coup.user[i]._id == this.UserData) {
+    //     a = true
+    //     break
+    //   }
 
-    }
-    if (a == true) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'This Coupon Is Used By You Please Choose Different Coupon!',
-      })
-    } else {
+    // }
+    // if (a == true) {
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: 'Oops...',
+    //     text: 'This Coupon Is Used By You Please Choose Different Coupon!',
+    //   })
+    // } else {
 
       this.couponhide = false
       this.coupons.coupon_code = coup.coupon_code
@@ -243,23 +246,31 @@ export class CartItemsComponent implements OnInit {
 
       if (this.coupons.percentage == false) {
         if (this.coupons.coupon_amount == this.total) {
+          this.s = this.subtotal
+          this.t = this.total
           this.total = 0
           this.subtotal = 0
         } else {
+          this.s = this.subtotal
+          this.t = this.total
           this.subtotal -= this.coupons.coupon_amount
           this.total -= this.coupons.coupon_amount
         }
 
       } else {
         if (this.coupons.coupon_amount == 100) {
+          this.s = this.subtotal
+          this.t = this.total
           this.total = 0
           this.subtotal = 0
         } else {
+          this.s = this.subtotal
+          this.t = this.total
           this.subtotal -= this.subtotal / 100 * this.coupons.coupon_amount
           this.total -= this.total / 100 * this.coupons.coupon_amount
         }
       }
-    }
+    // }
 
   }
 

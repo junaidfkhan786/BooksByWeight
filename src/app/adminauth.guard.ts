@@ -11,12 +11,10 @@ export class AdminauthGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    
-    if ( localStorage.getItem('AdminUser') ){
-      // Token from the LogIn is avaiable, so the user can pass to the route
+    if(localStorage.getItem('Admin'))  {
       return true
-    } else  {
-      // Token from the LogIn is not avaible because something went wrong or the user wants to go over the url to the site
+    }else{
+            // Token from the LogIn is not avaible because something went wrong or the user wants to go over the url to the site
       // Hands the user to the LogIn page 
       Swal.fire({
         icon: 'error',

@@ -26,7 +26,6 @@ this.spinner.show()
       map((data)=>{
         var cat:any = []
         cat = data
-        console.log(data)
         for (let i = 0; i < cat.length; i++) {
         if(cat[i].icon){
           cat[i]['icon_name'] = cat[i]['icon']

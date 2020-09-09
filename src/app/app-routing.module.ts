@@ -17,6 +17,7 @@ import { NewbooksComponent } from './newbooks/newbooks.component';
 import { PrebooksComponent } from './prebooks/prebooks.component';
 import { AuthGuard } from './auth.guard';
 import{AdminauthGuard} from './adminauth.guard'
+import{SuperadminGuard} from './superadmin.guard'
 import { from } from 'rxjs';
 import { AboutusComponent } from './policies/aboutus/aboutus.component';
 const routes: Routes = [
@@ -98,37 +99,42 @@ const routes: Routes = [
   {
     path : 'admin/dashboard',
     component : AdminPanelComponent,
-    canActivate:[AdminauthGuard]
+    canActivate:[SuperadminGuard]
   },
   {
     path : 'admin/dashboard/view-products',
     component : AdminPanelComponent,
-    canActivate:[AdminauthGuard]
+    canActivate:[SuperadminGuard]
   },
   {
     path : 'admin/dashboard/view-users',
     component : AdminPanelComponent,
-    canActivate:[AdminauthGuard]
+    canActivate:[SuperadminGuard]
   },
   {
     path : 'admin/dashboard/add-bulk-products',
     component : AdminPanelComponent,
-    canActivate:[AdminauthGuard]
+    canActivate:[SuperadminGuard]
   },
   {
     path : 'admin/dashboard/view-orders',
     component : AdminPanelComponent,
-    canActivate:[AdminauthGuard]
+    canActivate:[SuperadminGuard]
   },
   {
     path : 'admin/dashboard/View-Cat-&&-SubCat',
     component : AdminPanelComponent,
-    canActivate:[AdminauthGuard]
+    canActivate:[SuperadminGuard]
   },
   {
     path : 'admin/dashboard/Coupon',
     component : AdminPanelComponent,
-    canActivate:[AdminauthGuard]
+    canActivate:[SuperadminGuard]
+  },
+  {
+    path : 'admin/dashboard/Admin',
+    component : AdminPanelComponent,
+    canActivate:[SuperadminGuard]
   },
  
   {

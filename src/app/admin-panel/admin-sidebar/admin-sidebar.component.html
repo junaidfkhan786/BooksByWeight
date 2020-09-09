@@ -1,4 +1,4 @@
-<div class="side-sticky p-3  d-lg-block " style="background-color: #212529; color: white; height: 100%; width: 250px;">
+<div class="side-sticky p-3  d-lg-block " style="background-color: #212529; color: white; height: 100%; width: 280px;">
   <br>
   <span class="material-icons">
     palette
@@ -38,7 +38,7 @@
         </div>
       </div>
     </div>
-    <div class="card"  style="background-color: #212529;">
+    <div class="card"  style="background-color: #212529;" *ngIf="role ==='SuperAdmin'">
       <div class="card-header" id="headingTwo">
         <h2 class="mb-0">
           <a class="btn  btn-block text-left collapsed color_white" type="button" data-toggle="collapse" data-target="#collapseTwo"
@@ -51,20 +51,8 @@
 
         </h2>
       </div>
-      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample"  >
         <div class="card-body">
-          <a class="btn  btn-block text-left collapsed color_white">
-            ADD USERS
-            <span class="material-icons org float-right arrow">
-              navigate_next
-            </span>
-          </a>
-          <a class="btn  btn-block text-left collapsed color_white">
-            DELETE USERS
-            <span class="material-icons org float-right arrow">
-              navigate_next
-            </span>
-          </a>
           <a class="btn  btn-block text-left collapsed color_white" (click)="viewusers();">
             VIEW USERS
             <span class="material-icons org float-right arrow">
@@ -74,7 +62,7 @@
         </div>
       </div>
     </div>
-    <div class="card"  style="background-color: #212529;">
+    <div class="card"  style="background-color: #212529;" *ngIf="role ==='SuperAdmin'">
       <div class="card-header" id="headingThree">
         <h2 class="mb-0">
           <a class="btn  btn-block text-left color_white collapsed" type="button" data-toggle="collapse"
@@ -136,6 +124,29 @@
         <div class="card-body">
           <a class="btn  btn-block text-left collapsed color_white" (click)="Coupon()" >
             Add & View Coupon
+            <span class="material-icons org float-right arrow">
+              navigate_next
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="card"  style="background-color: #212529;" *ngIf="role ==='SuperAdmin'">
+      <div class="card-header" id="headingThree">
+        <h2 class="mb-0">
+          <a class="btn  btn-block text-left color_white collapsed" type="button" data-toggle="collapse"
+            data-target="#collapseSix" aria-expanded="false" aria-controls="collapseThree">
+            Create Admin
+            <span class="material-icons org float-right arrow">
+              navigate_next
+            </span>
+          </a>
+        </h2>
+      </div>
+      <div id="collapseSix" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+        <div class="card-body">
+          <a class="btn  btn-block text-left collapsed color_white" (click)="admin()" >
+            Add & View Admins
             <span class="material-icons org float-right arrow">
               navigate_next
             </span>

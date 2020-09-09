@@ -12,6 +12,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { ExcelexportService } from 'src/app/services/excelexport.service';
 import { NgxSpinnerService } from 'ngx-spinner'
 import { AdminCouponService } from 'src/app/services/admin-coupon.service';
+import * as jwt_decode from 'jwt-decode';
 @Component({
   selector: 'app-admin-main-content',
   templateUrl: './admin-main-content.component.html',
@@ -49,10 +50,12 @@ export class AdminMainContentComponent implements OnInit {
   exceljson = []
   totalBooks: number;
   button: boolean
+  role:string
   ngOnInit() {
     this.button = true
     this.loadbook();
     this.loaduser();
+    this.getadmin();
   }
   totalbook1: number;
   recieve2($event) {
@@ -81,7 +84,7 @@ export class AdminMainContentComponent implements OnInit {
     reader.onload = (e: any) => {
       const bstr: string = e.target.result;
 
-      const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
+      const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary',cellDates: true,dateNF: 'mm/dd/yyyy',raw :false});
 
       const wsname: string = wb.SheetNames[0];
 
@@ -126,7 +129,6 @@ export class AdminMainContentComponent implements OnInit {
 
     reader.readAsBinaryString(target.files[0]);
 
-
   }
   Allcategories: any = []
   ConvertJsonToExcel(data) {
@@ -146,10 +148,13 @@ export class AdminMainContentComponent implements OnInit {
               if(this.exceljson[i]['subcategory'] == this.Allcategories[j].subcategory[k]['name']){
                 this.exceljson[i]['subcategory'] = this.Allcategories[j].subcategory[k]['_id'] 
               }
+              if(this.exceljson[i]['isbn_no'] == this.exceljson[i]['isbn_no']){
+                this.exceljson[i]['isbn_no'] = this.exceljson[i]['isbn_no']
+              }
             }
               
             }
-              console.log(this.exceljson[i])
+          
            
    
         }
@@ -198,5 +203,41 @@ export class AdminMainContentComponent implements OnInit {
     //   }
     // )
 
+  }
+
+  getadmin(){
+    if(localStorage.getItem('SuperAdmin')){
+      var token = localStorage.getItem('SuperAdmin');
+      var decode = jwt_decode(token);
+      this.role = decode.role
+      if(this.role === "SuperAdmin" && this.router.url ==="/admin/dashboard/view-orders"){
+       
+      }
+      else if(this.role === "SuperAdmin" && this.router.url ==="/admin/dashboard/view-users"){
+      
+      }
+      else if(this.role === "SuperAdmin" && this.router.url ==="/admin/dashboard/Admin"){
+        
+      }else{
+        this.router.navigate(['/admin/dashboard'])
+      }
+      console.log(this.role)
+    }else if(localStorage.getItem('Admin')){
+      var token = localStorage.getItem('Admin');
+      var decode = jwt_decode(token);
+      this.role = decode.role
+      if(this.role === "Admin" && this.router.url ==="/admin/dashboard/view-orders"){
+        this.router.navigate(['/admin/dashboard'])
+      }
+      if(this.role === "Admin" && this.router.url ==="/admin/dashboard/view-users"){
+        this.router.navigate(['/admin/dashboard'])
+      }
+      if(this.role === "Admin" && this.router.url ==="/admin/dashboard/Admin"){
+        this.router.navigate(['/admin/dashboard'])
+      }
+      console.log(this.role)
+    }
+       
+    
   }
 }

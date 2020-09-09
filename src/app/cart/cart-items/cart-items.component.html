@@ -117,8 +117,9 @@
      </div>
 
         <div class="row "
-          *ngFor="let coupon of allcoupons; let i = index">
-          <div class="card p-2" *ngIf="coupon.coupon_code">
+          *ngFor="let coupon of allcoupons |
+          paginate: {  itemsPerPage: 5, currentPage: pages, totalItems: i}; let i = index">
+          <div class="card p-2">
             <div class="row">
               <div class="col" >
                 {{coupon.coupon_code}}
@@ -138,7 +139,10 @@
             </div>
           </div>
         </div>
-
+        <pagination-controls class="d-flex justify-content-center" directionLinks="true"
+          (pageChange)="onPageChange($event)" autoHide="true" responsive="true" previousLabel="Previous"
+          nextLabel="Next">
+        </pagination-controls>
       </div>
     </div>
     <div class="col-sm-6" style="text-align: right;">
@@ -159,7 +163,11 @@
             <span style="font-size: 2em;">TOTAL WITH SHIPPING</span>
           </div>
           <div class="col" style="font-weight: bolder;">
-            <span>&#8377;{{ subtotal }}</span>
+            <span>
+              <span style="color: red;" *ngIf="this.coupons.coupon_code !==null">
+               <s> {{s | currency : 'INR'}}</s>
+              </span> &nbsp;&nbsp;
+              {{ subtotal | currency:'INR' }}</span>
             <br /><br />
             <span>{{ totalweight }} {{kilo}}</span>
             <br /><br />
@@ -171,7 +179,11 @@
               {{coupons.coupon_code}}
               <br /><br />
             </span>
-            <span style="font-size: 2rem;">&#8377;{{ total }} </span>
+            <span style="font-size: 2rem;">
+              <span style="color: red; font-size: 1rem;" *ngIf="this.coupons.coupon_code !==null">
+                <s>{{t |currency:'INR'}}</s>
+              </span> &nbsp;&nbsp;
+             {{ total | currency:'INR' }} </span>
           </div>
         </div>
         <br>  
