@@ -35,6 +35,7 @@ export class AddCatSubcatComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.catdata.icon_name = null
     this.selected = null
     this.spinner.show();
     this.buttondisabled();
@@ -73,6 +74,7 @@ export class AddCatSubcatComponent implements OnInit {
   clear() {
     this.selected = null;
     this.catdata.category = null
+    this.catdata.icon_name = null
     this.catdata.subcategory.splice(0, this.catdata.subcategory.length)
     $(this).closest('form').find("input[type=text], textarea").val("");
     $('.subcat').val(null)
@@ -107,7 +109,7 @@ export class AddCatSubcatComponent implements OnInit {
     for (let i = 0; i < this.sub.length; i++) {
       if (this.sub[i].name == this.subcats.name) {
         console.log(this.sub[i].name)
-        this.s = true
+        this.s = false
         break
       } else {
         this.s = false
@@ -199,6 +201,7 @@ export class AddCatSubcatComponent implements OnInit {
     this.allcat.postcategory(alldata).subscribe(
       (response) => {
         if (response.message) {
+          this.catdata.icon_name = null
           this.selected = null
           this.spinner.hide();
           this.toastr.success(response.message, 'BooksByWeight', {
@@ -247,7 +250,6 @@ export class AddCatSubcatComponent implements OnInit {
         this.spinner.hide();
         this.cat = cat
         this.selected = null
-        console.log(cat)
       }, (error) => {
         console.log(error)
       }, () => console.log(" All Categories Fetched Successfully ")

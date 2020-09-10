@@ -1,85 +1,87 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <table style="text-align: center; width: 100%;">
-        <tr style="border: 1px solid #c1c1c1;">
-          <th style="border: 1px solid #c1c1c1;">BOOK COVER</th>
-          <th style="border: 1px solid #c1c1c1;">BOOK TITLE</th>
-          <th style="border: 1px solid #c1c1c1;">PRICE(₹)</th>
-          <th style="border: 1px solid #c1c1c1;">BOOK WEIGHT</th>
-          <th style="border: 1px solid #c1c1c1;">QUANTITY</th>
-          <th style="border: 1px solid #c1c1c1;">TOTAL</th>
-          <th style="border: 1px solid #c1c1c1;">REMOVE</th>
-        </tr>
-        <tr style="border-width: 1px;" *ngFor="let item of productItem.cart">
-          <td style="border-width: 1px;">
-            <a (click)="productHome(item.book._id)"><img src="{{ item.book.book_img[0] }}"
-                onerror="this.src='assets/images/altimg.png';" class="high" /></a>
-          </td>
-          <td style="border-width: 1px;">
-            <a href="#" style="
-                font-size: 14px;
-                color: #6f6f6f;               font-weight: 700;
+<div class="table-responsive">
+  <table style="text-align: center; width: 100%;">
+    <tr style="border: 1px solid #c1c1c1;">
+      <th style="border: 1px solid #c1c1c1;">BOOK COVER</th>
+      <th style="border: 1px solid #c1c1c1;">BOOK TITLE</th>
+      <th style="border: 1px solid #c1c1c1;">PRICE(₹)</th>
+      <th style="border: 1px solid #c1c1c1;">BOOK WEIGHT</th>
+      <th style="border: 1px solid #c1c1c1;">QUANTITY</th>
+      <th style="border: 1px solid #c1c1c1;">TOTAL</th>
+      <th style="border: 1px solid #c1c1c1;">REMOVE</th>
+    </tr>
+    <tr style="border-width: 1px;" *ngFor="let item of productItem.cart">
+      <td style="border-width: 1px;">
+        <a (click)="productHome(item.book._id)"><img src="{{ item.book.book_img[0] }}"
+            onerror="this.src='assets/images/altimg.png';" class="high" /></a>
+      </td>
+      <td style="border-width: 1px;">
+        <a href="#" style="
+            font-size: 14px;
+            color: #6f6f6f;               font-weight: 700;
 
-                text-decoration: none;
-              ">{{ item.book.book_name }}</a>
-          </td>
-          <td style="border-width: 1px;">
-            <span style="font-size: 14px; color: #6f6f6f; font-weight: 700;">{{
-              item.price
-            }}</span>
-          </td>
-          <td style="border-width: 1px;">
-            <span>{{ item.weight  }}Kg </span>
-          </td>
-          <td style="border-width: 1px;">
-            <div class="row d-flex justify-content-center" style="padding-top: 20px;">
-              <div *ngIf="item.quantity > 1" (click)="
-                  decrement(
-                    item.quantity,
-                    item.book._id,
-                    item.book.selling_price,
-                    item.book.weight
-                  )
-                " style="width: 20px !important; margin-top: 5px; height: 30px; border-radius: 0;"
-                class="btn btn-outline-secondary bg-org">
-                <span class="material-icons" style="margin-left: -10px;  margin-top: -4px;">
-                  remove
-                </span>
-              </div>
-              &nbsp;&nbsp;&nbsp;
-              <input disabled [value]="item.quantity" type="text" style="
-                  
-                  width: 30px !important;
-                  height: 40px;
-                  margin-left: 0px;
-                " />
-              &nbsp;&nbsp;&nbsp;
-              <div *ngIf="item.book.quantity > item.quantity" (click)="
-                  increment(
-                    item.quantity,
-                    item.book._id,
-                    item.book.selling_price,
-                    item.book.weight
-                  )
-                " style="width: 20px !important; height: 30px; margin-top: 5px; border-radius: 0; margin-left: -8px;"
-                class="btn btn-outline-secondary bg-org">
-                <span class="material-icons" style="margin-left: -10px; margin-top: -4px;">
-                  add
-                </span>
-              </div>
-            </div>
-          </td>
-          <td style="border-width: 1px;">
-            <span style="font-size: 14px; color: #6f6f6f; font-weight: 700;">{{
-              item.total
-            }}</span>
-          </td>
-          <td style="border-width: 1px;">
-            <a (click)="delCart(item._id)"><img src="../../assets/images/bin.png" /></a>
-          </td>
-        </tr>
-      </table>
+            text-decoration: none;
+          ">{{ item.book.book_name }}</a>
+      </td>
+      <td style="border-width: 1px;">
+        <span style="font-size: 14px; color: #6f6f6f; font-weight: 700;">{{
+          item.price
+        }}</span>
+      </td>
+      <td style="border-width: 1px;">
+        <span>{{ item.weight  }}Kg </span>
+      </td>
+      <td style="border-width: 1px;">
+        <div class="row d-flex justify-content-center" style="padding-top: 20px;">
+          <div *ngIf="item.quantity > 1" (click)="
+              decrement(
+                item.quantity,
+                item.book._id,
+                item.book.selling_price,
+                item.book.weight
+              )
+            " style="width: 20px !important; margin-top: 5px; height: 30px; border-radius: 0;"
+            class="btn btn-outline-secondary bg-org">
+            <span class="material-icons" style="margin-left: -10px;  margin-top: -4px;">
+              remove
+            </span>
+          </div>
+          &nbsp;&nbsp;&nbsp;
+          <input disabled [value]="item.quantity" type="text" style="
+              
+              width: 30px !important;
+              height: 40px;
+              margin-left: 0px;
+            " />
+          &nbsp;&nbsp;&nbsp;
+          <div *ngIf="item.book.quantity > item.quantity" (click)="
+              increment(
+                item.quantity,
+                item.book._id,
+                item.book.selling_price,
+                item.book.weight
+              )
+            " style="width: 20px !important; height: 30px; margin-top: 5px; border-radius: 0; margin-left: -8px;"
+            class="btn btn-outline-secondary bg-org">
+            <span class="material-icons" style="margin-left: -10px; margin-top: -4px;">
+              add
+            </span>
+          </div>
+        </div>
+      </td>
+      <td style="border-width: 1px;">
+        <span style="font-size: 14px; color: #6f6f6f; font-weight: 700;">{{
+          item.total
+        }}</span>
+      </td>
+      <td style="border-width: 1px;">
+        <a (click)="delCart(item._id)"><img src="../../assets/images/bin.png" /></a>
+      </td>
+    </tr>
+  </table>
+</div>
     </div>
   </div>
 </div>

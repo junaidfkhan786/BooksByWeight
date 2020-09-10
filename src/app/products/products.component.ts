@@ -117,7 +117,7 @@ export class ProductsComponent implements OnInit {
       this.spinner.hide();
     });
   }
-  onPageChange(page: number = 1) {
+  onPageChange(page: number) {
     this.pages = page;
     window.scrollTo(0, 520);
   }

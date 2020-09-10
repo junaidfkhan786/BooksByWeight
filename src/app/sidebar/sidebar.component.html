@@ -3,23 +3,50 @@
     <span class="material-icons">menu</span> BROWSE CATEGORIES
   </li>
 
-  <li class=" dropright list-group-item bg-color"  *ngFor="let item of category$">
-   
-      <span class="material-icons org ">
-        {{item.icon_name}}
-      </span> &nbsp; <span style="cursor: pointer;" (click)="productCat(item._id)" class="text-wrap"> {{item.category}} </span>
-      <span class="material-icons org float-right">
-        navigate_next
-      </span>
+  <li class=" dropright list-group-item bg-color" *ngFor="let item of category$">
+    <div class="row">
+      <div class="col-1 mr-1">
+        <span class="material-icons org ">
+          {{item.icon_name}}
+        </span>
+      </div>
+      <div class="col">
+        <span style="cursor: pointer;" (click)="productCat(item._id)" class="text-wrap"> {{item.category}} </span>
+
+      </div>
+      <div class="col-1">
+        <span class="material-icons org float-right">
+          navigate_next
+        </span>
+      </div>
+    </div>
     <div style="padding: 10px;width: 500px;" [hidden]="item.subcategory.length == 0"
       class=" dropdown-menu drop-menu-right animate__animated animate__fadeInRight animate__faster">
+      <!-- <div class="row">
+    <div class="col">
+  <div class="row">
+    <div class="col-6"*ngFor="let sub of item.subcategory" >
+      <a class=" nav-link active org " (click)="productSubCat(sub._id)" style="color: black; cursor: pointer;">
+        {{sub.name}}
+      </a>
+    </div>
+  </div>
+    </div>
+        <div class="col-2">
+          <img class="float-right" src="../../assets/images/1.jpeg" height="100%" width="200px" alt="" srcset="">
+        </div>
+        
+      </div> -->
       <div class="row">
-        <div class="col-6"*ngFor="let sub of item.subcategory" >
+
+        <div class="col-6" *ngFor="let sub of item.subcategory">
           <a class=" nav-link active org " (click)="productSubCat(sub._id)" style="color: black; cursor: pointer;">
             {{sub.name}}
           </a>
         </div>
+
       </div>
+
 
     </div>
   </li>

@@ -47,7 +47,8 @@
                             <br>
                             <select [(ngModel)]="selected" class="form-select select"
                                 aria-label="Default select example">
-                                <option *ngFor="let allsub of sub" [value]="allsub._id">{{allsub.name}}</option>
+                                <option value="" selected disabled>Please select</option>
+                                <option *ngFor="let allsub of sub;let i = index" [value]="allsub._id" >{{i+1}})&nbsp;{{allsub.name}}</option>
                             </select>
                         </div>
                         
@@ -129,11 +130,13 @@
                 {{ 5 * (pages - 1) + i + 1 }}
             </div>
             <div class="col-md-4">
-                {{allcat.category}}
+                <span class="material-icons">{{allcat.icon_name}}</span> {{allcat.category}}
             </div>
             <div class="col-md-7">
-                <div class="row" *ngFor="let SubCategories of allcat.subcategory; let i = index">
-                    <div class="col">
+                Subcategories:
+                <div class="row">
+                   
+                    <div class="col-4 " *ngFor="let SubCategories of allcat.subcategory; let i = index">
                         {{i + 1 }} &nbsp; {{SubCategories.name}}
                     </div>
                 </div>
