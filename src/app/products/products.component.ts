@@ -61,8 +61,12 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(res => {
      var token = res['token']
+     if(token){
       localStorage.setItem('User',token)
       this.ngZone.run(() => this.router.navigate(['/cart'])).then();
+     }else{
+       console.log('Token From Mobile App Not Fetch ')
+     }
     });
     this.spinner.show();
     this.wish.getwishlistload().subscribe(() => {
