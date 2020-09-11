@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, NgZone } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { BooksService } from '../services/books.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -56,12 +56,13 @@ export class ProductsComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private cart: CartService,
     private activatedRoute: ActivatedRoute,
+    private ngZone: NgZone,
   ) { }
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(res => {
-      var message = res['token'];
-     console.log(message)
-
+     var token = res['token']
+      localStorage.setItem('User',token)
+      this.ngZone.run(() => this.router.navigate(['/cart'])).then();
     });
     this.spinner.show();
     this.wish.getwishlistload().subscribe(() => {
