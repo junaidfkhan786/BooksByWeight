@@ -45,6 +45,7 @@ export class ProductsComponent implements OnInit {
   cartquantity1: any = [];
   cartpid: any = {};
   cartpid1: any[] = [];
+  token:string
   constructor(
     private toastr: ToastrService,
     private CatService: CategoryService,
@@ -60,10 +61,16 @@ export class ProductsComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(res => {
-     var token = res['token']
-     if(token){
-      localStorage.setItem('User',token)
-      this.ngZone.run(() => this.router.navigate(['/cart'])).then();
+     this.spinner.show();
+      this.token = res['token']
+     console.log(res)
+     if(this.token){
+       console.log(this.token)
+      localStorage.setItem("User",JSON.stringify(this.token))
+      setTimeout(() => {
+        this.ngZone.run(() => this.router.navigate(['/cart'])).then();  
+      }, 2000);
+      
      }else{
        console.log('Token From Mobile App Not Fetch ')
      }
