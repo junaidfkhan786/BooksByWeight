@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-admin-create',
@@ -7,21 +7,19 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./admin-create.component.css']
 })
 export class AdminCreateComponent implements OnInit {
-  admincreate: FormGroup;
+  admincreate: NgForm;
   constructor(
-    private formbuilder: FormBuilder,
+   
   ) { }
 
   ngOnInit(): void {
   }
 
-  setFormState(): void {
-    this.admincreate = this.formbuilder.group({
-      email: ['', [Validators.required]],
-      name: ['', [Validators.required]],
-      role:'Admin',
-      phonenumber: ['', [Validators.required]],
-      password: ['', [Validators.required]]
-    });
-  }
+register ={
+  email: null,
+  name:null,
+  phonenumber:null,
+  password:null
+}
+
 }

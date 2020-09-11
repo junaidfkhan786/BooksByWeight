@@ -55,9 +55,14 @@ export class ProductsComponent implements OnInit {
     private wish: WishlistService,
     private spinner: NgxSpinnerService,
     private cart: CartService,
+    private activatedRoute: ActivatedRoute,
   ) { }
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe(res => {
+      var message = res['token'];
+     console.log(message)
 
+    });
     this.spinner.show();
     this.wish.getwishlistload().subscribe(() => {
       this.loadwish();
