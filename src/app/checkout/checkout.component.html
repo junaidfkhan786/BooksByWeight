@@ -1,5 +1,5 @@
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="line-scale-pulse-out" [fullScreen]="true">
-    <p style="color: white"> GETTING PAYMENT DONE PLEASE WAIT.........</p>
+    <p style="color: white">WORKING ON YOUR REQUEST PLEASE WAIT.........</p>
 </ngx-spinner>
 <div class="p-2">
     <div class="section1">
@@ -19,7 +19,88 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-8">
-                        <div *ngIf="selected" class="table-responsive">
+                     <div *ngIf="but">
+                        <div class="d-flex justify-content-center">
+                            <button class="btn btn-outline-success" [hidden] = "addlength == 3" (click)="showadds()">{{button?'Add Address' : 'Hide Address Form'}}</button>
+                        </div>
+                        
+                     </div>
+                        <div class="col-md mt-2" [hidden] = "!div">
+
+                            <div>
+                                <div class="card p-2 btc">
+                                    <span class="font-weight-bolder org text-center" style="font-size: large;">ADDRESS
+                                    </span>
+                                </div>
+                                <br>
+                                <form #addform="ngForm" id="address">
+                                    <div class="input-group">
+                                        <input [(ngModel)]="add.fullName" name="fullName" type="text" class="form-control"
+                                            placeholder="Enter Full Name" #fullName required>
+                                    </div>
+                                <br>
+                                    <div class="row g-2">
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+                                                <input  [(ngModel)]="add.mobileNumber" type="text" name="mobileNumber" class="form-control"
+                                                    placeholder="Enter Phone-Number"
+                                                    onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
+                                                    autocomplete="off" maxlength="10" #mobileNumber required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+                                                <input [(ngModel)]="add.alternatePhoneNumber" name="alternatePhoneNumber" type="text"
+                                                    class="form-control" placeholder="Enter Alternate Phone-Number"
+                                                    aria-label="mobile-number"
+                                                    onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
+                                                    autocomplete="off" maxlength="10" #alternatePhoneNumber required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="input-group">
+                                        <textarea [(ngModel)]="add.address" name="address" type="text" class="form-control"
+                                            placeholder="Enter Address" #addresss required></textarea>
+                                    </div>
+                                    <br>
+                                    <div class="row g-2">
+                                        <div class="col">
+                                            <div class="input-group">
+                                                <input [(ngModel)]="add.state" name="state" type="text" class="form-control"
+                                                    placeholder="Enter State" #state required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="input-group">
+                                                <input [(ngModel)]="add.city" name="city" type="text" class="form-control"
+                                                    placeholder="Enter City" #city required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="input-group">
+                                                <input [(ngModel)]="add.landmark" name="landmark" type="text" class="form-control"
+                                                    placeholder="Enter Landmark" #landmark required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="input-group">
+                                                <input [(ngModel)]="add.pinCode" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;" name="pinCode" type="text" class="form-control"
+                                                    placeholder="Enter Pin-Code" #pinCode required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="d-flex justify-content-center">
+                                        <button class="btn btn-success" [disabled]="addform.invalid" style="border-radius: 0;"
+                                            (click)="submitadd();"> {{formbutton? 'Update Address': 'Add Address'}} </button>
+                                    </div>
+                                </form>
+                            </div>
+                    
+                        </div>
+                      <div *ngIf="but">
+                        <div *ngIf="selected" class="table-responsive mt-2">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
@@ -32,6 +113,7 @@
                                         <th scope="col">Alt Mob No</th>
                                         <th scope="col">Address</th>
                                         <th scope="col">Select Address</th>
+                                        <th scope="col">Delete </th>
                                     </tr>
                                 </thead>
                                 <tbody class="align-middle">
@@ -60,18 +142,26 @@
                                                 Select
                                             </button>
                                         </td>
+                                        <td><button (click)="del(add._id)" class="btn btn-sm btn-outline-danger" style="border-radius: 0;">
+                                            <span class="material-icons"
+                                                style="font-size: 2rem; cursor: pointer;">delete_forever</span>
+                                        </button>
+                                    </td>
 
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
+                      </div>
                         <!-- <div style="float: left;">
                         <button class="btn btn-success" [disabled] = "!placebutton" (click)="createorder()" > place Order</button>
                     </div> -->
                         <div style="float: right;" *ngIf="!selected">
                             <button class="btn btn-success" (click)="showadd()"> change Address</button>
                         </div>
+      
                         <br>
+
                         <h3 style="color: #ff4136;" [hidden]="paymentbutton">NOTE : *PLEASE SELECT ADDRESS TO GET
                             PAYMENT DONE</h3>
                         <br>

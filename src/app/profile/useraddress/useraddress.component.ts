@@ -129,7 +129,7 @@ export class UseraddressComponent implements OnInit, OnDestroy  {
     }
   }
   edit(add) {
-    this.button = true
+    this.button = false
     this.formbutton = true
     this.div = true
     this.addform.setValue({

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from './../services/cart.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -18,6 +18,7 @@ import { map } from 'rxjs/operators';
 import { Coupons } from '../models/coupons.model';
 import { CoupontransferService } from '../services/coupontransfer.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { NgForm } from '@angular/forms';
 
 declare var $: any;
 @Component({
@@ -27,6 +28,7 @@ declare var $: any;
   providers: [WindowRefService]
 })
 export class CheckoutComponent implements OnInit {
+  add: useradd;
   book$: any = [];
   cartitemlength: any;
   cartitem: any = [];
@@ -72,6 +74,20 @@ export class CheckoutComponent implements OnInit {
   shiporderid: any;
   shippingid: any;
   coupons: Coupons
+  couponid: any
+  coupon_code: any
+  coupon_amount: any
+  percentage: any
+  expiry_date: any
+  @ViewChild('addform') addform: NgForm;
+  button: boolean;
+  formbutton: boolean;
+  div: boolean;
+  but: boolean;
+  addid: any;
+  messageadd: string;
+  length: any;
+
   constructor(
     private cart: CartService,
     private toastr: ToastrService,
@@ -81,39 +97,39 @@ export class CheckoutComponent implements OnInit {
     public windowref: WindowRefService,
     private activatedRoute: ActivatedRoute,
     private ngZone: NgZone,
-    private coupontransfer:CoupontransferService,
-    private spinner : NgxSpinnerService
+    private coupontransfer: CoupontransferService,
+    private spinner: NgxSpinnerService
 
   ) {
+    this.add = new useradd();
     this.ordermodel = new Orders();
     this.shiprocketmodel = new ShipRocketOrders();
     this.coupons = new Coupons();
-    this.coupontransfer.couponid.subscribe((couponid)=>{
+    this.coupontransfer.couponid.subscribe((couponid) => {
       this.couponid = couponid
     })
-    this.coupontransfer.coupon_code.subscribe((coupon_code)=>{
+    this.coupontransfer.coupon_code.subscribe((coupon_code) => {
       this.coupon_code = coupon_code
     })
-    this.coupontransfer.coupon_amount.subscribe((coupon_amount)=>{
+    this.coupontransfer.coupon_amount.subscribe((coupon_amount) => {
       this.coupon_amount = coupon_amount
     })
-    this.coupontransfer.percentage.subscribe((percentage)=>{
+    this.coupontransfer.percentage.subscribe((percentage) => {
       this.percentage = percentage
     })
-    this.coupontransfer.expiry_date.subscribe((expiry_date)=>{
+    this.coupontransfer.expiry_date.subscribe((expiry_date) => {
       this.expiry_date = expiry_date
     })
   }
 
-  couponid: any
-  coupon_code: any
-  coupon_amount: any
-  percentage: any
-  expiry_date: any
-  
 
-  ngOnInit(): void {
-this.spinner.show();
+
+  ngOnInit() {
+    this.spinner.show();
+    this.button = true
+    this.div = false
+    this.but = true
+
     this.paymentbutton = false
     this.placebutton = false
     this.selected = true
@@ -153,6 +169,7 @@ this.spinner.show();
     options.handler = ((response) => {
 
       if (response.razorpay_order_id) {
+        this.spinner.show();
         this.ordersaved(response);
 
       } else if (!response.razorpay_order_id) {
@@ -172,7 +189,54 @@ this.spinner.show();
     this.rzp1 = new this.windowref.nativeWindow.Razorpay(options);
     this.rzp1.open();
   }
-
+  edit(add) {
+    this.button = false
+    this.formbutton = true
+    this.div = true
+    this.addform.setValue({
+      fullName: add.fullName,
+      mobileNumber: add.mobileNumber,
+      alternatePhoneNumber: add.alternatePhoneNumber,
+      address: add.address,
+      state: add.state,
+      city: add.city,
+      landmark: add.landmark,
+      pinCode: add.pinCode
+    })
+    this.addid = add._id
+  }
+  submitadd() {
+    if (this.addform.valid) {
+      if (this.formbutton) {
+        let respedit = this.gettingadd.editaddress(this.addid, this.add);
+        respedit.subscribe((res) => {
+          this.addform.resetForm();
+          this.formbutton = false
+          this.div = !this.div
+          this.button = !this.button
+          this.spinner.hide();
+        })
+      } else {
+        let resp = this.gettingadd.postadd(this.add)
+        resp.subscribe((response) => {
+          this.div = false;
+          this.but = true;
+          this.formbutton = true
+          this.button = true
+          this.spinner.hide();
+        }, (error) => {
+          this.messageadd = error.error.message
+          console.log(this.messageadd)
+        })
+      }
+    }
+  }
+  showadds() {
+    this.div = !this.div
+    this.button = !this.button
+    this.formbutton = false
+    this.addform.resetForm();
+  }
   ordersaved(response) {
     localStorage.removeItem('orderid')
     this.orderid = response.razorpay_order_id
@@ -185,23 +249,23 @@ this.spinner.show();
     this.ordermodel.amount = this.amountpayable,
       this.ordermodel.totalitems = this.totalitems,
       this.ordermodel.totalweight = this.totalweight
-     this.ordermodel.book = this.pid1,
-    this.ordermodel.coupon_code = this.coupons._id
+    this.ordermodel.book = this.pid1,
+      this.ordermodel.coupon_code = this.coupons._id
 
-    if(this.coupons.coupon_code == null){
+    if (this.coupons.coupon_code == null) {
       this.ordermodel.isCouponApplied = false
-    }else{
+    } else {
       this.ordermodel.isCouponApplied = true
     }
     console.log(this.ordermodel)
 
-      this.order.verifypayment(this.orderid, this.paymentid, this.sig, this.ordermodel)
+    this.order.verifypayment(this.orderid, this.paymentid, this.sig, this.ordermodel)
       .subscribe((data) => {
         console.log(data)
         this.getorder(this.orderid);
       })
 
-   
+
 
   }
   getorder(orderid) {
@@ -340,8 +404,13 @@ this.spinner.show();
   }
   getadd() {
     this.gettingadd.getaddress().subscribe((resp) => {
+      this.spinner.hide();
       this.address = resp.address
       this.addlength = this.address.length;
+      if (this.address.length == 0) {
+        this.div = !this.div
+        this.but = !this.but
+      }
     }, (error) => {
       console.log(error)
     })
@@ -364,45 +433,81 @@ this.spinner.show();
   showadd() {
     this.selected = true
   }
-  couponsobj = {
-    coupon_code: this.coupon_code,
-    percentage: this.percentage,
-    coupon_amount: this.coupon_amount,
-    expiry_date: this.expiry_date,
-    couponid:this.couponid
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+    const couponsobj = {
+      coupon_code: this.coupon_code,
+      percentage: this.percentage,
+      coupon_amount: this.coupon_amount,
+      expiry_date: this.expiry_date,
+      couponid: this.couponid
+    }
+
   }
 
   getcoupon() {
-      let coupon_code = this.coupon_code
-      let percentage = this.percentage
-      let coupon_amount = this.coupon_amount
-      let expiry_date = this.expiry_date
-      let couponid = this.couponid
-      this.coupons._id = couponid
-      this.coupons.coupon_code = coupon_code
-      this.coupons.percentage = percentage
-      this.coupons.coupon_amount = coupon_amount
-      this.coupons.expiry_date = expiry_date
+    let coupon_code = this.coupon_code
+    let percentage = this.percentage
+    let coupon_amount = this.coupon_amount
+    let expiry_date = this.expiry_date
+    let couponid = this.couponid
+    this.coupons._id = couponid
+    this.coupons.coupon_code = coupon_code
+    this.coupons.percentage = percentage
+    this.coupons.coupon_amount = coupon_amount
+    this.coupons.expiry_date = expiry_date
 
-      if(this.coupons.percentage == false){
-        if(this.coupons.coupon_amount == this.amountpayable){
-          this.amountpayable = 0
-          this.subtotal = 0
-        }else{
-          this.subtotal -= this.coupons.coupon_amount
-          this.amountpayable -= this.coupons.coupon_amount
-        }
-
-      }else{
-        if(this.coupons.coupon_amount == 100){
-          this.amountpayable = 0
-          this.subtotal = 0
-        }else{
-         this.subtotal-= this.subtotal/100*this.coupons.coupon_amount
-         this.amountpayable-= this.total/100*this.coupons.coupon_amount
-        }
+    if (this.coupons.percentage == false) {
+      if (this.coupons.coupon_amount == this.amountpayable) {
+        this.amountpayable = 0
+        this.subtotal = 0
+      } else {
+        this.subtotal -= this.coupons.coupon_amount
+        this.amountpayable -= this.coupons.coupon_amount
       }
-      this.spinner.hide();
-      console.log(this.coupons)
+
+    } else {
+      if (this.coupons.coupon_amount == 100) {
+        this.amountpayable = 0
+        this.subtotal = 0
+      } else {
+        this.subtotal -= this.subtotal / 100 * this.coupons.coupon_amount
+        this.amountpayable -= this.total / 100 * this.coupons.coupon_amount
+      }
+    }
+  }
+  del(id) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: '',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.value) {
+        this.gettingadd.deladd(id).subscribe((del) => {
+          this.spinner.hide()
+          if (this.address.length == 0) {
+            this.div = !this.div
+            this.but = !this.but
+          }
+        })
+        Swal.fire(
+          'Deleted!',
+          'Your imaginary file has been deleted.',
+          'success'
+        )
+        // For more information about handling dismissals please visit
+        // https://sweetalert2.github.io/#handling-dismissals
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Your imaginary Address is safe :)',
+          'error'
+        )
+      }
+    })
   }
 }
