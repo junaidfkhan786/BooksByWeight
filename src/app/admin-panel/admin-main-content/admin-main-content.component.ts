@@ -40,6 +40,7 @@ export class AdminMainContentComponent implements OnInit {
     this.couponslength = totalcoupons
   })
   }
+  
   couponslength:any
   orderslength: any
   book: any = [];
@@ -51,6 +52,7 @@ export class AdminMainContentComponent implements OnInit {
   totalBooks: number;
   button: boolean
   role:string
+  public result: any;
   ngOnInit() {
     this.button = true
     this.loadbook();
@@ -76,6 +78,12 @@ export class AdminMainContentComponent implements OnInit {
   }
 
   getfile(event) {
+    // let file = event.target.files[0];
+    // this.excelexp.processFileToJson({}, file).subscribe(data => {
+    //   this.result = data['sheets'].Sheet1
+    //   console.log(this.result)
+    //   this.ConvertJsonToExcel(this.result)
+    // })
     const target: DataTransfer = <DataTransfer>(event.target);
     if (target.files.length !== 1) throw new Error('Cannot use multiple files');
 
@@ -89,47 +97,49 @@ export class AdminMainContentComponent implements OnInit {
       const wsname: string = wb.SheetNames[0];
 
       const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-
+      let roa = XLSX.utils.sheet_to_json(ws,{defval:""});
 
       //getting the complete sheet
       // console.log(worksheet);
 
-      var headers = {};
-      var data: any = [];
-      for (var z in ws) {
-        if (z[0] === "!") continue;
-        //parse out the column, row, and value
-        var col = z.substring(0, 1);
-        // console.log(col);
+      // var headers = {};
+      // var data: any = [];
+      // for (var z in ws) {
+      //   if (z[0] === "!") continue;
+      //   //parse out the column, row, and value
+      //   var col = z.substring(0, 1);
+      //   // console.log(col);
 
-        var row = parseInt(z.substring(1));
-        // console.log(row);
+      //   var row = parseInt(z.substring(1));
+      //   // console.log(row);
 
-        var value = ws[z].v;
-        // console.log(value);
+      //   var value = ws[z].v;
+      //   // console.log(value);
 
-        //store header names
-        if (row == 1) {
-          headers[col] = value;
-          // storing the header names
-          continue;
-        }
+      //   //store header names
+      //   if (row == 1) {
+      //     headers[col] = value;
+      //     // storing the header names
+      //     continue;
+      //   }
 
-        if (!data[row]) data[row] = {};
-        data[row][headers[col]] = value;
+      //   if (!data[row]) data[row] = {};
+      //   data[row][headers[col]] = value;
 
 
-      }
-      //drop those first two rows which are empty
-      data.shift();
-      data.shift();
-      this.ConvertJsonToExcel(data);
+      // }
+      // //drop those first two rows which are empty
+      // data.shift();
+      // data.shift();
+      // console.log(data)
+      this.ConvertJsonToExcel(roa);
 
     };
 
     reader.readAsBinaryString(target.files[0]);
-
+    
   }
+
   Allcategories: any = []
   ConvertJsonToExcel(data) {
     this.spinner.show()
@@ -137,25 +147,26 @@ export class AdminMainContentComponent implements OnInit {
       (categories) => {
         this.Allcategories = categories
         this.exceljson = data
-        console.log(this.exceljson, this.Allcategories)
 
         for (let i = 0; i < this.exceljson.length; i++) {
           for (let j = 0; j < this.Allcategories.length; j++) {     
             for (let k = 0; k < this.Allcategories[j].subcategory.length; k++) {
+              this.exceljson[i]['categories'].toLowerCase();
+                this.Allcategories[j]['category'].toLowerCase();
+                this.exceljson[i]['subcategory'].toLowerCase();
+                this.Allcategories[j].subcategory[k]['name'].toLowerCase();
               if(this.exceljson[i]['categories'] == this.Allcategories[j]['category']){
+                
                 this.exceljson[i]['categories'] = this.Allcategories[j]['_id']      
               }
               if(this.exceljson[i]['subcategory'] == this.Allcategories[j].subcategory[k]['name']){
                 this.exceljson[i]['subcategory'] = this.Allcategories[j].subcategory[k]['_id'] 
               }
-              if(this.exceljson[i]['isbn_no'] == this.exceljson[i]['isbn_no']){
-                this.exceljson[i]['isbn_no'] = this.exceljson[i]['isbn_no']
-              }
             }
               
             }
           
-           
+
    
         }
 

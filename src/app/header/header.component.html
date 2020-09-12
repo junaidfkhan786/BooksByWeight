@@ -5,7 +5,44 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent" >
-      <ul class="navbar-nav nav nav-fill mr-auto mb- mb-lg-0">
+     <div class="card" style="background: transparent; border: none; width: 100%;">
+      <div class="row ml-1">
+        <div class="col-md">
+          <a class="nav-link " style="color: black;" aria-current="page" href="#">Home</a>
+        </div>
+        <div class="col-md">
+          <a class="nav-link active" style="color: black;" [routerLink]="['/newbooks']" routerLinkActive="router-link-active" >New Books</a>
+        </div>
+        <div class="col-md-3">
+          <a class="nav-link active" style="color: black;" [routerLink]="['/prebooks']" routerLinkActive="router-link-active" >Pre-Owned Books</a>
+        </div>
+        <div class="col-md">
+          <a [routerLink]="['/books']" style="color: black;" routerLinkActive="router-link-active"  class="nav-link active " >
+            Books
+          </a>
+        </div>
+        <div class="col-md">
+          <li class="dropdown" style="list-style-type: none;" >
+            <a class="nav-link  active "style="color: black;">
+              Information
+            </a>
+            <ul class="dropdown-menu animate__animated animate__fadeInUp animate__faster">
+              <li><a class="dropdown-item" (click)="about()">About</a></li>
+              <li><a class="dropdown-item" href="#" (click)="Terms()">Terms & Conditions</a></li>
+              <li><a class="dropdown-item" href="#"(click)="Return()">Return & Exchange</a></li>
+              <li><a class="dropdown-item" href="#"(click)="Shipping()">Shipping & Delivery</a></li>
+              <li><a class="dropdown-item" href="#"(click)="Copyright()">CopyRight Policy</a></li>
+              <li><a class="dropdown-item" href="#"(click)="Privacy()">Privacy Policy</a></li>
+              <li><a class="dropdown-item" href="#"(click)="Payment()">Payment</a></li>
+            </ul>
+          </li>
+        </div>
+        <div class="col-md">
+          <a href="#" class="nav-link  active" style="color: black;">Contact</a>
+        </div>
+      </div>
+     </div>
+      <!-- <ul class="navbar-nav nav nav-fill mr-auto mb- mb-lg-0">
         <li class="nav-item " style="padding-left: 60px;">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
@@ -19,12 +56,6 @@
           <a [routerLink]="['/books']" routerLinkActive="router-link-active"  class="nav-link active " >
             Books
           </a>
-          <!-- <ul class="dropdown-menu animate__animated animate__fadeInUp animate__faster">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul> -->
         </li>
         <li class="dropdown" style="padding-left: 30px; " >
           <a class="nav-link  active ">
@@ -43,10 +74,10 @@
         <li style="padding-left: 30px;">
          <a href="#" class="nav-link  active ">Contact</a>
         </li>
-      </ul>
-     <div class="d-flex">
-      <ul class="navbar-nav mr-auto mb- mb-lg-0">
-      <li class="nav-item">
+      </ul> -->
+     <div class="d-flex justify-content-center" >
+      <ul class="navbar-nav">
+      <li>
         <a  (click)="openSearch()" class="nav-link " >
           <span class="material-icons">
             search
@@ -65,14 +96,14 @@
           <li><a class="dropdown-item" (click)="logout()" >LogOut</a></li>
         </ul>
       </li>
-      <li class="nav-item" *ngIf="!session"data-toggle="tooltip"  data-placement="top" title="LOGIN / REGISTER" >
+      <li  *ngIf="!session"data-toggle="tooltip"  data-placement="top" title="LOGIN / REGISTER" >
         <a  [routerLink]="['/login']" routerLinkActive="router-link-active" class="nav-link" >
           <span class="material-icons" >
              person_outline
             </span>
         </a>
       </li>
-      <li class="nav-item">
+      <li>
         <a [routerLink]="['/wish']" routerLinkActive="router-link-active"  class="nav-link">
           <span class="material-icons">
             favorite_border
@@ -80,7 +111,7 @@
             <span *ngIf="length1 >= 0 "  class="badge rounded-pill bg-danger">{{length1}}</span>
         </a>
       </li>
-      <li class="nav-item">
+      <li>
         <a [routerLink]="['/cart']" routerLinkActive="router-link-active"  class="nav-link">
           <span class="material-icons">
             add_shopping_cart

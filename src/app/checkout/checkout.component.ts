@@ -153,9 +153,16 @@ export class CheckoutComponent implements OnInit {
     let options: any = {
       "key": "rzp_test_ImeRpaCPi1JD7v",
       "key_secret": "TpJ7W7kEA7NuwqtPwno8NQhl",
+      "prefill.contact":"+919867270344",
+      "prefill.email":"junaidfkhan786@gmail.com",
+      "prefill.name":"junaid khan",
       "image": "https://previews.123rf.com/images/subhanbaghirov/subhanbaghirov1605/subhanbaghirov160500087/56875269-vector-light-bulb-icon-with-concept-of-idea-brainstorming-idea-illustration-.jpg",
       "currency": "INR",
       "amount": '',
+      modal: {
+        // We should prevent closing of the form when esc key is pressed.
+        escape: false,
+      },
       "name": "BooksByweight",
       "description": "Books By Weight Test Transaction",
       "order_id": '',

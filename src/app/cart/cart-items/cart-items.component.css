@@ -13,9 +13,9 @@
     border-color: #c1c1c1;
     border-radius: 0;
     border-style: solid;
-    margin: 0 0 50px;
+
     text-align: center;
-    width: 10%;
+   
   }
   
   table,
@@ -69,46 +69,7 @@
   
 
   
-  .cart-totals h2 {
-    border-bottom: 2px solid #c1c1c1;
-    display: inline-block;
-    font-size: 30px;
-    margin: 0 0 35px;
-    text-transform: uppercase;
-  }
-  
-  .cart_totals table {
-    border: medium none;
-    float: right;
-    margin: 0;
-    text-align: right;
-  }
-  
-  .cart_totals table th {
-    border: medium none;
-    font-size: 14px;
-    font-weight: bold;
-    padding: 0 20px 12px 0;
-    text-align: right;
-    text-transform: uppercase;
-    vertical-align: top;
-  }
-  
-  .cart_totals table td {
-    border: medium none;
-    padding: 0 0 12px;
-    vertical-align: top;
-  }
-  
-  .cart_totals table td .amount {
-    color: #252525;
-    float: right;
-    font-size: 13px;
-    font-weight: bold;
-    margin-left: 5px;
-    text-align: right;
-    text-transform: uppercase;
-  }
+
   
   tr.order-total .amount {
     font-size: 20px;

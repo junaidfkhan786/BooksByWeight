@@ -1,41 +1,41 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-<div class="table-responsive">
-  <table style="text-align: center; width: 100%;">
-    <tr style="border: 1px solid #c1c1c1;">
-      <th style="border: 1px solid #c1c1c1;">BOOK COVER</th>
-      <th style="border: 1px solid #c1c1c1;">BOOK TITLE</th>
-      <th style="border: 1px solid #c1c1c1;">PRICE(₹)</th>
-      <th style="border: 1px solid #c1c1c1;">BOOK WEIGHT</th>
-      <th style="border: 1px solid #c1c1c1;">QUANTITY</th>
-      <th style="border: 1px solid #c1c1c1;">TOTAL</th>
-      <th style="border: 1px solid #c1c1c1;">REMOVE</th>
-    </tr>
-    <tr style="border-width: 1px;" *ngFor="let item of productItem.cart">
-      <td style="border-width: 1px;">
-        <a (click)="productHome(item.book._id)"><img src="{{ item.book.book_img[0] }}"
-            onerror="this.src='assets/images/altimg.png';" class="high" /></a>
-      </td>
-      <td style="border-width: 1px;">
-        <a href="#" style="
+      <div class="table-responsive">
+        <table style="text-align: center; width: 100%;">
+          <tr style="border: 1px solid #c1c1c1;">
+            <th style="border: 1px solid #c1c1c1;">BOOK COVER</th>
+            <th style="border: 1px solid #c1c1c1;">BOOK TITLE</th>
+            <th style="border: 1px solid #c1c1c1;">PRICE(₹)</th>
+            <th style="border: 1px solid #c1c1c1;">BOOK WEIGHT</th>
+            <th style="border: 1px solid #c1c1c1;">QUANTITY</th>
+            <th style="border: 1px solid #c1c1c1;">TOTAL</th>
+            <th style="border: 1px solid #c1c1c1;">REMOVE</th>
+          </tr>
+          <tr style="border-width: 1px;" *ngFor="let item of productItem.cart">
+            <td style="border-width: 1px;">
+              <a (click)="productHome(item.book._id)"><img src="{{ item.book.book_img[0] }}"
+                  onerror="this.src='assets/images/altimg.png';" class="high" /></a>
+            </td>
+            <td style="border-width: 1px;">
+              <a href="#" style="
             font-size: 14px;
             color: #6f6f6f;               font-weight: 700;
 
             text-decoration: none;
           ">{{ item.book.book_name }}</a>
-      </td>
-      <td style="border-width: 1px;">
-        <span style="font-size: 14px; color: #6f6f6f; font-weight: 700;">{{
+            </td>
+            <td style="border-width: 1px;">
+              <span style="font-size: 14px; color: #6f6f6f; font-weight: 700;">{{
           item.price
         }}</span>
-      </td>
-      <td style="border-width: 1px;">
-        <span>{{ item.weight  }}Kg </span>
-      </td>
-      <td style="border-width: 1px;">
-        <div class="row d-flex justify-content-center" style="padding-top: 20px;">
-          <div *ngIf="item.quantity > 1" (click)="
+            </td>
+            <td style="border-width: 1px;">
+              <span>{{ item.weight  }}Kg </span>
+            </td>
+            <td style="border-width: 1px;">
+              <div class="row d-flex justify-content-center" style="padding-top: 20px;">
+                <div *ngIf="item.quantity > 1" (click)="
               decrement(
                 item.quantity,
                 item.book._id,
@@ -43,20 +43,20 @@
                 item.book.weight
               )
             " style="width: 20px !important; margin-top: 5px; height: 30px; border-radius: 0;"
-            class="btn btn-outline-secondary bg-org">
-            <span class="material-icons" style="margin-left: -10px;  margin-top: -4px;">
-              remove
-            </span>
-          </div>
-          &nbsp;&nbsp;&nbsp;
-          <input disabled [value]="item.quantity" type="text" style="
+                  class="btn btn-outline-secondary bg-org">
+                  <span class="material-icons" style="margin-left: -10px;  margin-top: -4px;">
+                    remove
+                  </span>
+                </div>
+                &nbsp;&nbsp;&nbsp;
+                <input disabled [value]="item.quantity" type="text" style="
               
               width: 30px !important;
               height: 40px;
               margin-left: 0px;
             " />
-          &nbsp;&nbsp;&nbsp;
-          <div *ngIf="item.book.quantity > item.quantity" (click)="
+                &nbsp;&nbsp;&nbsp;
+                <div *ngIf="item.book.quantity > item.quantity" (click)="
               increment(
                 item.quantity,
                 item.book._id,
@@ -64,24 +64,24 @@
                 item.book.weight
               )
             " style="width: 20px !important; height: 30px; margin-top: 5px; border-radius: 0; margin-left: -8px;"
-            class="btn btn-outline-secondary bg-org">
-            <span class="material-icons" style="margin-left: -10px; margin-top: -4px;">
-              add
-            </span>
-          </div>
-        </div>
-      </td>
-      <td style="border-width: 1px;">
-        <span style="font-size: 14px; color: #6f6f6f; font-weight: 700;">{{
+                  class="btn btn-outline-secondary bg-org">
+                  <span class="material-icons" style="margin-left: -10px; margin-top: -4px;">
+                    add
+                  </span>
+                </div>
+              </div>
+            </td>
+            <td style="border-width: 1px;">
+              <span style="font-size: 14px; color: #6f6f6f; font-weight: 700;">{{
           item.total
         }}</span>
-      </td>
-      <td style="border-width: 1px;">
-        <a (click)="delCart(item._id)"><img src="../../assets/images/bin.png" /></a>
-      </td>
-    </tr>
-  </table>
-</div>
+            </td>
+            <td style="border-width: 1px;">
+              <a (click)="delCart(item._id)"><img src="../../assets/images/bin.png" /></a>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
   </div>
 </div>
@@ -89,7 +89,7 @@
 
   <div class="row">
     <div class="col-sm-6">
-      <div class="d-flex justify-content-center" *ngIf="!couponhide"> 
+      <div class="d-flex justify-content-center" *ngIf="!couponhide">
         <button class="btn btn-outline-success w-50" (click)="togglecoupon()"> Change Coupon </button>
       </div>
       <br>
@@ -98,48 +98,47 @@
           <span class="font-weight-bolder org text-center" style="font-size: large;">Coupons
           </span>
         </div>
-  <br>
-     <div class="row">
-      <div class="card p-2" >
-        <div class="row">
-          <div class="col">
-            Coupon_code
-          </div>
-          <div class="col">
-            Coupon_amount / Percentage
-          </div>
-          <div class="col">
-            Expiry_date
-          </div>
-          <div class="col">
-            select
-          </div>
-        </div>
-      </div>
-     </div>
-
-        <div class="row "
-          *ngFor="let coupon of allcoupons |
-          paginate: {  itemsPerPage: 5, currentPage: pages, totalItems: i}; let i = index">
-          <div class="card p-2">
-            <div class="row">
-              <div class="col" >
-                {{coupon.coupon_code}}
-              </div>
-              <div class="col" *ngIf="coupon.percentage == true">
-                {{coupon.coupon_amount}} %
-              </div>
-              <div class="col" *ngIf="coupon.percentage == false">
-                {{coupon.coupon_amount | currency:'INR'}} 
-              </div>
-              <div class="col">
-                {{coupon.expiry_date}}
-              </div>
-              <div class="col">
-                <button class="btn btn-outline-success btn-sm" (click)="select(coupon)"> Select </button>
-              </div>
-            </div>
-          </div>
+        <br>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">
+                  Coupon code
+                </th>
+                <th scope="col">
+                  Coupon_amount / Percentage
+                </th>
+                <th scope="col">
+                  Expiry Date
+                </th>
+                <th scope="col">
+                  select
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let coupon of allcoupons |
+              paginate: {  itemsPerPage: 5, currentPage: pages, totalItems: i}; let i = index">
+                <td>
+                  {{coupon.coupon_code}}
+                </td>
+                <td *ngIf="coupon.percentage == true">
+                  {{coupon.coupon_amount}} %
+                </td>
+                <td *ngIf="coupon.percentage == false">
+                  {{coupon.coupon_amount | currency:'INR'}}
+                </td>
+                <td>
+                  {{coupon.expiry_date | date}}
+                </td>
+                <td>
+                  <button class="btn btn-outline-success btn-sm" (click)="select(coupon)"> Select </button>
+                </td>
+              </tr>
+  
+            </tbody>
+          </table>
         </div>
         <pagination-controls class="d-flex justify-content-center" directionLinks="true"
           (pageChange)="onPageChange($event)" autoHide="true" responsive="true" previousLabel="Previous"
@@ -167,7 +166,7 @@
           <div class="col" style="font-weight: bolder;">
             <span>
               <span style="color: red;" *ngIf="this.coupons.coupon_code !==null">
-               <s> {{s | currency : 'INR'}}</s>
+                <s> {{s | currency : 'INR'}}</s>
               </span> &nbsp;&nbsp;
               {{ subtotal | currency:'INR' }}</span>
             <br /><br />
@@ -185,11 +184,12 @@
               <span style="color: red; font-size: 1rem;" *ngIf="this.coupons.coupon_code !==null">
                 <s>{{t |currency:'INR'}}</s>
               </span> &nbsp;&nbsp;
-             {{ total | currency:'INR' }} </span>
+              {{ total | currency:'INR' }} </span>
           </div>
         </div>
-        <br>  
-        <a style="text-decoration: solid ; color: red;" (click)="return()"><u>Click Here To Know About Return Policy</u></a> 
+        <br>
+        <a style="text-decoration: solid ; color: red;" (click)="return()"><u>Click Here To Know About Return
+            Policy</u></a>
         <div class="wc-proceed-to-checkout org" style="list-style-type: none;">
           <button (click)="gotocheckout() " class="button button2" style="margin-top: 30px;">
             Proceed to Checkout
