@@ -225,6 +225,8 @@ export class AdminMainContentComponent implements OnInit {
         
       }else if(this.role === "SuperAdmin" && this.router.url ==="/admin/dashboard/add-bulk-products"){
         
+      }else if(this.role === "SuperAdmin" && this.router.url ==="/admin/dashboard/view-products"){
+        
       }else{
         this.router.navigate(['/admin/dashboard'])
       }
