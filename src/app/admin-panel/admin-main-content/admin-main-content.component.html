@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-    <div class=" col d-flex justify-content-center" *ngIf="role ==='SuperAdmin'" >
+    <div class=" col d-flex justify-content-center" *ngIf="role ==='SuperAdmin'">
       <div class="card shadow-bottom" style="width: 18rem;background-color: #212529; color: white;">
         <div class="card-body">
           <h5 class="card-title">USERS <span class="d-flex justify-content-end">[{{count}}]</span></h5>
@@ -19,7 +19,7 @@
         </div>
       </div>
     </div>
-    <div class=" col d-flex justify-content-center" *ngIf="role ==='SuperAdmin'" >
+    <div class=" col d-flex justify-content-center" *ngIf="role ==='SuperAdmin'">
       <div class="card shadow-bottom" style="width: 18rem;background-color: #212529; color: white;">
         <div class="card-body">
           <h5 class="card-title">ORDERS <span class="d-flex justify-content-end">[{{orderslength}}]</span></h5>
@@ -51,7 +51,7 @@
   </div>
   <div *ngIf="router.url === '/admin/dashboard/add-bulk-products'">
 
-    <div class="row  d-flex justify-content-center" style="height: 500px;">
+    <!-- <div class="row  d-flex justify-content-center" style="height: 500px;">
       <div style="width: 50%; height: 50%; top: 80px; background-color: #212529; color: white; "
         class="card shadow-bottom align-middle">
         <h5 style="margin-top: 7%;" class="text-center card-title"><span style="font-size: 2rem;">UPLOAD YOUR EXCEL
@@ -71,6 +71,53 @@
           </button>
         </div>
 
+      </div>
+    </div> -->
+
+    <div class="mt-5">
+      <div class="d-flex justify-content-center">
+        <div class="card p-2 w-50 btc">
+          <span class="font-weight-bolder org text-center" style="font-size: large;">Excel Upload
+          </span>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center mt-1">
+
+        <div class="card p-2  w-50" style="background-color: #212529; color: white; height: 100%;">
+          <div class="d-flex justify-content-center">
+            <div class="w-100">
+              <div class="p-2">
+                <span style="font-size: 1rem;">
+                  For Converting cat/subcat Names to Ids :
+                </span> <br>
+                <input #file1 hidden type="file" multiple (change)="convertids($event)">
+                <a class="org" style="text-decoration: none; color:  white; cursor: pointer;" (click)="file1.click()">
+                  CLick Here To Add It
+                  <span class="material-icons">
+                    touch_app
+                  </span>
+                </a>
+
+                {{filename}}
+              </div>
+
+              <div class="p-2">
+                <span style="font-size: 1rem;">
+                  For Excel Sheet Upload To Server:
+                </span> <br>
+                <input #file2 hidden type="file">
+                <a class="org" style="text-decoration: none; color:  white; cursor: pointer;" (click)="file2.click()">
+                  CLick Here To Add It
+                  <span class="material-icons">
+                    touch_app
+                  </span>
+                </a>
+
+                {{filename1}}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 

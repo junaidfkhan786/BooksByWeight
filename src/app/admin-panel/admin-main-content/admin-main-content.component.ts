@@ -13,6 +13,7 @@ import { ExcelexportService } from 'src/app/services/excelexport.service';
 import { NgxSpinnerService } from 'ngx-spinner'
 import { AdminCouponService } from 'src/app/services/admin-coupon.service';
 import * as jwt_decode from 'jwt-decode';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 @Component({
   selector: 'app-admin-main-content',
   templateUrl: './admin-main-content.component.html',
@@ -36,12 +37,12 @@ export class AdminMainContentComponent implements OnInit {
         this.orderslength = total
       }
     )
-  this.couponservice.totalcoupons.subscribe((totalcoupons) => {
-    this.couponslength = totalcoupons
-  })
+    this.couponservice.totalcoupons.subscribe((totalcoupons) => {
+      this.couponslength = totalcoupons
+    })
   }
-  
-  couponslength:any
+
+  couponslength: any
   orderslength: any
   book: any = [];
   users: any;
@@ -51,7 +52,7 @@ export class AdminMainContentComponent implements OnInit {
   exceljson = []
   totalBooks: number;
   button: boolean
-  role:string
+  role: string
   public result: any;
   ngOnInit() {
     this.button = true
@@ -76,8 +77,10 @@ export class AdminMainContentComponent implements OnInit {
       this.count = this.users.totaluser
     })
   }
-
-  getfile(event) {
+  message: string
+  filename: string;
+  filename1: string
+  convertids(event) {
     // let file = event.target.files[0];
     // this.excelexp.processFileToJson({}, file).subscribe(data => {
     //   this.result = data['sheets'].Sheet1
@@ -85,89 +88,142 @@ export class AdminMainContentComponent implements OnInit {
     //   this.ConvertJsonToExcel(this.result)
     // })
     const target: DataTransfer = <DataTransfer>(event.target);
-    if (target.files.length !== 1) throw new Error('Cannot use multiple files');
 
-    const reader: FileReader = new FileReader();
+    try {
 
-    reader.onload = (e: any) => {
-      const bstr: string = e.target.result;
+      if (!this.validateFile(target.files[0].name)) {
+        throw { type: "please upload excel file" };
+      } else if (target.files.length !== 1) {
+        throw { multiple: "Cannot use multiple files" };
+      } else {
+        this.filename = target.files[0].name
+        this.spinner.show();
+        const reader: FileReader = new FileReader();
 
-      const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary',cellDates: true,dateNF: 'mm/dd/yyyy',raw :false});
+        reader.onload = (e: any) => {
+          const bstr: string = e.target.result;
 
-      const wsname: string = wb.SheetNames[0];
+          const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary', cellDates: true, dateNF: 'mm/dd/yyyy', raw: false });
 
-      const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-      let roa = XLSX.utils.sheet_to_json(ws,{defval:""});
+          const wsname: string = wb.SheetNames[0];
 
-      //getting the complete sheet
-      // console.log(worksheet);
+          const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+          let convertedjson = XLSX.utils.sheet_to_json(ws, { defval: "" });
 
-      // var headers = {};
-      // var data: any = [];
-      // for (var z in ws) {
-      //   if (z[0] === "!") continue;
-      //   //parse out the column, row, and value
-      //   var col = z.substring(0, 1);
-      //   // console.log(col);
+          this.ConvertJsonToExcel(convertedjson);
 
-      //   var row = parseInt(z.substring(1));
-      //   // console.log(row);
+        };
 
-      //   var value = ws[z].v;
-      //   // console.log(value);
+        reader.readAsBinaryString(target.files[0]);
+      }
+    } catch (error) {
+      if (error.type) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.type,
+        })
+      } else if (error.multiple) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.multiple,
+        })
+      }
 
-      //   //store header names
-      //   if (row == 1) {
-      //     headers[col] = value;
-      //     // storing the header names
-      //     continue;
-      //   }
+    }
 
-      //   if (!data[row]) data[row] = {};
-      //   data[row][headers[col]] = value;
+    //getting the complete sheet
+    // console.log(worksheet);
+
+    // var headers = {};
+    // var data: any = [];
+    // for (var z in ws) {
+    //   if (z[0] === "!") continue;
+    //   //parse out the column, row, and value
+    //   var col = z.substring(0, 1);
+    //   // console.log(col);
+
+    //   var row = parseInt(z.substring(1));
+    //   // console.log(row);
+
+    //   var value = ws[z].v;
+    //   // console.log(value);
+
+    //   //store header names
+    //   if (row == 1) {
+    //     headers[col] = value;
+    //     // storing the header names
+    //     continue;
+    //   }
+
+    //   if (!data[row]) data[row] = {};
+    //   data[row][headers[col]] = value;
 
 
-      // }
-      // //drop those first two rows which are empty
-      // data.shift();
-      // data.shift();
-      // console.log(data)
-      this.ConvertJsonToExcel(roa);
+    // }
+    // //drop those first two rows which are empty
+    // data.shift();
+    // data.shift();
+    // console.log(data)
+    //   this.ConvertJsonToExcel(roa);
 
-    };
+    // };
 
-    reader.readAsBinaryString(target.files[0]);
-    
+    // reader.readAsBinaryString(target.files[0]);
   }
+  validateFile(name: String) {
+    var ext = name.substring(name.lastIndexOf('.') + 1);
+
+    if (ext.toLowerCase() == 'xls') {
+        return true;
+    }else if (ext.toLowerCase() == 'xlsx') {
+      return true;
+  }
+    else {
+        return false;
+    }
+}
+
 
   Allcategories: any = []
   ConvertJsonToExcel(data) {
-    this.spinner.show()
     this.cat.getCategory().subscribe(
       (categories) => {
         this.Allcategories = categories
         this.exceljson = data
 
         for (let i = 0; i < this.exceljson.length; i++) {
-          for (let j = 0; j < this.Allcategories.length; j++) {     
+          if(this.exceljson[i].categories == undefined){
+            alert("please upload correct file")
+            this.spinner.hide()
+            break
+          }
+          for (let j = 0; j < this.Allcategories.length; j++) {
             for (let k = 0; k < this.Allcategories[j].subcategory.length; k++) {
-              this.exceljson[i]['categories'].toLowerCase();
-                this.Allcategories[j]['category'].toLowerCase();
-                this.exceljson[i]['subcategory'].toLowerCase();
-                this.Allcategories[j].subcategory[k]['name'].toLowerCase();
-              if(this.exceljson[i]['categories'] == this.Allcategories[j]['category']){
-                
-                this.exceljson[i]['categories'] = this.Allcategories[j]['_id']      
-              }
-              if(this.exceljson[i]['subcategory'] == this.Allcategories[j].subcategory[k]['name']){
-                this.exceljson[i]['subcategory'] = this.Allcategories[j].subcategory[k]['_id'] 
-              }
-            }
-              
-            }
-          
+              this.exceljson[i]['categories'] = this.exceljson[i].categories.toLowerCase()
+              this.Allcategories[j]['category'] = this.Allcategories[j].category.toLowerCase()
+              this.exceljson[i]['subcategory'] = this.exceljson[i].subcategory.toLowerCase()
+              this.Allcategories[j].subcategory[k]['name'] = this.Allcategories[j].subcategory[k].name.toLowerCase()
 
-   
+              //   if (this.exceljson[i]['categories'] == this.Allcategories[j]['category'] || this.exceljson[i]['subcategory'] == this.Allcategories[j].subcategory[k]['name']) {
+              //   this.exceljson[i]['categories'] = this.Allcategories[j]['_id']
+              //   this.exceljson[i]['subcategory'] = this.Allcategories[j].subcategory[k]['_id']
+              // }
+
+              if (this.exceljson[i]['categories'] == this.Allcategories[j]['category']) {
+                this.exceljson[i]['categories'] = this.Allcategories[j]['_id']
+              }
+              if (this.exceljson[i]['subcategory'] == this.Allcategories[j].subcategory[k]['name']) {
+                this.exceljson[i]['subcategory'] = this.Allcategories[j].subcategory[k]['_id']
+              }
+
+            }
+
+          }
+
+
+
         }
 
         this.exportexcel(this.exceljson)
@@ -180,9 +236,21 @@ export class AdminMainContentComponent implements OnInit {
 
   }
 
-  exportexcel(exceljson){
-      let filename = new Date() +"BooksByWeight"
-      this.excelexp.exportExcel(exceljson, filename);
+  exportexcel(exceljson) {
+    var date = new Date();  
+    var name = 
+                ("00" + (date.getMonth() + 1)).slice(-2) 
+                + "/" + ("00" + date.getDate()).slice(-2) 
+                + "/" + date.getFullYear() + " " 
+                + ("00" + date.getHours()).slice(-2) + ":" 
+                + ("00" + date.getMinutes()).slice(-2) 
+                + ":" + ("00" + date.getSeconds()).slice(-2); 
+                  
+
+    let filename = name + ' ' + "BooksByWeight"
+
+    
+    this.excelexp.exportExcel(exceljson, filename);
   }
   addbulk() {
 
@@ -216,48 +284,48 @@ export class AdminMainContentComponent implements OnInit {
 
   }
 
-  getadmin(){
-    if(localStorage.getItem('SuperAdmin')){
+  getadmin() {
+    if (localStorage.getItem('SuperAdmin')) {
       var token = localStorage.getItem('SuperAdmin');
       var decode = jwt_decode(token);
       this.role = decode.role
-      if(this.role === "SuperAdmin" && this.router.url ==="/admin/dashboard/view-orders"){
-       
+      if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/view-orders") {
+
       }
-      else if(this.role === "SuperAdmin" && this.router.url ==="/admin/dashboard/view-users"){
-      
+      else if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/view-users") {
+
       }
-      else if(this.role === "SuperAdmin" && this.router.url ==="/admin/dashboard/Admin"){
-        
-      } else if(this.role === "SuperAdmin" && this.router.url ==="/admin/dashboard/Coupon"){
-  
+      else if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/Admin") {
+
+      } else if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/Coupon") {
+
       }
-      else if(this.role === "SuperAdmin" && this.router.url ==="/admin/dashboard/View-Cat-&&-SubCat"){
-        
-      }else if(this.role === "SuperAdmin" && this.router.url ==="/admin/dashboard/add-bulk-products"){
-        
-      }else if(this.role === "SuperAdmin" && this.router.url ==="/admin/dashboard/view-products"){
-        
-      }else{
+      else if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/View-Cat-&&-SubCat") {
+
+      } else if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/add-bulk-products") {
+
+      } else if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/view-products") {
+
+      } else {
         this.router.navigate(['/admin/dashboard'])
       }
       console.log(this.role)
-    }else if(localStorage.getItem('Admin')){
+    } else if (localStorage.getItem('Admin')) {
       var token = localStorage.getItem('Admin');
       var decode = jwt_decode(token);
       this.role = decode.role
-      if(this.role === "Admin" && this.router.url ==="/admin/dashboard/view-orders"){
+      if (this.role === "Admin" && this.router.url === "/admin/dashboard/view-orders") {
         this.router.navigate(['/admin/dashboard'])
       }
-      if(this.role === "Admin" && this.router.url ==="/admin/dashboard/view-users"){
+      if (this.role === "Admin" && this.router.url === "/admin/dashboard/view-users") {
         this.router.navigate(['/admin/dashboard'])
       }
-      if(this.role === "Admin" && this.router.url ==="/admin/dashboard/Admin"){
+      if (this.role === "Admin" && this.router.url === "/admin/dashboard/Admin") {
         this.router.navigate(['/admin/dashboard'])
       }
       console.log(this.role)
     }
-       
-    
+
+
   }
 }
