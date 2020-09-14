@@ -48,6 +48,7 @@ this.spinner.show();
       this.wish.getwish().subscribe(data => {
 
         this.book$ = data;
+        console.log(this.book$)
         this.length = data.books.length;
 this.spinner.hide();
         //  this.book$.books[0].book.book_img[0]

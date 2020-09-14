@@ -91,6 +91,7 @@ export class CartItemsComponent implements OnInit {
       this.spinner.hide();
       this.book$ = data;
       let cart = this.book$.cartItems[0].cart
+
       var sum = 0
       for (let i = 0; i < cart.length; i++) {
         if (cart[i].quantity) {

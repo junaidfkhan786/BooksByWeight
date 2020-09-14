@@ -97,7 +97,7 @@ export class AdminMainContentComponent implements OnInit {
         throw { multiple: "Cannot use multiple files" };
       } else {
         this.filename = target.files[0].name
-        this.spinner.show();
+        // this.spinner.show();
         const reader: FileReader = new FileReader();
 
         reader.onload = (e: any) => {
@@ -176,14 +176,14 @@ export class AdminMainContentComponent implements OnInit {
     var ext = name.substring(name.lastIndexOf('.') + 1);
 
     if (ext.toLowerCase() == 'xls') {
-        return true;
-    }else if (ext.toLowerCase() == 'xlsx') {
       return true;
-  }
-    else {
-        return false;
+    } else if (ext.toLowerCase() == 'xlsx') {
+      return true;
     }
-}
+    else {
+      return false;
+    }
+  }
 
 
   Allcategories: any = []
@@ -194,8 +194,12 @@ export class AdminMainContentComponent implements OnInit {
         this.exceljson = data
 
         for (let i = 0; i < this.exceljson.length; i++) {
-          if(this.exceljson[i].categories == undefined){
-            alert("please upload correct file")
+          if (this.exceljson[i].categories == undefined) {
+            Swal.fire({
+              icon: 'info',
+              title: 'Oops...',
+              text: 'Please Upload Correct Data File',
+            })
             this.spinner.hide()
             break
           }
@@ -210,6 +214,16 @@ export class AdminMainContentComponent implements OnInit {
               //   this.exceljson[i]['categories'] = this.Allcategories[j]['_id']
               //   this.exceljson[i]['subcategory'] = this.Allcategories[j].subcategory[k]['_id']
               // }
+              if (this.exceljson[i].mrp_dollar != null || this.exceljson[i].mrp_euro != null) {
+                if (this.exceljson[i]['mrp_dollar']) {
+                  this.exceljson[i]['mrp_inr'] = this.exceljson[i]['mrp_dollar'] * this.exceljson[i]['goc_dollar']
+                } else if(this.exceljson[i]['mrp_euro']){
+                  this.exceljson[i]['mrp_inr'] = this.exceljson[i]['mrp_euro'] * this.exceljson[i]['goc_euro']
+                }else{
+                  this.exceljson[i]['mrp_inr'] = "junaid"
+                }
+
+              }
 
               if (this.exceljson[i]['categories'] == this.Allcategories[j]['category']) {
                 this.exceljson[i]['categories'] = this.Allcategories[j]['_id']
@@ -237,19 +251,19 @@ export class AdminMainContentComponent implements OnInit {
   }
 
   exportexcel(exceljson) {
-    var date = new Date();  
-    var name = 
-                ("00" + (date.getMonth() + 1)).slice(-2) 
-                + "/" + ("00" + date.getDate()).slice(-2) 
-                + "/" + date.getFullYear() + " " 
-                + ("00" + date.getHours()).slice(-2) + ":" 
-                + ("00" + date.getMinutes()).slice(-2) 
-                + ":" + ("00" + date.getSeconds()).slice(-2); 
-                  
+    var date = new Date();
+    var name =
+      ("00" + (date.getMonth() + 1)).slice(-2)
+      + "/" + ("00" + date.getDate()).slice(-2)
+      + "/" + date.getFullYear() + " "
+      + ("00" + date.getHours()).slice(-2) + ":"
+      + ("00" + date.getMinutes()).slice(-2)
+      + ":" + ("00" + date.getSeconds()).slice(-2);
+
 
     let filename = name + ' ' + "BooksByWeight"
 
-    
+
     this.excelexp.exportExcel(exceljson, filename);
   }
   addbulk() {
