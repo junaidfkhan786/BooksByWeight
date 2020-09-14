@@ -53,8 +53,8 @@ loadroute(){
                  confirmButtonText: 'Done'
                }).then((result) => {
                  if (result.value) {
-
-                  this.ngZone.run(() => this.router.navigate(['/books'])).then();
+                  window.location.assign('/books')
+                  // this.ngZone.run(() => this.router.navigate(['/books'])).then();
                  }
                })
     }
