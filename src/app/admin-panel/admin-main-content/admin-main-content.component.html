@@ -87,9 +87,35 @@
           <div class="d-flex justify-content-center">
             <div class="w-100">
               <div class="p-2">
+                <span style="font-size: 1rem; color: red;">
+                 First Enter Goc Then Press Submit, Then After Upload Excel  : <br> <br>                
+                </span>
+                <form [formGroup]="gocform">
+                  <div class="row g-2">
+                    <div class="col-md-2 text-center">
+                      Goc Dollar <br>
+                      <input formControlName="goc_dollar" name="goc_dollar" numbersOnly  type="text" style="width: 100%;"  class="p-1">
+                    </div>
+                    <div class="col-md-2 text-center">
+                      Goc Euro <br>
+                      <input numbersOnly formControlName="goc_euro" name="goc_euro" type="text"style="width: 100%;" class="p-1">
+                    </div>
+                    <div class="col-md-2 text-center">
+                      Goc Aus Dollar <br>
+                      <input numbersOnly formControlName="goc_aus_dollar" name="goc_aus_dollar" type="text"style="width: 100%;"  class="p-1">
+                    </div>
+                    <div class="col-md-2 text-center">
+                      Goc Pound <br>
+                      <input numbersOnly formControlName="goc_pound" name="goc_pound" type="text" style="width: 100%;" class="p-1">
+                    </div>
+                    <div class="col-2 text-center"><br>
+                      <button (click)="gocsubmit()" class="btn btn-success"> Submit </button>
+                    </div>
+                  </div>
+                </form>
                 <span style="font-size: 1rem;">
-                  For Converting cat/subcat Names to Ids :
-                </span> <br>
+                  For Converting cat/subcat Names to Ids And Setting Up Formula : <br>                
+                </span>
                 <input #file1 hidden type="file" multiple (change)="convertids($event)">
                 <a class="org" style="text-decoration: none; color:  white; cursor: pointer;" (click)="file1.click()">
                   CLick Here To Add It
@@ -97,7 +123,6 @@
                     touch_app
                   </span>
                 </a>
-
                 {{filename}}
               </div>
 

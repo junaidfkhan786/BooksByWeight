@@ -14,6 +14,7 @@ import { NgxSpinnerService } from 'ngx-spinner'
 import { AdminCouponService } from 'src/app/services/admin-coupon.service';
 import * as jwt_decode from 'jwt-decode';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { FormControl, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-admin-main-content',
   templateUrl: './admin-main-content.component.html',
@@ -41,7 +42,7 @@ export class AdminMainContentComponent implements OnInit {
       this.couponslength = totalcoupons
     })
   }
-
+  public gocform: FormGroup;
   couponslength: any
   orderslength: any
   book: any = [];
@@ -53,12 +54,29 @@ export class AdminMainContentComponent implements OnInit {
   totalBooks: number;
   button: boolean
   role: string
+  goc_dollar: number = null;
+  goc_euro: number = null;
+  goc_pound: number = null;
+  goc_aus_dollar: number = null;
   public result: any;
   ngOnInit() {
+    this.createform()
+    this.goc_dollar = null
+    this.goc_euro = null
+    this.goc_pound = null
+    this.goc_aus_dollar = null
     this.button = true
     this.loadbook();
     this.loaduser();
     this.getadmin();
+  }
+  createform() {
+    this.gocform = new FormGroup({
+      'goc_dollar': new FormControl(null),
+      'goc_euro': new FormControl(null),
+      'goc_aus_dollar': new FormControl(null),
+      'goc_pound': new FormControl(null)
+    })
   }
   totalbook1: number;
   recieve2($event) {
@@ -185,7 +203,17 @@ export class AdminMainContentComponent implements OnInit {
     }
   }
 
+  gocsubmit() {
+    this.goc_dollar = this.gocform.value.goc_dollar
+    this.goc_euro = this.gocform.value.goc_euro
+    this.goc_aus_dollar = this.gocform.value.goc_aus_dollar
+    this.goc_pound = this.gocform.value.goc_pound
+    console.log(this.goc_dollar)
+    console.log(this.goc_euro)
+    console.log(this.goc_pound)
+    console.log(this.goc_aus_dollar)
 
+  }
   Allcategories: any = []
   ConvertJsonToExcel(data) {
     this.cat.getCategory().subscribe(
@@ -201,6 +229,7 @@ export class AdminMainContentComponent implements OnInit {
               text: 'Please Upload Correct Data File',
             })
             this.spinner.hide()
+            this.exceljson = null
             break
           }
           for (let j = 0; j < this.Allcategories.length; j++) {
@@ -210,25 +239,31 @@ export class AdminMainContentComponent implements OnInit {
               this.exceljson[i]['subcategory'] = this.exceljson[i].subcategory.toLowerCase()
               this.Allcategories[j].subcategory[k]['name'] = this.Allcategories[j].subcategory[k].name.toLowerCase()
 
-              //   if (this.exceljson[i]['categories'] == this.Allcategories[j]['category'] || this.exceljson[i]['subcategory'] == this.Allcategories[j].subcategory[k]['name']) {
-              //   this.exceljson[i]['categories'] = this.Allcategories[j]['_id']
-              //   this.exceljson[i]['subcategory'] = this.Allcategories[j].subcategory[k]['_id']
-              // }
-              if (this.exceljson[i].mrp_dollar != null || this.exceljson[i].mrp_euro != null) {
-                if (this.exceljson[i]['mrp_dollar']) {
-                  this.exceljson[i]['mrp_inr'] = this.exceljson[i]['mrp_dollar'] * this.exceljson[i]['goc_dollar']
-                } else if(this.exceljson[i]['mrp_euro']){
-                  this.exceljson[i]['mrp_inr'] = this.exceljson[i]['mrp_euro'] * this.exceljson[i]['goc_euro']
-                }else{
-                  this.exceljson[i]['mrp_inr'] = "junaid"
+/* step 1 */ this.exceljson[i]['final_price'] = this.exceljson[i]['rate'] * this.exceljson[i]['weight'] / 1000
+
+/* step 2 */  if (this.exceljson[i]['mrp_dollar'] != null || this.exceljson[i]['mrp_euro'] != null || this.exceljson[i]['mrp_aus_dollar'] != null || this.exceljson[i]['mrp_pound'] != null) {
+                if (this.exceljson[i]['mrp_dollar'] && this.goc_dollar != null) {
+                  this.exceljson[i]['mrp_inr'] = this.exceljson[i]['mrp_dollar'] * this.goc_dollar
+                } else if (this.exceljson[i]['mrp_euro'] && this.goc_euro != null) {
+                  this.exceljson[i]['mrp_inr'] = this.exceljson[i]['mrp_euro'] * this.goc_euro
+                } else if (this.exceljson[i]['mrp_aus_dollar'] && this.goc_aus_dollar != null) {
+                  this.exceljson[i]['mrp_inr'] = this.exceljson[i]['mrp_aus_dollar'] * this.goc_aus_dollar
+                } else if (this.exceljson[i]['mrp_pound'] && this.goc_pound != null) {
+                  this.exceljson[i]['mrp_inr'] = this.exceljson[i]['mrp_pound'] * this.goc_pound
+                } else {
+                  this.exceljson[i]['mrp_inr'] = this.exceljson[i]['final_price']
                 }
 
               }
-
-              if (this.exceljson[i]['categories'] == this.Allcategories[j]['category']) {
+/* step 3 */ this.exceljson[i]['discount_rs'] = this.exceljson[i]['mrp_inr'] - this.exceljson[i]['final_price']
+/* step 4 */ this.exceljson[i]['discount_per'] = this.exceljson[i]['discount_rs'] / this.exceljson[i]['mrp_inr'] * 100
+/* step 5 */this.exceljson[i]['sale_price'] = this.exceljson[i]['sale_rate'] * this.exceljson[i]['weight'] / 1000
+/* step 6 */this.exceljson[i]['sale_disc_inr'] = this.exceljson[i]['mrp_inr'] - this.exceljson[i]['sale_price']
+/* step 7 */this.exceljson[i]['sale_disc_per'] = this.exceljson[i]['sale_disc_inr'] / this.exceljson[i]['mrp_inr'] * 100
+/* step 8 */ if (this.exceljson[i]['categories'] == this.Allcategories[j]['category']) {
                 this.exceljson[i]['categories'] = this.Allcategories[j]['_id']
               }
-              if (this.exceljson[i]['subcategory'] == this.Allcategories[j].subcategory[k]['name']) {
+/*step 9 */  if (this.exceljson[i]['subcategory'] == this.Allcategories[j].subcategory[k]['name']) {
                 this.exceljson[i]['subcategory'] = this.Allcategories[j].subcategory[k]['_id']
               }
 
@@ -342,4 +377,5 @@ export class AdminMainContentComponent implements OnInit {
 
 
   }
+
 }

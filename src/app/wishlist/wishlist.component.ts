@@ -27,7 +27,7 @@ export class WishlistComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-this.spinner.show();
+    this.spinner.show();
     this.wish.getwishlistload().subscribe(() => {
       this.loadwish();
     })
@@ -49,19 +49,26 @@ this.spinner.show();
 
         this.book$ = data;
         console.log(this.book$)
+        for (let i = 0; i < this.book$.books.length; i++) {
+          if (this.book$.books[i].book == null || this.book$.books[i].book.quantity == 0) {
+            var id = this.book$.books[i]._id
+            this.emptywish(id)
+          }
+
+        }
         this.length = data.books.length;
-this.spinner.hide();
+        this.spinner.hide();
         //  this.book$.books[0].book.book_img[0]
       })
     } else {
       this.spinner.show();
       this.Error = true;
       setTimeout(() => {
-        
+
         this.router.navigate(['/login']);
       }, 1000);
       this.toastr.error('YOU NEED TO LOGIN', 'BooksByWeight', { timeOut: 3000 });
-this.spinner.hide();
+      this.spinner.hide();
     }
 
   }
@@ -79,7 +86,7 @@ this.spinner.hide();
     if (localStorage.getItem('User') != null) {
 
       this.cart.postProduct(_id, selling_price, weight).subscribe(() => {
-this.spinner.hide();
+        this.spinner.hide();
         this.toastr.success('Product Successfully Added to cart', 'BooksByWeight', {
           timeOut: 1000,
 
@@ -88,6 +95,15 @@ this.spinner.hide();
     }
 
 
+  }
+
+  public emptywish(id) {
+    console.log(id)
+    this.spinner.show();
+    this.wish.emptywish(id).subscribe(res => {
+      this.toastr.error('Some Book In Your wishlist Are Sold ', 'BooksByWeight', { timeOut: 2000 });
+
+    });
   }
 
 }

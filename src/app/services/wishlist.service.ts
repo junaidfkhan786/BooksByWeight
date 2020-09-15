@@ -76,5 +76,22 @@ export class WishlistService {
       );
     }
   }
+  public emptywish(id) {
 
+
+    const httpOptionsauth = {
+
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + localStorage.getItem('User').slice(1, -1)
+
+      })
+    }
+    if (localStorage.getItem('User') != null) {
+      return this.http.delete(`${API_LIVE}` + "/wishlist/w/" + id, httpOptionsauth).pipe(
+        tap(() => {
+          this.wishlistload.next();
+        })
+      );
+    }
+  }
 }

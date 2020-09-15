@@ -60,7 +60,6 @@ export class CartService {
 
       })
     }
-    const token = localStorage.getItem('User').slice(1, -1);
     return this.http.delete(`${API_LIVE}` + "/cart/" + _id, httpOptionsauth).pipe(
       tap(() => {
         this.cartload.next();
@@ -86,22 +85,5 @@ export class CartService {
         })
       );
     }
-  }
-  public emptycart(id):Observable<any> {
-
-
-    // const httpOptionsauth = {
-
-    //   headers: new HttpHeaders({
-    //     'Authorization': 'Bearer ' + localStorage.getItem('User').slice(1, -1)
-
-    //   })
-    // }
-    return this.http.delete<any>(`${API_LIVE}` + "/cart/deletecart/"+id,httpOptions).pipe(
-      tap(() => {
-        this.cartload.next();
-      })
-    );
-
   }
 }

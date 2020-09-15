@@ -22,7 +22,7 @@
                         <div class="input-group">
                             <input  [(ngModel)]="add.mobileNumber" type="text" name="mobileNumber" class="form-control"
                                 placeholder="Enter Phone-Number"
-                                onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
+                                numbersOnly
                                 autocomplete="off" maxlength="10" #mobileNumber required>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                             <input [(ngModel)]="add.alternatePhoneNumber" name="alternatePhoneNumber" type="text"
                                 class="form-control" placeholder="Enter Alternate Phone-Number"
                                 aria-label="mobile-number"
-                                onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
+                                numbersOnly
                                 autocomplete="off" maxlength="10" #alternatePhoneNumber required>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <input [(ngModel)]="add.pinCode" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;" name="pinCode" type="text" class="form-control"
+                            <input [(ngModel)]="add.pinCode" numbersOnly name="pinCode" type="text" class="form-control"
                                 placeholder="Enter Pin-Code" #pinCode required>
                         </div>
                     </div>

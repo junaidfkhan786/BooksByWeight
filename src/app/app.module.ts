@@ -76,6 +76,7 @@ import { ReturnsRefundPolicyComponent } from './policies/returns-refund-policy/r
 import { ShippingComponent } from './policies/shipping/shipping.component';
 import { TermsConditionsComponent } from './policies/terms-conditions/terms-conditions.component';
 import { AdminCreateComponent } from './admin-panel/admin-main-content/admin-create/admin-create.component';
+import {NumberDirective} from './directives/numbersonly.directive'
 @NgModule({
   declarations: [
     AppComponent,
@@ -131,7 +132,7 @@ import { AdminCreateComponent } from './admin-panel/admin-main-content/admin-cre
     ShippingComponent,
     TermsConditionsComponent,
     AdminCreateComponent,
-    
+    NumberDirective
 
     
   
