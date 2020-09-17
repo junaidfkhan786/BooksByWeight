@@ -13,7 +13,7 @@
           </a>
 
           <a  *ngIf="!cartbutton">
-              <span  (click)="addCart(productItem._id,productItem.selling_price,productItem.weight)" class="material-icons org wish">
+              <span  (click)="addCart(productItem._id,productItem.sale_price,productItem.weight)" class="material-icons org wish">
                 add_shopping_cart &nbsp;
               </span>
              </a>
@@ -46,9 +46,9 @@
   </div>
   <div class="text-center">
     <s style="color: rgba(107, 105, 105, 0.61);">&#8377;
-      {{productItem.mrp}}
+      {{productItem.mrp_inr}}
     </s> &nbsp;
     <span style="color:red">&#8377;
-      {{productItem.selling_price}}Rs
+      {{productItem.sale_price}}Rs
     </span>
   </div>

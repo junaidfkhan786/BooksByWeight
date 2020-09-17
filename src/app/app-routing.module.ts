@@ -20,6 +20,7 @@ import{AdminauthGuard} from './adminauth.guard'
 import{SuperadminGuard} from './superadmin.guard'
 import { from } from 'rxjs';
 import { AboutusComponent } from './policies/aboutus/aboutus.component';
+import { OrderdetailsComponent } from './profile/userorders/orderdetails/orderdetails.component';
 const routes: Routes = [
   {
     path: '',
@@ -215,9 +216,11 @@ const routes: Routes = [
     path : 'prebooks/sortBydesc',
     component : PrebooksComponent
   },
+
   {
-    path : 'About-Us',
-    component : AboutusComponent
+    path : 'orderdetails/:_id',
+    component : OrderdetailsComponent,
+    canActivate: [AuthGuard]
   }
 
 

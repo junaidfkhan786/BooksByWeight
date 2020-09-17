@@ -67,7 +67,7 @@ export class CartComponent implements OnInit {
         this.book$ = data;
         if (this.book$.cartItems.length > 0) {
           this.cartitem = this.book$.cartItems[0].cart;
-          console.log(this.cartitem)
+          console.log(this.book$)
           for (let i = 0; i < this.cartitem.length; i++) {
             if (this.cartitem[i].book == null || this.cartitem[i].book.quantity == 0 ) {
               var id = this.cartitem[i]._id

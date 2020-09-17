@@ -3,7 +3,7 @@ import { API_LIVE, httpOptions, API_URL } from '../models/api.model';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/product.model';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +42,7 @@ export class SaveSingleBookService {
   public bulkbook(book):Observable<any>{
     
     
-    return this.http.post<any>('https://bbw-backend.herokuapp.com/api/book/saveBook/',book).pipe(
+    return this.http.post<any>(`${API_LIVE}`+'/book/saveBook/',book).pipe(
      tap(() => {
        this.bookload.next();
      })

@@ -1,0 +1,100 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="line-scale-pulse-out" [fullScreen]="true">
+    <p style="color: white"> Loading order detils... </p>
+</ngx-spinner>
+
+
+<button (click)="generatePDF()"> click</button>
+<div class="ml-5 mr-5" id="contentToConvert">
+    <div class="d-flex justify-content-center">
+        <h1 class="mt-5" style="font-size: 3rem;">BooksByWeight</h1>
+    </div>
+    <hr style="border:2px solid">
+    <div class="d-flex justify-content-center">
+        <h1 style="font-size: 2rem;">INVOICE</h1>
+    </div>
+    <hr style="border:2px solid">
+    <div class="row">
+        <div class="col">
+            <b> <span>SHIPPING ADDRESS:</span></b>
+        </div>
+        <div class="col">
+            <b><span>SOLD BY:</span></b>
+        </div>
+        <div class="col">
+            <b><span>INVOICE DETAILS:</span></b>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+
+            <span>{{address.fullname}}</span> <br>
+            <span>{{address.city}}</span> <br>
+            <span>{{address.state}}</span> <br>
+            <span>{{address.pincode}}</span> <br>
+            PH: &nbsp;<span>{{address.mobilenumber}}</span> <br>
+
+        </div>
+        <div class="col">
+            <span>BooksByWeight</span> <br>
+            <span>Darsh Park / Narayan Nagar/406/2</span> <br>
+            <span>Thane 400612</span> <br>
+            <span>Maharashtra</span> <br>
+            <span>Email: info@booksbyweight.com</span>
+        </div>
+        <div class="col">
+            <B>INVOICE DATE:</B> &nbsp; {{orderdate | date}} <br>
+            <B>ORDER NUMBER:</B> &nbsp; {{orderid}} <br>
+            <B>ORDER DATE:</B> &nbsp; {{orderdate | date}} <br>
+            <B>PAYMENT ID:</B> &nbsp; {{paymentid}} <br>
+            <span *ngIf="paymentmethod == true"><B>PAYMENT METHOD:</B> &nbsp; PREPAID </span><br>
+            <span *ngIf="paymentmethod == false"><B>PAYMENT METHOD:</B> &nbsp; COD</span> <br>
+
+        </div>
+    </div> <br>
+    <hr style="border:2px solid">
+    <table class="table mt-2">
+        <thead>
+            <tr>
+                <th scope="col">Sr No</th>
+                <th scope="col">BOOK NAME</th>
+                <th scope="col">QUANTITY </th>
+                <th scope="col">UNIT PRICE</th>
+                <th scope="col">TOTAL WITH GST </th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of order_items;let i = index">
+            <td>
+                {{i+1}}
+            </td>
+            <td>
+                {{order.name}}
+            </td>
+            <td>
+                {{order.units}}
+            </td>
+            <td>
+                5000
+            </td>
+            <td>
+                1000
+            </td>
+          </tr>
+ 
+     
+        </tbody>
+    </table>
+<div class="d-flex justify-content-center">
+    <span>
+        NET TOTAL( IN VALUE ) Rs. {{5000}}
+    </span>
+</div>
+<hr>
+
+<div class="card" style="height: 100px; width: 400px;">
+
+</div>
+<b>
+    Authorised Signature For BooksByWeight
+</b>
+</div>

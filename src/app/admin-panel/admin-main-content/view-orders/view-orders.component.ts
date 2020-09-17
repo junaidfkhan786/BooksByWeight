@@ -11,6 +11,7 @@ export class ViewOrdersComponent implements OnInit {
   orderslength:any
   orders$:any
   pages: number = 1
+  i:number
   constructor(
     private allorders: AdminOrdersService
   ) {  }

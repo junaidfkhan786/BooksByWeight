@@ -91,7 +91,6 @@ export class AdminMainContentComponent implements OnInit {
   loaduser() {
     this.user.getUsers().subscribe((user) => {
       this.users = user
-
       this.count = this.users.totaluser
     })
   }
@@ -106,9 +105,7 @@ export class AdminMainContentComponent implements OnInit {
     //   this.ConvertJsonToExcel(this.result)
     // })
     const target: DataTransfer = <DataTransfer>(event.target);
-
     try {
-
       if (!this.validateFile(target.files[0].name)) {
         throw { type: "please upload excel file" };
       } else if (target.files.length !== 1) {
@@ -117,21 +114,15 @@ export class AdminMainContentComponent implements OnInit {
         this.filename = target.files[0].name
         // this.spinner.show();
         const reader: FileReader = new FileReader();
-
         reader.onload = (e: any) => {
           const bstr: string = e.target.result;
-
           const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary', cellDates: true, dateNF: 'mm/dd/yyyy', raw: false });
-
           const wsname: string = wb.SheetNames[0];
-
           const ws: XLSX.WorkSheet = wb.Sheets[wsname];
           let convertedjson = XLSX.utils.sheet_to_json(ws, { defval: "" });
-
+          console.log(convertedjson)
           this.ConvertJsonToExcel(convertedjson);
-
         };
-
         reader.readAsBinaryString(target.files[0]);
       }
     } catch (error) {
@@ -148,12 +139,9 @@ export class AdminMainContentComponent implements OnInit {
           text: error.multiple,
         })
       }
-
     }
-
     //getting the complete sheet
     // console.log(worksheet);
-
     // var headers = {};
     // var data: any = [];
     // for (var z in ws) {
@@ -161,38 +149,29 @@ export class AdminMainContentComponent implements OnInit {
     //   //parse out the column, row, and value
     //   var col = z.substring(0, 1);
     //   // console.log(col);
-
     //   var row = parseInt(z.substring(1));
     //   // console.log(row);
-
     //   var value = ws[z].v;
     //   // console.log(value);
-
     //   //store header names
     //   if (row == 1) {
     //     headers[col] = value;
     //     // storing the header names
     //     continue;
     //   }
-
     //   if (!data[row]) data[row] = {};
     //   data[row][headers[col]] = value;
-
-
     // }
     // //drop those first two rows which are empty
     // data.shift();
     // data.shift();
     // console.log(data)
     //   this.ConvertJsonToExcel(roa);
-
     // };
-
     // reader.readAsBinaryString(target.files[0]);
   }
   validateFile(name: String) {
     var ext = name.substring(name.lastIndexOf('.') + 1);
-
     if (ext.toLowerCase() == 'xls') {
       return true;
     } else if (ext.toLowerCase() == 'xlsx') {
@@ -202,7 +181,6 @@ export class AdminMainContentComponent implements OnInit {
       return false;
     }
   }
-
   gocsubmit() {
     this.goc_dollar = this.gocform.value.goc_dollar
     this.goc_euro = this.gocform.value.goc_euro
@@ -212,7 +190,6 @@ export class AdminMainContentComponent implements OnInit {
     console.log(this.goc_euro)
     console.log(this.goc_pound)
     console.log(this.goc_aus_dollar)
-
   }
   Allcategories: any = []
   ConvertJsonToExcel(data) {
@@ -220,7 +197,6 @@ export class AdminMainContentComponent implements OnInit {
       (categories) => {
         this.Allcategories = categories
         this.exceljson = data
-
         for (let i = 0; i < this.exceljson.length; i++) {
           if (this.exceljson[i].categories == undefined) {
             Swal.fire({
@@ -238,53 +214,128 @@ export class AdminMainContentComponent implements OnInit {
               this.Allcategories[j]['category'] = this.Allcategories[j].category.toLowerCase()
               this.exceljson[i]['subcategory'] = this.exceljson[i].subcategory.toLowerCase()
               this.Allcategories[j].subcategory[k]['name'] = this.Allcategories[j].subcategory[k].name.toLowerCase()
+// /* step 1 */ this.exceljson[i]['final_price'] = this.exceljson[i]['rate'] * this.exceljson[i]['weight'] / 1000
+// /* step 2 */  if (this.exceljson[i]['mrp_dollar'] != null || this.exceljson[i]['mrp_euro'] != null || this.exceljson[i]['mrp_aus_dollar'] != null || this.exceljson[i]['mrp_pound'] != null) {
+//                 if (this.exceljson[i]['mrp_dollar'] && this.goc_dollar != null) {
+//                   this.exceljson[i]['mrp_inr'] = this.exceljson[i]['mrp_dollar'] * this.goc_dollar
+//                 } else if (this.exceljson[i]['mrp_euro'] && this.goc_euro != null) {
+//                   this.exceljson[i]['mrp_inr'] = this.exceljson[i]['mrp_euro'] * this.goc_euro
+//                 } else if (this.exceljson[i]['mrp_aus_dollar'] && this.goc_aus_dollar != null) {
+//                   this.exceljson[i]['mrp_inr'] = this.exceljson[i]['mrp_aus_dollar'] * this.goc_aus_dollar
+//                 } else if (this.exceljson[i]['mrp_pound'] && this.goc_pound != null) {
+//                   this.exceljson[i]['mrp_inr'] = this.exceljson[i]['mrp_pound'] * this.goc_pound
+//                 } else {
+//                   this.exceljson[i]['mrp_inr'] = this.exceljson[i]['final_price']
+//                 }
+//               }
+// /* step 3 */this.exceljson[i]['discount_rs'] = this.exceljson[i]['mrp_inr'] - this.exceljson[i]['final_price']
+// /* step 4 */this.exceljson[i]['discount_per'] = this.exceljson[i]['discount_rs'] / this.exceljson[i]['mrp_inr'] * 100
+// /* step 5 */this.exceljson[i]['sale_price'] = this.exceljson[i]['sale_rate'] * this.exceljson[i]['weight'] / 1000
+// /* step 6 */this.exceljson[i]['sale_disc_inr'] = this.exceljson[i]['mrp_inr'] - this.exceljson[i]['sale_price']
+// /* step 7 */this.exceljson[i]['sale_disc_per'] = this.exceljson[i]['sale_disc_inr'] / this.exceljson[i]['mrp_inr'] * 100
+              delete this.exceljson[i]['__EMPTY']
+              delete this.exceljson[i]['__EMPTY_1']
 
-/* step 1 */ this.exceljson[i]['final_price'] = this.exceljson[i]['rate'] * this.exceljson[i]['weight'] / 1000
-
-/* step 2 */  if (this.exceljson[i]['mrp_dollar'] != null || this.exceljson[i]['mrp_euro'] != null || this.exceljson[i]['mrp_aus_dollar'] != null || this.exceljson[i]['mrp_pound'] != null) {
-                if (this.exceljson[i]['mrp_dollar'] && this.goc_dollar != null) {
-                  this.exceljson[i]['mrp_inr'] = this.exceljson[i]['mrp_dollar'] * this.goc_dollar
-                } else if (this.exceljson[i]['mrp_euro'] && this.goc_euro != null) {
-                  this.exceljson[i]['mrp_inr'] = this.exceljson[i]['mrp_euro'] * this.goc_euro
-                } else if (this.exceljson[i]['mrp_aus_dollar'] && this.goc_aus_dollar != null) {
-                  this.exceljson[i]['mrp_inr'] = this.exceljson[i]['mrp_aus_dollar'] * this.goc_aus_dollar
-                } else if (this.exceljson[i]['mrp_pound'] && this.goc_pound != null) {
-                  this.exceljson[i]['mrp_inr'] = this.exceljson[i]['mrp_pound'] * this.goc_pound
-                } else {
-                  this.exceljson[i]['mrp_inr'] = this.exceljson[i]['final_price']
-                }
-
-              }
-/* step 3 */ this.exceljson[i]['discount_rs'] = this.exceljson[i]['mrp_inr'] - this.exceljson[i]['final_price']
-/* step 4 */ this.exceljson[i]['discount_per'] = this.exceljson[i]['discount_rs'] / this.exceljson[i]['mrp_inr'] * 100
-/* step 5 */this.exceljson[i]['sale_price'] = this.exceljson[i]['sale_rate'] * this.exceljson[i]['weight'] / 1000
-/* step 6 */this.exceljson[i]['sale_disc_inr'] = this.exceljson[i]['mrp_inr'] - this.exceljson[i]['sale_price']
-/* step 7 */this.exceljson[i]['sale_disc_per'] = this.exceljson[i]['sale_disc_inr'] / this.exceljson[i]['mrp_inr'] * 100
 /* step 8 */ if (this.exceljson[i]['categories'] == this.Allcategories[j]['category']) {
                 this.exceljson[i]['categories'] = this.Allcategories[j]['_id']
               }
 /*step 9 */  if (this.exceljson[i]['subcategory'] == this.Allcategories[j].subcategory[k]['name']) {
                 this.exceljson[i]['subcategory'] = this.Allcategories[j].subcategory[k]['_id']
               }
-
             }
-
           }
-
-
-
         }
-
-        this.exportexcel(this.exceljson)
+        this.step2()
+        // this.exportexcel(this.exceljson)
       }, (error) => {
         throwError(error)
       }, () => {
         console.log('All Categories Fetch In Bulk Books Upload')
       }
     )
-
   }
-
+  step2() {
+    for (let i = 0; i < this.exceljson.length; i++) {
+      for (let j = 0; j < this.Allcategories.length; j++) {
+        for (let k = 0; k < this.Allcategories[j].subcategory.length; k++) {
+          this.exceljson[i]['final_price'] = this.exceljson[i]['rate'] * this.exceljson[i]['weight'] / 1000
+        }
+      }
+    }
+    this.step3()
+  }
+  step3() {
+    for (let i = 0; i < this.exceljson.length; i++) {
+      for (let j = 0; j < this.Allcategories.length; j++) {
+        for (let k = 0; k < this.Allcategories[j].subcategory.length; k++) {
+          if (this.exceljson[i]['mrp_dollar'] != null || this.exceljson[i]['mrp_euro'] != null || this.exceljson[i]['mrp_aus_dollar'] != null || this.exceljson[i]['mrp_pound'] != null) {
+            if (this.exceljson[i]['mrp_dollar'] && this.goc_dollar != null) {
+              this.exceljson[i]['mrp_inr'] = this.exceljson[i]['mrp_dollar'] * this.goc_dollar
+            } else if (this.exceljson[i]['mrp_euro'] && this.goc_euro != null) {
+              this.exceljson[i]['mrp_inr'] = this.exceljson[i]['mrp_euro'] * this.goc_euro
+            } else if (this.exceljson[i]['mrp_aus_dollar'] && this.goc_aus_dollar != null) {
+              this.exceljson[i]['mrp_inr'] = this.exceljson[i]['mrp_aus_dollar'] * this.goc_aus_dollar
+            } else if (this.exceljson[i]['mrp_pound'] && this.goc_pound != null) {
+              this.exceljson[i]['mrp_inr'] = this.exceljson[i]['mrp_pound'] * this.goc_pound
+            } else {
+              this.exceljson[i]['mrp_inr'] = this.exceljson[i]['final_price']
+            }
+          }
+        }
+      }
+    }
+    this.step4()
+  }
+  step4() {
+    for (let i = 0; i < this.exceljson.length; i++) {
+      for (let j = 0; j < this.Allcategories.length; j++) {
+        for (let k = 0; k < this.Allcategories[j].subcategory.length; k++) {
+          this.exceljson[i]['discount_rs'] = this.exceljson[i]['mrp_inr'] - this.exceljson[i]['final_price']
+        }
+      }
+    }
+    this.step5()
+  }
+  step5() {
+    for (let i = 0; i < this.exceljson.length; i++) {
+      for (let j = 0; j < this.Allcategories.length; j++) {
+        for (let k = 0; k < this.Allcategories[j].subcategory.length; k++) {
+          this.exceljson[i]['discount_per'] = this.exceljson[i]['discount_rs'] / this.exceljson[i]['mrp_inr'] * 100
+        }
+      }
+    }
+    this.step6()
+  }
+  step6() {
+    for (let i = 0; i < this.exceljson.length; i++) {
+      for (let j = 0; j < this.Allcategories.length; j++) {
+        for (let k = 0; k < this.Allcategories[j].subcategory.length; k++) {
+          this.exceljson[i]['sale_price'] = this.exceljson[i]['sale_rate'] * this.exceljson[i]['weight'] / 1000
+        }
+      }
+    }
+    this.step7()
+  }
+  step7() {
+    for (let i = 0; i < this.exceljson.length; i++) {
+      for (let j = 0; j < this.Allcategories.length; j++) {
+        for (let k = 0; k < this.Allcategories[j].subcategory.length; k++) {
+          this.exceljson[i]['sale_disc_inr'] = this.exceljson[i]['mrp_inr'] - this.exceljson[i]['sale_price']
+        }
+      }
+    }
+    this.step8()
+  }
+  step8() {
+    for (let i = 0; i < this.exceljson.length; i++) {
+      for (let j = 0; j < this.Allcategories.length; j++) {
+        for (let k = 0; k < this.Allcategories[j].subcategory.length; k++) {
+          this.exceljson[i]['sale_disc_per'] = this.exceljson[i]['sale_disc_inr'] / this.exceljson[i]['mrp_inr'] * 100
+        }
+      }
+    }
+    this.exportexcel(this.exceljson)
+  }
   exportexcel(exceljson) {
     var date = new Date();
     var name =
@@ -294,67 +345,55 @@ export class AdminMainContentComponent implements OnInit {
       + ("00" + date.getHours()).slice(-2) + ":"
       + ("00" + date.getMinutes()).slice(-2)
       + ":" + ("00" + date.getSeconds()).slice(-2);
-
-
     let filename = name + ' ' + "BooksByWeight"
-
-
     this.excelexp.exportExcel(exceljson, filename);
   }
-  addbulk() {
 
-    // const form = new FormData()
-    // form.append('excel_file',
-    //   this.excel,
-    //   this.excel.name)
-    // this.bulkbook.bulkbook(form).subscribe(
-    //   (data) => {
-    //     if (data) {
-    //       Swal.fire({
-    //         title: 'Books Uploaded SuccessFully?',
-    //         icon: 'success',
-    //         showCancelButton: false,
-    //         confirmButtonColor: '#3085d6',
-    //         confirmButtonText: 'Done'
-    //       }).then((result) => {
-    //         if (result.value) {
+  
+  addbulk(event) {
 
-    //           this.ngZone.run(() => this.router.navigate(['/admin/dashboard/view-products'])).then();
-    //         }
-    //       })
-    //     } else {
-    //       Swal.fire({
-    //         title: 'Books Uploading failed?',
-    //         icon: 'error',
-    //       })
-    //     }
-    //   }
-    // )
-
+this.excel = event.target.files[0]
+    const form = new FormData()
+    form.append('excel_file',
+      this.excel)
+    this.bulkbook.bulkbook(form).subscribe(
+      (data) => {
+        if (data) {
+          Swal.fire({
+            title: 'Books Uploaded SuccessFully?',
+            icon: 'success',
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Done'
+          }).then((result) => {
+            if (result.value) {
+              this.ngZone.run(() => this.router.navigate(['/admin/dashboard/view-products'])).then();
+            }
+          })
+        } else {
+          Swal.fire({
+            title: 'Books Uploading failed?',
+            icon: 'error',
+          })
+        }
+      }
+    )
   }
-
   getadmin() {
     if (localStorage.getItem('SuperAdmin')) {
       var token = localStorage.getItem('SuperAdmin');
       var decode = jwt_decode(token);
       this.role = decode.role
       if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/view-orders") {
-
       }
       else if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/view-users") {
-
       }
       else if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/Admin") {
-
       } else if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/Coupon") {
-
       }
       else if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/View-Cat-&&-SubCat") {
-
       } else if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/add-bulk-products") {
-
       } else if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/view-products") {
-
       } else {
         this.router.navigate(['/admin/dashboard'])
       }
@@ -374,8 +413,5 @@ export class AdminMainContentComponent implements OnInit {
       }
       console.log(this.role)
     }
-
-
   }
-
 }

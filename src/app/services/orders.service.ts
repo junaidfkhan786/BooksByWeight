@@ -85,6 +85,17 @@ shiprocketUrl:any = "https://apiv2.shiprocket.in/v1/external/orders/create/adhoc
 
 
   }
+ 
+  public getorderbyuser():Observable<any>{
 
+    const httpOptionsauth = {
+
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + localStorage.getItem('User').slice(1, -1)
+
+      })
+    }
+    return this._http.get<any>(`${API_LIVE}`+ '/order/getorders',httpOptionsauth)
+  }
 
 }

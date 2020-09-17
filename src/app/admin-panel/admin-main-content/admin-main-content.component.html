@@ -94,19 +94,19 @@
                   <div class="row g-2">
                     <div class="col-md-2 text-center">
                       Goc Dollar <br>
-                      <input formControlName="goc_dollar" name="goc_dollar" numbersOnly  type="text" style="width: 100%;"  class="p-1">
+                      <input formControlName="goc_dollar" name="goc_dollar"   type="text" style="width: 100%;"  class="p-1">
                     </div>
                     <div class="col-md-2 text-center">
                       Goc Euro <br>
-                      <input numbersOnly formControlName="goc_euro" name="goc_euro" type="text"style="width: 100%;" class="p-1">
+                      <input  formControlName="goc_euro" name="goc_euro" type="text"style="width: 100%;" class="p-1">
                     </div>
                     <div class="col-md-2 text-center">
                       Goc Aus Dollar <br>
-                      <input numbersOnly formControlName="goc_aus_dollar" name="goc_aus_dollar" type="text"style="width: 100%;"  class="p-1">
+                      <input  formControlName="goc_aus_dollar" name="goc_aus_dollar" type="text"style="width: 100%;"  class="p-1">
                     </div>
                     <div class="col-md-2 text-center">
                       Goc Pound <br>
-                      <input numbersOnly formControlName="goc_pound" name="goc_pound" type="text" style="width: 100%;" class="p-1">
+                      <input  formControlName="goc_pound" name="goc_pound" type="text" style="width: 100%;" class="p-1">
                     </div>
                     <div class="col-2 text-center"><br>
                       <button (click)="gocsubmit()" class="btn btn-success"> Submit </button>
@@ -130,7 +130,7 @@
                 <span style="font-size: 1rem;">
                   For Excel Sheet Upload To Server:
                 </span> <br>
-                <input #file2 hidden type="file">
+                <input #file2 hidden type="file" name="excel_file" (change)="addbulk($event)">
                 <a class="org" style="text-decoration: none; color:  white; cursor: pointer;" (click)="file2.click()">
                   CLick Here To Add It
                   <span class="material-icons">
