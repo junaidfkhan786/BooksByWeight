@@ -19,12 +19,12 @@ export class ProductsdetailComponent implements OnInit {
   books$: any = [];
   book: any = [];
   pid: any = [];
-  book$:any = [];
-  cartitem:any = [];
-  length:number;
-  cartquantity:any = [];
+  book$: any = [];
+  cartitem: any = [];
+  length: number;
+  cartquantity: any = [];
   cartpid: any = {};
-  cartpid1:any[] = [];
+  cartpid1: any[] = [];
   constructor(
     private toastr: ToastrService,
     private router: Router,
@@ -44,7 +44,7 @@ export class ProductsdetailComponent implements OnInit {
       })
       this.loadwish();
 
-      this.cart.getcartload().subscribe(()=>{
+      this.cart.getcartload().subscribe(() => {
         this.loadcart();
       })
       this.loadcart();
@@ -62,11 +62,13 @@ export class ProductsdetailComponent implements OnInit {
       .getDetailPackage(this.route.snapshot.params._id)
       .subscribe((res) => {
         this.books$ = res;
+        console.log(this.books$)
         this.book = this.books$.books;
+
         for (var { _id: id } of this.book) {
           this.pid.push(id);
         }
-    
+
       });
   }
   loadwish() {

@@ -6,6 +6,7 @@
         <img
           class="card-img-top altimg" 
           src="{{ latestitem.book_img[0] }}"
+          height="350px"
           alt="" onerror="this.src='assets/images/altimg.png';"
         />
         
@@ -20,10 +21,15 @@
               </span>
             </a>
 
-            <a style="color: black;" (click)="addCart(latestitem._id,latestitem.selling_price,latestitem.weight)">
+            <a  *ngIf="!cartbutton" style="color: black;" (click)="addCart(latestitem._id,latestitem.final_price,latestitem.weight)">
               <span class="material-icons org">
                 add_shopping_cart &nbsp;&nbsp;
-              </span></a><a *ngIf="!addedToWishlist"
+              </span></a>
+              <a  *ngIf="cartbutton" style="color: black;" (click)="gotocart()">
+                <span class="material-icons org">
+                  add_shopping_cart &nbsp;&nbsp;
+                </span></a>
+              <a *ngIf="!addedToWishlist"
               ><span
                 (click)="addWish(latestitem._id)"
                 style="color: black; cursor: pointer;"
@@ -51,10 +57,10 @@
     <div class="text-center">
       <s style="color: rgba(107, 105, 105, 0.61);"
         >&#8377;
-        {{ latestitem.mrp }}
+        {{ latestitem.mrp_inr }}
       </s>
       &nbsp;
-      <span style="color: red;">&#8377; {{ latestitem.selling_price }}Rs </span>
+      <span style="color: red;">&#8377; {{ latestitem.final_price }}Rs </span>
     </div>
   </div>
 </div>

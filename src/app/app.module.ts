@@ -77,7 +77,8 @@ import { ShippingComponent } from './policies/shipping/shipping.component';
 import { TermsConditionsComponent } from './policies/terms-conditions/terms-conditions.component';
 import { AdminCreateComponent } from './admin-panel/admin-main-content/admin-create/admin-create.component';
 import {NumberDirective} from './directives/numbersonly.directive';
-import { OrderdetailsComponent } from './profile/userorders/orderdetails/orderdetails.component'
+import { OrderdetailsComponent } from './profile/userorders/orderdetails/orderdetails.component';
+import { TruncatePipe } from './pipes/truncate.pipe'
 @NgModule({
   declarations: [
     AppComponent,
@@ -134,7 +135,8 @@ import { OrderdetailsComponent } from './profile/userorders/orderdetails/orderde
     TermsConditionsComponent,
     AdminCreateComponent,
     NumberDirective,
-    OrderdetailsComponent
+    OrderdetailsComponent,
+    TruncatePipe
 
     
   

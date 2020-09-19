@@ -15,10 +15,10 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 })
 export class ProductItemComponent implements OnInit {
   @Input() productItem: any;
-
+  bookimg: any[] = [];
   @Input() addedToWishlist: boolean;
   @Input() cartbutton:boolean;
-
+img:any = []
   wish$: any = [];
   wid: any = [];
   size: any = {};
@@ -47,9 +47,34 @@ cartquantity1:any =[];
   ) { }
 
   ngOnInit() {
+this.loadimg()
   }
 
+  
+  loadimg() {
+    this.bookimg = this.productItem.book_img
 
+    
+//  var img:any = []
+    for (let i = 0; i < this.bookimg.length; i++) {
+      this.img.push(this.bookimg[i].toUpperCase())
+   
+      // if (this.bookimg[i] == "https://booksimg.s3.us-east-2.amazonaws.com/") {
+      //   this.bookimg.splice(i, 1); i--;
+      // }
+    }
+    for (let i = 0; i < this.img.length; i++) {
+    
+ 
+      if (this.img[i] == "HTTPS://BOOKSIMG.S3.US-EAST-2.AMAZONAWS.COM/") {
+        this.img.splice(i, 1); i--;
+      }
+    }
+    this.bookimg.splice(0,this.bookimg.length)
+    this.bookimg = this.img
+    this.productItem['book_img'] = this.bookimg
+
+  }
 
   productHome(_id) {
     this.router.navigate(['details/' + _id]);
@@ -122,7 +147,6 @@ this.cartbutton = true
   }
 
   gotocart(){
-
     Swal.fire({
       title: 'Already Added?',
       text: "If You Want To Increase Quantity Of Your Book!",
@@ -134,6 +158,8 @@ this.cartbutton = true
     }).then((result) => {
       if (result.value) {
         window.location.assign('/cart')
+          window.scrollTo(0, 10);
+        
       }
     })
 

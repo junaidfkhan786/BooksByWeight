@@ -1,8 +1,118 @@
-<div >
+<div>
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <div class="table-responsive">
+        <div class="d-block d-sm-none">
+          <div class="card p-2 btc w-100">
+            <span class="font-weight-bolder org text-center" style="font-size: large;">Cart
+            </span>
+          </div>
+          <div class="row g-2 mt-1" *ngFor="let item of productItem.cart; let i = index">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+              <div class="card shadow-sm">
+                <div class="row p-1">
+                  <div class="col-3">
+                    <a (click)="productHome(item.book._id)"><img src="{{ item.book.book_img[0] }}"
+                        onerror="this.src='assets/images/altimg.png';" height="300px" class="img-fluid" /></a>
+                  </div>
+                  <div class="col">
+                    <span style="text-align: justify;">
+                      {{item.book.book_name | truncate :80}}
+                    </span>
+                  </div>
+
+                </div>
+                <div class="row p-2">
+                  <div class="col-4">
+                    <span style="font-size: 15px;" class="align-middle">
+                      Price:
+                    </span>
+                  </div>
+                  <div class="col">
+                    <span class="align-middle">
+                      {{item.price | currency:'INR'}}
+                    </span>
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-4">
+                    <span style="font-size: 15px;" class="align-middle">
+                      Weight:
+                    </span>
+                  </div>
+                  <div class="col">
+                    <span class="align-middle">
+                      {{item.weight | number}} g
+                    </span>
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-4">
+                    <span style="font-size: 15px;" class="align-middle">
+                      Quantity:
+                    </span>
+                  </div>
+                  <div class="col">
+                    <div class="row">
+                      <div class="col-4" *ngIf="item.quantity > 1">
+                        <button (click)="
+                          decrement(
+                            item.quantity,
+                            item.book._id,
+                            item.book.selling_price,
+                            item.book.weight
+                          )" class="btn btn-outline-secondary">
+                          <span class="material-icons">
+                            remove
+                          </span>
+                        </button>
+                      </div>
+                      <div class="col-3">
+                        <input disabled [value]="item.quantity" style="width: 50px;" type="text" />
+                      </div>
+                      <div class="col-4" *ngIf="item.book.quantity > item.quantity">
+                        <button (click)="
+                        increment(
+                          item.quantity,
+                          item.book._id,
+                          item.book.selling_price,
+                          item.book.weight
+                        )" class="btn btn-outline-secondary">
+                          <span class="material-icons">
+                            add
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col-4">
+                    <span style="font-size: 15px;" class="align-middle">
+                      Total:
+                    </span>
+                  </div>
+                  <div class="col">
+                    <span class="align-middle">
+                      {{item.total | currency:'INR'}}
+                    </span>
+                  </div>
+                </div>
+                <div class="p-2">
+                  <button (click)="delCart(item._id)" class="btn btn-danger org w-100">
+                    <!-- <span class="material-icons">
+                      delete_forever
+                    </span> -->
+                    <span>
+                      Delete
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive d-none d-sm-block d-md-block d-lg-block">
           <table style="text-align: center; width: 100%;">
             <tr style="border: 1px solid #c1c1c1;">
               <th style="border: 1px solid #c1c1c1;">BOOK COVER</th>
@@ -19,10 +129,10 @@
                     onerror="this.src='assets/images/altimg.png';" class="high" /></a>
               </td>
               <td style="border-width: 1px;">
-                <a href="#" style="
+                <a style="
               font-size: 14px;
-              color: #6f6f6f;               font-weight: 700;
-  
+              color: #6f6f6f;     
+              font-weight: 700;
               text-decoration: none;
             ">{{ item.book.book_name }}</a>
               </td>
@@ -32,7 +142,7 @@
           }}</span>
               </td>
               <td style="border-width: 1px;">
-                <span>{{ item.weight  }}Kg </span>
+                <span>{{ item.weight | number }} g </span>
               </td>
               <td style="border-width: 1px;">
                 <div class="row d-flex justify-content-center" style="padding-top: 20px;">
@@ -87,9 +197,54 @@
     </div>
   </div>
   <div class="container" style="margin-top: 44px;">
-  
+
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-6 d-block d-sm-none">
+        <div class="d-flex justify-content-center" *ngIf="!couponhide">
+          <button class="btn btn-success w-100" (click)="togglecoupon()"> Change Coupon </button>
+        </div>
+        <div *ngIf="couponhide">
+          <div class="card p-2 btc w-100">
+            <span class="font-weight-bolder org text-center" style="font-size: large;">Coupons
+            </span>
+          </div>
+          <div class="card mt-2 " *ngFor="let coupon of allcoupons |
+          paginate: { id: 'mobile', itemsPerPage: 5, currentPage: pages, totalItems: i}; let i = index">
+            <div class="row  p-2">
+              <div class="col">
+                <span>
+                  Code: <br>
+                  {{coupon.coupon_code}}
+                </span>
+              </div>
+              <div class="col" *ngIf="coupon.percentage == true">
+                In Percentage
+                <a class="btn-outline-success p-1" style="width: 20px;" (click)="select(coupon)">
+                  <span class="material-icons">touch_app</span>
+                </a>
+                 <br>
+                {{coupon.coupon_amount}} %
+              </div>
+              <div class="col" *ngIf="coupon.percentage == false">
+                Amount In Rs:
+                <a class="btn-outline-success p-1" style="width: 20px;" (click)="select(coupon)">
+                  <span class="material-icons">touch_app</span>
+                </a>
+                 <br>
+                {{coupon.coupon_amount | currency:'INR'}}
+              </div>
+            </div>
+            <!-- <div class="p-2">
+              <button class="btn btn-success w-100 btn-sm" (click)="select(coupon)"> Select </button>
+            </div> -->
+          </div>
+          <pagination-controls id="mobile" class="d-flex justify-content-center" directionLinks="true"
+            (pageChange)="onPageChange($event)" autoHide="true" responsive="true" previousLabel="Previous"
+            nextLabel="Next">
+          </pagination-controls>
+        </div>
+      </div>
+      <div class="col-sm-6 d-none d-sm-block d-md-block d-lg-block">
         <div class="d-flex justify-content-center" *ngIf="!couponhide">
           <button class="btn btn-outline-success w-50" (click)="togglecoupon()"> Change Coupon </button>
         </div>
@@ -137,7 +292,7 @@
                     <button class="btn btn-outline-success btn-sm" (click)="select(coupon)"> Select </button>
                   </td>
                 </tr>
-    
+
               </tbody>
             </table>
           </div>
@@ -171,7 +326,7 @@
                 </span> &nbsp;&nbsp;
                 {{ subtotal | currency:'INR' }}</span>
               <br /><br />
-              <span>{{ totalweight }} {{kilo}}</span>
+              <span>{{ totalweight | number }} g</span>
               <br /><br />
               <span>FLAT RATE: &#8377;50.00/ BOOK<br />
                 Free Shipping Above &#8377;500
@@ -192,7 +347,7 @@
           <a style="text-decoration: solid ; color: red;" (click)="return()"><u>Click Here To Know About Return
               Policy</u></a>
           <div class="wc-proceed-to-checkout org" style="list-style-type: none;">
-            <button (click)="gotocheckout() " class="button button2" style="margin-top: 30px;">
+            <button (click)="gotocheckout()" class="button button2" style="margin-top: 30px;">
               Proceed to Checkout
             </button>
           </div>
@@ -200,6 +355,5 @@
       </div>
     </div>
   </div>
-  
-</div>
 
+</div>

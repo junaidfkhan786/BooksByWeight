@@ -46,7 +46,7 @@
             <span class="material-icons">
               play_circle_filled
             </span>
-            <b>Publication Year:</b> {{book.publication_year}}</li>
+            <b>Publication Year:</b> {{book.publication_year | date}}</li>
           <br>
           <li class="org" style="list-style-type: none;">
             <span class="material-icons">
@@ -71,7 +71,7 @@
             <span class="material-icons">
               play_circle_filled
             </span>
-            <b>Weight:</b> {{book.weight/1000}} KG </li>
+            <b>Weight:</b> {{book.weight | number}} g </li>
         </ul>
 
         <br>

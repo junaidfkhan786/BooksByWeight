@@ -112,7 +112,7 @@
         </a>
       </li>
       <li>
-        <a [routerLink]="['/cart']" routerLinkActive="router-link-active"  class="nav-link">
+        <a [routerLink]="['/cart']" (click)="window()" routerLinkActive="router-link-active"  class="nav-link">
           <span class="material-icons">
             add_shopping_cart
             </span>

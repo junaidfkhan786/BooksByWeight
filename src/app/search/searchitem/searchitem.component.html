@@ -12,7 +12,7 @@
           </a>
 
           <a>
-            <span (click)="addCart(searchItem._id,searchItem.selling_price,searchItem.weight)" class="material-icons org wish">
+            <span (click)="addCart(searchItem._id,searchItem.final_price,searchItem.weight)" class="material-icons org wish">
               add_shopping_cart &nbsp;
             </span></a>
         <a  *ngIf="!addedToWishlist" >
@@ -38,9 +38,9 @@
   </div>
   <div class="text-center">
     <s style="color: rgba(107, 105, 105, 0.61);">&#8377;
-      {{searchItem.mrp}}
+      {{searchItem.mrp_inr}}
     </s> &nbsp;
     <span style="color:red">&#8377;
-      {{searchItem.selling_price}}Rs
+      {{searchItem.final_price}}Rs
     </span>
   </div>

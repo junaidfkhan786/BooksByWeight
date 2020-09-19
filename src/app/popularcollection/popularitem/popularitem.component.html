@@ -3,7 +3,9 @@
       <div class="s nopadding">
         <div class="content">
           <div class="content-overlay"></div>
-          <img class="card-img-top" height="340px" src="{{popularitem.book_img[0]}}" onerror="this.src='assets/images/altimg.png';" alt=" BOOKS ">
+          <img class="card-img-top" height="340px" 
+          height="350px"
+          src="{{popularitem.book_img[0]}}" onerror="this.src='assets/images/altimg.png';" alt=" BOOKS ">
           <div class="content-details fadeIn-bottom">
 
             <h3 class="content-title">
@@ -13,7 +15,7 @@
                 </span>
               </a>
                 
-                <a style="color: black;" (click)="addCart(popularitem._id,popularitem.selling_price,popularitem.weight)">
+                <a style="color: black;" (click)="addCart(popularitem._id,popularitem.final_price,popularitem.weight)">
                     <span class="material-icons org">
                         add_shopping_cart &nbsp;&nbsp;
                 </span></a><a *ngIf="!addedToWishlist"
@@ -46,10 +48,10 @@
       </div>
       <div class="text-center">
         <s style="color: rgba(107, 105, 105, 0.61);">&#8377;
-            {{popularitem.mrp}}
+            {{popularitem.mrp_inr}}
         </s> &nbsp;
         <span style="color:red">&#8377;
-            {{popularitem.selling_price}}Rs
+            {{popularitem.final_price}}Rs
         </span>
       </div>
     </div>

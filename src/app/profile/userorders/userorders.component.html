@@ -1,5 +1,5 @@
   
-    <table class="table table-hover" *ngIf="orderslength >= 0">
+    <table class="table table-hover" *ngIf="orderslength > 0">
         <thead >
             <tr>
                 <!-- <th scope="col">
@@ -50,8 +50,6 @@
 
     
                 </tr>
-                <p class="mt-2"
-                 style="color: black; font-size: 3rem;" *ngIf="orderslength == 0">No Result Found</p> 
             </ng-container>
 
         </tbody>
@@ -67,8 +65,8 @@
 
 <div class="row  d-flex justify-content-center" style="height: 500px;" *ngIf="orderslength == 0">
     <div style="width: 50%; height: 50%; top: 80px; background-color: #212529; color: white; " class="card shadow-bottom align-middle">
-        <h5 style="margin-top: 15%;"  class="text-center card-title">YOU HAVE NO PRODUCT ADDED</h5>
-        <a style="text-decoration: none; color: white; cursor: pointer;" class="d-flex justify-content-center org "> CLick Here To Add It </a>
+        <h5 style="margin-top: 15%;"  class="text-center card-title">YOU DONT HAVE ANY ORDERS</h5>
+        <a href="/books" style="text-decoration: none; color: white; cursor: pointer;" class="d-flex justify-content-center org "> CLick Here To Shopping </a>
         <span class="material-icons d-flex justify-content-center">
             touch_app
             </span>

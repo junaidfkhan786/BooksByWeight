@@ -28,7 +28,6 @@ export class UserordersComponent implements OnInit {
       (orders) => {
         this.orders$ = orders
         this.orderslength = orders.length
-  
 
       },
       (error) => {

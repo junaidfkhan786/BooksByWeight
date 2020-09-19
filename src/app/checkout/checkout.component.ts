@@ -87,7 +87,7 @@ export class CheckoutComponent implements OnInit {
   addid: any;
   messageadd: string;
   length: any;
-
+  prefillmob:number;
   constructor(
     private cart: CartService,
     private toastr: ToastrService,
@@ -125,6 +125,8 @@ export class CheckoutComponent implements OnInit {
 
 
   ngOnInit() {
+   
+    window.scrollTo(0, 10);
     this.spinner.show();
     this.button = true
     this.div = false
@@ -151,8 +153,8 @@ export class CheckoutComponent implements OnInit {
 
   public initPay() {
     let options: any = {
-      "key": "rzp_test_ImeRpaCPi1JD7v",
-      "key_secret": "TpJ7W7kEA7NuwqtPwno8NQhl",
+      "key": "rzp_test_71mNw1EKfYn4AM",
+      "key_secret": "uUXOT1421l8Zb7Mack8eFAzI",
       "image": "https://previews.123rf.com/images/subhanbaghirov/subhanbaghirov1605/subhanbaghirov160500087/56875269-vector-light-bulb-icon-with-concept-of-idea-brainstorming-idea-illustration-.jpg",
       "currency": "INR",
       "amount": '',
@@ -175,7 +177,7 @@ export class CheckoutComponent implements OnInit {
     var usertoken = localStorage.getItem('User');
     var decode = jwt_decode(usertoken);
     options.prefill.email = decode.email;
-    options.prefill.contact = this.address.mobileNumber
+    options.prefill.contact =   this.ordermodel.mobilenumber
     options.amount = this.amountpayable;
     options.order_id = localStorage.getItem('orderid')
     options.handler = ((response) => {
@@ -185,10 +187,11 @@ export class CheckoutComponent implements OnInit {
         this.ordersaved(response);
 
       } else if (!response.razorpay_order_id) {
-        Swal.fire(
-          'Payment Aborted!',
-          'error'
-        )
+        Swal.fire({
+          icon: 'error',
+          title: 'Payment Failed!',
+          text: 'If Your Money Is Debited From Your Bank Dont Panic We Are Refunding Your Money In 4 To 5 Workimg Days Here Is Your Order Id'+this.orderid+'Send This Order Id To info@booksbyweight.com!',
+        })
       } else {
         Swal.fire(
           ' Canceled By User!',
@@ -269,7 +272,7 @@ export class CheckoutComponent implements OnInit {
     } else {
       this.ordermodel.isCouponApplied = true
     }
-    console.log(this.ordermodel)
+    console.log(this.orderid,this.paymentid,this.sig ,this.ordermodel)
 
     this.order.verifypayment(this.orderid, this.paymentid, this.sig, this.ordermodel)
       .subscribe((data) => {
@@ -438,15 +441,22 @@ export class CheckoutComponent implements OnInit {
     this.paymentbutton = true
     this.placebutton = true
     this.selected = !this.selected;
-    this.toastr.success('This Address Is Selected' + ' ' + adds.fullName + ' ' + adds.address + ' ' + adds.city + ' ' + adds.state + ' ' + adds.pinCode, 'BooksByWeight', {
-      timeOut: 5000,
-    });
+    Swal.fire(
+      'This Address Is Selected',
+      ' ' + adds.fullName + ' ' + adds.address + ' ' + adds.city + ' ' + adds.state + ' ' + adds.pinCode,
+      'success'
+    )
+    // this.toastr.success('This Address Is Selected' + ' ' + adds.fullName + ' ' + adds.address + ' ' + adds.city + ' ' + adds.state + ' ' + adds.pinCode, 'BooksByWeight', {
+    //   timeOut: 5000,
+    // });
   }
 
   showadd() {
+    window.scrollTo(0, 10);
     this.selected = true
   }
   ngAfterViewInit(): void {
+    
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
     const couponsobj = {

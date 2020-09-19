@@ -337,15 +337,16 @@ export class AdminMainContentComponent implements OnInit {
     this.exportexcel(this.exceljson)
   }
   exportexcel(exceljson) {
-    var date = new Date();
-    var name =
-      ("00" + (date.getMonth() + 1)).slice(-2)
-      + "/" + ("00" + date.getDate()).slice(-2)
-      + "/" + date.getFullYear() + " "
-      + ("00" + date.getHours()).slice(-2) + ":"
-      + ("00" + date.getMinutes()).slice(-2)
-      + ":" + ("00" + date.getSeconds()).slice(-2);
-    let filename = name + ' ' + "BooksByWeight"
+    var date = new Date().toISOString();
+    
+    // var name =
+    //   ("00" + (date.getMonth() + 1)).slice(-2)
+    //   + "/" + ("00" + date.getDate()).slice(-2)
+    //   + "/" + date.getFullYear() + " "
+    //   + ("00" + date.getHours()).slice(-2) + ":"
+    //   + ("00" + date.getMinutes()).slice(-2)
+    //   + ":" + ("00" + date.getSeconds()).slice(-2);
+    let filename = date + "BooksByWeight"
     this.excelexp.exportExcel(exceljson, filename);
   }
 

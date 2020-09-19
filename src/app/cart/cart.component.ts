@@ -28,6 +28,7 @@ export class CartComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    window.scrollTo(0, 10);
     this.loadroute();
     this.spinner.show();
     this.cart.getcartload().subscribe(() => {

@@ -21,7 +21,7 @@
   <ng-container *ngFor="let books of books$.books">
     <ng-template carouselSlide>
       
-  <app-latestitem [latestitem] = "books" [addedToWishlist]= "wid1.indexOf(books._id) >= 0 "></app-latestitem>
+  <app-latestitem [latestitem] = "books" [cartbutton]="cartpid1.indexOf(books._id) >= 0" [addedToWishlist]= "wid1.indexOf(books._id) >= 0 "></app-latestitem>
 </ng-template>
   
   </ng-container>

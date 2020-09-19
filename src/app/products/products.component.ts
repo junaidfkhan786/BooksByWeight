@@ -59,11 +59,10 @@ export class ProductsComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private ngZone: NgZone,
   ) { }
-  ngOnInit(): void {
+  ngOnInit() {
+    this.spinner.show()
     this.activatedRoute.params.subscribe(res => {
-     this.spinner.show();
       this.token = res['token']
-     console.log(res)
      if(this.token){
        console.log(this.token)
       localStorage.setItem("User",JSON.stringify(this.token))
@@ -75,7 +74,7 @@ export class ProductsComponent implements OnInit {
        console.log('Token From Mobile App Not Fetch ')
      }
     });
-    this.spinner.show();
+    this.loadfilter();
     this.wish.getwishlistload().subscribe(() => {
       this.loadwish();
     })
@@ -86,13 +85,12 @@ export class ProductsComponent implements OnInit {
     this.loadwish();
     this.loadcat();
     this.jquery_code();
-    this.loadfilter();
+    
   }
   jquery_code() { }
   loadbook() {
     this.newService.getBooks().subscribe((data) => {
       this.books$ = data;
-      console.log(data)
       const pid = data.books;
       for (var { _id: id } of pid) {
         this.pid1.push(id);
@@ -106,7 +104,8 @@ export class ProductsComponent implements OnInit {
     this.CatService.getCategoryById(this.route.snapshot.params._id).subscribe(
       (res) => {
         this.books$ = res;
-        this.spinner.hide()
+      console.log(this.books$)
+        if(this.books$.totalBooks!=null){this.spinner.hide()}
       }
     );
   }
@@ -127,13 +126,13 @@ export class ProductsComponent implements OnInit {
   filters(modal: String) {
     this.filter.priceDefine(modal).subscribe((res) => {
       this.books$ = res;
-      this.spinner.hide();
+      if(res){this.spinner.hide()}
     });
   }
   filtersSort(variant: String) {
     this.filter.sortBy(variant).subscribe((res) => {
       this.books$ = res;
-      this.spinner.hide();
+      if(res){this.spinner.hide()}
     });
   }
   onPageChange(page: number) {

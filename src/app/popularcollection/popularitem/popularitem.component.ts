@@ -23,13 +23,39 @@ export class PopularitemComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.loadimg()
   }
  
   productHome(_id) {
     this.router.navigate(['details/' + _id]);
   }
 
-
+  bookimg:any=[]
+  img:any = []
+    loadimg() {
+      this.bookimg = this.popularitem.book_img
+  
+      
+  //  var img:any = []
+      for (let i = 0; i < this.bookimg.length; i++) {
+        this.img.push(this.bookimg[i].toUpperCase())
+     
+        // if (this.bookimg[i] == "https://booksimg.s3.us-east-2.amazonaws.com/") {
+        //   this.bookimg.splice(i, 1); i--;
+        // }
+      }
+      for (let i = 0; i < this.img.length; i++) {
+      
+   
+        if (this.img[i] == "HTTPS://BOOKSIMG.S3.US-EAST-2.AMAZONAWS.COM/") {
+          this.img.splice(i, 1); i--;
+        }
+      }
+      this.bookimg.splice(0,this.bookimg.length)
+      this.bookimg = this.img
+      this.popularitem['book_img'] = this.bookimg
+  
+    }
 
   addWish(_id) {
     if (localStorage.getItem('User')) {

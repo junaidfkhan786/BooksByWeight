@@ -1,3 +1,9 @@
 ^(\s)*$\n
 key_id rzp_live_Ztkdvk7oPSuPCy
 key_secret	ooHzXexh9cIX2wXnZbVt3wg1
+
+key_id 	test
+rzp_test_71mNw1EKfYn4AM	
+
+key_secret test
+uUXOT1421l8Zb7Mack8eFAzI

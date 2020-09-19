@@ -79,7 +79,41 @@ export class CartItemsComponent implements OnInit {
     this.loadcart();
     this.getallcoupons();
     this.jquery_code();
+    this.loadimg()
   }
+  bookimg: any[] = [];
+  img:any = []
+  
+    loadimg() {
+      var book:[] = this.productItem.cart
+
+      for (let i = 0; i < book.length; i++) {
+        console.log(book[i])
+        
+      }
+  //     this.bookimg = this.productItem.cart.book
+
+      
+  // //  var img:any = []
+  //     for (let i = 0; i < this.bookimg.length; i++) {
+  //       this.img.push(this.bookimg[i].toUpperCase())
+     
+  //       // if (this.bookimg[i] == "https://booksimg.s3.us-east-2.amazonaws.com/") {
+  //       //   this.bookimg.splice(i, 1); i--;
+  //       // }
+  //     }
+  //     for (let i = 0; i < this.img.length; i++) {
+      
+   
+  //       if (this.img[i] == "HTTPS://BOOKSIMG.S3.US-EAST-2.AMAZONAWS.COM/") {
+  //         this.img.splice(i, 1); i--;
+  //       }
+  //     }
+  //     this.bookimg.splice(0,this.bookimg.length)
+  //     this.bookimg = this.img
+  //     this.productItem.cart.book['book_img'] = this.bookimg
+  
+    }
   jquery_code() {
     $(document).ready(function () { });
   }
@@ -91,7 +125,7 @@ export class CartItemsComponent implements OnInit {
       this.spinner.hide();
       this.book$ = data;
       let cart = this.book$.cartItems[0].cart
-
+console.log(this.book$)
       var sum = 0
       for (let i = 0; i < cart.length; i++) {
         if (cart[i].quantity) {
@@ -118,6 +152,7 @@ export class CartItemsComponent implements OnInit {
   delCart(_id) {
     this.spinner.show();
     this.cart.deleteProduct(_id).subscribe(() => {
+      window.scrollTo(0, 10);
       this.toastr.error('Product Has Been Remove', 'BooksByWeight', {
         timeOut: 1000,
       });
@@ -174,6 +209,7 @@ export class CartItemsComponent implements OnInit {
       this.orderid = response.sub.id
       localStorage.setItem('orderid', this.orderid)
       this.spinner.show();
+      window.scrollTo(0, 10);
       this.router.navigate(['/checkout'])
     })
   }

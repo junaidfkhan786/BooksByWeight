@@ -1,3 +1,4 @@
+import { CartService } from './../services/cart.service';
 import { BooksService } from './../services/books.service';
 import { Component, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
@@ -14,7 +15,13 @@ export class LatestcollectionComponent implements OnInit {
   wish$: any = [];
   wid: any = [];
   wid1: any = [];
-  spinner : boolean = true;
+  cartquantity: any = [];
+  cartquantity1: any = [];
+  cartpid: any = {};
+  cartitem: any = [];
+  cartpid1: any[] = [];
+  book$: any = [];
+  length: any;
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
@@ -46,17 +53,24 @@ export class LatestcollectionComponent implements OnInit {
   constructor(
     private newService: BooksService,
     private wish: WishlistService,
-    private router: Router
+    private router: Router,
+    private cart:CartService
+
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.loadbook();
+   
 
 if(localStorage.getItem('User') !=null){
+this.cart.getcartload().subscribe(()=>{
+  this.loadcart();
+})
+
   this.wish.getwishlistload().subscribe(() => {
     this.loadwish();
   })
-
+  this.loadcart();
   this.loadwish();
 }
   
@@ -68,13 +82,31 @@ if(localStorage.getItem('User') !=null){
   jquery_code() {
     $(document).ready(function () {});
   }
+  loadcart() {
+    if (localStorage.getItem('User') != null) {
+      this.cart.getCart().subscribe((data) => {
+        this.book$ = data;
+        if (this.book$.cartItems.length > 0) {
 
+          this.cartitem = this.book$.cartItems[0].cart;
+          this.length = this.cartitem.length;
+        }
+        if (this.book$.cartItems.length > 0) {
+          this.cartquantity = this.book$.cartItems[0].cart;
+
+          for (var { book: books } of this.cartquantity) {
+            this.cartpid = books;
+            const size3 = books._id;
+            this.cartpid1.push(size3);
+          }
+        }
+      });
+    }
+  }
   loadbook() {
     this.newService.getlatestBooks().subscribe((data) => {
 
       this.books$ = data;
-      this.spinner = false
-      
   });
 
   }

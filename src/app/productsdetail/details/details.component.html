@@ -43,9 +43,9 @@
   <div class="col-xs-12 col-md-6 col-xl-6 col-lg-6">
     <form>
       <div class="container-fluid">
-        <h1>
+        <h5>
           {{ details.book_name }}
-        </h1>
+        </h5>
         <br />
         <div>by {{ details.author_name }}</div>
         <br />
@@ -61,49 +61,40 @@
             style="border-radius: 0px !important;"
             class="form-select"
             aria-label="Default select example"
+            name="selected"
           >
-            <option slected value="1">{{ details.condition }}</option>
-            <option value="2">Pre-Owned Good</option>
-            <option value="3">Pre-Owned Like New</option>
+            <option *ngFor="let condition of conditions" (click)="bookchange(condition._id)" >{{condition.condition}}</option>
+    
           </select>
           <br />
           <div style="padding-bottom: 10px;">
-            <b>Print Type:</b>
+            <b>Print Type:</b> {{details.print_format}}
           </div>
-
-          <select
-            style="border-radius: 0px !important;"
-            class="form-select"
-            aria-label="Default select example"
-          >
-            <option selected value="1">HardBack</option>
-            <option value="2">PaperBack</option>
-          </select>
           <br />
         </div>
         <div>
-          <b>MRP:</b> <s>{{ details.mrp }}&#8377;</s>
+          <b>MRP:</b> <s>{{ details.mrp_inr | currency:'INR' }}</s>
         </div>
         <br />
         <div>
           <b>Selling Price:</b
           ><span style="color: #ff4136; font-size: 2rem;">
-            &#8377;{{ details.selling_price }}</span
+            &#8377;{{ details.sale_rate }}</span
           >
         </div>
         <br />
         <div>
-          <b>You save </b> <s>&#8377;{{ details.saved_price }}</s>
+          <b>You save </b> <s>{{ details.sale_disc_inr | percent}}</s>
         </div>
         <br />
         <div style="color: blue; font-size: 2rem;">
-          <b>Sale Price: &#8377;{{ details.sale_price }}</b>
+          <b>Sale Price: &#8377;{{ details.final_price }}</b>
         </div>
         <br />
         <div>Quantity: {{ details.quantity }}</div>
         <br />
         <div class="row d-flex flex-row">
-          <div  *ngIf="!cartbutton" (click)="addCart(details._id,details.selling_price,details.weight)"
+          <div  *ngIf="!cartbutton" (click)="addCart(details._id,details.final_price,details.weight)"
             class="c bg-org card text-center p-2"
             style="width: 30%; cursor: pointer;"
           >

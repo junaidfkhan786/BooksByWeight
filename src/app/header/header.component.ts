@@ -158,5 +158,7 @@ export class HeaderComponent implements OnInit {
   Payment(){
     window.open(this.Payments);
   }
-
+window(){
+  window.scrollTo(0, 10);
+}
 }

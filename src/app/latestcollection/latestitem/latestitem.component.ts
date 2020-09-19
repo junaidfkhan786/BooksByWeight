@@ -1,10 +1,11 @@
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { WishlistService } from 'src/app/services/wishlist.service';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from 'src/app/services/cart.service';
-
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 @Component({
   selector: 'app-latestitem',
   templateUrl: './latestitem.component.html',
@@ -14,22 +15,52 @@ export class LatestitemComponent implements OnInit {
   @Input() latestitem: any;
 
   @Input() addedToWishlist: boolean;
-
+  @Input() cartbutton:boolean;
   constructor(
     private toastr: ToastrService,
     private wish: WishlistService,
     private router: Router,
-    private cart : CartService
+    private cart : CartService,
+    private spinner : NgxSpinnerService
   ) { }
 
+cartquantity:any =[];
+cartquantity1:any =[];
+bookimg:any=[]
+img:any = []
   ngOnInit(): void {
+    this.loadimg()
   }
  
   productHome(_id) {
     this.router.navigate(['details/' + _id]);
   }
 
+  
+  loadimg() {
+    this.bookimg = this.latestitem.book_img
 
+    
+//  var img:any = []
+    for (let i = 0; i < this.bookimg.length; i++) {
+      this.img.push(this.bookimg[i].toUpperCase())
+   
+      // if (this.bookimg[i] == "https://booksimg.s3.us-east-2.amazonaws.com/") {
+      //   this.bookimg.splice(i, 1); i--;
+      // }
+    }
+    for (let i = 0; i < this.img.length; i++) {
+    
+ 
+      if (this.img[i] == "HTTPS://BOOKSIMG.S3.US-EAST-2.AMAZONAWS.COM/") {
+        this.img.splice(i, 1); i--;
+      }
+    }
+    this.bookimg.splice(0,this.bookimg.length)
+    this.bookimg = this.img
+    this.latestitem['book_img'] = this.bookimg
+
+  }
 
   addWish(_id) {
     if (localStorage.getItem('User')) {
@@ -81,5 +112,22 @@ export class LatestitemComponent implements OnInit {
   }
   
   
+  }
+  gotocart(){
+    this.spinner.show();
+    Swal.fire({
+      title: 'Already Added?',
+      text: "If You Want To Increase Quantity Of Your Book!",
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Click Here To Goto Cart!'
+    }).then((result) => {
+      if (result.value) {
+        window.location.assign('/cart')
+      }
+    })
+
   }
 }
