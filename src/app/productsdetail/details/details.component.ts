@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit, Pipe } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, Pipe, NgZone } from '@angular/core';
 import { WishlistService } from 'src/app/services/wishlist.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BooksService } from 'src/app/services/books.service';
@@ -7,7 +7,6 @@ import { CartService } from 'src/app/services/cart.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { map, take } from 'rxjs/operators';
-
 declare let $: any;
 @Component({
   selector: 'app-details',
@@ -16,7 +15,6 @@ declare let $: any;
 })
 export class DetailsComponent implements OnInit, AfterViewInit {
   @Input() details: any;
-
   @Input() addedToWishlist: boolean;
   @Input() cartbutton: boolean;
   bookimg: any[] = [];
@@ -28,7 +26,8 @@ export class DetailsComponent implements OnInit, AfterViewInit {
     private wish: WishlistService,
     private cart: CartService,
     private spinner: NgxSpinnerService,
-    private book: BooksService
+    private book: BooksService,
+    private ngZone: NgZone,
 
   ) { }
   selected: any;
@@ -36,10 +35,14 @@ export class DetailsComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.loadbook();
     this.loadimg();
-
   }
 
-
+jequery_code(){
+  $(window).on("load", function(){
+    $('[data-toggle="tooltip"]').tooltip().mouseover();
+    setTimeout(function(){ $('[data-toggle="tooltip"]').tooltip('hide'); }, 3000);
+});
+}
 
   ngAfterViewInit() {
     setTimeout(() => {
@@ -91,6 +94,7 @@ export class DetailsComponent implements OnInit, AfterViewInit {
         var samebook: any = []
         var book = resp.books
         for (let i = 0; i < book.length; i++) {
+          
           if (book[i].Isbn_no == this.details.Isbn_no) {
             samebook.push(book[i])
           }
@@ -105,27 +109,50 @@ export class DetailsComponent implements OnInit, AfterViewInit {
     })
 
   }
-
+notify(){
+  
+  Swal.fire({
+    title: 'Want To Get Notified When Book Is Available?',
+    text: '',
+    icon: 'info',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, Click Here!',
+    cancelButtonText: 'No, Your Wish!'
+  }).then((result) => {
+    if (result.value) {
+      this.ngZone.run(
+        () => this.router.navigate(['/books'])
+      ).then();
+      Swal.fire(
+        'Wait For Email!',
+        'An Email Has Been Sent When Book is Available',
+        'success'
+      )
+    }
+  })
+  
+}
   loadimg() {
     this.bookimg = this.details.book_img
     var img: any = []
     for (let i = 0; i < this.bookimg.length; i++) {
-      img.push(this.bookimg[i].toUpperCase())
 
-      // if (this.bookimg[i] == "https://booksimg.s3.us-east-2.amazonaws.com/") {
-      //   this.bookimg.splice(i, 1); i--;
-      // }
-    }
-    for (let i = 0; i < img.length; i++) {
-
-
-      if (img[i] == "HTTPS://BOOKSIMG.S3.US-EAST-2.AMAZONAWS.COM/") {
-        img.splice(i, 1); i--;
+      if (this.bookimg[i] == "https://booksimg.s3.us-east-2.amazonaws.com/") {
+        this.bookimg.splice(i, 1); i--;
       }
     }
-    this.bookimg.splice(0, this.bookimg.length)
-    this.bookimg = img
-    console.log(this.bookimg)
+    // for (let i = 0; i < img.length; i++) {
+
+
+    //   if (img[i] == "HTTPS://BOOKSIMG.S3.US-EAST-2.AMAZONAWS.COM/") {
+    //     img.splice(i, 1); i--;
+    //   }
+    // }
+    // this.bookimg.splice(0, this.bookimg.length)
+    // this.bookimg = img
+    // console.log(this.bookimg)
 
   }
 
@@ -164,7 +191,11 @@ export class DetailsComponent implements OnInit, AfterViewInit {
 
     });
   }
-  addCart(_id, selling_price, weight) {
+  addCart(details,_id, selling_price, weight) {
+   
+    if(details.sale_price !=0 && details.sale_price !=null  ){
+      selling_price = details.sale_price
+    }
     this.spinner.show();
     if (localStorage.getItem('User') != null) {
       this.cart.postProduct(_id, selling_price, weight).subscribe(() => {
@@ -184,6 +215,10 @@ export class DetailsComponent implements OnInit, AfterViewInit {
 
 
 
+  }
+  gotoauthorsearch(authorname){
+    var querys = authorname + "&author_name=1";
+    this.router.navigate(['/search', { query:querys }]);
   }
   gotocart() {
 

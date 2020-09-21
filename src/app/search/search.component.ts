@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FilterService } from '../services/filter.service';
 import { WishlistService } from '../services/wishlist.service';
+import { map } from 'rxjs/operators';
 declare var $:any;
 @Component({
   selector: 'app-search',
@@ -139,7 +140,25 @@ this.wish.getwish().subscribe((data) => {
   }
   getbooks() {
     let res = this.search.searched(this.query);
-    res.subscribe((resp)=>{
+    res.pipe(
+      map((resp)=>{
+        var book = resp.books
+        console.log(book)
+        for (let i = 0; i < book.length; i++) {
+        book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr']) 
+        book[i]['rate'] = Math.floor(book[i]['rate']) 
+        book[i]['weight'] = Math.floor(book[i]['weight']) 
+        book[i]['sale_disc_inr'] = Math.floor(book[i]['sale_disc_inr']) 
+        book[i]['sale_disc_per'] = Math.floor(book[i]['sale_disc_per'])
+        book[i]['discount_per'] = Math.floor(book[i]['discount_per']) 
+        book[i]['discount_rs'] = Math.floor(book[i]['discount_rs'])
+        book[i]['final_price'] = Math.floor(book[i]['final_price'])
+        book[i]['sale_rate'] = Math.floor(book[i]['sale_rate'])
+        book[i]['sale_price'] = Math.floor(book[i]['sale_price'])
+        }
+        return resp
+      })
+    ).subscribe((resp)=>{
         this.books = resp;
         this.message = this.books.count;
         this.count = this.books.books.length

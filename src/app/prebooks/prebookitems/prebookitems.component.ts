@@ -87,9 +87,12 @@ w:any = [];
     });
   }
 
-  addCart(_id,selling_price,weight){
+  addCart(details,_id,selling_price,weight){
+   
     if (localStorage.getItem('User')!=null) {
-
+      if(details.sale_price !=0 && details.sale_price !=null  ){
+        selling_price = details.sale_price
+      }
     this.cart.postProduct(_id,selling_price,weight).subscribe(() =>{
 
       this.toastr.success('Product Successfully Added to cart', 'BooksByWeight', {
@@ -97,6 +100,11 @@ w:any = [];
       
       });
     })
+  } else {
+    this.router.navigate(['/login']);
+    this.toastr.error('YOU NEED TO LOGIN TO INSERT BOOKS IN CART', 'BooksByWeight', {
+      timeOut: 1000,
+    });
   }
 
 

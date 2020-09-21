@@ -13,7 +13,7 @@
 
 
           <a  *ngIf="!cartbutton">
-            <span  (click)="addCart(productItem._id,productItem.final_price,productItem.weight)" class="material-icons org wish">
+            <span  (click)="addCart(productItem,productItem._id,productItem.final_price,productItem.weight)" class="material-icons org wish">
               add_shopping_cart &nbsp;
             </span>
            </a>
@@ -40,7 +40,7 @@
     </div>
   </div>
 
-  <div class="text-center" style="text-align: center; padding: 0px 20px 0px 20px;">
+  <div class="text-center" style="text-align: center; padding: 0px 20px 0px 20px; white-space: nowrap;overflow: hidden; text-overflow: ellipsis;">
     {{productItem.book_name}}
     <br>
   </div>
@@ -48,7 +48,15 @@
     <s style="color: rgba(107, 105, 105, 0.61);">&#8377;
       {{productItem.mrp_inr}}
     </s> &nbsp;
-    <span style="color:red">&#8377;
+    <span *ngIf="productItem.sale_price == null || productItem.sale_price == 0;else final" style="color:red">&#8377;
       {{productItem.final_price}}Rs
+    </span>
+    <ng-template #final >
+      <span *ngIf="productItem.sale_price != null && productItem.sale_price != 0;" style="color:red">&#8377;
+        <s>{{productItem.final_price}}Rs</s>
+      </span>
+    </ng-template> <br>
+    <span *ngIf="productItem.sale_price != null && productItem.sale_price != 0;" style="color:blue">
+      sale price: &#8377;{{productItem.sale_price}}Rs
     </span>
   </div>

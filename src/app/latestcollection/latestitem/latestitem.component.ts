@@ -23,7 +23,7 @@ export class LatestitemComponent implements OnInit {
     private cart : CartService,
     private spinner : NgxSpinnerService
   ) { }
-
+final_price:any
 cartquantity:any =[];
 cartquantity1:any =[];
 bookimg:any=[]
@@ -38,6 +38,15 @@ img:any = []
 
   
   loadimg() {
+    
+    for (let i = 0; i < this.latestitem.length; i++) {
+
+      if(this.latestitem[i].final_price){
+        this.final_price = Math.floor(this.latestitem[i]['final_price']) 
+      
+      }
+    }
+
     this.bookimg = this.latestitem.book_img
 
     
@@ -45,20 +54,20 @@ img:any = []
     for (let i = 0; i < this.bookimg.length; i++) {
       this.img.push(this.bookimg[i].toUpperCase())
    
-      // if (this.bookimg[i] == "https://booksimg.s3.us-east-2.amazonaws.com/") {
-      //   this.bookimg.splice(i, 1); i--;
-      // }
-    }
-    for (let i = 0; i < this.img.length; i++) {
-    
- 
-      if (this.img[i] == "HTTPS://BOOKSIMG.S3.US-EAST-2.AMAZONAWS.COM/") {
-        this.img.splice(i, 1); i--;
+      if (this.bookimg[i] == "https://booksimg.s3.us-east-2.amazonaws.com/") {
+        this.bookimg.splice(i, 1); i--;
       }
     }
-    this.bookimg.splice(0,this.bookimg.length)
-    this.bookimg = this.img
-    this.latestitem['book_img'] = this.bookimg
+    // for (let i = 0; i < this.img.length; i++) {
+    
+ 
+    //   if (this.img[i] == "HTTPS://BOOKSIMG.S3.US-EAST-2.AMAZONAWS.COM/") {
+    //     this.img.splice(i, 1); i--;
+    //   }
+    // }
+    // this.bookimg.splice(0,this.bookimg.length)
+    // this.bookimg = this.img
+    // this.latestitem['book_img'] = this.bookimg
 
   }
 

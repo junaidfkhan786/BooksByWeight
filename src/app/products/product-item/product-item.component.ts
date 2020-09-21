@@ -57,22 +57,22 @@ this.loadimg()
     
 //  var img:any = []
     for (let i = 0; i < this.bookimg.length; i++) {
-      this.img.push(this.bookimg[i].toUpperCase())
+      // this.img.push(this.bookimg[i].toUpperCase())
    
-      // if (this.bookimg[i] == "https://booksimg.s3.us-east-2.amazonaws.com/") {
-      //   this.bookimg.splice(i, 1); i--;
-      // }
-    }
-    for (let i = 0; i < this.img.length; i++) {
-    
- 
-      if (this.img[i] == "HTTPS://BOOKSIMG.S3.US-EAST-2.AMAZONAWS.COM/") {
-        this.img.splice(i, 1); i--;
+      if (this.bookimg[i] == "https://booksimg.s3.us-east-2.amazonaws.com/") {
+        this.bookimg.splice(i, 1); i--;
       }
     }
-    this.bookimg.splice(0,this.bookimg.length)
-    this.bookimg = this.img
-    this.productItem['book_img'] = this.bookimg
+    // for (let i = 0; i < this.img.length; i++) {
+    
+ 
+    //   if (this.img[i] == "HTTPS://BOOKSIMG.S3.US-EAST-2.AMAZONAWS.COM/") {
+    //     this.img.splice(i, 1); i--;
+    //   }
+    // }
+    // this.bookimg.splice(0,this.bookimg.length)
+    // this.bookimg = this.img
+    // this.productItem['book_img'] = this.bookimg
 
   }
 
@@ -124,9 +124,13 @@ this.loadimg()
     });
   }
 
-  addCart(_id,selling_price,weight){
+  addCart(details,_id,selling_price,weight){
+  
     this.spinner.show();
     if (localStorage.getItem('User')!=null) {
+      if(details.sale_price !=0 && details.sale_price !=null  ){
+        selling_price = details.sale_price
+      }
     this.cart.postProduct(_id,selling_price,weight).subscribe(() =>{
 this.spinner.hide();
 this.cartbutton = true

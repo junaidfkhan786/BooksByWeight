@@ -85,12 +85,12 @@ export class CartItemsComponent implements OnInit {
   img:any = []
   
     loadimg() {
-      var book:[] = this.productItem.cart
+      // var book:[] = this.productItem.cart
 
-      for (let i = 0; i < book.length; i++) {
-        console.log(book[i])
+      // for (let i = 0; i < book.length; i++) {
+
         
-      }
+      // }
   //     this.bookimg = this.productItem.cart.book
 
       
@@ -125,7 +125,6 @@ export class CartItemsComponent implements OnInit {
       this.spinner.hide();
       this.book$ = data;
       let cart = this.book$.cartItems[0].cart
-console.log(this.book$)
       var sum = 0
       for (let i = 0; i < cart.length; i++) {
         if (cart[i].quantity) {

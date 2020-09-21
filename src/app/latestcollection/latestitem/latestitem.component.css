@@ -45,7 +45,7 @@
     -moz-transition: all 0.4s ease-in-out 0s;
     transition: all 0.4s ease-in-out 0s;
   }
-  
+
   .content:hover .content-overlay{
     opacity: 0.6;
   }
@@ -65,7 +65,7 @@
     text-align: center;
     padding-left: 1em;
     padding-right: 1em;
-    width: 60%;
+    width: 80%;
     top: 50%;
     left: 50%;
     opacity: 0;

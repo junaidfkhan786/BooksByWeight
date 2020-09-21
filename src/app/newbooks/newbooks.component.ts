@@ -7,6 +7,7 @@ import { WishlistService } from '../services/wishlist.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BooksService } from '../services/books.service';
 import { CartService } from '../services/cart.service';
+import { map } from 'rxjs/operators';
 declare var $: any
 @Component({
   selector: 'app-newbooks',
@@ -72,7 +73,25 @@ export class NewbooksComponent implements OnInit {
   }
   jquery_code() { }
   loadbook() {
-    this.newService.getNewBooks().subscribe((data) => {
+    this.newService.getNewBooks().pipe(
+      map((resp)=>{
+        var book = resp.books
+        for (let i = 0; i < book.length; i++) {
+        book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr']) 
+        book[i]['rate'] = Math.floor(book[i]['rate']) 
+        book[i]['weight'] = Math.floor(book[i]['weight']) 
+        book[i]['sale_disc_inr'] = Math.floor(book[i]['sale_disc_inr']) 
+        book[i]['sale_disc_per'] = Math.floor(book[i]['sale_disc_per'])
+        book[i]['discount_per'] = Math.floor(book[i]['discount_per']) 
+        book[i]['discount_rs'] = Math.floor(book[i]['discount_rs'])
+        book[i]['final_price'] = Math.floor(book[i]['final_price'])
+        book[i]['sale_rate'] = Math.floor(book[i]['sale_rate'])
+        book[i]['sale_price'] = Math.floor(book[i]['sale_price'])
+          
+        }
+        return resp
+      })
+    ).subscribe((data) => {
       this.books$ = data;
 
       const pid = data.books;

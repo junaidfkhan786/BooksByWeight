@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { Component, OnInit, NgZone } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from './../services/cart.service';
@@ -64,29 +65,37 @@ export class CartComponent implements OnInit {
   }
   loadcart() {
     if (localStorage.getItem('User') != null) {
-      this.cart.getCart().subscribe((data) => {
-        this.book$ = data;
-        if (this.book$.cartItems.length > 0) {
-          this.cartitem = this.book$.cartItems[0].cart;
-          console.log(this.book$)
-          for (let i = 0; i < this.cartitem.length; i++) {
-            if (this.cartitem[i].book == null || this.cartitem[i].book.quantity == 0 ) {
-              var id = this.cartitem[i]._id
-              this.cart.deleteProduct(id).subscribe(() => {
-                Swal.fire({
-                  icon: 'info',
-                  title: 'Sorry...',
-                  text: 'Some Book In Your Cart Are Sold ',
-                })
-                this.spinner.hide();
-              });
-
-            } else {
-
+      this.cart.getCart().pipe(
+        map((data)=>{
+          var book$ = data;
+          if (book$.cartItems.length > 0) {
+            var cartitem = book$.cartItems[0].cart;
+            for (let i = 0; i < cartitem.length; i++) {
+              console.log(cartitem)
+              if (cartitem[i].book == null || cartitem[i].book.quantity == 0 ) {
+                var id = cartitem[i]._id
+                this.cart.deleteProduct(id).subscribe(() => {
+                  Swal.fire({
+                    icon: 'info',
+                    title: 'Sorry...',
+                    text: 'Some Book In Your Cart Are Sold ',
+                  })
+                  this.spinner.hide();
+                });
+  
+              } else {
+  
+              }
             }
+            
+    
           }
-          this.length = this.cartitem.length;
-        }
+          return book$
+        })
+      ).subscribe((resp) => {
+        this.book$ = resp;
+        this.cartitem = this.book$.cartItems[0].cart;
+        this.length = this.cartitem.length;
         this.spinner.hide();
       });
     } else {

@@ -44,7 +44,7 @@ export class LatestcollectionComponent implements OnInit {
         items: 2,
       },
       740: {
-        items: 3,
+        items: 4,
       },
     },
     nav: false,

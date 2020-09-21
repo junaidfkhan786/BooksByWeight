@@ -36,38 +36,38 @@
 
       <div *ngFor="let book of books$.books">
         <br>
-        <p style="color: rgb(131, 128, 128); text-align: justify;
+        <p *ngIf="book.desxription !=''" style="color: rgb(131, 128, 128); text-align: justify;
         text-justify: inter-word; ">
           {{book.description}}
         </p>
         <br>
         <ul>
-          <li class="org" style="list-style-type: none;">
+          <li class="org" *ngIf="book.publication_year !=''" style="list-style-type: none;">
             <span class="material-icons">
               play_circle_filled
             </span>
             <b>Publication Year:</b> {{book.publication_year | date}}</li>
           <br>
-          <li class="org" style="list-style-type: none;">
+          <li *ngIf="book.no_Of_pages !=''" class="org" style="list-style-type: none;">
             <span class="material-icons">
               play_circle_filled
             </span>
             <b>No of Pages:</b>{{book.no_Of_pages}}</li>
           <br>
-          <li class="org" style="list-style-type: none;">
+          <li *ngIf="book.language !=''" class="org" style="list-style-type: none;">
             <span class="material-icons">
               play_circle_filled
             </span>
 
             <b>Language: </b>{{book.language}}</li>
           <br>
-          <li class="org" style="list-style-type: none;">
+          <li *ngIf="book.dimensions !=''" class="org" style="list-style-type: none;">
             <span class="material-icons">
               play_circle_filled
             </span>
             <b>Dimensions: </b>{{book.dimensions}}</li>
           <br>
-          <li class="org" style="list-style-type: none;">
+          <li *ngIf="book.weight !=null && book.weight !=0 " class="org" style="list-style-type: none;">
             <span class="material-icons">
               play_circle_filled
             </span>

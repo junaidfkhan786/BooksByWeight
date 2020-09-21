@@ -2,16 +2,17 @@
   <li class="list-group-item bg-dark text-white" aria-current="true">
     <span class="material-icons">menu</span> BROWSE CATEGORIES
   </li>
-
-  <li class=" dropright list-group-item bg-color" *ngFor="let item of category$">
+  
+ <div class="d-none d-sm-block">
+  <li class=" dropright list-group-item bg-color  " *ngFor="let item of category$">
     <div class="row">
       <div class="col-1 mr-1">
-        <span class="material-icons org ">
+        <span class="material-icons org " style="font-size:15px;">
           {{item.icon_name}}
         </span>
       </div>
       <div class="col">
-        <span style="cursor: pointer;" (click)="productCat(item._id)" class="text-wrap"> {{item.category}} </span>
+        <span style="cursor: pointer; font-size:12px;" (click)="productCat(item._id)" class="text-wrap"> {{item.category}} </span>
 
       </div>
       <div class="col-1">
@@ -50,7 +51,38 @@
 
     </div>
   </li>
+ </div>
+  <div  class="accordion card p-2 d-block d-sm-none" *ngFor="let item of category; let i = index">
+    <a style="text-decoration: none; color: black;" href="#List-{{ i }}" data-toggle="collapse"><span>
+      <div class="row">
+        <div class="col-1 mr-1">
+          <span class="material-icons org ">
+            {{item.icon_name}}
+          </span>
+        </div>
+        <div class="col">
+          <span style="cursor: pointer;" (click)="productCat(item._id)" class="text-wrap"> {{item.category}} </span>
+  
+        </div>
+        <div class="col-1">
+          <span class="material-icons org float-right">
+            navigate_next
+          </span>
+        </div>
+      </div> 
+    </span></a>
+    <div id="List-{{ i }}" class="collapse">
+      <div class="row">
 
+        <div class="col-6" *ngFor="let sub of item.subcategory">
+          <a class=" nav-link active org " (click)="productSubCat(sub._id)" style="color: black; cursor: pointer;">
+            {{sub.name}}
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
 </ul>
 <br>
 <ul class="list-group" style="cursor: pointer;">

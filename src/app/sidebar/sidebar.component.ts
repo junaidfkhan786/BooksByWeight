@@ -13,7 +13,7 @@ declare var $: any;
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-
+category:any
   public product: ProductsComponent;
   category$: any;
   constructor(private newService: CategoryService, private router: Router, private filter: FilterService,
@@ -38,6 +38,8 @@ this.spinner.show()
       .subscribe((data) =>{
         this.spinner.hide();
         this.category$ = data
+        this.category = this.category$;
+
       }
       );
 
@@ -49,7 +51,7 @@ this.spinner.show()
   jquery_code() {
     $(document).ready(function () {
 
-      // $(".dropdown, .btn-group").hover(function(){
+      // $(".dropright, .btn-group").click(function(){
 
       //     var dropdownMenu = $(this).children(".dropdown-menu");
 

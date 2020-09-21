@@ -1,6 +1,8 @@
+
+import { map } from 'rxjs/operators';
 import { Component, OnInit, EventEmitter, NgZone } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import { BooksService } from '../services/books.service';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilterService } from '../services/filter.service';
 import { CategoryService } from '../services/category.service';
@@ -8,6 +10,7 @@ import { WishlistService } from '../services/wishlist.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner'
 import { CartService } from '../services/cart.service';
+import { BooksService } from '../services/books.service';
 declare var $: any;
 @Component({
   selector: 'app-products',
@@ -46,6 +49,7 @@ export class ProductsComponent implements OnInit {
   cartpid: any = {};
   cartpid1: any[] = [];
   token:string
+  i:number
   constructor(
     private toastr: ToastrService,
     private CatService: CategoryService,
@@ -89,13 +93,32 @@ export class ProductsComponent implements OnInit {
   }
   jquery_code() { }
   loadbook() {
-    this.newService.getBooks().subscribe((data) => {
+    this.newService.getBooks().pipe(
+      map((resp)=>{
+        var book = resp.books
+        for (let i = 0; i < book.length; i++) {
+        book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr']) 
+        book[i]['rate'] = Math.floor(book[i]['rate']) 
+        book[i]['weight'] = Math.floor(book[i]['weight']) 
+        book[i]['sale_disc_inr'] = Math.floor(book[i]['sale_disc_inr']) 
+        book[i]['sale_disc_per'] = Math.floor(book[i]['sale_disc_per'])
+        book[i]['discount_per'] = Math.floor(book[i]['discount_per']) 
+        book[i]['discount_rs'] = Math.floor(book[i]['discount_rs'])
+        book[i]['final_price'] = Math.floor(book[i]['final_price'])
+        book[i]['sale_rate'] = Math.floor(book[i]['sale_rate'])
+        book[i]['sale_price'] = Math.floor(book[i]['sale_price'])
+        book[0]['sale_price'] = 0 
+        }
+        return resp
+      })
+    ).subscribe((data) => {
       this.books$ = data;
       const pid = data.books;
       for (var { _id: id } of pid) {
         this.pid1.push(id);
       }
-      this.totalBooks = data.totalBooks.length;
+      this.totalBooks = data.totalBooks;
+      console.log(this.totalBooks)
       this.pages = 1;
       this.spinner.hide();
     });
@@ -104,8 +127,31 @@ export class ProductsComponent implements OnInit {
     this.CatService.getCategoryById(this.route.snapshot.params._id).subscribe(
       (res) => {
         this.books$ = res;
+        if(this.books$.success == false || this.books$.totalBooks ==0){
+          this.loadsubcat()
+        }
       console.log(this.books$)
-        if(this.books$.totalBooks!=null){this.spinner.hide()}
+        if(this.books$.totalBooks!=0){this.spinner.hide()}
+      }
+    );
+
+  }
+
+  loadsubcat(){
+    this.CatService.getSubCatById(this.route.snapshot.params._id).subscribe(
+      (res) => {
+        this.books$ = res;
+        if(this.books$.success == false){
+          this.spinner.hide(); 
+          alert('nothing Available')
+        }
+      console.log(this.books$)
+        if(this.books$.totalBooks!=0){this.spinner.hide()}
+      },(error)=>{
+        if(error){
+          this.spinner.hide();
+          alert('nothisn')
+        }
       }
     );
   }
@@ -126,13 +172,15 @@ export class ProductsComponent implements OnInit {
   filters(modal: String) {
     this.filter.priceDefine(modal).subscribe((res) => {
       this.books$ = res;
-      if(res){this.spinner.hide()}
+      console.log(this.books$)
+      if(this.books$.totalBooks!=0){this.spinner.hide()}
     });
   }
   filtersSort(variant: String) {
     this.filter.sortBy(variant).subscribe((res) => {
       this.books$ = res;
-      if(res){this.spinner.hide()}
+      console.log(this.books$)
+      if(this.books$.totalBooks!=0){this.spinner.hide()}
     });
   }
   onPageChange(page: number) {

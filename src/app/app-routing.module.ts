@@ -1,3 +1,4 @@
+import { AppComponent } from './app.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
@@ -16,15 +17,25 @@ import { SearchComponent } from './search/search.component';
 import { NewbooksComponent } from './newbooks/newbooks.component';
 import { PrebooksComponent } from './prebooks/prebooks.component';
 import { AuthGuard } from './auth.guard';
-import{AdminauthGuard} from './adminauth.guard'
-import{SuperadminGuard} from './superadmin.guard'
+import { AdminauthGuard } from './adminauth.guard'
+import { SuperadminGuard } from './superadmin.guard'
 import { from } from 'rxjs';
 import { AboutusComponent } from './policies/aboutus/aboutus.component';
 import { OrderdetailsComponent } from './profile/userorders/orderdetails/orderdetails.component';
+import { ErrorComponent } from './error/error.component';
 const routes: Routes = [
   {
     path: '',
+    pathMatch: 'full',
+    redirectTo: 'home'
+  },
+  {
+    path: 'home',
     component: HomeComponent
+  },
+  {
+    path: '404',
+    component: ErrorComponent
   },
   {
     path: 'login',
@@ -63,98 +74,98 @@ const routes: Routes = [
     component: ProductsComponent
   },
   {
-    path : 'details/:_id',
-    component : ProductsdetailComponent
+    path: 'details/:_id',
+    component: ProductsdetailComponent
   },
   {
-    path : 'books/sortByasc',
-    component : ProductsComponent
+    path: 'books/sortByasc',
+    component: ProductsComponent
   },
   {
-    path : 'books/sortBydesc',
-    component : ProductsComponent
+    path: 'books/sortBydesc',
+    component: ProductsComponent
   },
   {
-    path : 'cart',
-    component : CartComponent,
+    path: 'cart',
+    component: CartComponent,
     canActivate: [AuthGuard]
   },
   {
-    path : 'books/:_id',
-    component : ProductsComponent
+    path: 'books/:_id',
+    component: ProductsComponent
   },
   {
-    path : 'wish',
-    component : WishlistComponent,
+    path: 'wish',
+    component: WishlistComponent,
     canActivate: [AuthGuard]
   },
   {
-    path : 'checkout',
-    component : CheckoutComponent,
+    path: 'checkout',
+    component: CheckoutComponent,
     canActivate: [AuthGuard]
   },
   {
-    path : 'admin',
-    component : AdminLoginComponent
+    path: 'admin',
+    component: AdminLoginComponent
   },
   {
-    path : 'admin/dashboard',
-    component : AdminPanelComponent,
-    canActivate:[SuperadminGuard]
+    path: 'admin/dashboard',
+    component: AdminPanelComponent,
+    canActivate: [SuperadminGuard]
   },
   {
-    path : 'admin/dashboard/view-products',
-    component : AdminPanelComponent,
-    canActivate:[SuperadminGuard]
+    path: 'admin/dashboard/view-products',
+    component: AdminPanelComponent,
+    canActivate: [SuperadminGuard]
   },
   {
-    path : 'admin/dashboard/view-users',
-    component : AdminPanelComponent,
-    canActivate:[SuperadminGuard]
+    path: 'admin/dashboard/view-users',
+    component: AdminPanelComponent,
+    canActivate: [SuperadminGuard]
   },
   {
-    path : 'admin/dashboard/add-bulk-products',
-    component : AdminPanelComponent,
-    canActivate:[SuperadminGuard]
+    path: 'admin/dashboard/add-bulk-products',
+    component: AdminPanelComponent,
+    canActivate: [SuperadminGuard]
   },
   {
-    path : 'admin/dashboard/view-orders',
-    component : AdminPanelComponent,
-    canActivate:[SuperadminGuard]
+    path: 'admin/dashboard/view-orders',
+    component: AdminPanelComponent,
+    canActivate: [SuperadminGuard]
   },
   {
-    path : 'admin/dashboard/View-Cat-&&-SubCat',
-    component : AdminPanelComponent,
-    canActivate:[SuperadminGuard]
+    path: 'admin/dashboard/View-Cat-&&-SubCat',
+    component: AdminPanelComponent,
+    canActivate: [SuperadminGuard]
   },
   {
-    path : 'admin/dashboard/Coupon',
-    component : AdminPanelComponent,
-    canActivate:[SuperadminGuard]
+    path: 'admin/dashboard/Coupon',
+    component: AdminPanelComponent,
+    canActivate: [SuperadminGuard]
   },
   {
-    path : 'admin/dashboard/Admin',
-    component : AdminPanelComponent,
-    canActivate:[SuperadminGuard]
+    path: 'admin/dashboard/Admin',
+    component: AdminPanelComponent,
+    canActivate: [SuperadminGuard]
   },
- 
+
   {
-    path : 'search',
-    component : SearchComponent
+    path: 'search',
+    component: SearchComponent
   },
   {
-    path : 'profile',
-    component : ProfileComponent,
+    path: 'profile',
+    component: ProfileComponent,
     canActivate: [AuthGuard]
   },
   {
-    path : 'profile/edit-add',
-    component : ProfileComponent,
+    path: 'profile/edit-add',
+    component: ProfileComponent,
     canActivate: [AuthGuard]
   },
   {
-    path : 'newbooks',
-    component : NewbooksComponent
+    path: 'newbooks',
+    component: NewbooksComponent
   },
   {
     path: 'newbooks/sortBy100/200',
@@ -177,16 +188,16 @@ const routes: Routes = [
     component: NewbooksComponent
   },
   {
-    path : 'newbooks/sortByasc',
-    component : NewbooksComponent
+    path: 'newbooks/sortByasc',
+    component: NewbooksComponent
   },
   {
-    path : 'newbooks/sortBydesc',
-    component : NewbooksComponent
+    path: 'newbooks/sortBydesc',
+    component: NewbooksComponent
   },
   {
-    path : 'prebooks',
-    component : PrebooksComponent
+    path: 'prebooks',
+    component: PrebooksComponent
   },
   {
     path: 'prebooks/sortBy100/200',
@@ -209,18 +220,22 @@ const routes: Routes = [
     component: PrebooksComponent
   },
   {
-    path : 'prebooks/sortByasc',
-    component : PrebooksComponent
+    path: 'prebooks/sortByasc',
+    component: PrebooksComponent
   },
   {
-    path : 'prebooks/sortBydesc',
-    component : PrebooksComponent
+    path: 'prebooks/sortBydesc',
+    component: PrebooksComponent
   },
 
   {
-    path : 'orderdetails/:_id',
-    component : OrderdetailsComponent,
+    path: 'orderdetails/:_id',
+    component: OrderdetailsComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: '**',
+    redirectTo: '/404'
   }
 
 

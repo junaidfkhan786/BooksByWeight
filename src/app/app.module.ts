@@ -78,7 +78,8 @@ import { TermsConditionsComponent } from './policies/terms-conditions/terms-cond
 import { AdminCreateComponent } from './admin-panel/admin-main-content/admin-create/admin-create.component';
 import {NumberDirective} from './directives/numbersonly.directive';
 import { OrderdetailsComponent } from './profile/userorders/orderdetails/orderdetails.component';
-import { TruncatePipe } from './pipes/truncate.pipe'
+import { TruncatePipe } from './pipes/truncate.pipe';
+import { ErrorComponent } from './error/error.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -136,7 +137,8 @@ import { TruncatePipe } from './pipes/truncate.pipe'
     AdminCreateComponent,
     NumberDirective,
     OrderdetailsComponent,
-    TruncatePipe
+    TruncatePipe,
+    ErrorComponent
 
     
   

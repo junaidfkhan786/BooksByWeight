@@ -1,3 +1,4 @@
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -33,7 +34,8 @@ w:any = [];
     private route: ActivatedRoute,
     private filter: FilterService,
     private wish: WishlistService,
-    private cart : CartService
+    private cart : CartService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit() {
@@ -84,16 +86,25 @@ w:any = [];
     });
   }
 
-  addCart(_id,selling_price,weight){
+  addCart(details,_id,selling_price,weight){
+  this.spinner.show()
     if (localStorage.getItem('User')!=null) {
-
+      if(details.sale_price !=0 && details.sale_price !=null  ){
+        selling_price = details.sale_price
+      }
     this.cart.postProduct(_id,selling_price,weight).subscribe(() =>{
 
       this.toastr.success('Product Successfully Added to cart', 'BooksByWeight', {
         timeOut: 1000,
       
       });
+      this.spinner.hide();
     })
+  } else {
+    this.router.navigate(['/login']);
+    this.toastr.error('YOU NEED TO LOGIN TO INSERT BOOKS IN CART', 'BooksByWeight', {
+      timeOut: 1000,
+    });
   }
 
 

@@ -1,186 +1,219 @@
-<div class="row g-0" style="padding-bottom: 30px;">
+<div class="row g-0" style="padding-bottom: 10px;">
   <div class="col-xs-12 col-md-6 col-lg-6">
     <div class="row g-0">
       <div class="col-md-3 p-1">
-        <div
-          class="row g-1"
-          style="padding-bottom: 5px;"
-         
-        >
-        <ng-template [ngIf]="bookimg.length > 0">
-          <div id="product-imgs">
-            <div *ngFor="let t of bookimg" class="product-preview">
-              <img [src]="t" onerror="this.src='assets/images/altimg.png';" alt="">
+        <div class="row g-1" style="padding-bottom: 5px;">
+          <ng-template [ngIf]="bookimg.length > 0">
+            <div id="product-imgs">
+              <div *ngFor="let t of bookimg" class="product-preview">
+                <img [src]="t" onerror="this.src='assets/images/altimg.png';" alt="">
+              </div>
             </div>
-          </div>
-        </ng-template>
-         <ng-template [ngIf]="bookimg.length === 0">
-           <div id="product-imgs">
-             <div class="product-preview">
-               <img [src]="details.book_img" onerror="this.src='assets/images/altimg.png';" alt="">
-             </div>
-           </div>
-         </ng-template>
+          </ng-template>
+          <ng-template [ngIf]="bookimg.length === 0">
+            <div id="product-imgs">
+              <div class="product-preview">
+                <img [src]="details.book_img[0]" onerror="this.src='assets/images/altimg.png';" alt="">
+              </div>
+            </div>
+          </ng-template>
         </div>
       </div>
-      <div class="col-md-9 p-1">
-        <div id="product-main-img" >
+      <div class="col-md-9 p-1 ">
+        <div id="product-main-img">
           <ng-template [ngIf]="bookimg.length === 0">
             <div class="product-preview">
-              <img [src]="details.book_img" onerror="this.src='assets/images/altimg.png';" alt="">
+              <img [src]="details.book_img[0]"  onerror="this.src='assets/images/altimg.png';" alt="">
             </div>
           </ng-template>
           <ng-template [ngIf]="bookimg.length > 0">
             <div class="product-preview" *ngFor="let t of bookimg">
-              <img [src]="t" onerror="this.src='assets/images/altimg.png';" alt="">
+              <img [src]="t"  onerror="this.src='assets/images/altimg.png';" alt="">
             </div>
           </ng-template>
         </div>
       </div>
     </div>
-    
+
   </div>
   <div class="col-xs-12 col-md-6 col-xl-6 col-lg-6">
-    <form>
+
       <div class="container-fluid">
         <h5>
           {{ details.book_name }}
         </h5>
+        <div class="gotoauthor" data-toggle="tooltip" data-placement="right" title="Tooltip on right"
+          (click)="gotoauthorsearch(details.author_name)">by {{ details.author_name }}</div>
         <br />
-        <div>by {{ details.author_name }}</div>
-        <br />
-        <div><b>ISBN:</b> {{ details.Isbn_no }}</div>
+        <div class="color"><b>ISBN:</b> {{ details.Isbn_no }}</div>
 
-        <div><b>Publisher: </b> {{ details.publisher }}</div>
+        <div class="color"><b>Publisher: </b> {{ details.publisher }}</div>
         <br />
-        <div style="padding-bottom: 10px;">
+        <div class="color" style="padding-bottom: 10px;">
           <b>Condition:</b>
         </div>
         <div class="col-xs-12 col-lg-8">
-          <select
-            style="border-radius: 0px !important;"
-            class="form-select"
-            aria-label="Default select example"
-            name="selected"
-          >
-            <option *ngFor="let condition of conditions" (click)="bookchange(condition._id)" >{{condition.condition}}</option>
-    
+          <select style="border-radius: 0px !important;" class="form-select" aria-label="Default select example"
+            name="selected">
+            <option *ngFor="let condition of conditions" (click)="bookchange(condition._id)">{{condition.condition}}
+            </option>
+
           </select>
           <br />
-          <div style="padding-bottom: 10px;">
+          <div class="color" style="padding-bottom: 10px;">
             <b>Print Type:</b> {{details.print_format}}
           </div>
+        </div>
+        <div class="color" *ngIf="details.mrp_inr !=0 && details.mrp_inr !=null ">
+          <b>MRP:</b> <s>
+            <span *ngIf="details.mrp_dollar !='' ">
+              {{ details.mrp_dollar | currency:'USD' }}
+            </span>
+            <span *ngIf="details.mrp_euro !='' ">
+              {{ details.mrp_euro | currency:'EUR' }}
+            </span>
+            <span *ngIf="details.mrp_aus_dollar !='' ">
+              {{ details.mrp_aus_dollar | currency:'AUS' }}
+            </span>
+            <span *ngIf="details.mrp_pound !='' ">
+              {{ details.mrp_pound | currency:'GBP' }}
+            </span>
+            <span style=" font-size: 1rem;">({{ details.mrp_inr | currency:'INR' }})</span> </s>
+        </div>
+
+        <div *ngIf="details.sale_price ==null || details.sale_price == 0;else final">
+          <div *ngIf="details.final_price !=null && details.final_price !=0" class="color mt-2" style="width: 100%;">
+            <b>Selling Price:</b>
+            <span style="color: #ff4136; font-size: 30px;">
+              {{ details.final_price | currency:'INR' }}
+            </span><span><b>({{details.weight}}gms X {{details.rate}}/Kg.)</b></span>
+          </div>
+  
+          <div class="color mt-1" 
+          *ngIf="details.discount_rs !=null 
+          && details.discount_rs!=0
+          && details.discount_per!=0 
+          && details.discount_per !=null">
+            <b>You save {{ details.discount_rs | currency:'INR'}} ({{details.discount_per}}%)</b>
+          </div>
+        </div>
+
+       <ng-template #final >
+        <div *ngIf="details.final_price !=null && details.final_price !=0" class="color mt-2" style="width: 100%;">
+          <s>
+           <b>Selling Price:</b>
+           <span style="color: #ff4136; font-size: 30px;">
+             {{ details.final_price | currency:'INR' }}
+           </span><span><b>({{details.weight}}gms X {{details.rate}}/Kg.)</b></span>
+          </s>
+         </div>
+ 
+         <div class="color mt-1" 
+         *ngIf="details.discount_rs !=null 
+         && details.discount_rs!=0
+         && details.discount_per!=0 
+         && details.discount_per !=null">
+         <s>
+           <b>You save {{ details.discount_rs | currency:'INR'}} ({{details.discount_per}}%)</b>
+         </s>
+         </div>
+       </ng-template>
+    
+          
+        <div  *ngIf="details.sale_price !=null && details.sale_price !=0">
+          <div class="mt-3" *ngIf="details.sale_price !=null && details.sale_price !=0">
+            <span  style="color: blue; font-size: 2rem;">
+             <b>Sale Price: &#8377;{{ details.sale_price}} </b>      
+            </span>
+             <span class="color">
+               <b>({{details.weight}}gms X {{details.sale_price}}/Kg.)</b>
+             </span>
+           </div>
+           <div class="color mt-1" 
+           *ngIf="details.sale_disc_inr !=null 
+           && details.sale_disc_inr !=0
+           && details.sale_disc_per!=0 
+           && details.sale_disc_per !=null">
+             <b>You save {{ details.sale_disc_inr | currency:'INR'}} ({{details.sale_disc_per}}%)</b>
+           </div>
+        </div>
+        
+ 
+
+ 
+        <!-- <div *ngIf="details.sale_rate !='' ">
+          <b>sale rate:</b> <span>{{ details.sale_rate | currency:'INR' }}</span>
           <br />
         </div>
-        <div>
-          <b>MRP:</b> <s>{{ details.mrp_inr | currency:'INR' }}</s>
+        <div *ngIf="details.sale_price !='' ">
+          <b>sale price:</b> <span>{{ details.sale_price | currency:'INR' }}</span>
+          <br />
         </div>
-        <br />
-        <div>
-          <b>Selling Price:</b
-          ><span style="color: #ff4136; font-size: 2rem;">
-            &#8377;{{ details.sale_rate }}</span
-          >
+        <div *ngIf="details.discount_per !='' ">
+          <b>Discount per:</b> <span>{{ details.discount_per }}%</span>
+          <br />
         </div>
-        <br />
-        <div>
-          <b>You save </b> <s>{{ details.sale_disc_inr | percent}}</s>
+        <div *ngIf="details.discount_rs !='' ">
+          <b>Discount Rs:</b> <span>{{ details.discount_rs | currency:'INR'}}</span>
+          <br />
         </div>
-        <br />
-        <div style="color: blue; font-size: 2rem;">
-          <b>Sale Price: &#8377;{{ details.final_price }}</b>
-        </div>
-        <br />
-        <div>Quantity: {{ details.quantity }}</div>
-        <br />
-        <div class="row d-flex flex-row">
-          <div  *ngIf="!cartbutton" (click)="addCart(details._id,details.final_price,details.weight)"
-            class="c bg-org card text-center p-2"
-            style="width: 30%; cursor: pointer;"
-          >
-            ADD TO CART
-          </div>
-          <div  *ngIf="cartbutton" (click)="gotocart()"
-          class="c bg-org card text-center p-2"
-          style="width: 30%; cursor: pointer;"
-        >
-          ADD TO CART
-        </div>
-          &nbsp;&nbsp;&nbsp;
-          <div
-            *ngIf="!addedToWishlist"
-            class="c bg-org card text-center p-2"
-            style="width: 10%; cursor: pointer;"
-          >
-            <a>
-              <span (click)="addWish(details._id)" class="material-icons wish">
-                favorite_border
-              </span>
-            </a>
-          </div>
 
-          <div
-            *ngIf="addedToWishlist"
-            class="c bg-org card text-center p-2"
-            style="width: 10%; cursor: pointer;"
-          >
-            <a>
-              <span
-                (click)="deletePro(details._id)"
-                class="material-icons wish"
-              >
-                favorite
-              </span>
-            </a>
-          </div>
-          &nbsp;&nbsp;&nbsp;
-          <div
-            class="c bg-org card text-center p-2"
-            style="width: 10%; cursor: pointer;"
-          >
-            <span class="material-icons justify-content-center">
-              email
+        <br />
+        <div *ngIf="details.sale_price !=null && details.sale_price !=0" style="color: blue; font-size: 2rem;">
+          <b>Sale Price: &#8377;{{ details.sale_price}} </b>
+        </div>
+        <br /> -->
+        <div class="mt-2">Quantity: {{ details.quantity }}</div>
+        <br />
+        <div class="row gy-2">
+       <div class="col-sm-6 col-md-3">
+        <div *ngIf="!cartbutton && details.quantity != 0" (click)="addCart(details,details._id,details.final_price,details.weight)"
+        class="c bg-org card text-center p-2" style="cursor: pointer;">
+        ADD TO CART
+      </div>
+      <div *ngIf="cartbutton && details.quantity != 0" (click)="gotocart()" class="c bg-org card text-center p-2"
+        style=" cursor: pointer;">
+        ADDED
+      </div>
+      <div *ngIf="details.quantity == 0" (click)="notify()" class="c bg-org card text-center p-2"
+      style=" cursor: pointer;">
+      Out Of Stock
+    </div>
+
+       </div>
+       <div class="col-sm-6 col-md-2">
+        <div *ngIf="!addedToWishlist" class="c bg-org card text-center p-2" style=" cursor: pointer;">
+          <a>
+            <span (click)="addWish(details._id)" class="material-icons wish">
+              favorite_border
             </span>
-          </div>
+          </a>
+        </div>
+  
+        <div *ngIf="addedToWishlist" class="c bg-org card text-center p-2" style="cursor: pointer;">
+          <a>
+            <span (click)="deletePro(details._id)" class="material-icons wish">
+              favorite
+            </span>
+          </a>
+        </div>
+       </div>
         </div>
 
         <div style="margin-top: 10px;">
           <li class="list-group-item" style="border: none;">
-            <span
-              style="margin-right: 10px; text-decoration: none; color: #666666;"
-              >Share:</span
-            >
-            <a href="#" class="round" style="margin-right: 10px;"
-              ><img
-                src="../../assets/icons/facebook.png"
-                height="30px"
-                width="30px"
-                alt=""
-            /></a>
-            <a href="#" class="round" style="margin-right: 10px;"
-              ><img
-                src="../../assets/icons/twitter.png"
-                height="30px"
-                width="30px"
-                alt=""
-            /></a>
-            <a href="#" class="round" style="margin-right: 10px;"
-              ><img
-                src="../../assets/icons/instagram.png"
-                height="30px"
-                width="30px"
-                alt=""
-            /></a>
-            <a href="#" class="round" style="margin-right: 10px;"
-              ><img
-                src="../../assets/icons/google.png"
-                height="30px"
-                width="30px"
-                alt=""
-            /></a>
+            <span style="margin-right: 10px; text-decoration: none; color: #666666;">Share:</span>
+            <a href="#" class="round" style="margin-right: 10px;"><img src="../../assets/icons/facebook.png"
+                height="30px" width="30px" alt="" /></a>
+            <a href="#" class="round" style="margin-right: 10px;"><img src="../../assets/icons/twitter.png"
+                height="30px" width="30px" alt="" /></a>
+            <a href="#" class="round" style="margin-right: 10px;"><img src="../../assets/icons/instagram.png"
+                height="30px" width="30px" alt="" /></a>
+            <a href="#" class="round" style="margin-right: 10px;"><img src="../../assets/icons/google.png" height="30px"
+                width="30px" alt="" /></a>
           </li>
         </div>
       </div>
-    </form>
+
   </div>
 </div>

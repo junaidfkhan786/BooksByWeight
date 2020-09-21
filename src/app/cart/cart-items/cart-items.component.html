@@ -59,7 +59,7 @@
                           decrement(
                             item.quantity,
                             item.book._id,
-                            item.book.selling_price,
+                            item.price,
                             item.book.weight
                           )" class="btn btn-outline-secondary">
                           <span class="material-icons">
@@ -75,7 +75,7 @@
                         increment(
                           item.quantity,
                           item.book._id,
-                          item.book.selling_price,
+                          item.price,
                           item.book.weight
                         )" class="btn btn-outline-secondary">
                           <span class="material-icons">
@@ -129,12 +129,12 @@
                     onerror="this.src='assets/images/altimg.png';" class="high" /></a>
               </td>
               <td style="border-width: 1px;">
-                <a style="
+                <a (click)="productHome(item.book._id)" style="
               font-size: 14px;
               color: #6f6f6f;     
               font-weight: 700;
               text-decoration: none;
-            ">{{ item.book.book_name }}</a>
+            ">{{ item.book.book_name | truncate:20 }}</a>
               </td>
               <td style="border-width: 1px;">
                 <span style="font-size: 14px; color: #6f6f6f; font-weight: 700;">{{
@@ -150,7 +150,7 @@
                 decrement(
                   item.quantity,
                   item.book._id,
-                  item.book.selling_price,
+                  item.price,
                   item.book.weight
                 )
               " style="width: 20px !important; margin-top: 5px; height: 30px; border-radius: 0;"
@@ -171,7 +171,7 @@
                 increment(
                   item.quantity,
                   item.book._id,
-                  item.book.selling_price,
+                  item.price,
                   item.book.weight
                 )
               " style="width: 20px !important; height: 30px; margin-top: 5px; border-radius: 0; margin-left: -8px;"
