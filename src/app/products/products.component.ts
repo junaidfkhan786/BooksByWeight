@@ -1,4 +1,4 @@
-
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { map } from 'rxjs/operators';
 import { Component, OnInit, EventEmitter, NgZone } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
@@ -48,8 +48,8 @@ export class ProductsComponent implements OnInit {
   cartquantity1: any = [];
   cartpid: any = {};
   cartpid1: any[] = [];
-  token:string
-  i:number
+  token: string
+  i: number
   constructor(
     private toastr: ToastrService,
     private CatService: CategoryService,
@@ -67,16 +67,16 @@ export class ProductsComponent implements OnInit {
     this.spinner.show()
     this.activatedRoute.params.subscribe(res => {
       this.token = res['token']
-     if(this.token){
-       console.log(this.token)
-      localStorage.setItem("User",JSON.stringify(this.token))
-      setTimeout(() => {
-        this.ngZone.run(() => this.router.navigate(['/cart'])).then();  
-      }, 2000);
-      
-     }else{
-       console.log('Token From Mobile App Not Fetch ')
-     }
+      if (this.token) {
+        console.log(this.token)
+        localStorage.setItem("User", JSON.stringify(this.token))
+        setTimeout(() => {
+          this.ngZone.run(() => this.router.navigate(['/cart'])).then();
+        }, 2000);
+
+      } else {
+        console.log('Token From Mobile App Not Fetch ')
+      }
     });
     this.loadfilter();
     this.wish.getwishlistload().subscribe(() => {
@@ -88,26 +88,28 @@ export class ProductsComponent implements OnInit {
     this.loadcart();
     this.loadwish();
     this.loadcat();
+    // this.loadsubcat();
     this.jquery_code();
-    
+    this.loadsubcat();
+
   }
   jquery_code() { }
   loadbook() {
     this.newService.getBooks().pipe(
-      map((resp)=>{
+      map((resp) => {
         var book = resp.books
         for (let i = 0; i < book.length; i++) {
-        book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr']) 
-        book[i]['rate'] = Math.floor(book[i]['rate']) 
-        book[i]['weight'] = Math.floor(book[i]['weight']) 
-        book[i]['sale_disc_inr'] = Math.floor(book[i]['sale_disc_inr']) 
-        book[i]['sale_disc_per'] = Math.floor(book[i]['sale_disc_per'])
-        book[i]['discount_per'] = Math.floor(book[i]['discount_per']) 
-        book[i]['discount_rs'] = Math.floor(book[i]['discount_rs'])
-        book[i]['final_price'] = Math.floor(book[i]['final_price'])
-        book[i]['sale_rate'] = Math.floor(book[i]['sale_rate'])
-        book[i]['sale_price'] = Math.floor(book[i]['sale_price'])
-        book[0]['sale_price'] = 0 
+          book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
+          book[i]['rate'] = Math.floor(book[i]['rate'])
+          book[i]['weight'] = Math.floor(book[i]['weight'])
+          book[i]['sale_disc_inr'] = Math.floor(book[i]['sale_disc_inr'])
+          book[i]['sale_disc_per'] = Math.floor(book[i]['sale_disc_per'])
+          book[i]['discount_per'] = Math.floor(book[i]['discount_per'])
+          book[i]['discount_rs'] = Math.floor(book[i]['discount_rs'])
+          book[i]['final_price'] = Math.floor(book[i]['final_price'])
+          book[i]['sale_rate'] = Math.floor(book[i]['sale_rate'])
+          book[i]['sale_price'] = Math.floor(book[i]['sale_price'])
+          book[0]['sale_price'] = 0
         }
         return resp
       })
@@ -123,37 +125,119 @@ export class ProductsComponent implements OnInit {
       this.spinner.hide();
     });
   }
+
   loadcat() {
-    this.CatService.getCategoryById(this.route.snapshot.params._id).subscribe(
-      (res) => {
-        this.books$ = res;
-        if(this.books$.success == false || this.books$.totalBooks ==0){
-          this.loadsubcat()
-        }
-      console.log(this.books$)
-        if(this.books$.totalBooks!=0){this.spinner.hide()}
-      }
-    );
+    if (this.route.snapshot.params._id != undefined) {
 
+      this.CatService.getCategory().subscribe((data) => {
+        var cat: any = data;
+        // var id =  JSON.stringify(this.route.snapshot.params._id);
+        console.log(this.route.snapshot.params._id)
+        for (let i = 0; i < cat.length; i++) {
+          if (cat[i]['_id'] == this.route.snapshot.params._id) {
+            var id = this.route.snapshot.params._id
+            this.CatService.getCategoryById(id).subscribe((data) => {
+              this.books$ = data;
+              this.spinner.hide();
+              if (this.books$.totalBooks == 0) {
+                Swal.fire({
+                  title: 'No Books Are Available On This Category?',
+                  text: '',
+                  icon: 'info',
+                  showCancelButton: false,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Click Here!',
+                  cancelButtonText: 'No, Your Wish!'
+                }).then((result) => {
+                  if (result.value) {
+                    window.location.assign('/')
+                  }
+                })
+
+              }
+            },(error)=>{
+              if(error){
+                Swal.fire({
+                  title: 'Error Fething Category Books?',
+                  text: '',
+                  icon: 'error',
+                  showCancelButton: false,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Click Here!',
+                  cancelButtonText: 'No, Your Wish!'
+                }).then((result) => {
+                  if (result.value) {
+                    window.location.assign('/')
+                  }
+                }) 
+              }
+            })
+            console.log('found')
+            break;
+          }
+
+        }
+
+      })
+
+    }
   }
+  loadsubcat() {
+    if (this.route.snapshot.params._id != undefined) {
 
-  loadsubcat(){
-    this.CatService.getSubCatById(this.route.snapshot.params._id).subscribe(
-      (res) => {
-        this.books$ = res;
-        if(this.books$.success == false){
-          this.spinner.hide(); 
-          alert('nothing Available')
+      this.CatService.getallsub().subscribe((data) => {
+        var subcat: any = data
+        for (let i = 0; i < subcat.length; i++) {
+          if (subcat[i]['_id'] == this.route.snapshot.params._id) {
+            var id = this.route.snapshot.params._id
+            this.CatService.getSubCatById(id).subscribe((data) => {
+              this.books$ = data;
+              this.spinner.hide();
+              if (this.books$.totalBooks == 0) {
+                Swal.fire({
+                  title: 'No Books Are Available On This SubCategory?',
+                  text: '',
+                  icon: 'info',
+                  showCancelButton: false,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Click Here!',
+                  cancelButtonText: 'No, Your Wish!'
+                }).then((result) => {
+                  if (result.value) {
+                    window.location.assign('/')
+                  }
+                })
+
+              }
+            }, (error) => {
+              if (error) {
+                Swal.fire({
+                  title: 'Error Fething SubCategory Books?',
+                  text: '',
+                  icon: 'error',
+                  showCancelButton: false,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Click Here!',
+                  cancelButtonText: 'No, Your Wish!'
+                }).then((result) => {
+                  if (result.value) {
+                    window.location.assign('/')
+                  }
+                })
+              }
+            })
+            console.log('found')
+            break
+          }
         }
-      console.log(this.books$)
-        if(this.books$.totalBooks!=0){this.spinner.hide()}
-      },(error)=>{
-        if(error){
-          this.spinner.hide();
-          alert('nothisn')
-        }
-      }
-    );
+      })
+     
+    }
+
   }
   /* Set the width of the side navigation to 250px */
   public openNav() {
@@ -173,14 +257,14 @@ export class ProductsComponent implements OnInit {
     this.filter.priceDefine(modal).subscribe((res) => {
       this.books$ = res;
       console.log(this.books$)
-      if(this.books$.totalBooks!=0){this.spinner.hide()}
+      if (this.books$.totalBooks != 0) { this.spinner.hide() }
     });
   }
   filtersSort(variant: String) {
     this.filter.sortBy(variant).subscribe((res) => {
       this.books$ = res;
       console.log(this.books$)
-      if(this.books$.totalBooks!=0){this.spinner.hide()}
+      if (this.books$.totalBooks != 0) { this.spinner.hide() }
     });
   }
   onPageChange(page: number) {

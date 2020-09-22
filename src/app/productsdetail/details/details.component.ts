@@ -114,28 +114,32 @@ jequery_code(){
 
   }
 notify(){
-  
-  Swal.fire({
-    title: 'Want To Get Notified When Book Is Available?',
-    text: '',
-    icon: 'info',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, Click Here!',
-    cancelButtonText: 'No, Your Wish!'
-  }).then((result) => {
-    if (result.value) {
-      this.ngZone.run(
-        () => this.router.navigate(['/books'])
-      ).then();
-      Swal.fire(
-        'Wait For Email!',
-        'An Email Has Been Sent When Book is Available',
-        'success'
-      )
-    }
-  })
+  Swal.fire(
+    'Sorry This Book Is Book Is Out Of Stock!',
+    'Try Again After SomeTimes',
+    'success'
+  )
+  // Swal.fire({
+  //   title: 'Want To Get Notified When Book Is Available?',
+  //   text: '',
+  //   icon: 'info',
+  //   showCancelButton: true,
+  //   confirmButtonColor: '#3085d6',
+  //   cancelButtonColor: '#d33',
+  //   confirmButtonText: 'Yes, Click Here!',
+  //   cancelButtonText: 'No, Your Wish!'
+  // }).then((result) => {
+  //   if (result.value) {
+  //     this.ngZone.run(
+  //       () => this.router.navigate(['/books'])
+  //     ).then();
+  //     Swal.fire(
+  //       'Wait For Email!',
+  //       'An Email Has Been Sent When Book is Available',
+  //       'success'
+  //     )
+  //   }
+  // })
   
 }
   loadimg() {
@@ -154,7 +158,7 @@ notify(){
     //     img.splice(i, 1); i--;
     //   }
     // }
-    // this.bookimg.splice(0, this.bookimg.length)
+    this.bookimg.splice(0, this.bookimg.length)
     // this.bookimg = img
     // console.log(this.bookimg)
 
@@ -197,11 +201,12 @@ notify(){
   }
   addCart(details,_id, selling_price, weight) {
    
-    if(details.sale_price !=0 && details.sale_price !=null  ){
-      selling_price = details.sale_price
-    }
+   
     this.spinner.show();
     if (localStorage.getItem('User') != null) {
+      if(details.sale_price !=0 && details.sale_price !=null  ){
+        selling_price = details.sale_price
+      }
       this.cart.postProduct(_id, selling_price, weight).subscribe(() => {
         this.spinner.hide();
         this.cartbutton = true

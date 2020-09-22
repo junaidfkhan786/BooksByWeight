@@ -94,8 +94,10 @@ export class CartComponent implements OnInit {
         })
       ).subscribe((resp) => {
         this.book$ = resp;
-        this.cartitem = this.book$.cartItems[0].cart;
-        this.length = this.cartitem.length;
+        if (this.book$.cartItems.length > 0) {
+          this.cartitem = this.book$.cartItems[0].cart;
+          this.length = this.cartitem.length;
+        }
         this.spinner.hide();
       });
     } else {

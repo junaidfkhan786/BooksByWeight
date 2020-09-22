@@ -72,7 +72,6 @@ export class ProductsdetailComponent implements OnInit {
           data.books[0]['final_price'] = Math.floor(data.books[0]['final_price'])
           data.books[0]['sale_rate'] = Math.floor(data.books[0]['sale_rate'])
           data.books[0]['sale_price'] = Math.floor(data.books[0]['sale_price'])
-          // data.books[0]['quantity'] = 0
           return data
         })
       )
