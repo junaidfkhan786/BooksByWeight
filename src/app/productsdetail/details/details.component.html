@@ -2,7 +2,7 @@
   <div class="col-xs-12 col-md-6 col-lg-6">
     <div class="row g-0">
       <div class="col-md-3 p-1">
-        <div class="row g-1" style="padding-bottom: 5px;">
+        <div class="row g-1"  style="padding-bottom: 5px;">
           <ng-template [ngIf]="bookimg.length > 0">
             <div id="product-imgs">
               <div *ngFor="let t of bookimg" class="product-preview">
@@ -13,7 +13,7 @@
           <ng-template [ngIf]="bookimg.length === 0">
             <div id="product-imgs">
               <div class="product-preview">
-                <img [src]="details.book_img[0]" onerror="this.src='assets/images/altimg.png';" alt="">
+                <img src="../../../assets/images/1.jpeg" onerror="this.src='assets/images/altimg.png';" alt="">
               </div>
             </div>
           </ng-template>
@@ -23,7 +23,7 @@
         <div id="product-main-img">
           <ng-template [ngIf]="bookimg.length === 0">
             <div class="product-preview">
-              <img [src]="details.book_img[0]"  onerror="this.src='assets/images/altimg.png';" alt="">
+              <img src="../../../assets/images/1.jpeg"  onerror="this.src='assets/images/altimg.png';" alt="">
             </div>
           </ng-template>
           <ng-template [ngIf]="bookimg.length > 0">

@@ -4,6 +4,9 @@
 .color{
   color: #666666;
 }
+.slick-list .draggable{
+  height: 354.835px !important;
+}
 .btn{
   border-radius: 0;
 }
