@@ -83,7 +83,7 @@ export class AdminMainContentComponent implements OnInit {
     this.totalbook1 = $event;
   }
   loadbook() {
-    this.newService.getBooks().subscribe((data) => {
+    this.newService.getBooks(0).subscribe((data) => {
       this.book = data
       this.totalBooks = data.books.length;
     });
@@ -338,7 +338,7 @@ export class AdminMainContentComponent implements OnInit {
   }
   exportexcel(exceljson) {
     var date = new Date().toISOString();
-    
+
     // var name =
     //   ("00" + (date.getMonth() + 1)).slice(-2)
     //   + "/" + ("00" + date.getDate()).slice(-2)
@@ -350,7 +350,7 @@ export class AdminMainContentComponent implements OnInit {
     this.excelexp.exportExcel(exceljson, filename);
   }
 
-  
+
   addbulk(event) {
 
 this.excel = event.target.files[0]
