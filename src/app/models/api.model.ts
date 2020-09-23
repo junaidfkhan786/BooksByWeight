@@ -6,14 +6,14 @@ export const API_LIVE = "https://bbw-backend.herokuapp.com/api"
 
 
 export const httpOptions = {
-  
+
     headers: new HttpHeaders({
       'Content-Type':  'application/json'
     })
   }
 
 
- 
 
-  
+
+
 

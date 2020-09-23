@@ -33,7 +33,7 @@ export class DetailsComponent implements OnInit, AfterViewInit {
   selected: any;
   conditions: any = []
   ngOnInit() {
-    this.loadbook();
+    // this.loadbook();
     this.loadimg();
   }
 
@@ -73,17 +73,18 @@ jequery_code(){
         centerPadding: 0,
         vertical: true,
         asNavFor: '#product-main-img',
-        // responsive: [{
-        //   breakpoint: 991,
-        //   settings: {
-        //     vertical: true,
-        //     arrows: false,
-        //     dots: false,
-        //   }
-        // }
-        // ]
+        responsive: [{
+          breakpoint: 991,
+          settings: {
+            vertical: true,
+            arrows: false,
+            dots: false,
+          }
+        }
+        ]
       });
-      
+      this.spinner.hide();
+
     }, 2000);
 
   }
@@ -91,28 +92,28 @@ jequery_code(){
     window.location.assign('details/' + id)
     // this.router.navigate(['details/' + id]);
   }
-  loadbook() {
+  // loadbook() {
 
-    this.book.getBooks().pipe(
-      map((resp) => {
-        var samebook: any = []
-        var book = resp.books
-        for (let i = 0; i < book.length; i++) {
-          
-          if (book[i].Isbn_no == this.details.Isbn_no) {
-            samebook.push(book[i])
-          }
+  //   this.book.getBooks().pipe(
+  //     map((resp) => {
+  //       var samebook: any = []
+  //       var book = resp.books
+  //       for (let i = 0; i < book.length; i++) {
 
-        }
-        return samebook
-      })
-    ).subscribe((data) => {
+  //         if (book[i].Isbn_no == this.details.Isbn_no) {
+  //           samebook.push(book[i])
+  //         }
 
-      this.conditions = data
-      this.spinner.hide();
-    })
+  //       }
+  //       return samebook
+  //     })
+  //   ).subscribe((data) => {
 
-  }
+  //     this.conditions = data
+  //     this.spinner.hide();
+  //   })
+
+  // }
 notify(){
   Swal.fire(
     'Sorry This Book Is Book Is Out Of Stock!',
@@ -140,7 +141,7 @@ notify(){
   //     )
   //   }
   // })
-  
+
 }
   loadimg() {
     this.bookimg = this.details.book_img
@@ -200,8 +201,8 @@ notify(){
     });
   }
   addCart(details,_id, selling_price, weight) {
-   
-   
+
+
     this.spinner.show();
     if (localStorage.getItem('User') != null) {
       if(details.sale_price !=0 && details.sale_price !=null  ){

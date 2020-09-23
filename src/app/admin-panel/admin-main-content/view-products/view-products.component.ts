@@ -54,7 +54,7 @@ export class ViewProductsComponent implements OnInit {
     });
   }
   loadbook() {
-    this.newService.getBooks().subscribe((data) => {
+    this.newService.getBooks(0).subscribe((data) => {
       this.spinner.hide();
       this.book = data.books
       const pid = data.books;
@@ -79,7 +79,7 @@ export class ViewProductsComponent implements OnInit {
     this.formbutton = true
     this.div = true
     console.log(books)
-    
+
 
     this.productform.setValue({
       bookname: books.book_name,
@@ -145,7 +145,7 @@ export class ViewProductsComponent implements OnInit {
           this.urls.push(event.target.result)
         }
       }
-    
+
     }
 
 
@@ -166,7 +166,7 @@ export class ViewProductsComponent implements OnInit {
             this.product.book_img[i],
             this.product.book_img[i].name
           );
-          
+
         }
       }else{
         form.append(key, this.product[key]);

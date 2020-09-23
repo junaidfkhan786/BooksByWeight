@@ -28,7 +28,7 @@ export class ProductsComponent implements OnInit {
   book_sec = false;
   books$: any = [];
   totalBooks: number;
-  pages: number = 1;
+  pages: number;
   bookId: any;
   wish$: any = [];
   wid: any = {};
@@ -49,6 +49,7 @@ export class ProductsComponent implements OnInit {
   cartpid: any = {};
   cartpid1: any[] = [];
   token: string
+  config:any
   i: number
   constructor(
     private toastr: ToastrService,
@@ -62,8 +63,17 @@ export class ProductsComponent implements OnInit {
     private cart: CartService,
     private activatedRoute: ActivatedRoute,
     private ngZone: NgZone,
-  ) { }
+  ) {
+    this.config = {
+      currentPage: 1,
+      itemsPerPage: 20,
+      totalItems:''
+      };
+      route.queryParams.subscribe(
+      params => this.config.currentPage= params['page']?params['page']:1 );
+   }
   ngOnInit() {
+
     this.spinner.show()
     this.activatedRoute.params.subscribe(res => {
       this.token = res['token']
@@ -94,8 +104,16 @@ export class ProductsComponent implements OnInit {
 
   }
   jquery_code() { }
-  loadbook() {
-    this.newService.getBooks().pipe(
+  onPageChange(page: number) {
+    this.spinner.show();
+    this.router.navigate(['books/'], { queryParams: { page: page } });
+    this.loadbook(page)
+    window.scrollTo(0, 200);
+  }
+  loadbook(p) {
+    console.log(p)
+    console.log(this.config.currentPage)
+    this.newService.getBooks(p).pipe(
       map((resp) => {
         var book = resp.books
         for (let i = 0; i < book.length; i++) {
@@ -119,9 +137,8 @@ export class ProductsComponent implements OnInit {
       for (var { _id: id } of pid) {
         this.pid1.push(id);
       }
-      this.totalBooks = data.totalBooks;
-      console.log(this.totalBooks)
-      this.pages = 1;
+      console.log(data)
+      this.config.totalItems = this.books$.totalBooks;
       this.spinner.hide();
     });
   }
@@ -171,7 +188,7 @@ export class ProductsComponent implements OnInit {
                   if (result.value) {
                     window.location.assign('/')
                   }
-                }) 
+                })
               }
             })
             console.log('found')
@@ -235,7 +252,7 @@ export class ProductsComponent implements OnInit {
           }
         }
       })
-     
+
     }
 
   }
@@ -267,16 +284,24 @@ export class ProductsComponent implements OnInit {
       if (this.books$.totalBooks != 0) { this.spinner.hide() }
     });
   }
-  onPageChange(page: number) {
-    this.pages = page;
-    window.scrollTo(0, 520);
-  }
+
   loadfilter() {
     if (this.router.url == '/books/sortBy100/200') {
       this.filters(this.first);
     }
     if (this.router.url == '/books/sortBy200/300') {
       this.filters(this.second);
+    }
+      if (this.router.url == '/books' || this.router.url == '/books?page='+this.config.currentPage) {
+        var a = window.location.href
+        var b = a.substring(a.lastIndexOf('=') + 1);
+        console.log(b)
+        if(this.router.url == '/books'){
+          this.loadbook(1)
+        }else{
+          this.loadbook(b)
+        }
+
     }
     if (this.router.url == '/books/sortBy300/400') {
       this.filters(this.third);
@@ -286,9 +311,6 @@ export class ProductsComponent implements OnInit {
     }
     if (this.router.url == '/books/sortBy500') {
       this.filters(this.fifth);
-    }
-    if (this.router.url == '/books') {
-      this.loadbook();
     }
     if (this.router.url == '/books/sortByasc') {
       this.filtersSort(this.variant1);

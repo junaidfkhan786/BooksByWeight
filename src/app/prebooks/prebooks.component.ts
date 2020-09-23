@@ -44,6 +44,7 @@ export class PrebooksComponent implements OnInit {
   cartquantity1: any = [];
   cartpid: any = {};
   cartpid1: number[] = [];
+  config:any
   constructor(
     private toastr: ToastrService,
     private router: Router,
@@ -53,8 +54,15 @@ export class PrebooksComponent implements OnInit {
     private wish: WishlistService,
     private spinner: NgxSpinnerService,
     private cart: CartService
-  ) { }
-
+  ) {
+    this.config = {
+      currentPage: 1,
+      itemsPerPage: 20,
+      totalItems:''
+      };
+      route.queryParams.subscribe(
+      params => this.config.currentPage= params['page']?params['page']:1 );
+   }
   ngOnInit(): void {
     this.spinner.show();
     if (localStorage.getItem('User') != null) {
@@ -92,34 +100,41 @@ export class PrebooksComponent implements OnInit {
     }
   }
   jquery_code() { }
-  loadbook() {
-    this.newService.getPreBooks().pipe(
-      map((resp)=>{
+  onPageChange(page: number) {
+    this.spinner.show();
+    this.router.navigate(['/prebooks'], { queryParams: { page: page } });
+    this.loadbook(page)
+    window.scrollTo(0, 200);
+  }
+  loadbook(p) {
+    console.log(p)
+    console.log(this.config.currentPage)
+    this.newService.getPreBooks(p).pipe(
+      map((resp) => {
         var book = resp.books
         for (let i = 0; i < book.length; i++) {
-        book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr']) 
-        book[i]['rate'] = Math.floor(book[i]['rate']) 
-        book[i]['weight'] = Math.floor(book[i]['weight']) 
-        book[i]['sale_disc_inr'] = Math.floor(book[i]['sale_disc_inr']) 
-        book[i]['sale_disc_per'] = Math.floor(book[i]['sale_disc_per'])
-        book[i]['discount_per'] = Math.floor(book[i]['discount_per']) 
-        book[i]['discount_rs'] = Math.floor(book[i]['discount_rs'])
-        book[i]['final_price'] = Math.floor(book[i]['final_price'])
-        book[i]['sale_rate'] = Math.floor(book[i]['sale_rate'])
-        book[i]['sale_price'] = Math.floor(book[i]['sale_price'])
-          
+          book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
+          book[i]['rate'] = Math.floor(book[i]['rate'])
+          book[i]['weight'] = Math.floor(book[i]['weight'])
+          book[i]['sale_disc_inr'] = Math.floor(book[i]['sale_disc_inr'])
+          book[i]['sale_disc_per'] = Math.floor(book[i]['sale_disc_per'])
+          book[i]['discount_per'] = Math.floor(book[i]['discount_per'])
+          book[i]['discount_rs'] = Math.floor(book[i]['discount_rs'])
+          book[i]['final_price'] = Math.floor(book[i]['final_price'])
+          book[i]['sale_rate'] = Math.floor(book[i]['sale_rate'])
+          book[i]['sale_price'] = Math.floor(book[i]['sale_price'])
+          book[0]['sale_price'] = 0
         }
         return resp
       })
     ).subscribe((data) => {
       this.books$ = data;
-
       const pid = data.books;
       for (var { _id: id } of pid) {
         this.pid1.push(id);
       }
-      this.totalBooks = data.totalBooks;
-      this.pages = 1;
+      console.log(data)
+      this.config.totalItems = this.books$.totalBooks;
       this.spinner.hide();
     });
   }
@@ -155,10 +170,7 @@ export class PrebooksComponent implements OnInit {
       this.spinner.hide();
     });
   }
-  onPageChange(page: number = 1) {
-    this.pages = page;
-    window.scrollTo(0, 520);
-  }
+
   loadfilter() {
     if (this.router.url == '/prebooks/sortBy100/200') {
       this.filters(this.first);
@@ -176,9 +188,17 @@ export class PrebooksComponent implements OnInit {
     if (this.router.url == '/prebooks/sortBy500') {
       this.filters(this.fifth);
     }
-    if (this.router.url == '/prebooks') {
-      this.loadbook();
-    }
+    if (this.router.url == '/prebooks' || this.router.url == '/prebooks?page='+this.config.currentPage) {
+      var a = window.location.href
+      var b = a.substring(a.lastIndexOf('=') + 1);
+      console.log(b)
+      if(this.router.url == '/prebooks'){
+        this.loadbook(1)
+      }else{
+        this.loadbook(b)
+      }
+
+  }
     if (this.router.url == '/prebooks/sortByasc') {
       this.filtersSort(this.variant1);
     }

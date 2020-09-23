@@ -33,7 +33,7 @@ const routes: Routes = [
     path: '',
     component: HomeComponent
   },
- 
+
   {
     path: '404',
     component: ErrorComponent

@@ -1,6 +1,6 @@
 <!-- <div
   class="carousel" [flickity]="{'wrapAround': true, 'pageDots': false, 'adaptiveHeight': true}"
-  
+
 >
 <div class="carousel-cell">
     <div class="row">
@@ -42,51 +42,51 @@
  -->
 
  <owl-carousel-o [options]="customOptions"  #owlCar>
-    <ng-template carouselSlide>
-        <div class="slide">
-          <div class="row">
-            <div class="col-sm-6">
-              <img class="img-fluid" src="../../assets/images/1.jpeg" alt="" />
-            </div>
-            <div class="col-sm-6">
-              <div class="text-center animate__animated animate__fadeInUpBig" >
-                <h1 style="font-weight: bolder;">
-                  Pre-Owned
-                </h1>
-                <h1 style="color: red; font-weight: bold;">
-                  Collection
-                </h1>
-                <h1 style=" font-weight: bold;">
-                  Shop-Now
-                </h1>
-              </div>
-            </div>
+
+  <ng-template carouselSlide *ngIf="book1!=undefined">
+    <div class="slide">
+      <div class="row">
+        <div class="col-sm-6">
+          <img src="{{book1.book_img[0]}}" height="500" onerror="this.src='assets/images/altimg.png';" alt="BOOK_IMG">
+        </div>
+        <div class="col-sm-6">
+          <div class="text-center animate__animated animate__fadeInUpBig" >
+            <h1 style="font-weight: bolder;">
+              Pre-Owned
+            </h1>
+            <h1 style="color: red; font-weight: bold;">
+              Collection
+            </h1>
+            <h1 style=" font-weight: bold; margin-top: 100px;" class="org">
+              <a (click)="productHome(book1._id)" >Shop-Now</a>
+            </h1>
           </div>
         </div>
-    </ng-template>
-    <ng-template carouselSlide>
-        <div class="slide">
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="text-center animate__animated animate__fadeInUpBig animate__delay-3s"   >
-                <h1 style="font-weight: bolder;">
-                  Pre-Owned
-                </h1>
-                <h1 style="color: red; font-weight: bold;">
-                  Collection
-                </h1>
-                <h1 style=" font-weight: bold;">
-                  Shop-Now
-                </h1>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <img class="img-fluid"  src="../../assets/images/1.jpeg" alt="" />
-            </div>
-          </div>
+      </div>
+    </div>
+</ng-template>
+<ng-template carouselSlide *ngIf="book2!=undefined">
+  <div class="slide">
+    <div class="row">
+      <div class="col-sm-6">
+        <img src="{{book2.book_img[0]}}" height="500" onerror="this.src='assets/images/altimg.png';" alt="BOOK_IMG">
+      </div>
+      <div class="col-sm-6">
+        <div class="text-center animate__animated animate__fadeInUpBig" >
+          <h1 style="font-weight: bolder;">
+            Pre-Owned
+          </h1>
+          <h1 style="color: red; font-weight: bold;">
+            Collection
+          </h1>
+          <h1 style=" font-weight: bold; margin-top: 100px;" class="org">
+            <a (click)="productHome(book2._id)" >Shop-Now</a>
+          </h1>
         </div>
-    </ng-template>
-   
+      </div>
+    </div>
+  </div>
+</ng-template>
+
   </owl-carousel-o>
-  
-  
+

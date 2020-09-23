@@ -62,12 +62,12 @@ export class ProductsdetailComponent implements OnInit {
     this.newService
       .getDetailPackage(this.route.snapshot.params._id).pipe(
         map((data)=>{
-          data.books[0]['mrp_inr'] = Math.floor(data.books[0]['mrp_inr']) 
-          data.books[0]['rate'] = Math.floor(data.books[0]['rate']) 
-          data.books[0]['weight'] = Math.floor(data.books[0]['weight']) 
-          data.books[0]['sale_disc_inr'] = Math.floor(data.books[0]['sale_disc_inr']) 
+          data.books[0]['mrp_inr'] = Math.floor(data.books[0]['mrp_inr'])
+          data.books[0]['rate'] = Math.floor(data.books[0]['rate'])
+          data.books[0]['weight'] = Math.floor(data.books[0]['weight'])
+          data.books[0]['sale_disc_inr'] = Math.floor(data.books[0]['sale_disc_inr'])
           data.books[0]['sale_disc_per'] = Math.floor(data.books[0]['sale_disc_per'])
-          data.books[0]['discount_per'] = Math.floor(data.books[0]['discount_per']) 
+          data.books[0]['discount_per'] = Math.floor(data.books[0]['discount_per'])
           data.books[0]['discount_rs'] = Math.floor(data.books[0]['discount_rs'])
           data.books[0]['final_price'] = Math.floor(data.books[0]['final_price'])
           data.books[0]['sale_rate'] = Math.floor(data.books[0]['sale_rate'])

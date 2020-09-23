@@ -13,13 +13,8 @@ book:any = []
   ) { }
 
   ngOnInit(): void {
-    this.books.getBooks().subscribe((data) => {
-      this.book = data.books[0]
-      if(this.book){
-        console.log('books initiated')
-      }
-    })
-    
+
+
     this.jquery_code();
   }
   jquery_code() {

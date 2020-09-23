@@ -12,10 +12,10 @@ export class SearchService {
 
 
   constructor(private http: HttpClient) { }
-  public searched(query):Observable<any>{
-  
-  return this.http.get<any>(`${API_LIVE}`+"/search?searchKeyword="+query,httpOptions);
-  
+  public searched(query,page):Observable<any>{
+
+  return this.http.get<any>(`${API_LIVE}`+"/search?searchKeyword="+query+'&page='+page,httpOptions);
+
   }
 
 }

@@ -4,6 +4,12 @@
   }
 }
 
+@media only screen and (max-height: 900px) {
+ .r1{
+    height: 577.665px;
+  }
+}
+
 
 .gotoauthor:hover {
   cursor: pointer;

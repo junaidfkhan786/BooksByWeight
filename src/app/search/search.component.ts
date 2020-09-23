@@ -28,6 +28,7 @@ export class SearchComponent implements OnInit {
   wid: any = [];
   wid1: number [] = [];
   pages: number = 1;
+  config:any
   constructor(
     private activatedRoute: ActivatedRoute,
     private search: SearchService,
@@ -36,7 +37,15 @@ export class SearchComponent implements OnInit {
     private route: ActivatedRoute,
     private filter: FilterService,
     private wish: WishlistService,
-  ) { }
+  ) {
+    this.config = {
+      currentPage: 1,
+      itemsPerPage: 20,
+      totalItems:''
+      };
+      route.queryParams.subscribe(
+      params => this.config.currentPage= params['page']?params['page']:1 );
+   }
   ngOnInit() {
     this.Spinner.show()
 this.loadroute();
@@ -44,6 +53,51 @@ this.loadwish();
 this.jquery_code();
 this.loadfilter();
 }
+loadroute(){
+  this.activatedRoute.params.subscribe(res => {
+    this.query = res['query'];
+    this.getbooks();
+  });
+}
+
+onPageChange(page: number) {
+  this.Spinner.show()
+  this.router.navigate(['search/'+this.query], { queryParams: { page: page } });
+  this.getbooks()
+  window.scrollTo(0, 200);
+}
+    getbooks() {
+      console.log(this.query)
+      let res = this.search.searched(this.query,1);
+      res.pipe(
+        map((resp)=>{
+          var book = resp.books
+          console.log(book)
+          for (let i = 0; i < book.length; i++) {
+          book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
+          book[i]['rate'] = Math.floor(book[i]['rate'])
+          book[i]['weight'] = Math.floor(book[i]['weight'])
+          book[i]['sale_disc_inr'] = Math.floor(book[i]['sale_disc_inr'])
+          book[i]['sale_disc_per'] = Math.floor(book[i]['sale_disc_per'])
+          book[i]['discount_per'] = Math.floor(book[i]['discount_per'])
+          book[i]['discount_rs'] = Math.floor(book[i]['discount_rs'])
+          book[i]['final_price'] = Math.floor(book[i]['final_price'])
+          book[i]['sale_rate'] = Math.floor(book[i]['sale_rate'])
+          book[i]['sale_price'] = Math.floor(book[i]['sale_price'])
+          }
+          return resp
+        })
+      ).subscribe((resp)=>{
+          this.books = resp;
+          console.log(resp)
+          this.message = this.books.count;
+          this.config.totalItems = this.books.totalBooks
+          this.count = this.books.count
+          console.log(this.count)
+          this.Spinner.hide()
+
+      })
+    }
 jquery_code() {}
 
 /* Set the width of the side navigation to 250px */
@@ -70,10 +124,7 @@ this.filter.sortBy(variant).subscribe((res) => {
   this.books = res;
 });
 }
-onPageChange(page: number = 1) {
-this.pages = page;
-window.scrollTo(0, 520);
-}
+
 loadfilter() {
 if (this.router.url == '/books/sortBy100/200') {
   this.filters(this.first);
@@ -132,39 +183,6 @@ this.wish.getwish().subscribe((data) => {
   }
 });
 }
-  loadroute(){
-    this.activatedRoute.params.subscribe(res => {
-      this.query = res['query'];
-      this.getbooks();
-    });
-  }
-  getbooks() {
-    let res = this.search.searched(this.query);
-    res.pipe(
-      map((resp)=>{
-        var book = resp.books
-        console.log(book)
-        for (let i = 0; i < book.length; i++) {
-        book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr']) 
-        book[i]['rate'] = Math.floor(book[i]['rate']) 
-        book[i]['weight'] = Math.floor(book[i]['weight']) 
-        book[i]['sale_disc_inr'] = Math.floor(book[i]['sale_disc_inr']) 
-        book[i]['sale_disc_per'] = Math.floor(book[i]['sale_disc_per'])
-        book[i]['discount_per'] = Math.floor(book[i]['discount_per']) 
-        book[i]['discount_rs'] = Math.floor(book[i]['discount_rs'])
-        book[i]['final_price'] = Math.floor(book[i]['final_price'])
-        book[i]['sale_rate'] = Math.floor(book[i]['sale_rate'])
-        book[i]['sale_price'] = Math.floor(book[i]['sale_price'])
-        }
-        return resp
-      })
-    ).subscribe((resp)=>{
-        this.books = resp;
-        this.message = this.books.count;
-        this.count = this.books.books.length
-        console.log(this.count)
-        this.Spinner.hide()
 
-    })   
-  }
+
 }

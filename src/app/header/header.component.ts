@@ -57,7 +57,7 @@ export class HeaderComponent implements OnInit {
 
     }
     this.jquery_code();
-  
+
   }
   loadwish() {
     this.wish.getwish().subscribe((data) => {
