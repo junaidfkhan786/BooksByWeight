@@ -158,7 +158,7 @@ notify(){
     //     img.splice(i, 1); i--;
     //   }
     // }
-    this.bookimg.splice(0, this.bookimg.length)
+    // this.bookimg.splice(0, this.bookimg.length)
     // this.bookimg = img
     // console.log(this.bookimg)
 

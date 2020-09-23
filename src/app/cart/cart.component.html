@@ -1,45 +1,47 @@
-<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="line-scale-pulse-out" [fullScreen]="true">
-  <p style="color: white"> Loading... </p>
-</ngx-spinner>
-<div class="p-2">
-  <div class="section1">
-
-    <app-header></app-header>
-
-    <div class="bg-image" style="position: relative;
-          text-align: center;">
-      <div style="  position: absolute;
-              top: 50%;
-              left: 50%;
-              transform: translate(-50%, -50%); font-size: xx-large;" class="org">
-        BOOKS <br><br>
-        Home / Cart
+<div class="d-none d-sm-block d-md-block d-lg-block">
+  <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="line-scale-pulse-out" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+  </ngx-spinner>
+  <div class="p-2">
+    <div class="section1">
+  
+      <app-header></app-header>
+  
+      <div class="bg-image" style="position: relative;
+            text-align: center;">
+        <div style="  position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%); font-size: xx-large;" class="org">
+          BOOKS <br><br>
+          Home / Cart
+        </div>
+  
       </div>
-
-    </div>
-    <div *ngIf="cartitem.length > 0">
-      <div *ngFor="let item of book$.cartItems">
-
-        <app-cart-items [productItem]="item"></app-cart-items>
-
+      <div *ngIf="cartitem.length > 0">
+        <div *ngFor="let item of book$.cartItems">
+  
+          <app-cart-items [productItem]="item"></app-cart-items>
+  
+        </div>
+      </div>
+  
+      <div class="row  d-flex justify-content-center" style="height: 500px;" *ngIf="cartitem.length == 0">
+        <div style="width: 50%; height: 80%; top: 80px; background-color: #212529; color: white; "
+          class="card shadow-bottom align-middle">
+          <h5 style="margin-top: 7%;" class="text-center card-title"><span style="font-size: 3rem;">Your Cart Is
+              Empty</span>
+            <br> <br> YOU DONT HAVE ANY BOOK ADDED IN YOUR CART</h5>
+          <a href="/books" style="text-decoration: none; color: white; cursor: pointer;"
+            class="d-flex justify-content-center org "> CLick Here To Add It </a>
+          <span class="material-icons d-flex justify-content-center">
+            touch_app
+          </span>
+        </div>
       </div>
     </div>
-
-    <div class="row  d-flex justify-content-center" style="height: 500px;" *ngIf="cartitem.length == 0">
-      <div style="width: 50%; height: 80%; top: 80px; background-color: #212529; color: white; "
-        class="card shadow-bottom align-middle">
-        <h5 style="margin-top: 7%;" class="text-center card-title"><span style="font-size: 3rem;">Your Cart Is
-            Empty</span>
-          <br> <br> YOU DONT HAVE ANY BOOK ADDED IN YOUR CART</h5>
-        <a href="/books" style="text-decoration: none; color: white; cursor: pointer;"
-          class="d-flex justify-content-center org "> CLick Here To Add It </a>
-        <span class="material-icons d-flex justify-content-center">
-          touch_app
-        </span>
-      </div>
+    <div class="stickyfooter">
+      <app-footer></app-footer>
     </div>
-  </div>
-  <div class="stickyfooter">
-    <app-footer></app-footer>
   </div>
 </div>

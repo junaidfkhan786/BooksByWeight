@@ -1,4 +1,5 @@
-import { Component, OnInit, ErrorHandler } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Component, OnInit, ErrorHandler, ViewChild } from '@angular/core';
 import { CategoryService } from 'src/app/services/category.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -18,6 +19,7 @@ export class AddCatSubcatComponent implements OnInit {
   pages: number = 1
   cat: any = []
   sub: any = []
+  btnsubadd:boolean= true
   catdata = {
     category: "",
     icon_name:"",
@@ -35,6 +37,7 @@ export class AddCatSubcatComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.btnsubadd = false
     this.catdata.icon_name = null
     this.selected = null
     this.spinner.show();
@@ -55,7 +58,46 @@ export class AddCatSubcatComponent implements OnInit {
 
     })
   }
+showsub(){
+  this.btnsubadd = !this.btnsubadd
+}
+submitsub(catids,value){
+if(value != ""){
+this.spinner.show();
+  console.log(value)
+  this.subcats.name = value
+  this.allcat.postsubcategory(this.subcats).subscribe((data)=>{
+    var subid = data.category._id
+    var catid = catids
+    this.allcat.subcattocat(catid,subid).subscribe((data)=>{
+      console.log(data)
+      this.spinner.hide()
+      this.btnsubadd = !this.btnsubadd
+      this.toastr.success("SubCategory Added To Category Successfuly", 'BooksByWeight', {
+        timeOut: 2000,
+      });
+    })
+    
 
+  })
+}else{
+  this.toastr.error("Please Fill All Details Correctly", 'BooksByWeight', {
+    timeOut: 2000,
+  });
+}
+}
+
+delsubcattocat(catids,value){
+  this.spinner.show();
+  console.log(catids,value)
+  this.allcat.subcattocatdel(catids,value).subscribe((data)=>{
+    console.log(data)
+    this.spinner.hide()
+    this.toastr.success("SubCategory Deleted From Category Successfuly", 'BooksByWeight', {
+      timeOut: 2000,
+    });
+  })
+}
   buttondisabled(){
     $('.sub').attr('disabled', true);
     $('.subcat').keyup(function () {

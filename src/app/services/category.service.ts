@@ -45,7 +45,22 @@ export class CategoryService {
       })
     );
   }
-  
+  public subcattocat(catid,subid):Observable<any>{
+    return this._http.post<any>(`${API_LIVE}`+ "/categories/"+ catid+'?subcatId='+subid,httpOptions)
+    .pipe(
+      tap(() => {
+        this.categoryload.next();
+      })
+    );
+  }
+  public subcattocatdel(catid,subid):Observable<any>{
+    return this._http.delete<any>(`${API_LIVE}`+ "/categories/"+ catid+'?subcatId='+subid,httpOptions)
+    .pipe(
+      tap(() => {
+        this.categoryload.next();
+      })
+    );
+  }
   public  getallsub() {
     return this._http.get(`${API_LIVE}`+"/subcategory");
   }
