@@ -5,8 +5,8 @@
         <div class="row g-1 r1 d-none d-sm-block d-md-block d-lg-block"  style="padding-bottom: 5px;">
           <ng-template [ngIf]="bookimg.length > 0">
             <div id="product-imgs">
-              <div *ngFor="let t of bookimg" class="product-preview">
-                <img [src]="t" onerror="this.src='assets/images/altimg.png';" alt="">
+              <div *ngFor="let t of bookimg" class="product-preview p-2">
+                <img [src]="t" height="160px" onerror="this.src='assets/images/altimg.png';" alt="">
               </div>
             </div>
           </ng-template>
@@ -28,7 +28,7 @@
           </ng-template>
           <ng-template [ngIf]="bookimg.length > 0">
             <div class="product-preview" *ngFor="let t of bookimg">
-              <img [src]="t"  onerror="this.src='assets/images/altimg.png';" alt="">
+              <img [src]="t" height="600px" onerror="this.src='assets/images/altimg.png';" alt="">
             </div>
           </ng-template>
         </div>
@@ -139,30 +139,6 @@
         </div>
 
 
-
-
-        <!-- <div *ngIf="details.sale_rate !='' ">
-          <b>sale rate:</b> <span>{{ details.sale_rate | currency:'INR' }}</span>
-          <br />
-        </div>
-        <div *ngIf="details.sale_price !='' ">
-          <b>sale price:</b> <span>{{ details.sale_price | currency:'INR' }}</span>
-          <br />
-        </div>
-        <div *ngIf="details.discount_per !='' ">
-          <b>Discount per:</b> <span>{{ details.discount_per }}%</span>
-          <br />
-        </div>
-        <div *ngIf="details.discount_rs !='' ">
-          <b>Discount Rs:</b> <span>{{ details.discount_rs | currency:'INR'}}</span>
-          <br />
-        </div>
-
-        <br />
-        <div *ngIf="details.sale_price !=null && details.sale_price !=0" style="color: blue; font-size: 2rem;">
-          <b>Sale Price: &#8377;{{ details.sale_price}} </b>
-        </div>
-        <br /> -->
         <div class="mt-2">Quantity: {{ details.quantity }}</div>
         <br />
         <div class="row gy-2">

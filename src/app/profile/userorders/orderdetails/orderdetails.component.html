@@ -2,17 +2,15 @@
     <p style="color: white"> Loading order detils... </p>
 </ngx-spinner>
 
-
-<button (click)="generatePDF()"> click</button>
-<div class="page">
+<div class="page" id="wrapper">
   <div class="page-content">
     <div class="ml-5 mr-5" id="contentToConvert">
         <div class="d-flex justify-content-center">
-            <h1 class="mt-5" style="font-size: 3rem;">BooksByWeight</h1>
+            <h1 class="mt-5" style="font-size: 3rem;">@ButterflyBooks</h1>
         </div>
         <hr style="border:2px solid">
         <div class="d-flex justify-content-center">
-            <h1 style="font-size: 2rem;">INVOICE</h1>
+            <h1 style="font-size: 2rem;">BooksByWeight</h1>
         </div>
         <hr style="border:2px solid">
         <div class="row">
@@ -28,13 +26,13 @@
         </div>
         <div class="row">
             <div class="col">
-    
+
                 <span>{{address.fullname}}</span> <br>
                 <span>{{address.city}}</span> <br>
                 <span>{{address.state}}</span> <br>
                 <span>{{address.pincode}}</span> <br>
                 PH: &nbsp;<span>{{address.mobilenumber}}</span> <br>
-    
+
             </div>
             <div class="col">
                 <span>BooksByWeight</span> <br>
@@ -50,7 +48,7 @@
                 <B>PAYMENT ID:</B> &nbsp; {{paymentid}} <br>
                 <span *ngIf="paymentmethod == true"><B>PAYMENT METHOD:</B> &nbsp; PREPAID </span><br>
                 <span *ngIf="paymentmethod == false"><B>PAYMENT METHOD:</B> &nbsp; COD</span> <br>
-    
+
             </div>
         </div> <br>
         <hr style="border:2px solid">
@@ -59,7 +57,7 @@
                 <tr>
                     <th scope="col">Sr No</th>
                     <th scope="col">BOOK NAME</th>
-                    <th scope="col">QUANTITY </th>
+                    <th scope="col">QTY </th>
                     <th scope="col">UNIT PRICE</th>
                     <th scope="col">TOTAL WITH GST </th>
                 </tr>
@@ -70,31 +68,31 @@
                     {{i+1}}
                 </td>
                 <td>
-                    {{order.name}}
+                    {{order.name | truncate:60}}
                 </td>
                 <td>
                     {{order.units}}
                 </td>
                 <td>
-                    5000
+                    {{order.selling_price | number}}
                 </td>
                 <td>
-                    1000
+                  {{order.units * order.selling_price | number}}
                 </td>
               </tr>
-     
-         
+
+
             </tbody>
         </table>
     <div class="d-flex justify-content-center">
         <span>
-            NET TOTAL( IN VALUE ) Rs. {{5000}}
+            NET TOTAL( IN VALUE ) Rs. {{amount|number}}
         </span>
     </div>
     <hr>
-    
+
     <div class="card" style="height: 100px; width: 400px;">
-    
+
     </div>
     <b>
         Authorised Signature For BooksByWeight

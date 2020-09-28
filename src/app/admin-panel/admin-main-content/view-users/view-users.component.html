@@ -1,89 +1,100 @@
-<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="line-scale-pulse-out" [fullScreen]="false">
-    <p style="color: white"> Loading... </p>
-  </ngx-spinner>
- 
-  <div class="d-flex justify-content-end mb-1">
-    <div class="input-group " style="width: 50%;" >
-        <span class="input-group-text"  style="background-color: #212529; color: white;">Search : </span>
-        <input type="text"  [(ngModel)]="usersearch" aria-label="Search" class="form-control">
-       
-      </div>
+
+<app-admin-header></app-admin-header>
+<div class="row g-0">
+    <div class="col-lg-3" [hidden]="opened">
+        <app-admin-sidebar></app-admin-sidebar>
     </div>
-    <table class="table  table-dark table-striped table-hover" *ngIf="count >= 0">
-        <thead class="table-dark">
-            <tr>
-                <!-- <th scope="col">
-                Select All &nbsp; <input class="form-check-input" type="checkbox" value="" >
-                </th> -->
-                <th scope="col">Sr No</th>
-                <th scope="col">Name</th>
-                <th scope="col">Registration Type</th>
-                <th scope="col">Email</th>
-                <th scope="col">PhoneNumber</th>
-                <th scope="col">Delete</th>
-            </tr>
-        </thead>
-        <tbody class="align-middle">
-            <ng-container *ngIf="( user1 | adminUser: usersearch) as result">
-                <tr *ngFor="let user of result | paginate: {  itemsPerPage: 5, currentPage: pages, totalItems: i}; let i = index ">
-                    <!-- <td >
-                        <input class="form-check-input" type="checkbox" value="">
-                    </td> -->
-                    <td>{{ 5 * (pages - 1) + i + 1 }}</td>
-                    <td >{{user.name}}</td>
-                    <td>{{user.methods}}</td>
-                    <td >{{user.email}}</td>
-                    <td>{{user.phonenumber}}</td>
-                   
-                    <td><button *ngIf="user.isActive" (click)="block(user._id)" class="btn btn-danger" style="border-radius: 0;">
-                            Block
-                        </button>
-                        <button  *ngIf="!user.isActive"  (click)="unblock(user._id)" class="btn btn-danger" style="border-radius: 0;">
-                            UnBlock
-                        </button>
-                    </td>
-    
-                </tr>
-                <p class="mt-2"
-                 style="color: black; font-size: 3rem;" *ngIf="result.length === 0">No Result Found</p> 
-            </ng-container>
+    <div class="col p-2">
+      <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="line-scale-pulse-out" [fullScreen]="false">
+        <p style="color: white"> Loading... </p>
+      </ngx-spinner>
 
-        </tbody>
-    </table>
+      <div class="d-flex justify-content-end mb-1">
+        <div class="input-group " style="width: 50%;" >
+            <span class="input-group-text"  style="background-color: #212529; color: white;">Search : </span>
+            <input type="text"  [(ngModel)]="usersearch" aria-label="Search" class="form-control">
 
-    <!-- <div class="row g-2">
-        <div class="col-xs-12 col-sm-4 col-md-3"  *ngFor="let user of user2 |  paginate: {  itemsPerPage: 5, currentPage: pages, totalItems: i}; let i = index">
-            <div class="card shadow-sm">
-                <div class="image position-relative;" style="cursor: pointer;">
-                  <img src="../../../../../../assets/images/altimg.png"  class="img-fluid bg-light"/>
-                  <div class="d-flex align-items-center justify-content-center hover-overlay">
-                    <button type="button" class="btn btn-primary">View</button>
-                  </div>
-                </div>
-               
-                <div class="card-body d-flex flex-column">
-                 
-                    <h6 class="text-uppercase">hjhh</h6>
-            
-                 </div>
-              </div>
+          </div>
         </div>
-    </div> -->
+        <table class="table  table-dark table-striped table-hover" *ngIf="count >= 0">
+            <thead class="table-dark">
+                <tr>
+                    <!-- <th scope="col">
+                    Select All &nbsp; <input class="form-check-input" type="checkbox" value="" >
+                    </th> -->
+                    <th scope="col">Sr No</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Registration Type</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">PhoneNumber</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody class="align-middle">
+                <ng-container *ngIf="( user1 | adminUser: usersearch) as result">
+                    <tr *ngFor="let user of result | paginate: {  itemsPerPage: 5, currentPage: pages, totalItems: i}; let i = index ">
+                        <!-- <td >
+                            <input class="form-check-input" type="checkbox" value="">
+                        </td> -->
+                        <td>{{ 5 * (pages - 1) + i + 1 }}</td>
+                        <td >{{user.name}}</td>
+                        <td>{{user.methods}}</td>
+                        <td >{{user.email}}</td>
+                        <td>{{user.phonenumber}}</td>
 
-<pagination-controls class="d-flex justify-content-center" directionLinks="true"
+                        <td><button *ngIf="user.isActive" (click)="block(user._id)" class="btn btn-danger" style="border-radius: 0;">
+                                Block
+                            </button>
+                            <button  *ngIf="!user.isActive"  (click)="unblock(user._id)" class="btn btn-danger" style="border-radius: 0;">
+                                UnBlock
+                            </button>
+                        </td>
 
-(pageChange)="onPageChange($event)"
-    autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next">
-</pagination-controls> 
+                    </tr>
+                    <p class="mt-2"
+                     style="color: black; font-size: 3rem;" *ngIf="result.length === 0">No Result Found</p>
+                </ng-container>
+
+            </tbody>
+        </table>
+
+        <!-- <div class="row g-2">
+            <div class="col-xs-12 col-sm-4 col-md-3"  *ngFor="let user of user2 |  paginate: {  itemsPerPage: 5, currentPage: pages, totalItems: i}; let i = index">
+                <div class="card shadow-sm">
+                    <div class="image position-relative;" style="cursor: pointer;">
+                      <img src="../../../../../../assets/images/altimg.png"  class="img-fluid bg-light"/>
+                      <div class="d-flex align-items-center justify-content-center hover-overlay">
+                        <button type="button" class="btn btn-primary">View</button>
+                      </div>
+                    </div>
+
+                    <div class="card-body d-flex flex-column">
+
+                        <h6 class="text-uppercase">hjhh</h6>
+
+                     </div>
+                  </div>
+            </div>
+        </div> -->
+
+    <pagination-controls class="d-flex justify-content-center" directionLinks="true"
+
+    (pageChange)="onPageChange($event)"
+        autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next">
+    </pagination-controls>
 
 
 
-<div class="row  d-flex justify-content-center" style="height: 500px;" *ngIf="count == 0">
-    <div style="width: 50%; height: 50%; top: 80px; background-color: #212529; color: white; " class="card shadow-bottom align-middle">
-        <h5 style="margin-top: 15%;"  class="text-center card-title">YOU HAVE NO PRODUCT ADDED</h5>
-        <a style="text-decoration: none; color: white; cursor: pointer;" class="d-flex justify-content-center org "> CLick Here To Add It </a>
-        <span class="material-icons d-flex justify-content-center">
-            touch_app
-            </span>
+    <div class="row  d-flex justify-content-center" style="height: 500px;" *ngIf="count == 0">
+        <div style="width: 50%; height: 50%; top: 80px; background-color: #212529; color: white; " class="card shadow-bottom align-middle">
+            <h5 style="margin-top: 15%;"  class="text-center card-title">YOU HAVE NO PRODUCT ADDED</h5>
+            <a style="text-decoration: none; color: white; cursor: pointer;" class="d-flex justify-content-center org "> CLick Here To Add It </a>
+            <span class="material-icons d-flex justify-content-center">
+                touch_app
+                </span>
+        </div>
+    </div>
     </div>
 </div>
+
+

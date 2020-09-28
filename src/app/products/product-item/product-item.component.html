@@ -17,7 +17,7 @@
                 add_shopping_cart &nbsp;
               </span>
              </a>
-             
+
           <a *ngIf="cartbutton" >
             <span (click)="gotocart()" class="material-icons org wish">
               add_shopping_cart &nbsp;
@@ -28,7 +28,7 @@
             favorite_border
           </span>
         </a>
-      
+
         <a *ngIf="addedToWishlist"><span (click)="deletePro(productItem._id)" class="material-icons org wish">
             favorite
           </span>
@@ -40,13 +40,13 @@
     </div>
   </div>
 
-  <div class="text-center" style="text-align: center; padding: 0px 20px 0px 20px; white-space: nowrap;overflow: hidden; text-overflow: ellipsis;">
+  <div class="text-center" style="margin-top: -20px !important; text-align: center; padding: 0px 20px 0px 20px; white-space: nowrap;overflow: hidden; text-overflow: ellipsis;">
     {{productItem.book_name}}
     <br>
   </div>
   <div class="text-center">
     <s style="color: rgba(107, 105, 105, 0.61);">&#8377;
-      {{productItem.mrp_inr}}
+      {{productItem.mrp_inr | number}}
     </s> &nbsp;
     <span *ngIf="productItem.sale_price == null || productItem.sale_price == 0;else final" style="color:red">&#8377;
       {{productItem.final_price}}Rs

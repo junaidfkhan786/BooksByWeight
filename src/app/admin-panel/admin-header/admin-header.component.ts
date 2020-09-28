@@ -3,6 +3,7 @@ import * as jwt_decode from 'jwt-decode';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AdminLoginService } from 'src/app/services/admin-login.service';
 
 @Component({
   selector: 'app-admin-header',
@@ -17,21 +18,21 @@ export class AdminHeaderComponent implements OnInit {
   constructor(
     private toastr: ToastrService,
     private router: Router,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private toggle:AdminLoginService
   ) { }
   opened: boolean;
 
   @Output() openedevent = new EventEmitter<boolean>()
   ngOnInit() {
-
+    this.opened = false
     this.isLogin();
 
   }
 
   togglesidebar() {
-
-    this.openedevent.emit(this.opened = !this.opened)
-
+    var a:boolean = this.opened = !this.opened
+    this.toggle.opensidebar.next(a)
 
   }
 

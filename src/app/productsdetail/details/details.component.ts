@@ -227,8 +227,8 @@ notify(){
 
   }
   gotoauthorsearch(authorname){
-    var querys = authorname + "&author_name=1";
-    this.router.navigate(['/search', { query:querys }]);
+    var _id = authorname + "&author_name=1";
+    this.router.navigate(['search/'+ _id]);
   }
   gotocart() {
 

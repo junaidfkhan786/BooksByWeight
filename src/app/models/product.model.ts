@@ -6,9 +6,13 @@ export class Product{
     Isbn_no: string;
     condition : string;
     description : string;
-    dimensions : string; 
+    dimensions : string;
     language : string;
-    mrp : number;
+    mrp_inr : number;
+    mrp_dollar : number;
+    mrp_euro : number;
+    mrp_aus_dollar: number;
+    mrp_pound : number;
     no_Of_pages: number;
     print_type : string;
     publication_year : string;
@@ -17,7 +21,8 @@ export class Product{
     sale_price : number;
     saved_price: number;
     selling_price : number;
-    weight : number;
+    weight : string;
     sku:string;
-    categories: string = "5f3e5e840ea9ea23b901b5fd";
+    categories: string;
+    subcategories:string
 }

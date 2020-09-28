@@ -13,18 +13,18 @@ export class AdminOrdersService {
     private http : HttpClient,
     private order : OrdersService
   ) {   }
-  
-  
+
+
   totalorders = new BehaviorSubject<any>("loading...");
 
-  public getallorders():Observable<any> {
+  public getallorders(page):Observable<any> {
 
-  return this.http.get<any>(`${API_LIVE}`+"/order/getallorders");
-      
+  return this.http.get<any>(`${API_LIVE}`+"/order/getallorders?page="+page);
+
 
 
   }
 
 
- 
+
 }

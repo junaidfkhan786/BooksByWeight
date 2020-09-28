@@ -19,6 +19,7 @@ export class OrderdetailsComponent implements OnInit {
   orderdetail: any
   orderid: any;
   i: number
+  amount:number
   constructor(
     private order: OrdersService,
     private route: ActivatedRoute,
@@ -49,7 +50,7 @@ export class OrderdetailsComponent implements OnInit {
             orders[i].bookdetail['units'] = orders[i]['units']
             delete orders[i]['units']
             orders[i]['name'] = orders[i].bookdetail['name']
-            orders[i]['selling_price'] = orders[i].bookdetail['selling_price']
+            orders[i]['selling_price'] = orders[i].bookdetail['final_price']
             orders[i]['sku'] = orders[i].bookdetail['sku']
             orders[i]['units'] = orders[i].bookdetail['units']
             orders[i]['weight'] = orders[i].bookdetail['weight']
@@ -69,7 +70,10 @@ export class OrderdetailsComponent implements OnInit {
         this.paymentid = this.orderdetail[0].paymentid
         this.orderid = this.orderdetail[0].orderid
         this.paymentmethod = this.orderdetail[0].isPaymentCompleted
+        this.amount = this.orderdetail[0].amount
+
         console.log(this.order_items);
+
         this.spinner.hide();
         // setTimeout(() => {
         //   this.generatePDF();
@@ -89,11 +93,8 @@ export class OrderdetailsComponent implements OnInit {
       let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF
       var position = 0;
       pdf.addImage(contentDataURL, 'PNG', 5, position, imgWidth, imgHeight)
-      var p = pdf.output()
-      var file = new Blob([p],{type:'application/pdf'})
-      var fileURL = URL.createObjectURL(file);
-      window.open(fileURL); 
-      // pdf.save(this.orderid + '.pdf'); // Generated PDF
+
+      pdf.save(this.orderid + '.pdf'); // Generated PDF
       this.spinner.hide();
     });
   }

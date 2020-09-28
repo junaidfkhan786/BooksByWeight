@@ -21,11 +21,11 @@ export class CategoryService {
 
 
   }
-  public  getCategoryById(_id) {
-    return this._http.get(`${API_LIVE}`+"/book/categories/" + _id);
+  public  getCategoryById(_id,page) {
+    return this._http.get(`${API_LIVE}`+"/book/categories/" + _id+'?page='+page);
   }
-  public  getSubCatById(_id) {
-    return this._http.get(`${API_LIVE}`+"/book/subcategory/" + _id);
+  public  getSubCatById(_id,page) {
+    return this._http.get(`${API_LIVE}`+"/book/subcategory/" + _id+'?page='+page);
   }
   public postcategory(categories):Observable<any>{
     console.log(categories)

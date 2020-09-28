@@ -96,7 +96,7 @@
             </div>
             <div class="col-6" *ngIf="count > 0">
               <h3 class="text-right">
-                <a style="text-decoration: none;" class="org">{{message +'' + 'Result Found'}}</a></h3>
+                <a style="text-decoration: none;" class="org">{{message }}</a></h3>
             </div>
             <!-- <div class="col-4">
               <h3 class="text-right" *ngIf="count > 0">
@@ -106,7 +106,7 @@
             </div> -->
           </div>
 
-            <div class="col-xs-12 col-sm-4 col-md-3" *ngFor="let book of books.books | paginate:config ">
+            <div class="col-xs-12 col-sm-4 col-md-3" *ngFor="let book of books.books | paginate:config">
 
 
               <app-searchitem [searchItem]="book" [addedToWishlist]="wid1.indexOf(books._id) >= 0 ">
@@ -118,7 +118,7 @@
         </div>
       </div>
       <br>
-      <div class="card p-3 btc" *ngIf="count > 0">
+      <div class="card p-3 btc">
 
         <pagination-controls class="d-flex justify-content-center" directionLinks="true"
           (pageChange)="onPageChange($event)" autoHide="true" responsive="true" previousLabel="Previous"
@@ -129,7 +129,7 @@
       <div class="row  d-flex justify-content-center" style="height: 200px;" *ngIf="count == 0">
         <div style="width: 50%; height: 50%; top: 0px; background-color: #212529; color: white; "
           class="card shadow-box align-middle">
-          <h5 style="margin-top: 3%;" class="text-center card-title"><span style="font-size: 3rem;">{{message + 'Result Found'}}</span>
+          <h5 style="margin-top: 3%;" class="text-center card-title"><span style="font-size: 3rem;">{{message}}</span>
           </h5>
 
         </div>

@@ -21,7 +21,7 @@ export class ViewOrdersComponent implements OnInit {
   }
 
   GetAllOrders() {
-    this.allorders.getallorders().subscribe(
+    this.allorders.getallorders(1).subscribe(
       (orders) => {
         this.orders$ = orders
         this.orderslength = orders.length

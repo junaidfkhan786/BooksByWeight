@@ -63,7 +63,6 @@ import { NewbooksitemComponent } from './newbooks/newbooksitem/newbooksitem.comp
 import { PrebooksComponent } from './prebooks/prebooks.component';
 import { PrebookitemsComponent } from './prebooks/prebookitems/prebookitems.component';
 import {AuthGuard} from 'src/app/auth.guard'
-import { AvatarModule } from 'ngx-avatar';
 import { ViewOrdersComponent } from './admin-panel/admin-main-content/view-orders/view-orders.component';
 import { AddCatSubcatComponent } from './admin-panel/admin-main-content/add-cat-subcat/add-cat-subcat.component';
 import { AdminCategoryPipe } from './pipes/admin-category.pipe';
@@ -79,7 +78,9 @@ import { AdminCreateComponent } from './admin-panel/admin-main-content/admin-cre
 import {NumberDirective} from './directives/numbersonly.directive';
 import { OrderdetailsComponent } from './profile/userorders/orderdetails/orderdetails.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
-import { ErrorComponent } from './error/error.component'
+import { ErrorComponent } from './error/error.component';
+import { CountcardsComponent } from './admin-panel/admin-main-content/countcards/countcards.component'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -138,10 +139,11 @@ import { ErrorComponent } from './error/error.component'
     NumberDirective,
     OrderdetailsComponent,
     TruncatePipe,
-    ErrorComponent
+    ErrorComponent,
+    CountcardsComponent
 
-    
-  
+
+
 
 
   ],
@@ -157,10 +159,9 @@ import { ErrorComponent } from './error/error.component'
     CarouselModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
-     
+
     }),
     NgxSpinnerModule,
-    AvatarModule,
 
   ],
   providers: [

@@ -4,6 +4,7 @@ import { BooksService } from './../services/books.service';
 import { WishlistService } from '../services/wishlist.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { map } from 'rxjs/operators';
 declare var $: any;
 @Component({
   selector: 'app-popularcollection',
@@ -53,7 +54,7 @@ spinner : boolean = true;
 
   ngOnInit(): void {
     this.loadbook();
-    
+
     if(localStorage.getItem('User') !=null){
       this.wish.getwishlistload().subscribe(() => {
         this.loadwish();
@@ -61,7 +62,7 @@ spinner : boolean = true;
 
       this.loadwish();
     }
-      
+
     this.jquery_code();
   }
 
@@ -70,7 +71,43 @@ spinner : boolean = true;
   }
 
   loadbook() {
-    this.newService.getPopularBooks().subscribe((data) => {
+    this.newService.getPopularBooks().pipe(
+      map((resp) => {
+        var book = resp.books
+      //  var newbooks = [];
+      //  var uniqueObject = {};
+
+
+      //         for (let i in book) {
+
+      //          let objTitle = book[i]['Isbn_no'];
+
+
+      //           uniqueObject[objTitle] = book[i];
+      //       }
+
+
+      //       for (let i in uniqueObject) {
+      //           newbooks.push(uniqueObject[i]);
+      //       }
+      //       var total = 20 - newbooks.length
+      //       resp['totalBooks'] = resp.totalBooks - total
+      //       resp['books'] = newbooks
+        for (let i = 0; i < book.length; i++) {
+          book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
+          book[i]['rate'] = Math.floor(book[i]['rate'])
+          book[i]['weight'] = Math.floor(book[i]['weight'])
+          book[i]['sale_disc_inr'] = Math.floor(book[i]['sale_disc_inr'])
+          book[i]['sale_disc_per'] = Math.floor(book[i]['sale_disc_per'])
+          book[i]['discount_per'] = Math.floor(book[i]['discount_per'])
+          book[i]['discount_rs'] = Math.floor(book[i]['discount_rs'])
+          book[i]['final_price'] = Math.floor(book[i]['final_price'])
+          book[i]['sale_rate'] = Math.floor(book[i]['sale_rate'])
+          book[i]['sale_price'] = Math.floor(book[i]['sale_price'])
+        }
+        return resp
+      })
+    ).subscribe((data) => {
       this.books$ = data;
       this.spinner = false;
 

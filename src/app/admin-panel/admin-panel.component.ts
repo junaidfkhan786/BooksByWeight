@@ -4,6 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AdminOrdersService } from '../services/admin-orders.service';
 import { OrdersService } from '../services/orders.service';
 import { AdminCouponService } from '../services/admin-coupon.service';
+import { AdminLoginService } from '../services/admin-login.service';
 
 @Component({
   selector: 'app-admin-panel',
@@ -13,12 +14,18 @@ import { AdminCouponService } from '../services/admin-coupon.service';
 export class AdminPanelComponent implements OnInit {
   orderslength: any
   orders$: any
+  opened:boolean
   constructor(
     public spinner: NgxSpinnerService,
     private allorders: AdminOrdersService,
     private orders: OrdersService,
-    private couponservice: AdminCouponService
-  ) { }
+    private couponservice: AdminCouponService,
+    private toggle:AdminLoginService
+  ) {
+    this.toggle.opensidebar.subscribe((toggle)=>{
+     this.opened = toggle
+    })
+   }
 
   ngOnInit() {
     this.orders.getorderload().subscribe(() => {
@@ -28,17 +35,10 @@ export class AdminPanelComponent implements OnInit {
     this.getallcoupons();
   }
 
-  opened: any
-
-  receave($event) {
-    this.opened = $event;
-
-  }
-
   GetAllOrders() {
-    this.allorders.getallorders().subscribe(
+    this.allorders.getallorders(1).subscribe(
       (orders) => {
-        this.allorders.totalorders.next(orders.length)
+        this.allorders.totalorders.next(orders.orderWithAddress.length)
       },
       (error) => {
         if (error) {

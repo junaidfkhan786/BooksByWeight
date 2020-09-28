@@ -45,63 +45,16 @@ background: #cfcfcd none repeat scroll 0 0;
 .overlay-content {
   position: relative;
   top: 30%;
-  
-  width: 80%;
+
+  width: 100%;
   text-align: center;
   margin-top: 30px;
   margin: auto;
 }
 
-.select{
-  width: 200px;
-  height: 70px;
-  border: none;
-  border-radius: 0;
-  margin-right: 10px;
- 
-}
-.overlay .closebtn {
-position: relative;
-top: 20px; 
-right:20px; 
-font-size: 3em;
-  cursor: pointer;
-  color: rgb(253, 253, 253);
+ .closebtn:hover {
   transition: all 1s;
-}
-
-.overlay .closebtn:hover {
   color: #ff4136;
   -ms-transform: rotate(360deg); /* IE 9 */
-  transform: rotate(360deg) scale(2); /* Standard syntax */
-  
-
-}
-
-.overlay input[type=text] {
-  padding: 20px;
-  font-size: 17px;
-  border: none;
-  float: left;
-  width: 70%;
-  background: white;
-}
-
-.overlay input[type=text]:hover {
-  background: white;
-}
-
-.overlay button {
-   
-  width: 5%;
-  padding: 21px;
-  background:white;
-  font-size: 17px;
-  border: none;
-  cursor: pointer;
-}
-
-.overlay button:hover {
-  background: #ff4136;
-  color: white;
+  transform: rotate(360deg) scale(2);
 }

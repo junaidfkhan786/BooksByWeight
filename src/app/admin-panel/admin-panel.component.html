@@ -1,10 +1,10 @@
 
 
 
-<app-admin-header (openedevent)="receave($event)"></app-admin-header>
+<app-admin-header></app-admin-header>
 <div class="row g-0">
-    <div class="col-lg-3" *ngIf="opened">
-        <app-admin-sidebar [openedside]="opened"></app-admin-sidebar>
+    <div class="col-lg-3" [hidden]="opened">
+        <app-admin-sidebar></app-admin-sidebar>
     </div>
     <div class="col">
         <app-admin-main-content></app-admin-main-content>

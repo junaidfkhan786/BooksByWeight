@@ -114,9 +114,10 @@ export class HeaderComponent implements OnInit {
   }
   search(selected, Searchinput) {
 
-    this.querys = Searchinput + "&" + selected
-    console.log(this.querys)
-    this.router.navigate(['search', { query: this.querys }]);
+    var _id = Searchinput + "&" + selected
+    console.log(_id)
+    this.router.navigate(['search/'+ _id]);
+    // window.location.assign('search/'+_id)
   }
 
 

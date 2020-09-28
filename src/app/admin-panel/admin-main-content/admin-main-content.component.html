@@ -40,9 +40,6 @@
 
   </div>
 
-  <div *ngIf="router.url === '/admin/dashboard/view-products'">
-    <app-view-products></app-view-products>
-  </div>
   <div *ngIf="router.url === '/admin/dashboard/view-users'">
     <app-view-users></app-view-users>
   </div>
@@ -50,29 +47,6 @@
     <app-view-orders></app-view-orders>
   </div>
   <div *ngIf="router.url === '/admin/dashboard/add-bulk-products'">
-
-    <!-- <div class="row  d-flex justify-content-center" style="height: 500px;">
-      <div style="width: 50%; height: 50%; top: 80px; background-color: #212529; color: white; "
-        class="card shadow-bottom align-middle">
-        <h5 style="margin-top: 7%;" class="text-center card-title"><span style="font-size: 2rem;">UPLOAD YOUR EXCEL
-            FILE To Convert IDs</span>
-          <br> <br> <input (change)="getfile($event)" name="excel_file" #file hidden type="file"></h5>
-        <a style="text-decoration: none; color:  white; cursor: pointer;" class="d-flex justify-content-center org "
-          (click)="file.click()"> CLick Here To Add It </a>
-        <span class="material-icons d-flex justify-content-center">
-          touch_app
-        </span>
-
-        <div class="d-flex justify-content-center">
-          <button height="40px" width="40px" alt="" data-toggle="tooltip" data-placement="right"
-            title="Click Here To Upload" [hidden]="button" class="btn btn-outline-dark" (click)="addbulk()"
-            style=" margin-top: 10px;cursor: pointer;">
-            <span class="material-icons org" style="font-size: 2rem; cursor: pointer;">cloud_done</span>
-          </button>
-        </div>
-
-      </div>
-    </div> -->
 
     <div class="mt-5">
       <div class="d-flex justify-content-center">
@@ -88,7 +62,7 @@
             <div class="w-100">
               <div class="p-2">
                 <span style="font-size: 1rem; color: red;">
-                 First Enter Goc Then Press Submit, Then After Upload Excel  : <br> <br>                
+                 First Enter Goc Then Press Submit, Then After Upload Excel  : <br> <br>
                 </span>
                 <form [formGroup]="gocform">
                   <div class="row g-2">
@@ -114,7 +88,7 @@
                   </div>
                 </form>
                 <span style="font-size: 1rem;">
-                  For Converting cat/subcat Names to Ids And Setting Up Formula : <br>                
+                  For Converting cat/subcat Names to Ids And Setting Up Formula : <br>
                 </span>
                 <input #file1 hidden type="file" multiple (change)="convertids($event)">
                 <a class="org" style="text-decoration: none; color:  white; cursor: pointer;" (click)="file1.click()">
@@ -124,11 +98,12 @@
                   </span>
                 </a>
                 {{filename}}
+
               </div>
 
               <div class="p-2">
                 <span style="font-size: 1rem;">
-                  For Excel Sheet Upload To Server:
+                  For JSON File Upload To Server:
                 </span> <br>
                 <input #file2 hidden type="file" name="excel_file" (change)="addbulk($event)">
                 <a class="org" style="text-decoration: none; color:  white; cursor: pointer;" (click)="file2.click()">
@@ -139,6 +114,18 @@
                 </a>
 
                 {{filename1}}
+                <div *ngIf="excel" class="progress">
+                  <div
+                    class="progress-bar progress-bar-info progress-bar-striped"
+                    role="progressbar"
+                    attr.aria-valuenow="{{ progress }}"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    [ngStyle]="{ width: progress + '%' }"
+                  >
+                    {{ progress }}%
+                  </div>
+                </div>
               </div>
             </div>
           </div>

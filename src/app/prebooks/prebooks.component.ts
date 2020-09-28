@@ -64,14 +64,15 @@ export class PrebooksComponent implements OnInit {
       params => this.config.currentPage= params['page']?params['page']:1 );
    }
   ngOnInit(): void {
+    window.scrollTo(0, 200);
     this.spinner.show();
     if (localStorage.getItem('User') != null) {
       this.wish.getwishlistload().subscribe(() => {
         this.loadwish();
       })
-
+      this.loadcart();
     }
-    this.loadcart();
+
     this.jquery_code();
     this.loadfilter();
   }
@@ -102,8 +103,52 @@ export class PrebooksComponent implements OnInit {
   jquery_code() { }
   onPageChange(page: number) {
     this.spinner.show();
-    this.router.navigate(['/prebooks'], { queryParams: { page: page } });
-    this.loadbook(page)
+    console.log(this.router.url)
+    if (this.router.url == '/prebooks' || this.router.url == '/prebooks?page=' + this.config.currentPage) {
+      this.router.navigate(['prebooks/'], { queryParams: { page: page } });
+      this.loadbook(page)
+    } else if (this.router.url == '/prebooks/sortBy' + this.first ||
+      this.router.url == '/prebooks/sortBy' + this.first + '?page=' + this.config.currentPage) {
+      console.log('first block')
+      this.router.navigate(['prebooks/sortBy' + this.first], { queryParams: { page: page } });
+      this.filters(this.first, page)
+
+    } else if (this.router.url == '/prebooks/sortBy' + this.second ||
+      this.router.url == '/prebooks/sortBy' + this.second + '?page=' + this.config.currentPage) {
+      console.log('second block')
+      this.router.navigate(['prebooks/sortBy' + this.second], { queryParams: { page: page } });
+      this.filters(this.second, page)
+    } else if (this.router.url == '/prebooks/sortBy' + this.third ||
+      this.router.url == '/prebooks/sortBy' + this.third + '?page=' + this.config.currentPage) {
+      console.log('third block')
+      this.router.navigate(['prebooks/sortBy' + this.third], { queryParams: { page: page } });
+      this.filters(this.third, page)
+    } else if (this.router.url == '/prebooks/sortBy' + this.fourth ||
+      this.router.url == '/prebooks/sortBy' + this.fourth + '?page=' + this.config.currentPage) {
+      console.log('fourth block')
+      this.router.navigate(['prebooks/sortBy' + this.fourth], { queryParams: { page: page } });
+      this.filters(this.fourth, page)
+    } else if (this.router.url == '/prebooks/sortBy500' ||
+      this.router.url == '/prebooks/sortBy500' + '?page=' + this.config.currentPage) {
+      console.log('fifth block')
+      this.router.navigate(['prebooks/sortBy500'], { queryParams: { page: page } });
+      this.filters(this.fifth, page)
+    } else if (this.router.url == '/prebooks/sortByasc' ||
+      this.router.url == '/prebooks/sortByasc' + '?page=' + this.config.currentPage) {
+      console.log('sixth block')
+      this.router.navigate(['/prebooks/sortByasc'], { queryParams: { page: page } });
+      this.filtersSort(this.variant1, page)
+    } else if (this.router.url == '/prebooks/sortBydesc' ||
+      this.router.url == '/prebooks/sortBydesc' + '?page=' + this.config.currentPage) {
+      console.log('seventh block')
+      this.router.navigate(['prebooks/sortBydesc'], { queryParams: { page: page } });
+      this.filtersSort(this.variant, page)
+    } else {
+      alert('not found')
+    }
+
+
+
     window.scrollTo(0, 200);
   }
   loadbook(p) {
@@ -111,22 +156,39 @@ export class PrebooksComponent implements OnInit {
     console.log(this.config.currentPage)
     this.newService.getPreBooks(p).pipe(
       map((resp) => {
-        var book = resp.books
-        for (let i = 0; i < book.length; i++) {
-          book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
-          book[i]['rate'] = Math.floor(book[i]['rate'])
-          book[i]['weight'] = Math.floor(book[i]['weight'])
-          book[i]['sale_disc_inr'] = Math.floor(book[i]['sale_disc_inr'])
-          book[i]['sale_disc_per'] = Math.floor(book[i]['sale_disc_per'])
-          book[i]['discount_per'] = Math.floor(book[i]['discount_per'])
-          book[i]['discount_rs'] = Math.floor(book[i]['discount_rs'])
-          book[i]['final_price'] = Math.floor(book[i]['final_price'])
-          book[i]['sale_rate'] = Math.floor(book[i]['sale_rate'])
-          book[i]['sale_price'] = Math.floor(book[i]['sale_price'])
-          book[0]['sale_price'] = 0
-        }
-        return resp
-      })
+        //  var newbooks = [];
+        //  var uniqueObject = {};
+          var book = resp.books
+
+        //         for (let i in book) {
+
+        //          let objTitle = book[i]['Isbn_no'];
+
+
+        //           uniqueObject[objTitle] = book[i];
+        //       }
+
+
+        //       for (let i in uniqueObject) {
+        //           newbooks.push(uniqueObject[i]);
+        //       }
+        //       var total = 20 - newbooks.length
+        //       resp['totalBooks'] = resp.totalBooks - total
+        //       resp['books'] = newbooks
+          for (let i = 0; i < book.length; i++) {
+            book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
+            book[i]['rate'] = Math.floor(book[i]['rate'])
+            book[i]['weight'] = Math.floor(book[i]['weight'])
+            book[i]['sale_disc_inr'] = Math.floor(book[i]['sale_disc_inr'])
+            book[i]['sale_disc_per'] = Math.floor(book[i]['sale_disc_per'])
+            book[i]['discount_per'] = Math.floor(book[i]['discount_per'])
+            book[i]['discount_rs'] = Math.floor(book[i]['discount_rs'])
+            book[i]['final_price'] = Math.floor(book[i]['final_price'])
+            book[i]['sale_rate'] = Math.floor(book[i]['sale_rate'])
+            book[i]['sale_price'] = Math.floor(book[i]['sale_price'])
+          }
+          return resp
+        })
     ).subscribe((data) => {
       this.books$ = data;
       const pid = data.books;
@@ -153,60 +215,124 @@ export class PrebooksComponent implements OnInit {
   off() {
     document.getElementById('overlay').style.display = 'none';
   }
-  filters(modal: String) {
-    this.filter.priceDefinepre(modal).subscribe((res) => {
-      this.books$ = res;
-      console.log(this.books$)
-      this.totalBooks = this.books$.totalBooks
-      console.log(this.totalBooks)
-      this.spinner.hide();
-
+  filters(modal: String, page) {
+    this.filter.priceDefinepre(modal, page).pipe(
+      map((resp) => {
+        var book = resp.books
+        for (let i = 0; i < book.length; i++) {
+          book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
+          book[i]['rate'] = Math.floor(book[i]['rate'])
+          book[i]['weight'] = Math.floor(book[i]['weight'])
+          book[i]['sale_disc_inr'] = Math.floor(book[i]['sale_disc_inr'])
+          book[i]['sale_disc_per'] = Math.floor(book[i]['sale_disc_per'])
+          book[i]['discount_per'] = Math.floor(book[i]['discount_per'])
+          book[i]['discount_rs'] = Math.floor(book[i]['discount_rs'])
+          book[i]['final_price'] = Math.floor(book[i]['final_price'])
+          book[i]['sale_rate'] = Math.floor(book[i]['sale_rate'])
+          book[i]['sale_price'] = Math.floor(book[i]['sale_price'])
+        }
+        return resp
+      })
+    ).subscribe((res) => {
+      this.books$ = res
+      this.config.totalItems = this.books$.totalBooks
+      console.log(res)
+      if (this.books$.totalBooks != 0) { this.spinner.hide() }
     });
   }
-  filtersSort(variant1: String) {
-    this.filter.sortBypre(variant1).subscribe((res) => {
-      this.books$ = res;
-      this.totalBooks = this.books$.totalBooks
-      this.spinner.hide();
+  filtersSort(variant: String, page) {
+    this.filter.sortBypre(variant, page).pipe(
+      map((resp) => {
+        var book = resp.books
+        for (let i = 0; i < book.length; i++) {
+          book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
+          book[i]['rate'] = Math.floor(book[i]['rate'])
+          book[i]['weight'] = Math.floor(book[i]['weight'])
+          book[i]['sale_disc_inr'] = Math.floor(book[i]['sale_disc_inr'])
+          book[i]['sale_disc_per'] = Math.floor(book[i]['sale_disc_per'])
+          book[i]['discount_per'] = Math.floor(book[i]['discount_per'])
+          book[i]['discount_rs'] = Math.floor(book[i]['discount_rs'])
+          book[i]['final_price'] = Math.floor(book[i]['final_price'])
+          book[i]['sale_rate'] = Math.floor(book[i]['sale_rate'])
+          book[i]['sale_price'] = Math.floor(book[i]['sale_price'])
+        }
+        return resp
+      })
+    ).subscribe((res) => {
+      this.books$ = res
+      this.config.totalItems = this.books$.totalBooks
+      console.log(res)
+      if (this.books$.totalBooks != 0) { this.spinner.hide() }
     });
   }
 
   loadfilter() {
-    if (this.router.url == '/prebooks/sortBy100/200') {
-      this.filters(this.first);
 
-    }
-    if (this.router.url == '/prebooks/sortBy200/300') {
-      this.filters(this.second);
-    }
-    if (this.router.url == '/prebooks/sortBy300/400') {
-      this.filters(this.third);
-    }
-    if (this.router.url == '/prebooks/sortBy400/500') {
-      this.filters(this.fourth);
-    }
-    if (this.router.url == '/prebooks/sortBy500') {
-      this.filters(this.fifth);
-    }
-    if (this.router.url == '/prebooks' || this.router.url == '/prebooks?page='+this.config.currentPage) {
+    if (this.router.url == '/prebooks' || this.router.url == '/prebooks?page=' + this.config.currentPage) {
       var a = window.location.href
       var b = a.substring(a.lastIndexOf('=') + 1);
       console.log(b)
-      if(this.router.url == '/prebooks'){
+      if (this.router.url == '/prebooks') {
         this.loadbook(1)
-      }else{
-        this.loadbook(b)
+      } else {
+        this.loadbook(this.config.currentPage)
       }
 
-  }
-    if (this.router.url == '/prebooks/sortByasc') {
-      this.filtersSort(this.variant1);
-    }
-    if (this.router.url == '/prebooks/sortBydesc') {
-      this.filtersSort(this.variant);
+    } else if (this.router.url == '/prebooks/sortBy' + this.first ||
+      this.router.url == '/prebooks/sortBy' + this.first + '?page=' + this.config.currentPage) {
+      if (this.router.url == '/prebooks/sortBy' + this.first) {
+        this.filters(this.first, 1);
+      } else {
+        this.filters(this.first, this.config.currentPage);
+      }
 
-    }
+    } else if (this.router.url == '/prebooks/sortBy' + this.second ||
+      this.router.url == '/prebooks/sortBy' + this.second + '?page=' + this.config.currentPage) {
+      if (this.router.url == '/prebooks/sortBy' + this.second) {
+        this.filters(this.second, 1);
+      } else {
+        this.filters(this.second, this.config.currentPage);
+      }
 
+    } else if (this.router.url == '/prebooks/sortBy' + this.third ||
+      this.router.url == '/prebooks/sortBy' + this.third + '?page=' + this.config.currentPage) {
+      if (this.router.url == '/prebooks/sortBy' + this.third) {
+        this.filters(this.third, 1);
+      } else {
+        this.filters(this.third, this.config.currentPage);
+      }
+
+    } else if (this.router.url == '/prebooks/sortBy' + this.fourth ||
+      this.router.url == '/prebooks/sortBy' + this.fourth + '?page=' + this.config.currentPage) {
+      if (this.router.url == '/prebooks/sortBy' + this.fourth) {
+        this.filters(this.fourth, 1);
+      } else {
+        this.filters(this.fourth, this.config.currentPage);
+      }
+
+    } else if (this.router.url == '/prebooks/sortBy500' ||
+      this.router.url == '/prebooks/sortBy500' + '?page=' + this.config.currentPage) {
+      if (this.router.url == '/prebooks/sortBy500') {
+        this.filters(this.fifth, 1);
+      } else {
+        this.filters(this.fifth, this.config.currentPage);
+      }
+
+    } else if (this.router.url == '/prebooks/sortByasc' ||
+      this.router.url == '/prebooks/sortByasc' + '?page=' + this.config.currentPage) {
+      if (this.router.url == '/prebooks/sortByasc') {
+        this.filtersSort(this.variant1, 1);
+      } else {
+        this.filtersSort(this.variant1, this.config.currentPage);
+      }
+    } else if (this.router.url == '/prebooks/sortBydesc' ||
+      this.router.url == '/prebooks/sortBydesc' + '?page=' + this.config.currentPage) {
+      if (this.router.url == '/prebooks/sortBydesc') {
+        this.filtersSort(this.variant, 1);
+      } else {
+        this.filtersSort(this.variant, this.config.currentPage);
+      }
+    }
   }
   public price() {
     this.router.navigate(['prebooks/sortBy100/200']);

@@ -118,7 +118,7 @@
             </div>
         </div>
  -->
-          <div class="col-xs-12 col-sm-4 col-md-3" *ngFor="let books of books$.books | paginate:config;">
+          <div class="col-xs-12 col-sm-4 col-md-3 p-2" *ngFor="let books of books$.books | paginate:config;">
 
 
             <app-product-item [productItem]="books" [cartbutton]="cartpid1.indexOf(books._id) >= 0" [addedToWishlist]="wid1.indexOf(books._id) >= 0 ">
@@ -129,13 +129,15 @@
         </div>
       </div>
       <br>
-      <div class="card p-3 btc">
+      <div class="card p-3 btc" *ngIf="config.totalItems">
 
         <pagination-controls class="d-flex justify-content-center" directionLinks="true"
           (pageChange)="onPageChange($event)" autoHide="true" responsive="true" previousLabel="Previous"
           nextLabel="Next">
         </pagination-controls>
-
+        <!-- <input type="text" class="form-control" style="width: 200px;" #p > <button (click)="onPageChange(p.value)">
+          click
+        </button> -->
       </div>
 
       <br><br><br>

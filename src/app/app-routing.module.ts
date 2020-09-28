@@ -23,6 +23,9 @@ import { from } from 'rxjs';
 import { AboutusComponent } from './policies/aboutus/aboutus.component';
 import { OrderdetailsComponent } from './profile/userorders/orderdetails/orderdetails.component';
 import { ErrorComponent } from './error/error.component';
+import { ViewProductsComponent } from './admin-panel/admin-main-content/view-products/view-products.component';
+import { ViewUsersComponent } from './admin-panel/admin-main-content/view-users/view-users.component';
+import { ViewOrdersComponent } from './admin-panel/admin-main-content/view-orders/view-orders.component';
 const routes: Routes = [
   {
     path: '',
@@ -116,12 +119,12 @@ const routes: Routes = [
   },
   {
     path: 'admin/dashboard/view-products',
-    component: AdminPanelComponent,
+    component: ViewProductsComponent,
     canActivate: [SuperadminGuard]
   },
   {
     path: 'admin/dashboard/view-users',
-    component: AdminPanelComponent,
+    component: ViewUsersComponent,
     canActivate: [SuperadminGuard]
   },
   {
@@ -131,7 +134,7 @@ const routes: Routes = [
   },
   {
     path: 'admin/dashboard/view-orders',
-    component: AdminPanelComponent,
+    component: ViewOrdersComponent,
     canActivate: [SuperadminGuard]
   },
   {
@@ -151,7 +154,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'search',
+    path: 'search/:_id',
     component: SearchComponent
   },
   {

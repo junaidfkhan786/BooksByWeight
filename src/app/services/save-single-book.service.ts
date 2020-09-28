@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { API_LIVE, httpOptions, API_URL } from '../models/api.model';
 import { Observable, Subject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Product } from '../models/product.model';
 import { map, tap } from 'rxjs/operators';
 
@@ -18,14 +18,14 @@ export class SaveSingleBookService {
   ) { }
 
   public savesinglebook(book):Observable<any>{
-    
-    
+
+
    return this.http.post<any>('https://bbw-backend.herokuapp.com/api/book/singleBook/',book).pipe(
     tap(() => {
       this.bookload.next();
     })
   );
-  
+
 
 
   }
@@ -39,16 +39,25 @@ export class SaveSingleBookService {
     );
   }
 
-  public bulkbook(book):Observable<any>{
-    
-    
-    return this.http.post<any>(`${API_LIVE}`+'/book/saveBook/',book).pipe(
-     tap(() => {
-       this.bookload.next();
-     })
-   );
-   
- 
- 
+  // public bulkbook(book):Observable<any>{
+
+
+  //   return this.http.post<any>(`${API_LIVE}`+'/book/saveBook/',book).pipe(
+  //    tap(() => {
+  //      this.bookload.next();
+  //    })
+  //  );
+
+
+
+  //  }
+   public bulkbook(book): Observable<HttpEvent<any>>{
+
+
+    const req = new HttpRequest('POST',`${API_LIVE}`+'/book/saveBook/',book,{ reportProgress: true,
+      responseType: 'json'})
+
+      return this.http.request(req);
+
    }
 }

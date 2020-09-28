@@ -1,48 +1,63 @@
 <nav class=" navbar navbar-expand-lg navbar-light navbar-fixed sticky-top bg-white">
   <div class="container-fluid">
     <a [routerLink]="[ '/' ]" routerLinkActive="active"><img src="../../assets/images/logo.png" alt=""></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent" >
-     <div class="card" style="background: transparent; border: none; width: 100%;">
-      <div class="row ml-1">
-        
-        <div class="col-md">
-          <a class="nav-link " style="color: black;" aria-current="page" href="/"  >Home</a>
-        </div>
-        <div class="col-md">
-          <a class="nav-link active" style="color: black;" [routerLink]="['/newbooks']" routerLinkActive="router-link-active" >New Books</a>
-        </div>
-        <div class="col-md-3">
-          <a class="nav-link active" style="color: black;" [routerLink]="['/prebooks']" routerLinkActive="router-link-active" >Pre-Owned Books</a>
-        </div>
-        <div class="col-md">
-          <a [routerLink]="['/books']" style="color: black;" routerLinkActive="router-link-active"  class="nav-link active " >
-            Books
-          </a>
-        </div>
-        <div class="col-md">
-          <li class="dropdown" style="list-style-type: none;" >
-            <a class="nav-link  active "style="color: black;">
-              Information
-            </a>
-            <ul class="dropdown-menu animate__animated animate__fadeInUp animate__faster">
-              <li><a class="dropdown-item" (click)="about()">About</a></li>
-              <li><a class="dropdown-item" href="#" (click)="Terms()">Terms & Conditions</a></li>
-              <li><a class="dropdown-item" href="#"(click)="Return()">Return & Exchange</a></li>
-              <li><a class="dropdown-item" href="#"(click)="Shipping()">Shipping & Delivery</a></li>
-              <li><a class="dropdown-item" href="#"(click)="Copyright()">CopyRight Policy</a></li>
-              <li><a class="dropdown-item" href="#"(click)="Privacy()">Privacy Policy</a></li>
-              <li><a class="dropdown-item" href="#"(click)="Payment()">Payment</a></li>
-            </ul>
-          </li>
-        </div>
-        <div class="col-md">
-          <a href="#" class="nav-link  active" style="color: black;">Contact</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="card" style="background: transparent; border: none; width: 100%;">
+        <div class="row ml-1">
+
+          <div class="col-md">
+            <li class="dropdown" style="list-style-type: none;">
+              <a class="nav-link " style="color: black;" aria-current="page" href="/">Home</a>
+            </li>
+          </div>
+          <div class="col-md">
+            <li class="dropdown" style="list-style-type: none;">
+              <a class="nav-link active" style="color: black;" [routerLink]="['/newbooks']"
+                routerLinkActive="router-link-active">New Books</a>
+            </li>
+          </div>
+          <div class="col-md-3">
+
+            <li class="dropdown" style="list-style-type: none;">
+              <a class="nav-link active" style="color: black;" [routerLink]="['/prebooks']"
+                routerLinkActive="router-link-active">Pre-Owned Books</a>
+            </li>
+          </div>
+          <div class="col-md">
+            <li class="dropdown" style="list-style-type: none;">
+              <a [routerLink]="['/books']" style="color: black;" routerLinkActive="router-link-active"
+                class="nav-link active ">
+                Books
+              </a>
+            </li>
+          </div>
+          <div class="col-md">
+            <li class="dropdown" style="list-style-type: none;">
+              <a class="nav-link  active " style="color: black;">
+                Information
+              </a>
+              <ul class="dropdown-menu animate__animated animate__fadeInUp animate__faster">
+                <li><a class="dropdown-item" (click)="about()">About</a></li>
+                <li><a class="dropdown-item" href="#" (click)="Terms()">Terms & Conditions</a></li>
+                <li><a class="dropdown-item" href="#" (click)="Return()">Return & Exchange</a></li>
+                <li><a class="dropdown-item" href="#" (click)="Shipping()">Shipping & Delivery</a></li>
+                <li><a class="dropdown-item" href="#" (click)="Copyright()">CopyRight Policy</a></li>
+                <li><a class="dropdown-item" href="#" (click)="Privacy()">Privacy Policy</a></li>
+                <li><a class="dropdown-item" href="#" (click)="Payment()">Payment</a></li>
+              </ul>
+            </li>
+          </div>
+          <div class="col-md">
+            <li class="dropdown" style="list-style-type: none;">
+              <a href="#" class="nav-link  active" style="color: black;">Contact</a>
+            </li>
+          </div>
         </div>
       </div>
-     </div>
       <!-- <ul class="navbar-nav nav nav-fill mr-auto mb- mb-lg-0">
         <li class="nav-item " style="padding-left: 60px;">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
@@ -76,71 +91,111 @@
          <a href="#" class="nav-link  active ">Contact</a>
         </li>
       </ul> -->
-     <div class="d-flex justify-content-center" >
-      <ul class="navbar-nav">
-      <li>
-        <a  (click)="openSearch()" class="nav-link " >
-          <span class="material-icons">
-            search
-            </span>
-        </a>
-      </li>
-      <li class="dropdown" *ngIf="session">
-        <a class="nav-link active " href="#"  id="navbarDropdown" role="button" data-toggle="dropdown"  aria-expanded="false">
-          <span class="material-icons">
-            person_outline
-            </span>
-        </a>
-        <ul class="dropdown-menu animate__animated animate__fadeInUp animate__faster">
-          <li class="dropdown-item" >{{UserData.name}}</li>
-          <li><a class="dropdown-item" [routerLink]="['/profile']" routerLinkActive="router-link-active" >Edit Profile</a></li>
-          <li><a class="dropdown-item" (click)="logout()" >LogOut</a></li>
-        </ul>
-      </li>
-      <li  *ngIf="!session"data-toggle="tooltip"  data-placement="top" title="LOGIN / REGISTER" >
-        <a  [routerLink]="['/login']" routerLinkActive="router-link-active" class="nav-link" >
-          <span class="material-icons" >
-             person_outline
-            </span>
-        </a>
-      </li>
-      <li>
-        <a [routerLink]="['/wish']" routerLinkActive="router-link-active"  class="nav-link">
-          <span class="material-icons">
-            favorite_border
-            </span>
-            <span *ngIf="length1 >= 0 "  class="badge rounded-pill bg-danger">{{length1}}</span>
-        </a>
-      </li>
-      <li>
-        <a [routerLink]="['/cart']" (click)="window()" routerLinkActive="router-link-active"  class="nav-link">
-          <span class="material-icons">
-            add_shopping_cart
-            </span>
-            <span *ngIf="cartlen >= 0"  class="badge rounded-pill bg-danger">{{cartlen}}</span>
-        </a>
-      </li>
+      <div class="d-flex justify-content-center">
+        <ul class="navbar-nav">
+          <li>
+            <a (click)="openSearch()" class="nav-link ">
+              <span class="material-icons">
+                search
+              </span>
+            </a>
+          </li>
+          <li class="dropdown" *ngIf="session">
+            <a class="nav-link active " href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-expanded="false">
+              <span class="material-icons">
+                person_outline
+              </span>
+            </a>
+            <ul class="dropdown-menu animate__animated animate__fadeInUp animate__faster">
+              <li class="dropdown-item">{{UserData.name}}</li>
+              <li><a class="dropdown-item" [routerLink]="['/profile']" routerLinkActive="router-link-active">Edit
+                  Profile</a></li>
+              <li><a class="dropdown-item" (click)="logout()">LogOut</a></li>
+            </ul>
+          </li>
+          <li *ngIf="!session" data-toggle="tooltip" data-placement="top" title="LOGIN / REGISTER">
+            <a [routerLink]="['/login']" routerLinkActive="router-link-active" class="nav-link">
+              <span class="material-icons">
+                person_outline
+              </span>
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['/wish']" style="width: 60px;" routerLinkActive="router-link-active" class="nav-link">
+              <span class="material-icons">
+                favorite_border
+              </span>
+              <span *ngIf="length1 >= 0 " class="badge rounded-pill bg-danger float-right">{{length1}}</span>
+            </a>
+          </li>
+          <li>
+            <a style="width: 60px;" [routerLink]="['/cart']" (click)="window()" routerLinkActive="router-link-active" class="nav-link">
+              <span class="material-icons">
+                add_shopping_cart
+              </span>
+              <span *ngIf="cartlen >= 0" class="badge rounded-pill bg-danger float-right">{{cartlen}}</span>
+            </a>
+          </li>
 
-      </ul>
-     </div>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>
 <div id="myOverlay" class="overlay animate__animated animate__fadeInDown animate__faster">
   <div class="overlay-content">
-    <span class="closebtn material-icons float-right" (click)="closeSearch()" >
-      close 
-      </span> 
-      <div class="row">
-        <select [(ngModel)]="selected"  class="form-select select" aria-label="Default select example">
-          <option *ngFor="let select of selector" [value]="select.value" >{{select.name}}</option>
-        </select>
-        <input type="text" placeholder="search..." [(ngModel)]="Searchinput" name="searchinput" (keyup.enter)="search(selected,Searchinput)" >
-        <button type="submit" (click)="search(selected,Searchinput)" >
-          <span class="material-icons">
-          search
-          </span>
-        </button>
+    <div>
+      <div class="row" style="padding: 0px 30px 0px 30px;">
+        <div class="col-sm">
+          <div class="row">
+        <div class="d-flex justify-content-center">
+          <select [(ngModel)]="selected" class="form-select select "  style="width: 20%; height: 50px;" aria-label="Default select example">
+            <option *ngFor="let select of selector" [value]="select.value">{{select.name}}</option>
+          </select>
+          <input type="text" class="w-50 p-2 form-control" placeholder="search..." [(ngModel)]="Searchinput" name="searchinput"
+            (keyup.enter)="search(selected,Searchinput)">
+            <button style="width: 5%;" class="btn btn-danger org button" type="submit" (click)="search(selected,Searchinput)">
+              <span class="material-icons">
+                search
+              </span>
+            </button>
+            <button style="width: 5%; margin-left: 5px;" class="btn org closebtn" type="submit" (click)="closeSearch()">
+              <span class="material-icons">
+                close
+              </span>
+            </button>
+        </div>
+          </div>
+        </div>
+
       </div>
-     </div>
+    </div>
+  </div>
 </div>
+<!-- <div class="row">
+  <div class="col">
+
+    <div class="row">
+     <div class="w-25">
+      <select [(ngModel)]="selected" class="form-select select" aria-label="Default select example">
+        <option *ngFor="let select of selector" [value]="select.value">{{select.name}}</option>
+      </select>
+     </div>
+   <div>
+    <input type="text" placeholder="search..." [(ngModel)]="Searchinput" name="searchinput"
+    (keyup.enter)="search(selected,Searchinput)">
+  <button type="submit" (click)="search(selected,Searchinput)">
+    <span class="material-icons">
+      search
+    </span>
+  </button>
+   </div>
+    </div>
+  </div>
+  <div class="col-1">
+    <span class="closebtn material-icons float-right" (click)="closeSearch()">
+      close
+    </span>
+  </div>
+</div> -->
