@@ -54,7 +54,16 @@ opened:boolean
     })
     this.loaduser();
   }
-
+  togglesidebar() {
+    this.opened = !this.opened
+    console.log(this.opened)
+    // var a:boolean = this.opened = !this.opened
+    if(this.opened == false){
+      this.toggle.opensidebar.next(true)
+    }else if(this.opened == true){
+      this.toggle.opensidebar.next(false)
+    }
+  }
   block(id) {
     this.user.block(id).subscribe((res)=>{
 

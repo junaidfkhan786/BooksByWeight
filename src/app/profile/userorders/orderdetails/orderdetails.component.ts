@@ -74,15 +74,15 @@ export class OrderdetailsComponent implements OnInit {
 
         console.log(this.order_items);
 
-        this.spinner.hide();
-        // setTimeout(() => {
-        //   this.generatePDF();
-        // }, 3000);
+        // this.spinner.hide();
+        setTimeout(() => {
+          this.generatePDF();
+        }, 3000);
        }
       }
     );
   }
-
+  pdfAttachment : File; //declare the file
   generatePDF() {
     var data = document.getElementById('contentToConvert');
     html2canvas(data).then(canvas => {
@@ -94,7 +94,12 @@ export class OrderdetailsComponent implements OnInit {
       var position = 0;
       pdf.addImage(contentDataURL, 'PNG', 5, position, imgWidth, imgHeight)
 
-      pdf.save(this.orderid + '.pdf'); // Generated PDF
+      var newName = this.orderid
+      this.pdfAttachment = new File([pdf.output('blob')], newName, {
+       type: pdf.output('blob').type,
+     });
+     pdf.save(this.orderid+'.pdf')
+ console.log(this.pdfAttachment)
       this.spinner.hide();
     });
   }

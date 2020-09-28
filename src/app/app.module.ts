@@ -173,7 +173,7 @@ import { CountcardsComponent } from './admin-panel/admin-main-content/countcards
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              '334203302088-4gg488g1vi31oeolhoc3u4jbva686rt6.apps.googleusercontent.com'
+              '630153345580-ckpja6ssble3114oipg3gk4oloeaih8e.apps.googleusercontent.com'
             ),
           },
           {

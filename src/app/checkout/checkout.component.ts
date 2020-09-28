@@ -125,7 +125,7 @@ export class CheckoutComponent implements OnInit {
 
 
   ngOnInit() {
-   
+
     window.scrollTo(0, 10);
     this.spinner.show();
     this.button = true
@@ -354,8 +354,26 @@ export class CheckoutComponent implements OnInit {
     this.order.shiprocketresponse(this.userid, this.orderid, this.shippingid, this.shiporderid)
       .subscribe((data1) => {
         console.log(data1)
+        localStorage.removeItem('shiprocket')
+
+          Swal.fire({
+            title: 'Your Order Has Been Confirmed?',
+            text: 'We Inform You When Your Order Has Been Shipped?',
+            icon: 'success',
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Done'
+          }).then((result) => {
+            if (result.value) {
+              // window.location.assign('/books')
+              // this.ngZone.run(() => this.router.navigate(['/books'])).then();
+            }
+          })
+
         this.ngZone.run(
-          () => this.router.navigate(['/cart', { query: "completed" }])
+
+          () => this.router.navigate(['orderdetails/'+this.orderid])
+          // () => this.router.navigate(['/cart', { query: "completed" }])
         ).then();
       },
         (error) => console.log(error),
@@ -456,7 +474,7 @@ export class CheckoutComponent implements OnInit {
     this.selected = true
   }
   ngAfterViewInit(): void {
-    
+
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
     const couponsobj = {

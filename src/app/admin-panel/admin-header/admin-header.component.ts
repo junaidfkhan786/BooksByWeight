@@ -25,14 +25,20 @@ export class AdminHeaderComponent implements OnInit {
 
   @Output() openedevent = new EventEmitter<boolean>()
   ngOnInit() {
-    this.opened = false
     this.isLogin();
 
   }
 
   togglesidebar() {
-    var a:boolean = this.opened = !this.opened
-    this.toggle.opensidebar.next(a)
+    this.opened = !this.opened
+    console.log(this.opened)
+    // var a:boolean = this.opened = !this.opened
+    if(this.opened == false){
+      this.toggle.opensidebar.next(true)
+    }else{
+      this.toggle.opensidebar.next(false)
+    }
+
 
   }
 

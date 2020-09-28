@@ -101,12 +101,7 @@ export class AdminMainContentComponent implements OnInit {
   filename: string;
   filename1: string
   convertids(event) {
-    // let file = event.target.files[0];
-    // this.excelexp.processFileToJson({}, file).subscribe(data => {
-    //   this.result = data['sheets'].Sheet1
-    //   console.log(this.result)
-    //   this.ConvertJsonToExcel(this.result)
-    // })
+
     const target: DataTransfer = <DataTransfer>(event.target);
     try {
       if (!this.validateFile(target.files[0].name)) {
@@ -359,25 +354,25 @@ export class AdminMainContentComponent implements OnInit {
         for (let k = 0; k < this.Allcategories[j].subcategory.length; k++) {
           this.exceljson[i]['sale_disc_per'] = this.exceljson[i]['sale_disc_inr'] / this.exceljson[i]['mrp_inr'] * 100
 
-   if(this.exceljson[i]['book_img1'] ||
-     this.exceljson[i]['book_img2']  ||
-     this.exceljson[i]['book_img3']  ||
-     this.exceljson[i]['book_img4'] ){
-    var book_img1 = this.exceljson[i]['book_img1']
-    var book_img2 = this.exceljson[i]['book_img2']
-    var book_img3 = this.exceljson[i]['book_img3']
-    var book_img4 = this.exceljson[i]['book_img4']
-    this.exceljson[i]['book_img'] = [
-      'https://booksimg.s3.us-east-2.amazonaws.com/' +book_img1,
-     'https://booksimg.s3.us-east-2.amazonaws.com/' + book_img2,
-     'https://booksimg.s3.us-east-2.amazonaws.com/' + book_img3,
-     'https://booksimg.s3.us-east-2.amazonaws.com/' + book_img4
-    ]
-   }
-   delete this.exceljson[i]['book_img1']
-   delete this.exceljson[i]['book_img2']
-   delete this.exceljson[i]['book_img3']
-   delete this.exceljson[i]['book_img4']
+          if (this.exceljson[i]['book_img1'] ||
+            this.exceljson[i]['book_img2'] ||
+            this.exceljson[i]['book_img3'] ||
+            this.exceljson[i]['book_img4']) {
+            var book_img1 = this.exceljson[i]['book_img1']
+            var book_img2 = this.exceljson[i]['book_img2']
+            var book_img3 = this.exceljson[i]['book_img3']
+            var book_img4 = this.exceljson[i]['book_img4']
+            this.exceljson[i]['book_img'] = [
+              'https://booksimg.s3.us-east-2.amazonaws.com/' + book_img1,
+              'https://booksimg.s3.us-east-2.amazonaws.com/' + book_img2,
+              'https://booksimg.s3.us-east-2.amazonaws.com/' + book_img3,
+              'https://booksimg.s3.us-east-2.amazonaws.com/' + book_img4
+            ]
+          }
+          delete this.exceljson[i]['book_img1']
+          delete this.exceljson[i]['book_img2']
+          delete this.exceljson[i]['book_img3']
+          delete this.exceljson[i]['book_img4']
           // if (this.exceljson[i]['book_img1'] != '' ||
           //   this.exceljson[i]['book_img2'] != '' ||
           //   this.exceljson[i]['book_img3'] != '' ||
@@ -433,28 +428,27 @@ export class AdminMainContentComponent implements OnInit {
         this.messages = 'Could not upload the file!';
 
       }
-      // (data) => {
-      //   if (data) {
-      //     Swal.fire({
-      //       title: 'Books Uploaded SuccessFully?',
-      //       icon: 'success',
-      //       showCancelButton: false,
-      //       confirmButtonColor: '#3085d6',
-      //       confirmButtonText: 'Done'
-      //     }).then((result) => {
-      //       if (result.value) {
-      //         this.ngZone.run(() => this.router.navigate(['/admin/dashboard/view-products'])).then();
-      //       }
-      //     })
-      //   } else {
-      //     Swal.fire({
-      //       title: 'Books Uploading failed?',
-      //       icon: 'error',
-      //     })
-      //   }
-      // }
-
     )
+    // (data) => {
+    //   if (data) {
+    //     Swal.fire({
+    //       title: 'Books Uploaded SuccessFully?',
+    //       icon: 'success',
+    //       showCancelButton: false,
+    //       confirmButtonColor: '#3085d6',
+    //       confirmButtonText: 'Done'
+    //     }).then((result) => {
+    //       if (result.value) {
+    //         this.ngZone.run(() => this.router.navigate(['/admin/dashboard/view-products'])).then();
+    //       }
+    //     })
+    //   } else {
+    //     Swal.fire({
+    //       title: 'Books Uploading failed?',
+    //       icon: 'error',
+    //     })
+    //   }
+    // }
   }
   getadmin() {
     if (localStorage.getItem('SuperAdmin')) {
