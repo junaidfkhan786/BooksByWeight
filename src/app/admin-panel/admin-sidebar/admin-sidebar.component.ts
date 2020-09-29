@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, DefaultUrlSerializer, Router, UrlTree } from '@angular/router';
 import * as jwt_decode from 'jwt-decode';
 import { AdminLoginService } from 'src/app/services/admin-login.service';
 declare var $: any;
@@ -13,6 +13,7 @@ export class AdminSidebarComponent implements OnInit {
 
   constructor(
     public router: Router,
+    public route:ActivatedRoute
   ) {
 
   }
@@ -61,9 +62,28 @@ export class AdminSidebarComponent implements OnInit {
   admin() {
     this.router.navigate(['admin/dashboard/Admin']);
   }
-
+  parse(url: any): UrlTree { let dus = new DefaultUrlSerializer(); return dus.parse(url); }
+  serialize(tree: UrlTree): any {
+    let dus = new DefaultUrlSerializer(), path = dus.serialize(tree); // use your regex to replace as per your requirement.
+    return path
+      .replace(/%40/gi, '@')
+      .replace(/%3A/gi, ':')
+      .replace(/%24/gi, '$')
+      .replace(/%2C/gi, ',')
+      .replace(/%3B/gi, ';')
+      .replace(/%20/gi, '+')
+      .replace(/%3D/gi, '=')
+      .replace(/%3F/gi, '?')
+      .replace(/%2F/gi, '/')
+  }
+query:any
   getadmin() {
     if (localStorage.getItem('SuperAdmin')) {
+      this.query = this.route.snapshot.params._id
+      var r: string = this.router.url
+      r = r.replace(/%3D/gi, '=')
+      var c = r.substring(r.lastIndexOf('/') + 1);
+      console.log(c)
       var token = localStorage.getItem('SuperAdmin');
       var decode = jwt_decode(token);
       this.role = decode.role
@@ -90,7 +110,13 @@ export class AdminSidebarComponent implements OnInit {
       this.router.url === "/admin/dashboard/view-products?page="+b
       ) {
 
-      } else {
+      } else if (this.role === "SuperAdmin" &&
+      r === "/admin/dashboard/view-products/"+c||
+      r === "/admin/dashboard/view-products/"+c+"?page="+b
+      ) {
+
+      }else {
+        console.log('sidebar id not found')
         this.router.navigate(['/admin/dashboard'])
       }
       console.log(this.role)

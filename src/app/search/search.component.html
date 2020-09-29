@@ -109,7 +109,7 @@
             <div class="col-xs-12 col-sm-4 col-md-3" *ngFor="let book of books.books | paginate:config">
 
 
-              <app-searchitem [searchItem]="book" [addedToWishlist]="wid1.indexOf(books._id) >= 0 ">
+              <app-searchitem [searchItem]="book" [cartbutton]="cartpid1.indexOf(book._id) >= 0" [addedToWishlist]="wid1.indexOf(books._id) >= 0 ">
               </app-searchitem>
 
 

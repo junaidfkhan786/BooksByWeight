@@ -5,14 +5,14 @@ import { ToastrService } from 'ngx-toastr';
 import { FilterService } from 'src/app/services/filter.service';
 import { WishlistService } from 'src/app/services/wishlist.service';
 import { CartService } from 'src/app/services/cart.service';
-
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 @Component({
   selector: 'app-searchitem',
   templateUrl: './searchitem.component.html',
   styleUrls: ['./searchitem.component.css']
 })
 export class SearchitemComponent implements OnInit {
-
+  @Input() cartbutton:boolean;
   @Input() searchItem: any;
 
   @Input() addedToWishlist: boolean;
@@ -39,7 +39,7 @@ w:any = [];
   ) { }
 
   ngOnInit() {
-    
+
   }
 
 
@@ -47,7 +47,24 @@ w:any = [];
     this.router.navigate(['details/' + _id]);
   }
 
+  gotocart(){
+    Swal.fire({
+      title: 'Already Added?',
+      text: "If You Want To Increase Quantity Of Your Book!",
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Click Here To Goto Cart!'
+    }).then((result) => {
+      if (result.value) {
+        window.location.assign('/cart')
+          window.scrollTo(0, 10);
 
+      }
+    })
+
+  }
 
   addWish(_id) {
     if (localStorage.getItem('User')) {
@@ -58,7 +75,7 @@ w:any = [];
           });
 
           this.addedToWishlist = true;
-         
+
         },
         (err) => {
           this.toastr.warning('Product already Added', 'BooksByWeight', {
@@ -80,9 +97,9 @@ w:any = [];
         timeOut: 1000,
       });
       this.addedToWishlist = false;
-     
 
-    
+
+
     });
   }
 
@@ -96,7 +113,7 @@ w:any = [];
 
       this.toastr.success('Product Successfully Added to cart', 'BooksByWeight', {
         timeOut: 1000,
-      
+
       });
       this.spinner.hide();
     })
@@ -109,5 +126,33 @@ w:any = [];
 
 
   }
+  notify(){
+    Swal.fire(
+      'Sorry This Book Is Book Is Out Of Stock!',
+      'Try Again After SomeTimes',
+      'success'
+    )
+    // Swal.fire({
+    //   title: 'Want To Get Notified When Book Is Available?',
+    //   text: '',
+    //   icon: 'info',
+    //   showCancelButton: true,
+    //   confirmButtonColor: '#3085d6',
+    //   cancelButtonColor: '#d33',
+    //   confirmButtonText: 'Yes, Click Here!',
+    //   cancelButtonText: 'No, Your Wish!'
+    // }).then((result) => {
+    //   if (result.value) {
+    //     this.ngZone.run(
+    //       () => this.router.navigate(['/books'])
+    //     ).then();
+    //     Swal.fire(
+    //       'Wait For Email!',
+    //       'An Email Has Been Sent When Book is Available',
+    //       'success'
+    //     )
+    //   }
+    // })
 
+  }
 }

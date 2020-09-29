@@ -20,9 +20,9 @@
 <owl-carousel-o [options]="customOptions" #owlCar1>
   <ng-container *ngFor="let books of books$.books">
     <ng-template carouselSlide>
-      
-  <app-popularitem [popularitem] = "books" [addedToWishlist]= "wid1.indexOf(books._id) >= 0 "></app-popularitem>
+
+  <app-popularitem [popularitem]="books" [cartbutton]="cartpid1.indexOf(books._id) >= 0" [addedToWishlist]= "wid1.indexOf(books._id) >= 0 "></app-popularitem>
 </ng-template>
-  
+
   </ng-container>
 </owl-carousel-o>

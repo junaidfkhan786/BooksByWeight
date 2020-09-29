@@ -80,7 +80,7 @@ import { OrderdetailsComponent } from './profile/userorders/orderdetails/orderde
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { ErrorComponent } from './error/error.component';
 import { CountcardsComponent } from './admin-panel/admin-main-content/countcards/countcards.component'
-
+import { DigitOnlyModule } from '@uiowa/digit-only';
 @NgModule({
   declarations: [
     AppComponent,
@@ -162,7 +162,7 @@ import { CountcardsComponent } from './admin-panel/admin-main-content/countcards
 
     }),
     NgxSpinnerModule,
-
+    DigitOnlyModule
   ],
   providers: [
     {

@@ -50,22 +50,22 @@ cartquantity1:any =[];
 this.loadimg()
   }
 
-  
+
   loadimg() {
     this.bookimg = this.productItem.book_img
 
-    
+
 //  var img:any = []
     for (let i = 0; i < this.bookimg.length; i++) {
       // this.img.push(this.bookimg[i].toUpperCase())
-   
+
       if (this.bookimg[i] == "https://booksimg.s3.us-east-2.amazonaws.com/") {
         this.bookimg.splice(i, 1); i--;
       }
     }
     // for (let i = 0; i < this.img.length; i++) {
-    
- 
+
+
     //   if (this.img[i] == "HTTPS://BOOKSIMG.S3.US-EAST-2.AMAZONAWS.COM/") {
     //     this.img.splice(i, 1); i--;
     //   }
@@ -80,7 +80,35 @@ this.loadimg()
     this.router.navigate(['details/' + _id]);
   }
 
+  notify(){
+    Swal.fire(
+      'Sorry This Book Is Book Is Out Of Stock!',
+      'Try Again After SomeTimes',
+      'success'
+    )
+    // Swal.fire({
+    //   title: 'Want To Get Notified When Book Is Available?',
+    //   text: '',
+    //   icon: 'info',
+    //   showCancelButton: true,
+    //   confirmButtonColor: '#3085d6',
+    //   cancelButtonColor: '#d33',
+    //   confirmButtonText: 'Yes, Click Here!',
+    //   cancelButtonText: 'No, Your Wish!'
+    // }).then((result) => {
+    //   if (result.value) {
+    //     this.ngZone.run(
+    //       () => this.router.navigate(['/books'])
+    //     ).then();
+    //     Swal.fire(
+    //       'Wait For Email!',
+    //       'An Email Has Been Sent When Book is Available',
+    //       'success'
+    //     )
+    //   }
+    // })
 
+  }
 
   addWish(_id) {
     this.spinner.show();
@@ -93,7 +121,7 @@ this.loadimg()
           });
 
           this.addedToWishlist = true;
-         
+
         },
         (err) => {
           this.spinner.hide();
@@ -118,14 +146,14 @@ this.loadimg()
         timeOut: 1000,
       });
       this.addedToWishlist = false;
-     
 
-    
+
+
     });
   }
 
   addCart(details,_id,selling_price,weight){
-  
+
     this.spinner.show();
     if (localStorage.getItem('User')!=null) {
       if(details.sale_price !=0 && details.sale_price !=null  ){
@@ -137,7 +165,7 @@ this.cartbutton = true
       this.toastr.success('Product Successfully Added to cart', 'BooksByWeight', {
         timeOut: 1000,
       });
-     
+
     })
   } else {
     this.router.navigate(['/login']);
@@ -163,10 +191,10 @@ this.cartbutton = true
       if (result.value) {
         window.location.assign('/cart')
           window.scrollTo(0, 10);
-        
+
       }
     })
 
   }
-  
+
 }

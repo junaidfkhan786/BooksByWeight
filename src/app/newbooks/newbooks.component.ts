@@ -136,25 +136,26 @@ config:any
     console.log(this.config.currentPage)
     this.newService.getNewBooks(p).pipe(
       map((resp) => {
-        //  var newbooks = [];
-        //  var uniqueObject = {};
-          var book = resp.books
-
-        //         for (let i in book) {
-
-        //          let objTitle = book[i]['Isbn_no'];
+        var book = resp.books
+        var newbooks = [];
+        var uniqueObject = {};
 
 
-        //           uniqueObject[objTitle] = book[i];
-        //       }
+               for (let i in book) {
+
+                let objTitle = book[i]['Isbn_no'];
 
 
-        //       for (let i in uniqueObject) {
-        //           newbooks.push(uniqueObject[i]);
-        //       }
-        //       var total = 20 - newbooks.length
-        //       resp['totalBooks'] = resp.totalBooks - total
-        //       resp['books'] = newbooks
+                 uniqueObject[objTitle] = book[i];
+             }
+
+
+             for (let i in uniqueObject) {
+                 newbooks.push(uniqueObject[i]);
+             }
+             var total = 20 - newbooks.length
+             resp['totalBooks'] = resp.totalBooks - total
+             resp['books'] = newbooks
           for (let i = 0; i < book.length; i++) {
             book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
             book[i]['rate'] = Math.floor(book[i]['rate'])

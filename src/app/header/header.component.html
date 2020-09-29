@@ -109,7 +109,8 @@
             </a>
             <ul class="dropdown-menu animate__animated animate__fadeInUp animate__faster">
               <li class="dropdown-item">{{UserData.name}}</li>
-              <li><a class="dropdown-item" [routerLink]="['/profile']" routerLinkActive="router-link-active">Edit
+              <li><a class="dropdown-item" [routerLink]="['/profile']" (click)="window()"
+                  routerLinkActive="router-link-active">Edit
                   Profile</a></li>
               <li><a class="dropdown-item" (click)="logout()">LogOut</a></li>
             </ul>
@@ -130,7 +131,8 @@
             </a>
           </li>
           <li>
-            <a style="width: 60px;" [routerLink]="['/cart']" (click)="window()" routerLinkActive="router-link-active" class="nav-link">
+            <a style="width: 60px;" [routerLink]="['/cart']" (click)="window()" routerLinkActive="router-link-active"
+              class="nav-link">
               <span class="material-icons">
                 add_shopping_cart
               </span>
@@ -149,23 +151,26 @@
       <div class="row" style="padding: 0px 30px 0px 30px;">
         <div class="col-sm">
           <div class="row">
-        <div class="d-flex justify-content-center">
-          <select [(ngModel)]="selected" class="form-select select "  style="width: 20%; height: 50px;" aria-label="Default select example">
-            <option *ngFor="let select of selector" [value]="select.value">{{select.name}}</option>
-          </select>
-          <input type="text" class="w-50 p-2 form-control" placeholder="search..." [(ngModel)]="Searchinput" name="searchinput"
-            (keyup.enter)="search(selected,Searchinput)">
-            <button style="width: 5%;" class="btn btn-danger org button" type="submit" (click)="search(selected,Searchinput)">
-              <span class="material-icons">
-                search
-              </span>
-            </button>
-            <button style="width: 5%; margin-left: 5px;" class="btn org closebtn" type="submit" (click)="closeSearch()">
-              <span class="material-icons">
-                close
-              </span>
-            </button>
-        </div>
+            <div class="d-flex justify-content-center">
+              <select [(ngModel)]="selected" class="form-select select " style="width: 20%; height: 50px;"
+                aria-label="Default select example">
+                <option *ngFor="let select of selector" [value]="select.value">{{select.name}}</option>
+              </select>
+              <input type="text" class="w-50 p-2 form-control" placeholder="search..." [(ngModel)]="Searchinput"
+                name="searchinput" (keyup.enter)="search(selected,Searchinput)">
+              <button style="width: 5%;" class="btn btn-danger org button" type="submit"
+                (click)="search(selected,Searchinput)">
+                <span class="material-icons">
+                  search
+                </span>
+              </button>
+              <button style="width: 5%; margin-left: 5px;" class="btn org closebtn" type="submit"
+                (click)="closeSearch()">
+                <span class="material-icons">
+                  close
+                </span>
+              </button>
+            </div>
           </div>
         </div>
 

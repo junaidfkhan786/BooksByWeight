@@ -2,9 +2,9 @@
     <div class="p-2">
       <div class="s nopadding">
         <div class="content">
-          <div class="content-overlay"></div>
-          <img class="card-img-top" height="340px" 
-          height="350px"
+          <div class="content-overlay" (click)="productHome(popularitem._id)"></div>
+          <img class="card-img-top" height="340px"
+          height="350px"  (click)="productHome(popularitem._id)"
           src="{{popularitem.book_img[0]}}" onerror="this.src='assets/images/altimg.png';" alt=" BOOKS ">
           <div class="content-details fadeIn-bottom">
 
@@ -14,11 +14,16 @@
                   add &nbsp;&nbsp;
                 </span>
               </a>
-                
-                <a style="color: black;" (click)="addCart(popularitem._id,popularitem.final_price,popularitem.weight)">
-                    <span class="material-icons org">
-                        add_shopping_cart &nbsp;&nbsp;
-                </span></a><a *ngIf="!addedToWishlist"
+
+              <a  *ngIf="!cartbutton" style="color: black;" (click)="addCart(popularitem._id,popularitem.final_price,popularitem.weight)">
+                <span class="material-icons org">
+                  add_shopping_cart &nbsp;&nbsp;
+                </span></a>
+                <a  *ngIf="cartbutton" style="color: black;" (click)="gotocart()">
+                  <span class="material-icons org">
+                    add_shopping_cart &nbsp;&nbsp;
+                  </span></a>
+                  <a *ngIf="!addedToWishlist"
                 ><span
                   (click)="addWish(popularitem._id)"
                   style="color: black; cursor: pointer;"
@@ -42,18 +47,27 @@
         </div>
       </div>
 
-      <div class="text-center" style="text-align: center; padding: 0px 10px 0px 10px;">
-        <p style="white-space: nowrap;overflow: hidden; text-overflow: ellipsis;">
+      <div    (click)="productHome(popularitem._id)" style="cursor: pointer;">
+        <div  class="text-center" style="text-align: center; padding: 0px 20px 0px 20px; white-space: nowrap;overflow: hidden; text-overflow: ellipsis;">
           {{popularitem.book_name}}
-          </p>
-      </div>
-      <div class="text-center">
-        <s style="color: rgba(107, 105, 105, 0.61);">&#8377;
+          <br>
+        </div>
+        <div class="text-center">
+          <s style="color: rgba(107, 105, 105, 0.61);">&#8377;
             {{popularitem.mrp_inr}}
-        </s> &nbsp;
-        <span style="color:red">&#8377;
+          </s> &nbsp;
+          <span *ngIf="popularitem.sale_price == null || popularitem.sale_price == 0;else final" style="color:red">&#8377;
             {{popularitem.final_price}}Rs
-        </span>
+          </span>
+          <ng-template #final >
+            <span *ngIf="popularitem.sale_price != null && popularitem.sale_price != 0;" style="color:red">&#8377;
+              <s>{{popularitem.final_price}}Rs</s>
+            </span>
+          </ng-template> <br>
+          <span *ngIf="popularitem.sale_price != null && popularitem.sale_price != 0;" style="color:blue">
+            sale price: &#8377;{{popularitem.sale_price}}Rs
+          </span>
+        </div>
       </div>
     </div>
   </div>

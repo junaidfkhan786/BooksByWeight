@@ -5,6 +5,7 @@ import { WishlistService } from '../services/wishlist.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { map } from 'rxjs/operators';
+import { CartService } from '../services/cart.service';
 declare var $: any;
 @Component({
   selector: 'app-popularcollection',
@@ -16,6 +17,13 @@ export class PopularcollectionComponent implements OnInit {
   wish$: any = [];
   wid: any = [];
   wid1: any = [];
+  cartquantity: any = [];
+  cartquantity1: any = [];
+  cartpid: any = {};
+  cartitem: any = [];
+  cartpid1: any[] = [];
+  book$: any = [];
+  length: any;
 spinner : boolean = true;
   customOptions: OwlOptions = {
     loop: true,
@@ -49,21 +57,47 @@ spinner : boolean = true;
     private toastr: ToastrService,
     private newService: BooksService,
     private wish: WishlistService,
-    private router: Router
+    private router: Router,
+    private cart: CartService
   ) {}
 
   ngOnInit(): void {
     this.loadbook();
 
     if(localStorage.getItem('User') !=null){
+      this.cart.getcartload().subscribe(()=>{
+        this.loadcart();
+      })
       this.wish.getwishlistload().subscribe(() => {
         this.loadwish();
       })
-
+      this.loadcart();
       this.loadwish();
     }
 
     this.jquery_code();
+  }
+
+  loadcart() {
+    if (localStorage.getItem('User') != null) {
+      this.cart.getCart().subscribe((data) => {
+        this.book$ = data;
+        if (this.book$.cartItems.length > 0) {
+
+          this.cartitem = this.book$.cartItems[0].cart;
+          this.length = this.cartitem.length;
+        }
+        if (this.book$.cartItems.length > 0) {
+          this.cartquantity = this.book$.cartItems[0].cart;
+
+          for (var { book: books } of this.cartquantity) {
+            this.cartpid = books;
+            const size3 = books._id;
+            this.cartpid1.push(size3);
+          }
+        }
+      });
+    }
   }
 
   jquery_code() {

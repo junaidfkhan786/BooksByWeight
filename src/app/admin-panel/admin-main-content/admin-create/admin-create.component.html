@@ -21,7 +21,13 @@
         </div>
         <div class="mb-3 form-group">
 
-          <input placeholder="Enter Phone Number" numbersOnly formControlName="phonenumber" required name="phonenumber"
+          <input placeholder="Enter Phone Number"
+          type="text"
+          maxlength="10"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          digitOnly
+         formControlName="phonenumber" required name="phonenumber"
             style="width: 100%; border-top: none; border-left: none; border-right: none; background: transparent !important ;"
             type="text" id="phonenumber"
             aria-describedby="phonenumber" maxlength="10">
@@ -74,7 +80,7 @@
       </tr>
     </tbody>
   </table>
-  
+
   <pagination-controls class="d-flex justify-content-center" directionLinks="true"
   (pageChange)="onPageChange($event)" autoHide="true" responsive="true" previousLabel="Previous"
   nextLabel="Next">

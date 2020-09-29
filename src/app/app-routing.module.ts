@@ -158,6 +158,11 @@ const routes: Routes = [
     component: SearchComponent
   },
   {
+    path: 'admin/dashboard/view-products/:_id',
+    component: ViewProductsComponent,
+    canActivate:[AuthGuard]
+  },
+  {
     path: 'profile',
     component: ProfileComponent,
     canActivate: [AuthGuard]

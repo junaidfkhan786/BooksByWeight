@@ -4,8 +4,10 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { NgForm } from '@angular/forms';
 import { SaveSingleBookService } from 'src/app/services/save-single-book.service';
 import { Toast, ToastrService } from 'ngx-toastr';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, DefaultUrlSerializer, Router, UrlTree } from '@angular/router';
 import { AdminLoginService } from 'src/app/services/admin-login.service';
+import { map } from 'rxjs/operators';
+import { SearchService } from 'src/app/services/search.service';
 declare var $: any;
 @Component({
   selector: 'app-view-products',
@@ -20,9 +22,9 @@ export class ViewProductsComponent implements OnInit {
   totalBooks: number;
   p: any
   @Output() totalbook1 = new EventEmitter<number>()
-  pages: number = 1;
-  book: any = [];
+  book: any = [null];
   book1: any;
+  book$:any =[null]
   formbutton: boolean;
   button: boolean;
   book_img: any = [];
@@ -31,6 +33,10 @@ export class ViewProductsComponent implements OnInit {
   config: any
   selector: any = [];
   selected: any;
+  Searchinput: any;
+  query:string
+  count:any
+  message:any
   constructor(
     private spinner: NgxSpinnerService,
     private newService: BooksService,
@@ -38,7 +44,8 @@ export class ViewProductsComponent implements OnInit {
     private toastr: ToastrService,
     private route: ActivatedRoute,
     private router: Router,
-    private toggle: AdminLoginService
+    private toggle: AdminLoginService,
+    private searchs:SearchService
   ) {
     this.toggle.opensidebar.subscribe((toggle) => {
       this.opened = toggle
@@ -58,34 +65,95 @@ export class ViewProductsComponent implements OnInit {
     // this.spinner.show();
     this.jquery_code();
     this.totalbook1.emit(this.totalBooks);
-
+    this.selection()
     this.singelbook.getbookload().subscribe(() => {
-      if (this.router.url == '/admin/dashboard/view-products' ||
-        this.router.url == '/admin/dashboard/view-products?page=' + this.config.currentPage) {
-        if (this.router.url == '/admin/dashboard/view-products') {
-          this.loadbook(1);
-        } else {
-          this.loadbook(this.config.currentPage);
-        }
-
-      }
-
+      this.load()
     })
+    this.load()
+  }
+  parse(url: any): UrlTree { let dus = new DefaultUrlSerializer(); return dus.parse(url); }
+  serialize(tree: UrlTree): any {
+    let dus = new DefaultUrlSerializer(), path = dus.serialize(tree); // use your regex to replace as per your requirement.
+    return path
+      .replace(/%40/gi, '@')
+      .replace(/%3A/gi, ':')
+      .replace(/%24/gi, '$')
+      .replace(/%2C/gi, ',')
+      .replace(/%3B/gi, ';')
+      .replace(/%20/gi, '+')
+      .replace(/%3D/gi, '=')
+      .replace(/%3F/gi, '?')
+      .replace(/%2F/gi, '/')
+  }
+  loadroute() {
+console.log(this.route.snapshot.params._id )
+if(this.route.snapshot.params._id != undefined){
+  this.query = this.route.snapshot.params._id
+  console.log(this.router.url)
+  var a: string = this.router.url
+  a = a.replace(/%3D/gi, '=')
+  var b = a.substring(a.lastIndexOf('=') + 1);
+  var c = a.substring(a.lastIndexOf('/') + 1);
+  var s: any
+  console.log(b)
+  console.log(c)
+  if(a == '/admin/dashboard/view-products/'+this.query  ){
+    console.log('get search books')
+    this.getbooks(this.query,1)
+  }else{
+    console.log('get search books with page')
+    this.getbooks(this.query,this.config.currentPage)
+  }
+}
+  }
+  load() {
     if (this.router.url == '/admin/dashboard/view-products' ||
       this.router.url == '/admin/dashboard/view-products?page=' + this.config.currentPage) {
       if (this.router.url == '/admin/dashboard/view-products') {
+        console.log('loading all books')
         this.loadbook(1);
       } else {
         this.loadbook(this.config.currentPage);
       }
 
+    }else{
+      console.log('loading search books')
+      this.loadroute()
     }
+  }
+  getbooks(query, page) {
+    let res = this.searchs.searched(query, page);
+    res.pipe(
+      map((resp) => {
+        var book = resp.books
+        for (let i = 0; i < book.length; i++) {
+          book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
+          book[i]['rate'] = Math.floor(book[i]['rate'])
+          book[i]['weight'] = Math.floor(book[i]['weight'])
+          book[i]['sale_disc_inr'] = Math.floor(book[i]['sale_disc_inr'])
+          book[i]['sale_disc_per'] = Math.floor(book[i]['sale_disc_per'])
+          book[i]['discount_per'] = Math.floor(book[i]['discount_per'])
+          book[i]['discount_rs'] = Math.floor(book[i]['discount_rs'])
+          book[i]['final_price'] = Math.floor(book[i]['final_price'])
+          book[i]['sale_rate'] = Math.floor(book[i]['sale_rate'])
+          book[i]['sale_price'] = Math.floor(book[i]['sale_price'])
+        }
+        return resp
+      })
+    ).subscribe((resp) => {
+      this.book$ = resp.books
+      console.log(this.book$)
+      this.message = this.book$.count;
+      this.config.totalItems = resp.totalBooks;
+      this.count = this.book$.totalBooks
+
+    })
   }
   search(selected, Searchinput) {
 
     var _id = Searchinput + "&" + selected
     console.log(_id)
-    this.router.navigate(['search/' + _id]);
+    this.router.navigate(['admin/dashboard/view-products/'+_id]);
     // window.location.assign('search/'+_id)
   }
   selection() {
@@ -119,6 +187,9 @@ export class ViewProductsComponent implements OnInit {
     if (this.router.url == '/admin/dashboard/view-products' || this.router.url == '/admin/dashboard/view-products?page=' + this.config.currentPage) {
       this.router.navigate(['admin/dashboard/view-products/'], { queryParams: { page: page } });
       this.loadbook(page)
+    }else{
+      this.router.navigate(['admin/dashboard/view-products/' + this.query], { queryParams: { page: page } });
+    this.getbooks(this.query, page)
     }
     window.scrollTo(0, 60);
   }

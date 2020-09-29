@@ -46,7 +46,35 @@ w:any = [];
 
   ngOnInit() {
   }
+  notify(){
+    Swal.fire(
+      'Sorry This Book Is Book Is Out Of Stock!',
+      'Try Again After SomeTimes',
+      'success'
+    )
+    // Swal.fire({
+    //   title: 'Want To Get Notified When Book Is Available?',
+    //   text: '',
+    //   icon: 'info',
+    //   showCancelButton: true,
+    //   confirmButtonColor: '#3085d6',
+    //   cancelButtonColor: '#d33',
+    //   confirmButtonText: 'Yes, Click Here!',
+    //   cancelButtonText: 'No, Your Wish!'
+    // }).then((result) => {
+    //   if (result.value) {
+    //     this.ngZone.run(
+    //       () => this.router.navigate(['/books'])
+    //     ).then();
+    //     Swal.fire(
+    //       'Wait For Email!',
+    //       'An Email Has Been Sent When Book is Available',
+    //       'success'
+    //     )
+    //   }
+    // })
 
+  }
   productHome(_id) {
     this.router.navigate(['details/' + _id]);
   }
@@ -63,7 +91,7 @@ w:any = [];
           });
 this.spinner.hide();
           this.addedToWishlist = true;
-         
+
         },
         (err) => {
           this.toastr.warning('Product already Added', 'BooksByWeight', {
@@ -87,9 +115,9 @@ this.spinner.hide();
       });
       this.spinner.hide();
       this.addedToWishlist = false;
-     
 
-    
+
+
     });
   }
 
@@ -105,7 +133,7 @@ this.spinner.hide();
 this.cartbutton = true
       this.toastr.success('Product Successfully Added to cart', 'BooksByWeight', {
         timeOut: 1000,
-      
+
       });
   this.spinner.hide();
     })
@@ -118,7 +146,7 @@ this.cartbutton = true
 
 
   }
-  
+
   gotocart(){
     // Swal.fire({
     //   title: '<strong>Already Added?</strong>',

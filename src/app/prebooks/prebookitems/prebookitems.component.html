@@ -1,7 +1,7 @@
 <div class="s nopadding"  data-aos="zoom-in">
     <div class="content"  style="height:340px">
-      <div class="content-overlay" ></div>
-      <img class="card-img-top altimg" height="340px" src="{{productItem.book_img[0]}}" onerror="this.src='assets/images/altimg.png';" alt=" BOOKS ">
+      <div class="content-overlay" (click)="productHome(productItem._id)" ></div>
+      <img class="card-img-top altimg" height="340px" (click)="productHome(productItem._id)" src="{{productItem.book_img[0]}}" onerror="this.src='assets/images/altimg.png';" alt=" BOOKS ">
       <div class="content-details fadeIn-bottom">
 
         <h3 class="content-title"  >
@@ -16,9 +16,14 @@
               add_shopping_cart &nbsp;
             </span>
            </a>
-           
+
         <a *ngIf="cartbutton" >
           <span (click)="gotocart()" class="material-icons org wish">
+            add_shopping_cart &nbsp;
+          </span>
+         </a>
+         <a *ngIf="productItem.quantity == 0" >
+          <span (click)="notify()" class="material-icons org wish">
             add_shopping_cart &nbsp;
           </span>
          </a>
@@ -27,7 +32,7 @@
             favorite_border
           </span>
         </a>
-      
+
         <a *ngIf="addedToWishlist"><span (click)="deletePro(productItem._id)" class="material-icons org wish">
             favorite
           </span>
@@ -39,6 +44,7 @@
     </div>
   </div>
 
+<div (click)="productHome(productItem._id)">
   <div class="text-center" style="text-align: center; padding: 0px 20px 0px 20px; white-space: nowrap;overflow: hidden; text-overflow: ellipsis;">
     {{productItem.book_name}}
     <br>
@@ -59,3 +65,5 @@
       sale price: &#8377;{{productItem.sale_price}}Rs
     </span>
   </div>
+
+</div>

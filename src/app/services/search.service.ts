@@ -13,7 +13,7 @@ export class SearchService {
 
   constructor(private http: HttpClient) { }
   public searched(query,page):Observable<any>{
-
+console.log(query,page)
   return this.http.get<any>(`${API_LIVE}`+"/search?searchKeyword="+query+'&page='+page,httpOptions);
 
   }

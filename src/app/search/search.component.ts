@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { FilterService } from '../services/filter.service';
 import { WishlistService } from '../services/wishlist.service';
 import { map } from 'rxjs/operators';
+import { CartService } from '../services/cart.service';
 declare var $: any;
 @Component({
   selector: 'app-search',
@@ -30,6 +31,13 @@ export class SearchComponent implements OnInit, UrlSerializer {
   wid1: number[] = [];
   pages: number = 1;
   config: any
+  cartpid: any = {};
+  cartpid1: number[] = [];
+  cartquantity: any = [];
+  cartquantity1: any = [];
+  book$: any = [];
+  length: any;
+  cartitem: any = [];
   constructor(
     private search: SearchService,
     private Spinner: NgxSpinnerService,
@@ -37,6 +45,7 @@ export class SearchComponent implements OnInit, UrlSerializer {
     private route: ActivatedRoute,
     private filter: FilterService,
     private wish: WishlistService,
+    private cart:CartService
   ) {
 
     this.config = {
@@ -70,7 +79,33 @@ export class SearchComponent implements OnInit, UrlSerializer {
     this.Spinner.show()
     this.loadwish();
     this.jquery_code();
+    this.cart.getcartload().subscribe(() => {
+      this.loadcart();
+    })
+    this.loadcart()
     // this.loadfilter();
+  }
+  loadcart() {
+    if (localStorage.getItem('User') != null) {
+      this.cart.getCart().subscribe((data) => {
+        this.book$ = data;
+        if (this.book$.cartItems.length > 0) {
+
+          this.cartitem = this.book$.cartItems[0].cart;
+          this.length = this.cartitem.length;
+        }
+        if (this.book$.cartItems.length > 0) {
+          this.cartquantity = this.book$.cartItems[0].cart;
+
+          for (var { book: books } of this.cartquantity) {
+            this.cartpid = books;
+            const size3 = books._id;
+            this.cartpid1.push(size3);
+            console.log(this.cartpid1)
+          }
+        }
+      });
+    }
   }
   loadroute() {
 
@@ -101,6 +136,25 @@ export class SearchComponent implements OnInit, UrlSerializer {
     res.pipe(
       map((resp) => {
         var book = resp.books
+        var newbooks = [];
+        var uniqueObject = {};
+
+
+               for (let i in book) {
+
+                let objTitle = book[i]['Isbn_no'];
+
+
+                 uniqueObject[objTitle] = book[i];
+             }
+
+
+             for (let i in uniqueObject) {
+                 newbooks.push(uniqueObject[i]);
+             }
+             var total = 20 - newbooks.length
+             resp['totalBooks'] = resp.totalBooks - total
+             resp['books'] = newbooks
         for (let i = 0; i < book.length; i++) {
           book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
           book[i]['rate'] = Math.floor(book[i]['rate'])
