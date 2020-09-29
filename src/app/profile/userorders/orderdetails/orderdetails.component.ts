@@ -20,7 +20,10 @@ export class OrderdetailsComponent implements OnInit {
   orderid: any;
   i: number
   amount: number
-
+coupon_code:any
+coupon_amount:any
+coupon_percentage:any
+total:any
   constructor(
     private order: OrdersService,
     private route: ActivatedRoute,
@@ -42,6 +45,7 @@ export class OrderdetailsComponent implements OnInit {
           this.orderdetail = res
           console.log(this.orderdetail);
           let orders: any = this.orderdetail[0].order_items
+          this.orderdetail[0]['total_amount'] = 0
           for (var i = 0; i < orders.length; i++) {
             delete orders[i]['_id']
             if (orders[i].bookdetail) {
@@ -56,6 +60,8 @@ export class OrderdetailsComponent implements OnInit {
               orders[i]['sku'] = orders[i].bookdetail['sku']
               orders[i]['units'] = Math.floor(orders[i].bookdetail['units'])
               orders[i]['weight'] = Math.floor(orders[i].bookdetail['weight'])
+              orders[i]['total_price'] = orders[i].units * orders[i].selling_price
+              this.orderdetail[0]['total_amount'] += +orders[i].selling_price
               delete orders[i].bookdetail['name']
               delete orders[i].bookdetail['final_price']
               delete orders[i].bookdetail['sku']
@@ -73,10 +79,13 @@ export class OrderdetailsComponent implements OnInit {
           this.orderid = this.orderdetail[0].orderid
           this.paymentmethod = this.orderdetail[0].isPaymentCompleted
           this.amount = this.orderdetail[0].amount
+          this.coupon_code = this.orderdetail[0].coupon_code.coupon_code
+          this.coupon_amount = this.orderdetail[0].coupon_code.coupon_amount
+          this.coupon_percentage = this.orderdetail[0].coupon_code.percentage
+          this.total = this.orderdetail[0].total_amount
+          console.log(this.coupon_code,this.coupon_amount,this.coupon_percentage);
 
-          console.log(this.order_items);
-
-          // this.spinner.hide();
+          this.spinner.hide();
           setTimeout(() => {
             this.generatePDF();
           }, 4000);

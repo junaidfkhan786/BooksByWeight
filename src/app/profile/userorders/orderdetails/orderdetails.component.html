@@ -97,7 +97,7 @@
         </table>
     <div class="d-flex justify-content-center">
         <span>
-            NET TOTAL( IN VALUE ) Rs. {{amount|number}}
+            <span *ngIf="coupon_code !=null" style="color: red;">( Code Applied {{coupon_code}} )</span> NET TOTAL( IN VALUE ) <span *ngIf="coupon_amount!=null" style="color: red;"><s>Rs.{{total}}</s></span> Rs. {{amount|number}}
         </span>
     </div>
     <hr>
