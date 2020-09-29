@@ -1,7 +1,7 @@
 <div class="s nopadding"  data-aos="zoom-in">
     <div class="content"  style="height:340px">
-      <div class="content-overlay" (click)="productHome(productItem._id)" ></div>
-      <img class="card-img-top altimg" height="340px" (click)="productHome(productItem._id)" src="{{productItem.book_img[0]}}" onerror="this.src='assets/images/altimg.png';" alt=" BOOKS ">
+      <div class="content-overlay" style=" cursor: pointer; " (click)="productHome(productItem._id)" ></div>
+      <img class="card-img-top altimg" style=" cursor: pointer; " height="340px" (click)="productHome(productItem._id)" src="{{productItem.book_img[0]}}" onerror="this.src='assets/images/altimg.png';" alt=" BOOKS ">
       <div class="content-details fadeIn-bottom">
 
         <h3 class="content-title"  >
@@ -45,7 +45,7 @@
     </div>
   </div>
 
-<div (click)="productHome(productItem._id)">
+<div style=" cursor: pointer; " (click)="productHome(productItem._id)">
   <div class="text-center" style="text-align: center; padding: 0px 20px 0px 20px; white-space: nowrap;overflow: hidden; text-overflow: ellipsis;">
     {{productItem.book_name}}
     <br>

@@ -372,8 +372,8 @@ export class CheckoutComponent implements OnInit {
 
         this.ngZone.run(
 
-          () => this.router.navigate(['orderdetails/'+this.orderid])
-          // () => this.router.navigate(['/cart', { query: "completed" }])
+          // () => this.router.navigate(['orderdetails/'+this.orderid])
+          () => this.router.navigate(['/cart', { query: "completed" }])
         ).then();
       },
         (error) => console.log(error),

@@ -12,6 +12,7 @@ import { useradd } from 'src/app/models/useraddress.model';
 import { Coupons } from 'src/app/models/coupons.model';
 import { CoupontransferService } from 'src/app/services/coupontransfer.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { map } from 'rxjs/operators';
 
 declare var $: any;
 @Component({
@@ -83,28 +84,28 @@ export class CartItemsComponent implements OnInit {
   }
   bookimg: any[] = [];
   img:any = []
-  
+
     loadimg() {
       // var book:[] = this.productItem.cart
 
       // for (let i = 0; i < book.length; i++) {
 
-        
+
       // }
   //     this.bookimg = this.productItem.cart.book
 
-      
+
   // //  var img:any = []
   //     for (let i = 0; i < this.bookimg.length; i++) {
   //       this.img.push(this.bookimg[i].toUpperCase())
-     
+
   //       // if (this.bookimg[i] == "https://booksimg.s3.us-east-2.amazonaws.com/") {
   //       //   this.bookimg.splice(i, 1); i--;
   //       // }
   //     }
   //     for (let i = 0; i < this.img.length; i++) {
-      
-   
+
+
   //       if (this.img[i] == "HTTPS://BOOKSIMG.S3.US-EAST-2.AMAZONAWS.COM/") {
   //         this.img.splice(i, 1); i--;
   //       }
@@ -112,7 +113,7 @@ export class CartItemsComponent implements OnInit {
   //     this.bookimg.splice(0,this.bookimg.length)
   //     this.bookimg = this.img
   //     this.productItem.cart.book['book_img'] = this.bookimg
-  
+
     }
   jquery_code() {
     $(document).ready(function () { });
@@ -214,11 +215,51 @@ export class CartItemsComponent implements OnInit {
   }
 
   getallcoupons() {
-    this.couponservice.getcoupon().subscribe((data) => {
+    this.couponservice.getcoupon().pipe(
+      map((allcoupons)=>{
+        for (let i = 0; i < allcoupons.length; i++) {
+              allcoupons[i]['expiry_date'] = this.formatDate(allcoupons[i]['expiry_date'])
+              allcoupons[i]['coupon_amount'] = Math.floor(allcoupons[i]['coupon_amount'])
+
+
+        }
+
+        return allcoupons
+      })
+    ).subscribe((data) => {
       // var token = localStorage.getItem('User');
       // var decode = jwt_decode(token);
       // this.UserData = decode.userId;
+
+var a = this.formatDate(new Date)
       this.allcoupons = data
+
+      for (let i = 0; i < this.allcoupons.length; i++) {
+
+        if(this.allcoupons[i]['percentage'] == false && this.allcoupons[i]['coupon_amount']  > this.total){
+          this.allcoupons.splice(i, 1); i--;
+            // delete this.allcoupons[i]['_id']
+            // delete this.allcoupons[i]['coupon_amount']
+            // delete this.allcoupons[i]['coupon_code']
+            // delete this.allcoupons[i]['created_at']
+            // delete this.allcoupons[i]['expiry_date']
+            // delete this.allcoupons[i]['percentage']
+
+        }
+               if(this.allcoupons[i]['expiry_date'] !=null && this.allcoupons[i]['expiry_date'] < a ){
+          this.allcoupons.splice(i, 1); i--;
+          // delete this.allcoupons[i]['_id']
+          // delete this.allcoupons[i]['coupon_amount']
+          // delete this.allcoupons[i]['coupon_code']
+          // delete this.allcoupons[i]['created_at']
+          // delete this.allcoupons[i]['expiry_date']
+          // delete this.allcoupons[i]['percentage']
+
+        }
+
+      }
+
+
       // for (let i = 0; i < this.allcoupons.length; i++) {
       //   for (let j = 0; j < this.allcoupons[i].user.length; j++) {
 
@@ -239,7 +280,19 @@ export class CartItemsComponent implements OnInit {
       // }
     })
   }
+   formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
 
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
   onPageChange(page: number = 1) {
     this.pages = page;
     window.scrollTo(0, 450);
@@ -286,7 +339,12 @@ export class CartItemsComponent implements OnInit {
           this.t = this.total
           this.total = 0
           this.subtotal = 0
-        } else {
+        } else if(this.coupons.coupon_amount > this.total){
+          this.s = this.subtotal
+          this.t = this.total
+          this.subtotal =this.s
+          this.total = this.t
+        }else{
           this.s = this.subtotal
           this.t = this.total
           this.subtotal -= this.coupons.coupon_amount
@@ -322,7 +380,7 @@ export class CartItemsComponent implements OnInit {
 
 
   }
-  
+
   return(){
     let Returns = 'assets/policies/Returs&Refunds.pdf'
     window.open(Returns);

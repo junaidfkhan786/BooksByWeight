@@ -131,7 +131,7 @@
               <td style="border-width: 1px;">
                 <a (click)="productHome(item.book._id)" style="
               font-size: 14px;
-              color: #6f6f6f;     
+              color: #6f6f6f;
               font-weight: 700;
               text-decoration: none;
             ">{{ item.book.book_name | truncate:20 }}</a>
@@ -161,7 +161,7 @@
                   </div>
                   &nbsp;&nbsp;&nbsp;
                   <input disabled [value]="item.quantity" type="text" style="
-                
+
                 width: 30px !important;
                 height: 40px;
                 margin-left: 0px;
@@ -203,14 +203,14 @@
         <div class="d-flex justify-content-center" *ngIf="!couponhide">
           <button class="btn btn-success w-100" (click)="togglecoupon()"> Change Coupon </button>
         </div>
-        <div *ngIf="couponhide">
+        <div *ngIf="couponhide  && allcoupons.length > 0">
           <div class="card p-2 btc w-100">
             <span class="font-weight-bolder org text-center" style="font-size: large;">Coupons
             </span>
           </div>
           <div class="card mt-2 " *ngFor="let coupon of allcoupons |
           paginate: { id: 'mobile', itemsPerPage: 5, currentPage: pages, totalItems: i}; let i = index">
-            <div class="row  p-2">
+            <div class="row  p-2" *ngIf="coupon.coupon_amount !=null">
               <div class="col">
                 <span>
                   Code: <br>
@@ -222,7 +222,7 @@
                 <a class="btn-outline-success p-1" style="width: 20px;" (click)="select(coupon)">
                   <span class="material-icons">touch_app</span>
                 </a>
-                 <br>
+                <br>
                 {{coupon.coupon_amount}} %
               </div>
               <div class="col" *ngIf="coupon.percentage == false">
@@ -230,7 +230,7 @@
                 <a class="btn-outline-success p-1" style="width: 20px;" (click)="select(coupon)">
                   <span class="material-icons">touch_app</span>
                 </a>
-                 <br>
+                <br>
                 {{coupon.coupon_amount | currency:'INR'}}
               </div>
             </div>
@@ -249,7 +249,7 @@
           <button class="btn btn-outline-success w-50" (click)="togglecoupon()"> Change Coupon </button>
         </div>
         <br>
-        <div *ngIf="couponhide">
+        <div *ngIf="couponhide && allcoupons.length > 0">
           <div class="card p-2 btc w-100">
             <span class="font-weight-bolder org text-center" style="font-size: large;">Coupons
             </span>
@@ -276,21 +276,23 @@
               <tbody>
                 <tr *ngFor="let coupon of allcoupons |
                 paginate: {  itemsPerPage: 5, currentPage: pages, totalItems: i}; let i = index">
-                  <td>
-                    {{coupon.coupon_code}}
-                  </td>
-                  <td *ngIf="coupon.percentage == true">
-                    {{coupon.coupon_amount}} %
-                  </td>
-                  <td *ngIf="coupon.percentage == false">
-                    {{coupon.coupon_amount | currency:'INR'}}
-                  </td>
-                  <td>
-                    {{coupon.expiry_date | date}}
-                  </td>
-                  <td>
-                    <button class="btn btn-outline-success btn-sm" (click)="select(coupon)"> Select </button>
-                  </td>
+                  <ng-container *ngIf="coupon.coupon_amount !=null">
+                    <td>
+                      {{coupon.coupon_code}}
+                    </td>
+                    <td *ngIf="coupon.percentage == true">
+                      {{coupon.coupon_amount}} %
+                    </td>
+                    <td *ngIf="coupon.percentage == false">
+                      {{coupon.coupon_amount | currency:'INR'}}
+                    </td>
+                    <td>
+                      {{coupon.expiry_date | date}}
+                    </td>
+                    <td>
+                      <button class="btn btn-outline-success btn-sm" (click)="select(coupon)"> Select </button>
+                    </td>
+                  </ng-container>
                 </tr>
 
               </tbody>

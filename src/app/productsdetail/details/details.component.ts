@@ -164,6 +164,86 @@ notify(){
     // console.log(this.bookimg)
 
   }
+  copygoogle(){
+   var a:string = window.location.href
+   console.log(a)
+   let selBox = document.createElement('textarea');
+   selBox.style.position = 'fixed';
+   selBox.style.left = '0';
+   selBox.style.top = '0';
+   selBox.style.opacity = '0';
+   selBox.value = a;
+   document.body.appendChild(selBox);
+   selBox.focus();
+   selBox.select();
+   document.execCommand('copy');
+   document.body.removeChild(selBox);
+   alert(
+    'Link Copied!'+ ' ' +
+    'You Can Share It To You Friend!'
+  )
+  window.open('https://mail.google.com')
+  }
+  copyinsta(){
+    var a:string = window.location.href
+    console.log(a)
+    let selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = a;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+    alert(
+      'Link Copied!'+ ' ' +
+      'You Can Share It To You Friend!'
+    )
+    window.open('https://www.instagram.com')
+   }
+   copyfacebook(){
+    var a:string = window.location.href
+    console.log(a)
+    let selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = a;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+    alert(
+      'Link Copied!'+ ' ' +
+      'You Can Share It To You Friend!'
+    )
+    window.open('https://www.facebook.com')
+   }
+   copytwitter(){
+    var a:string = window.location.href
+    console.log(a)
+    let selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = a;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+    alert(
+      'Link Copied!'+ ' ' +
+      'You Can Share It To You Friend!'
+    )
+    window.open('https://twitter.com')
+   }
 
   addWish(_id) {
     if (localStorage.getItem('User')) {

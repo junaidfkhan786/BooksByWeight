@@ -1,8 +1,17 @@
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="line-scale-pulse-out" [fullScreen]="true">
-    <p style="color: white"> Loading order detils... </p>
+    <p style="color: white"> Please Wait We Are Generating Invoice... </p>
 </ngx-spinner>
-<app-header></app-header>
-<div class="page" id="wrapper">
+<app-header></app-header> <br>
+<div class="d-flex justify-content-center">
+  <button (click)="generatePDF()" class="btn org">
+    Click Here To Download Invoice
+     <!-- If Not Generated Properly -->
+    <span class="material-icons">
+      get_app
+    </span>
+  </button>
+</div>
+<div class="page mt-2" id="wrapper">
   <div class="page-content">
     <div class="ml-5 mr-5" id="contentToConvert">
         <div class="d-flex justify-content-center">
@@ -36,8 +45,10 @@
             </div>
             <div class="col">
                 <span>BooksByWeight</span> <br>
-                <span>Darsh Park / Narayan Nagar/406/2</span> <br>
-                <span>Thane 400612</span> <br>
+                <span>83/C, Hansraj Pragji building, <br>
+                       LN Pappan Marg
+                </span> <br>
+                <span>Worli, Mumbai 400018</span> <br>
                 <span>Maharashtra</span> <br>
                 <span>Email: info@booksbyweight.com</span>
             </div>
@@ -91,8 +102,8 @@
     </div>
     <hr>
 
-    <div class="card" style="height: 100px; width: 400px;">
-
+    <div class="card" style="height: 150px; width: 200px;">
+      <img class="card-img-top" style="height:150px; width: 200px;" src="../../../../assets/images/BBWStamp.png"  >
     </div>
     <b>
         Authorised Signature For BooksByWeight

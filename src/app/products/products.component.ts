@@ -221,7 +221,43 @@ export class ProductsComponent implements OnInit {
           if (cat[i]['_id'] == this.route.snapshot.params._id) {
             console.log('found')
 
-            this.CatService.getCategoryById(id,page).subscribe((data) => {
+            this.CatService.getCategoryById(id,page).pipe(
+              map((resp) => {
+                var book = resp.books
+               var newbooks = [];
+               var uniqueObject = {};
+
+
+                      for (let i in book) {
+
+                       let objTitle = book[i]['Isbn_no'];
+
+
+                        uniqueObject[objTitle] = book[i];
+                    }
+
+
+                    for (let i in uniqueObject) {
+                        newbooks.push(uniqueObject[i]);
+                    }
+                    var total = 20 - newbooks.length
+                    resp['totalBooks'] = resp.totalBooks - total
+                    resp['books'] = newbooks
+                for (let i = 0; i < book.length; i++) {
+                  book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
+                  book[i]['rate'] = Math.floor(book[i]['rate'])
+                  book[i]['weight'] = Math.floor(book[i]['weight'])
+                  book[i]['sale_disc_inr'] = Math.floor(book[i]['sale_disc_inr'])
+                  book[i]['sale_disc_per'] = Math.floor(book[i]['sale_disc_per'])
+                  book[i]['discount_per'] = Math.floor(book[i]['discount_per'])
+                  book[i]['discount_rs'] = Math.floor(book[i]['discount_rs'])
+                  book[i]['final_price'] = Math.floor(book[i]['final_price'])
+                  book[i]['sale_rate'] = Math.floor(book[i]['sale_rate'])
+                  book[i]['sale_price'] = Math.floor(book[i]['sale_price'])
+                }
+                return resp
+              })
+            ).subscribe((data) => {
               this.books$ = data;
               this.config.totalItems = this.books$.totalBooks;
               console.log(data)
@@ -280,7 +316,43 @@ export class ProductsComponent implements OnInit {
           if (subcat[i]['_id'] == this.route.snapshot.params._id) {
             console.log('found')
 
-            this.CatService.getSubCatById(id,page).subscribe((data) => {
+            this.CatService.getSubCatById(id,page).pipe(
+              map((resp) => {
+                var book = resp.books
+               var newbooks = [];
+               var uniqueObject = {};
+
+
+                      for (let i in book) {
+
+                       let objTitle = book[i]['Isbn_no'];
+
+
+                        uniqueObject[objTitle] = book[i];
+                    }
+
+
+                    for (let i in uniqueObject) {
+                        newbooks.push(uniqueObject[i]);
+                    }
+                    var total = 20 - newbooks.length
+                    resp['totalBooks'] = resp.totalBooks - total
+                    resp['books'] = newbooks
+                for (let i = 0; i < book.length; i++) {
+                  book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
+                  book[i]['rate'] = Math.floor(book[i]['rate'])
+                  book[i]['weight'] = Math.floor(book[i]['weight'])
+                  book[i]['sale_disc_inr'] = Math.floor(book[i]['sale_disc_inr'])
+                  book[i]['sale_disc_per'] = Math.floor(book[i]['sale_disc_per'])
+                  book[i]['discount_per'] = Math.floor(book[i]['discount_per'])
+                  book[i]['discount_rs'] = Math.floor(book[i]['discount_rs'])
+                  book[i]['final_price'] = Math.floor(book[i]['final_price'])
+                  book[i]['sale_rate'] = Math.floor(book[i]['sale_rate'])
+                  book[i]['sale_price'] = Math.floor(book[i]['sale_price'])
+                }
+                return resp
+              })
+            ).subscribe((data) => {
               this.books$ = data;
               this.config.totalItems = this.books$.totalBooks;
               this.spinner.hide();

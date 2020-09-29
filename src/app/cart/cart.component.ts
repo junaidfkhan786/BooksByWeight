@@ -56,7 +56,7 @@ export class CartComponent implements OnInit {
           confirmButtonText: 'Done'
         }).then((result) => {
           if (result.value) {
-            window.location.assign('/books')
+            window.location.assign('/profile')
             // this.ngZone.run(() => this.router.navigate(['/books'])).then();
           }
         })
@@ -82,13 +82,13 @@ export class CartComponent implements OnInit {
                   })
                   this.spinner.hide();
                 });
-  
+
               } else {
-  
+
               }
             }
-            
-    
+
+
           }
           return book$
         })

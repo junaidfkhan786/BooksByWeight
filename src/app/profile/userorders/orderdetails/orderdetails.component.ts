@@ -19,7 +19,8 @@ export class OrderdetailsComponent implements OnInit {
   orderdetail: any
   orderid: any;
   i: number
-  amount:number
+  amount: number
+
   constructor(
     private order: OrdersService,
     private route: ActivatedRoute,
@@ -29,6 +30,7 @@ export class OrderdetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    window.scroll(0,0)
     this.spinner.show()
     this.loadorderdetails();
   }
@@ -36,54 +38,56 @@ export class OrderdetailsComponent implements OnInit {
   loadorderdetails() {
     this.order.GetOrderById(this.route.snapshot.params._id).subscribe(
       (res) => {
-       if(res){
-        this.orderdetail = res
-        console.log(this.orderdetail);
-        let orders: any = this.orderdetail[0].order_items
-        for (var i = 0; i < orders.length; i++) {
-          delete orders[i]['_id']
-          if (orders[i].bookdetail) {
-            orders[i].bookdetail['name'] = orders[i].bookdetail['book_name']
-            delete orders[i].bookdetail['book_name']
-            delete orders[i].bookdetail['id']
-            delete orders[i].bookdetail['_id']
-            orders[i].bookdetail['units'] = orders[i]['units']
-            delete orders[i]['units']
-            orders[i]['name'] = orders[i].bookdetail['name']
-            orders[i]['selling_price'] = orders[i].bookdetail['final_price']
-            orders[i]['sku'] = orders[i].bookdetail['sku']
-            orders[i]['units'] = orders[i].bookdetail['units']
-            orders[i]['weight'] = orders[i].bookdetail['weight']
-            delete orders[i].bookdetail['name']
-            delete orders[i].bookdetail['selling_price']
-            delete orders[i].bookdetail['sku']
-            delete orders[i].bookdetail['units']
-            delete orders[i].bookdetail['weight']
-            delete orders[i]['bookdetail']
+        if (res) {
+          this.orderdetail = res
+          console.log(this.orderdetail);
+          let orders: any = this.orderdetail[0].order_items
+          for (var i = 0; i < orders.length; i++) {
+            delete orders[i]['_id']
+            if (orders[i].bookdetail) {
+              orders[i].bookdetail['name'] = orders[i].bookdetail['book_name']
+              delete orders[i].bookdetail['book_name']
+              delete orders[i].bookdetail['id']
+              delete orders[i].bookdetail['_id']
+              orders[i].bookdetail['units'] = Math.floor(orders[i]['units'])
+              delete orders[i]['units']
+              orders[i]['name'] = orders[i].bookdetail['name']
+              orders[i]['selling_price'] = Math.floor(orders[i].bookdetail['final_price'])
+              orders[i]['sku'] = orders[i].bookdetail['sku']
+              orders[i]['units'] = Math.floor(orders[i].bookdetail['units'])
+              orders[i]['weight'] = Math.floor(orders[i].bookdetail['weight'])
+              delete orders[i].bookdetail['name']
+              delete orders[i].bookdetail['final_price']
+              delete orders[i].bookdetail['sku']
+              delete orders[i].bookdetail['units']
+              delete orders[i].bookdetail['weight']
+              delete orders[i]['bookdetail']
+            }
           }
+
+          this.address = this.orderdetail[0].address
+          this.orderdate = this.orderdetail[0].orderDate
+          this.order_items = this.orderdetail[0].order_items
+          this.shippingid = this.orderdetail[0].shippingid
+          this.paymentid = this.orderdetail[0].paymentid
+          this.orderid = this.orderdetail[0].orderid
+          this.paymentmethod = this.orderdetail[0].isPaymentCompleted
+          this.amount = this.orderdetail[0].amount
+
+          console.log(this.order_items);
+
+          // this.spinner.hide();
+          setTimeout(() => {
+            this.generatePDF();
+          }, 4000);
         }
-
-        this.address = this.orderdetail[0].address
-        this.orderdate = this.orderdetail[0].orderDate
-        this.order_items = this.orderdetail[0].order_items
-        this.shippingid = this.orderdetail[0].shippingid
-        this.paymentid = this.orderdetail[0].paymentid
-        this.orderid = this.orderdetail[0].orderid
-        this.paymentmethod = this.orderdetail[0].isPaymentCompleted
-        this.amount = this.orderdetail[0].amount
-
-        console.log(this.order_items);
-
-        // this.spinner.hide();
-        setTimeout(() => {
-          this.generatePDF();
-        }, 3000);
-       }
       }
     );
   }
-  pdfAttachment : File; //declare the file
+  pdfAttachment: File;
   generatePDF() {
+
+
     var data = document.getElementById('contentToConvert');
     html2canvas(data).then(canvas => {
       // Few necessary setting options
@@ -96,10 +100,10 @@ export class OrderdetailsComponent implements OnInit {
 
       var newName = this.orderid
       this.pdfAttachment = new File([pdf.output('blob')], newName, {
-       type: pdf.output('blob').type,
-     });
-     pdf.save(this.orderid+'.pdf')
- console.log(this.pdfAttachment)
+        type: pdf.output('blob').type,
+      });
+      pdf.save(this.orderid + '.pdf')
+      console.log(this.pdfAttachment)
       this.spinner.hide();
     });
   }

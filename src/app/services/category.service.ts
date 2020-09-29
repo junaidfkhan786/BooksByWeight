@@ -15,17 +15,17 @@ export class CategoryService {
   }
   constructor(private _http : HttpClient) { }
 
-  public  getCategory() {
+  public  getCategory():Observable<any> {
 
-    return this._http.get(`${API_LIVE}`+"/categories");
+    return this._http.get<any>(`${API_LIVE}`+"/categories");
 
 
   }
-  public  getCategoryById(_id,page) {
-    return this._http.get(`${API_LIVE}`+"/book/categories/" + _id+'?page='+page);
+  public  getCategoryById(_id,page):Observable<any> {
+    return this._http.get<any>(`${API_LIVE}`+"/book/categories/" + _id+'?page='+page);
   }
-  public  getSubCatById(_id,page) {
-    return this._http.get(`${API_LIVE}`+"/book/subcategory/" + _id+'?page='+page);
+  public  getSubCatById(_id,page):Observable<any> {
+    return this._http.get<any>(`${API_LIVE}`+"/book/subcategory/" + _id+'?page='+page);
   }
   public postcategory(categories):Observable<any>{
     console.log(categories)

@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { httpOptions, API_LIVE } from '../models/api.model';
 import { map, tap } from 'rxjs/operators';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminCouponService {
-  
+
   private couponload = new Subject<any>();
   getcouponload() {
     return this.couponload;
@@ -29,8 +29,8 @@ totalcoupons = new BehaviorSubject<any>("loading...")
 
   }
 
-  public getcoupon(){
-    return this.http.get(`${API_LIVE}`+'/coupon/getAll', httpOptions)
+  public getcoupon():Observable<any>{
+    return this.http.get<any>(`${API_LIVE}`+'/coupon/getAll', httpOptions)
   }
 
 }
