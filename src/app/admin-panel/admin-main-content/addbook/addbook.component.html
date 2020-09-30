@@ -1,0 +1,254 @@
+<app-admin-header></app-admin-header>
+<div class="row g-0">
+  <div class="col-lg-3" [hidden]="opened">
+    <app-admin-sidebar></app-admin-sidebar>
+  </div>
+  <div class="col">
+    <div class="p-3">
+      <div class="card p-2 btc">
+        <span class="font-weight-bolder org text-center" style="font-size: large;">ADD BOOK
+        </span>
+      </div>
+      <form>
+        <div class="row mt-2">
+          <div class="col-sm-3">
+            Book Name: <br>
+            <input type="text" class="form-control" #book_name name="book_name">
+          </div>
+          <div class="col-sm-3">
+            Author Name: <br>
+            <input type="text" class="form-control" #author_name name="author_name">
+          </div>
+          <div class="col-sm-3">
+            Publisher: <br>
+            <input type="text" class="form-control" #publisher name="publisher">
+          </div>
+          <div class="col-sm-3">
+            Condition: <br>
+            <input type="text" class="form-control" #condition name="condition">
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-sm-3">
+            Isbn no: <br>
+            <input type="text" class="form-control" #Isbn_no name="Isbn_no">
+          </div>
+          <div class="col-sm-3">
+            Language: <br>
+            <input type="text" class="form-control" #language name="language">
+          </div>
+          <div class="col-sm-3">
+            Print Format: <br>
+            <input type="text" class="form-control" #print_format name="print_format">
+          </div>
+          <div class="col-sm-3">
+            Dimensions: <br>
+            <input type="text" class="form-control" #dimensions name="dimensions">
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-sm-3">
+            Publication Year: <br>
+            <input type="date" class="form-control" #publication_year name="publication_year">
+          </div>
+          <div class="col-sm-3">
+            no_Of_pages: <br>
+            <input type="text" class="form-control" #no_Of_pages name="no_Of_pages">
+          </div>
+
+          <div class="col-sm-3">
+            Quantity: <br>
+            <input type="text" class="form-control" #quantity name="quantity">
+          </div>
+          <div class="col-sm-3">
+            Sku: <br>
+            <input type="text" class="form-control" #sku name="sku">
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-6">
+                <input type="file" name="book_img" accept="image/*" (change)="onFileChange($event)" #fileinput multiple>
+              </div>
+              <div class="col-md-6">
+                <span *ngIf="urls.length ==0" style="color: red;"> <b>( No Images Added Yet )</b> </span>
+                <img class="p-1" *ngFor="let url of urls" height="100px" width="100px" [src]="url">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+           <div class="row">
+            <div class="col-md-6">
+              Selected Category:  <button (click)="openModal()" class="btn btn-outline-success btn-sm w-50">Select</button>
+               <br> <b>{{catname}}</b>
+              <div class="row">
+
+                <modal #myModal (onOpen)="openModal()" (onClose)="closeModal()">
+                    <modal-content>
+                      <ng-container *ngIf="( allcategories ) as result">
+                        <div *ngFor="let allcat of result | paginate: {  itemsPerPage: 5, currentPage: pages, totalItems: i}; let i = index">
+                            <div class="card p-2">
+                                <div class="row">
+                                    <div class="col-1">
+
+                                        {{ 5 * (pages - 1) + i + 1 }}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span class="material-icons">{{allcat.icon_name}}</span> {{allcat.category}} <span style="color: green;" class="material-icons" (click)="selectcat(allcat.category,allcat._id)">touch_app</span>
+                                    </div>
+                                    <div class="col-md-7">
+                                        Subcategories:
+                                        <div class="row">
+
+                                            <div class="col-12 " *ngFor="let SubCategories of allcat.subcategory; let i = index">
+                                                <div class="row g-1">
+                                                    <div class="col p-1">
+                                                        {{i + 1 }} &nbsp; {{SubCategories.name}}
+                                                    </div>
+                                                    <div class="col-1">
+                                                      <span class="material-icons" style="color: green;"
+                                                         (click)="selectsubcat(allcat.category,SubCategories.name,allcat._id,SubCategories._id)">touch_app</span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <p class="mt-3"  style="color: black; font-size: 2rem;" *ngIf="result.length === 0">No Result Found</p>
+                        </div>
+                        </ng-container>
+                        <br>
+                        <pagination-controls class="d-flex justify-content-center" directionLinks="true" (pageChange)="onPageChange($event)"
+                            autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next">
+                        </pagination-controls>
+                    </modal-content>
+                    <modal-footer>
+                        <button class="btn btn-primary" (click)="closeModal()">close</button>
+                    </modal-footer>
+                </modal>
+            </div>
+            </div>
+            <div class="col-md-6">
+              Selected SubCategory: <br> <b>{{subcatname}}</b>
+            </div>
+           </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+         <div class="col-sm-6">
+           <div class="row">
+              <div class="col-sm-6">
+                Weight: <br>
+                <input type="text" class="form-control" #weight name="weight">
+              </div>
+              <div class="col-sm-6">
+               Rate: <br>
+                <input type="text" class="form-control" #rate name="rate">
+              </div>
+           </div>
+         </div>
+          <div class="col-sm-6">
+            Discription: <br>
+            <textarea type="text" class="form-control" #description name="description"></textarea>
+
+          </div>
+        </div>
+<div class="card p-2 mt-3">
+  <div class="row mt-2">
+    <div class="col-sm-3">
+      Mrp_dollar: <br>
+      <input type="number" class="form-control" #mrp_dollar name="mrp_dollar">
+    </div>
+    <div class="col-sm-3">
+      Mrp_euro: <br>
+      <input type="number" class="form-control" #mrp_euro name="mrp_euro">
+    </div>
+    <div class="col-sm-3">
+      Mrp_Aus_dollar: <br>
+      <input type="number" class="form-control" #mrp_Aus_dollar name="mrp_Aus_dollar">
+    </div>
+    <div class="col-sm-3">
+     Mrp_pound: <br>
+      <input type="number" class="form-control" #mrp_pound name="mrp_pound">
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-sm-3">
+      Goc_dollar: <br>
+      <input type="text" class="form-control" #Goc_dollar name="Goc_dollar">
+    </div>
+    <div class="col-sm-3">
+      Goc_euro: <br>
+      <input type="text" class="form-control" #Goc_euro name="Goc_euro">
+    </div>
+    <div class="col-sm-3">
+      Goc_Aus_dollar: <br>
+      <input type="text" class="form-control" #Goc_Aus_dollar name="Goc_Aus_dollar">
+    </div>
+    <div class="col-sm-3">
+      Goc_pound: <br>
+      <input type="text" class="form-control" #Goc_pound name="Goc_pound">
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-sm-3">
+      Mrp Inr: <br>
+      <input type="text" class="form-control" #mrp_inr name="mrp_inr">
+    </div>
+    <div class="col-sm-3">
+      Final Price: <br>
+      <input type="text" class="form-control" #final_price name="final_price">
+    </div>
+    <div class="col-sm-3">
+      Sale Price: <br>
+      <input type="text" class="form-control" #sale_price name="sale_price">
+    </div>
+    <div class="col-sm-3">
+      Sale Rate: <br>
+      <input type="text" class="form-control" #sale_rate name="sale_rate">
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-sm-3">
+      Discount Rs: <br>
+      <input type="text" class="form-control" #discount_rs name="discount_rs">
+    </div>
+    <div class="col-sm-3">
+      Discount Per: <br>
+      <input type="text" class="form-control" #discount_per name="discount_per">
+    </div>
+    <div class="col-sm-3">
+      Sale Disc Inr: <br>
+      <input type="text" class="form-control" #sale_disc_inr name="sale_disc_inr">
+    </div>
+    <div class="col-sm-3">
+      Sale Disc Per: <br>
+      <input type="text" class="form-control" #sale_disc_per name="sale_disc_per">
+    </div>
+  </div>
+
+<div class="d-flex justify-content-center mt-3">
+  <button (click)="calculate(
+    mrp_dollar.value,mrp_euro.value,mrp_Aus_dollar.value,mrp_pound.value,
+    Goc_dollar.value,Goc_euro.value,Goc_Aus_dollar.value,Goc_pound.value,
+    rate.value,weight.value,final_price.value,sale_price.value,sale_rate.value,
+    discount_rs.value,discount_per.value,sale_disc_inr.value,sale_disc_per.value
+    )"
+     class="btn btn-success btn-sm w-50 ">
+      Calculate
+    </button>
+</div>
+
+</div>
+      </form>
+    </div>
+  </div>
+</div>

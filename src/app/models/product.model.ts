@@ -1,6 +1,7 @@
 export class Product{
     book_img : [];
     _id: string;
+    active_bool:number = 1;
     book_name: string;
     author_name: string;
     Isbn_no: string;
@@ -8,21 +9,27 @@ export class Product{
     description : string;
     dimensions : string;
     language : string;
-    mrp_inr : number;
-    mrp_dollar : number;
-    mrp_euro : number;
-    mrp_aus_dollar: number;
-    mrp_pound : number;
+    mrp_inr : number = 0;
+    mrp_dollar : number = 0;
+    mrp_euro : number = 0;
+    mrp_aus_dollar: number = 0;
+    mrp_pound : number = 0;
     no_Of_pages: number;
-    print_type : string;
-    publication_year : string;
+    print_format : string;
+    publication_year : Date;
     publisher : string;
-    quantity : number;
-    sale_price : number;
-    saved_price: number;
-    selling_price : number;
-    weight : string;
+    quantity : number =0;
+    sale_price : number = 0;
+    saved_price: number = 0;
+    final_price : number = 0;
+    sale_rate:number = 0;
+    discount_per:number = 0;
+    discount_rs:number = 0;
+    sale_disc_per:number = 0;
+    sale_disc_inr:number = 0;
+    weight : string ;
+    rate:number;
     sku:string;
     categories: string;
-    subcategories:string
+    subcategory:string
 }

@@ -26,6 +26,9 @@ import { ErrorComponent } from './error/error.component';
 import { ViewProductsComponent } from './admin-panel/admin-main-content/view-products/view-products.component';
 import { ViewUsersComponent } from './admin-panel/admin-main-content/view-users/view-users.component';
 import { ViewOrdersComponent } from './admin-panel/admin-main-content/view-orders/view-orders.component';
+import { BooksearchComponent } from './admin-panel/admin-main-content/booksearch/booksearch.component';
+import { AddbookComponent } from './admin-panel/admin-main-content/addbook/addbook.component';
+import { EditbookComponent } from './admin-panel/admin-main-content/editbook/editbook.component';
 const routes: Routes = [
   {
     path: '',
@@ -158,9 +161,19 @@ const routes: Routes = [
     component: SearchComponent
   },
   {
-    path: 'admin/dashboard/view-products/:_id',
-    component: ViewProductsComponent,
-    canActivate:[AuthGuard]
+    path: 'admin/dashboard/booksearch/:_id',
+    component: BooksearchComponent,
+    canActivate:[SuperadminGuard]
+  },
+  {
+    path: 'admin/dashboard/addbook',
+    component: AddbookComponent,
+    canActivate:[SuperadminGuard]
+  },
+  {
+    path: 'admin/dashboard/editbook/:_id',
+    component: EditbookComponent,
+    canActivate:[SuperadminGuard]
   },
   {
     path: 'profile',

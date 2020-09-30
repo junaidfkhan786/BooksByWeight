@@ -240,8 +240,8 @@ export class ProductsComponent implements OnInit {
                     for (let i in uniqueObject) {
                         newbooks.push(uniqueObject[i]);
                     }
-                    var total = 20 - newbooks.length
-                    resp['totalBooks'] = resp.totalBooks - total
+                    // var total = 20 - newbooks.length
+                    // resp['totalBooks'] = resp.totalBooks - total
                     resp['books'] = newbooks
                 for (let i = 0; i < book.length; i++) {
                   book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
@@ -335,8 +335,8 @@ export class ProductsComponent implements OnInit {
                     for (let i in uniqueObject) {
                         newbooks.push(uniqueObject[i]);
                     }
-                    var total = 20 - newbooks.length
-                    resp['totalBooks'] = resp.totalBooks - total
+                    // var total = 20 - newbooks.length
+                    // resp['totalBooks'] = resp.totalBooks - total
                     resp['books'] = newbooks
                 for (let i = 0; i < book.length; i++) {
                   book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])

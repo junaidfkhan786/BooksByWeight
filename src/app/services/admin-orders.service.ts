@@ -15,7 +15,7 @@ export class AdminOrdersService {
   ) {   }
 
 
-  totalorders = new BehaviorSubject<any>("loading...");
+  totalorders = new BehaviorSubject<any>(0);
 
   public getallorders(page):Observable<any> {
 

@@ -67,13 +67,6 @@ import { ViewOrdersComponent } from './admin-panel/admin-main-content/view-order
 import { AddCatSubcatComponent } from './admin-panel/admin-main-content/add-cat-subcat/add-cat-subcat.component';
 import { AdminCategoryPipe } from './pipes/admin-category.pipe';
 import { CouponComponent } from './admin-panel/admin-main-content/coupon/coupon.component';
-import { AboutusComponent } from './policies/aboutus/aboutus.component';
-import { CopyrightpolicyComponent } from './policies/copyrightpolicy/copyrightpolicy.component';
-import { PaymentComponent } from './policies/payment/payment.component';
-import { PrivacyComponent } from './policies/privacy/privacy.component';
-import { ReturnsRefundPolicyComponent } from './policies/returns-refund-policy/returns-refund-policy.component';
-import { ShippingComponent } from './policies/shipping/shipping.component';
-import { TermsConditionsComponent } from './policies/terms-conditions/terms-conditions.component';
 import { AdminCreateComponent } from './admin-panel/admin-main-content/admin-create/admin-create.component';
 import {NumberDirective} from './directives/numbersonly.directive';
 import { OrderdetailsComponent } from './profile/userorders/orderdetails/orderdetails.component';
@@ -81,6 +74,10 @@ import { TruncatePipe } from './pipes/truncate.pipe';
 import { ErrorComponent } from './error/error.component';
 import { CountcardsComponent } from './admin-panel/admin-main-content/countcards/countcards.component'
 import { DigitOnlyModule } from '@uiowa/digit-only';
+import { BooksearchComponent } from './admin-panel/admin-main-content/booksearch/booksearch.component';
+import { EditbookComponent } from './admin-panel/admin-main-content/editbook/editbook.component';
+import { AddbookComponent } from './admin-panel/admin-main-content/addbook/addbook.component';
+import { ModalModule } from 'ngb-modal';
 @NgModule({
   declarations: [
     AppComponent,
@@ -128,19 +125,15 @@ import { DigitOnlyModule } from '@uiowa/digit-only';
     AddCatSubcatComponent,
     AdminCategoryPipe,
     CouponComponent,
-    AboutusComponent,
-    CopyrightpolicyComponent,
-    PaymentComponent,
-    PrivacyComponent,
-    ReturnsRefundPolicyComponent,
-    ShippingComponent,
-    TermsConditionsComponent,
     AdminCreateComponent,
     NumberDirective,
     OrderdetailsComponent,
     TruncatePipe,
     ErrorComponent,
-    CountcardsComponent
+    CountcardsComponent,
+    BooksearchComponent,
+    EditbookComponent,
+    AddbookComponent
 
 
 
@@ -162,7 +155,8 @@ import { DigitOnlyModule } from '@uiowa/digit-only';
 
     }),
     NgxSpinnerModule,
-    DigitOnlyModule
+    DigitOnlyModule,
+    ModalModule
   ],
   providers: [
     {

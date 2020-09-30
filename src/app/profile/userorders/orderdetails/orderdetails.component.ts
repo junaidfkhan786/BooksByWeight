@@ -79,11 +79,12 @@ total:any
           this.orderid = this.orderdetail[0].orderid
           this.paymentmethod = this.orderdetail[0].isPaymentCompleted
           this.amount = this.orderdetail[0].amount
+         if(this.orderdetail[0].coupon_code != null){
           this.coupon_code = this.orderdetail[0].coupon_code.coupon_code
           this.coupon_amount = this.orderdetail[0].coupon_code.coupon_amount
           this.coupon_percentage = this.orderdetail[0].coupon_code.percentage
-          this.total = this.orderdetail[0].total_amount
-          console.log(this.coupon_code,this.coupon_amount,this.coupon_percentage);
+          this.total = this.orderdetail[0].total_amount}
+          // console.log(this.coupon_code,this.coupon_amount,this.coupon_percentage);
 
           this.spinner.hide();
           setTimeout(() => {
@@ -113,7 +114,7 @@ total:any
       });
       pdf.save(this.orderid + '.pdf')
       console.log(this.pdfAttachment)
-      this.spinner.hide();
+      // this.spinner.hide();
     });
   }
 }

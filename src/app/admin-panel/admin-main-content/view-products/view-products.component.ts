@@ -71,41 +71,8 @@ export class ViewProductsComponent implements OnInit {
     })
     this.load()
   }
-  parse(url: any): UrlTree { let dus = new DefaultUrlSerializer(); return dus.parse(url); }
-  serialize(tree: UrlTree): any {
-    let dus = new DefaultUrlSerializer(), path = dus.serialize(tree); // use your regex to replace as per your requirement.
-    return path
-      .replace(/%40/gi, '@')
-      .replace(/%3A/gi, ':')
-      .replace(/%24/gi, '$')
-      .replace(/%2C/gi, ',')
-      .replace(/%3B/gi, ';')
-      .replace(/%20/gi, '+')
-      .replace(/%3D/gi, '=')
-      .replace(/%3F/gi, '?')
-      .replace(/%2F/gi, '/')
-  }
-  loadroute() {
-console.log(this.route.snapshot.params._id )
-if(this.route.snapshot.params._id != undefined){
-  this.query = this.route.snapshot.params._id
-  console.log(this.router.url)
-  var a: string = this.router.url
-  a = a.replace(/%3D/gi, '=')
-  var b = a.substring(a.lastIndexOf('=') + 1);
-  var c = a.substring(a.lastIndexOf('/') + 1);
-  var s: any
-  console.log(b)
-  console.log(c)
-  if(a == '/admin/dashboard/view-products/'+this.query  ){
-    console.log('get search books')
-    this.getbooks(this.query,1)
-  }else{
-    console.log('get search books with page')
-    this.getbooks(this.query,this.config.currentPage)
-  }
-}
-  }
+
+
   load() {
     if (this.router.url == '/admin/dashboard/view-products' ||
       this.router.url == '/admin/dashboard/view-products?page=' + this.config.currentPage) {
@@ -116,44 +83,14 @@ if(this.route.snapshot.params._id != undefined){
         this.loadbook(this.config.currentPage);
       }
 
-    }else{
-      console.log('loading search books')
-      this.loadroute()
     }
   }
-  getbooks(query, page) {
-    let res = this.searchs.searched(query, page);
-    res.pipe(
-      map((resp) => {
-        var book = resp.books
-        for (let i = 0; i < book.length; i++) {
-          book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
-          book[i]['rate'] = Math.floor(book[i]['rate'])
-          book[i]['weight'] = Math.floor(book[i]['weight'])
-          book[i]['sale_disc_inr'] = Math.floor(book[i]['sale_disc_inr'])
-          book[i]['sale_disc_per'] = Math.floor(book[i]['sale_disc_per'])
-          book[i]['discount_per'] = Math.floor(book[i]['discount_per'])
-          book[i]['discount_rs'] = Math.floor(book[i]['discount_rs'])
-          book[i]['final_price'] = Math.floor(book[i]['final_price'])
-          book[i]['sale_rate'] = Math.floor(book[i]['sale_rate'])
-          book[i]['sale_price'] = Math.floor(book[i]['sale_price'])
-        }
-        return resp
-      })
-    ).subscribe((resp) => {
-      this.book$ = resp.books
-      console.log(this.book$)
-      this.message = this.book$.count;
-      this.config.totalItems = resp.totalBooks;
-      this.count = this.book$.totalBooks
 
-    })
-  }
   search(selected, Searchinput) {
 
     var _id = Searchinput + "&" + selected
     console.log(_id)
-    this.router.navigate(['admin/dashboard/view-products/'+_id]);
+    this.router.navigate(['admin/dashboard/booksearch/'+_id]);
     // window.location.assign('search/'+_id)
   }
   selection() {
@@ -173,11 +110,8 @@ if(this.route.snapshot.params._id != undefined){
     this.newService.getBooks(page).subscribe((data) => {
       this.spinner.hide();
       this.book = data.books
-      const pid = data.books;
-      this.book1 = pid.length
-      for (var { _id: id } of pid) {
-        this.pid1.push(id);
-      }
+      console.log(data)
+      this.book1 = data.totalBooks
       this.config.totalItems = data.totalBooks;
       this.totalbook1.emit(this.totalBooks)
       this.spinner.hide();
@@ -187,43 +121,43 @@ if(this.route.snapshot.params._id != undefined){
     if (this.router.url == '/admin/dashboard/view-products' || this.router.url == '/admin/dashboard/view-products?page=' + this.config.currentPage) {
       this.router.navigate(['admin/dashboard/view-products/'], { queryParams: { page: page } });
       this.loadbook(page)
-    }else{
-      this.router.navigate(['admin/dashboard/view-products/' + this.query], { queryParams: { page: page } });
-    this.getbooks(this.query, page)
     }
     window.scrollTo(0, 60);
   }
+edit(books){
+  var id = books._id
+  this.router.navigate(['admin/dashboard/editbook/'+id])
+}
+  // edit(books) {
+  //   this.urls = books.book_img
+  //   this.button = false
+  //   this.formbutton = true
+  //   this.div = true
+  //   console.log(books)
 
-  edit(books) {
-    this.urls = books.book_img
-    this.button = false
-    this.formbutton = true
-    this.div = true
-    console.log(books)
 
+  //   this.productform.setValue({
+  //     bookname: books.book_name,
+  //     authorname: books.author_name,
+  //     isbn: books.Isbn_no,
+  //     language: books.language,
+  //     quantity: books.quantity,
+  //     condition: books.condition,
+  //     publisher: books.publisher,
+  //     publicationyear: books.publication_year,
+  //     print_type: books.print_type,
+  //     dimension: books.dimensions,
+  //     mrp: books.mrp,
+  //     sale_price: books.sale_price,
+  //     saved_price: books.saved_price,
+  //     selling_price: books.selling_price,
+  //     weight: books.weight,
+  //     no_of_pages: books.no_Of_pages,
+  //     discription: books.description,
+  //     sku: books.sku
 
-    this.productform.setValue({
-      bookname: books.book_name,
-      authorname: books.author_name,
-      isbn: books.Isbn_no,
-      language: books.language,
-      quantity: books.quantity,
-      condition: books.condition,
-      publisher: books.publisher,
-      publicationyear: books.publication_year,
-      print_type: books.print_type,
-      dimension: books.dimensions,
-      mrp: books.mrp,
-      sale_price: books.sale_price,
-      saved_price: books.saved_price,
-      selling_price: books.selling_price,
-      weight: books.weight,
-      no_of_pages: books.no_Of_pages,
-      discription: books.description,
-      sku: books.sku
-
-    })
-  }
+  //   })
+  // }
   urls = []
   product = {
     book_img: [],

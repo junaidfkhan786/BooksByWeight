@@ -62,6 +62,10 @@ export class AdminSidebarComponent implements OnInit {
   admin() {
     this.router.navigate(['admin/dashboard/Admin']);
   }
+  addbook() {
+    this.router.navigate(['admin/dashboard/addbook']);
+  }
+
   parse(url: any): UrlTree { let dus = new DefaultUrlSerializer(); return dus.parse(url); }
   serialize(tree: UrlTree): any {
     let dus = new DefaultUrlSerializer(), path = dus.serialize(tree); // use your regex to replace as per your requirement.
@@ -106,13 +110,17 @@ query:any
 
       } else if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/add-bulk-products") {
 
+      } else if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/addbook") {
+
+      } else if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/editbook/"+this.query) {
+
       } else if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/view-products"||
       this.router.url === "/admin/dashboard/view-products?page="+b
       ) {
 
       } else if (this.role === "SuperAdmin" &&
-      r === "/admin/dashboard/view-products/"+c||
-      r === "/admin/dashboard/view-products/"+c+"?page="+b
+      r === "/admin/dashboard/booksearch/"+c||
+      r === "/admin/dashboard/booksearch/"+c+"?page="+b
       ) {
 
       }else {
