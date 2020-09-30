@@ -3,6 +3,7 @@ export class Orders {
     amount: number;
     totalitems: number;
     totalweight: number;
+    email:string
     mobilenumber:number;
     pincode:number;
     fullname:string;

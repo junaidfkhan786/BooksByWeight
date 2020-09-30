@@ -12,7 +12,7 @@ export class ShipRocketOrders {
     billing_pincode: number;
     billing_state: string;
     billing_country: string = "India";
-    billing_email: string = "john@gmail.com";
+    billing_email: string;
     billing_phone: number;
     shipping_is_billing: boolean = true;
     shipping_customer_name: string;
@@ -47,5 +47,5 @@ export class ShipRocketOrders {
 //     shipment_id: number
 //     status: string
 //     status_code: number
- 
+
 // }

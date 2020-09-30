@@ -107,12 +107,12 @@ total:any
       let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF
       var position = 0;
       pdf.addImage(contentDataURL, 'PNG', 5, position, imgWidth, imgHeight)
-
+      pdf.save(this.orderid + '.pdf')
       var newName = this.orderid
       this.pdfAttachment = new File([pdf.output('blob')], newName, {
         type: pdf.output('blob').type,
       });
-      pdf.save(this.orderid + '.pdf')
+
       console.log(this.pdfAttachment)
       // this.spinner.hide();
     });

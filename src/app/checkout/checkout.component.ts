@@ -210,6 +210,7 @@ export class CheckoutComponent implements OnInit {
     this.div = true
     this.addform.setValue({
       fullName: add.fullName,
+      email: add.email,
       mobileNumber: add.mobileNumber,
       alternatePhoneNumber: add.alternatePhoneNumber,
       address: add.address,
@@ -327,6 +328,7 @@ export class CheckoutComponent implements OnInit {
     this.shiprocketmodel.order_id = orders[0].orderid;
     this.shiprocketmodel.order_date = orders[0].orderDate;
     this.shiprocketmodel.shipping_address = orders[0].address.address
+    this.shiprocketmodel.billing_email = this.ordermodel.email
     this.shiprocketmodel.billing_address = orders[0].address.city
     this.shiprocketmodel.billing_state = orders[0].address.state
     this.shiprocketmodel.billing_pincode = orders[0].address.pincode
@@ -440,6 +442,7 @@ export class CheckoutComponent implements OnInit {
     this.gettingadd.getaddress().subscribe((resp) => {
       this.spinner.hide();
       this.address = resp.address
+      console.log(this.address)
       this.addlength = this.address.length;
       if (this.address.length == 0) {
         this.div = !this.div
@@ -451,6 +454,7 @@ export class CheckoutComponent implements OnInit {
   }
   getbillingadd(adds) {
     this.ordermodel.address = adds.address
+    this.ordermodel.email = adds.email
     this.ordermodel.mobilenumber = adds.mobileNumber
     this.ordermodel.city = adds.city
     this.ordermodel.fullname = adds.fullName
@@ -461,7 +465,7 @@ export class CheckoutComponent implements OnInit {
     this.selected = !this.selected;
     Swal.fire(
       'This Address Is Selected',
-      ' ' + adds.fullName + ' ' + adds.address + ' ' + adds.city + ' ' + adds.state + ' ' + adds.pinCode,
+      ' ' + adds.fullName + ' ' + adds.email + ' ' + adds.address + ' ' + adds.city + ' ' + adds.state + ' ' + adds.pinCode,
       'success'
     )
     // this.toastr.success('This Address Is Selected' + ' ' + adds.fullName + ' ' + adds.address + ' ' + adds.city + ' ' + adds.state + ' ' + adds.pinCode, 'BooksByWeight', {

@@ -54,7 +54,15 @@ export class CategoryService {
     );
   }
   public subcattocatdel(catid,subid):Observable<any>{
-    return this._http.delete<any>(`${API_LIVE}`+ "/categories/"+ catid+'?subcatId='+subid,httpOptions)
+    return this._http.delete<any>(`${API_LIVE}`+ "/categories/delsubcat/"+ catid+'?subcatId='+subid,httpOptions)
+    .pipe(
+      tap(() => {
+        this.categoryload.next();
+      })
+    );
+  }
+  public delcat(catid):Observable<any>{
+    return this._http.delete<any>(`${API_LIVE}`+ "/categories/"+ catid,httpOptions)
     .pipe(
       tap(() => {
         this.categoryload.next();

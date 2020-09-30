@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OrdersService } from '../services/orders.service';
 
 @Component({
   selector: 'app-profile',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private token: OrdersService
+  ) { }
 
   ngOnInit(): void {
+  this.loadtoken();
+  }
+
+  loadtoken(){
+    this.token.getshiprockettoken().subscribe((token)=>{
+      localStorage.setItem('shiptoken',token.token)
+    })
+
   }
 
 }

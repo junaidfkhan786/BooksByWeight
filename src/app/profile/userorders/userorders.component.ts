@@ -13,6 +13,7 @@ export class UserordersComponent implements OnInit {
   orders$: any
   pages: number = 1
   i:number
+  shiporderid:any
   constructor(
     private order: OrdersService,
     private route: ActivatedRoute,
@@ -28,7 +29,7 @@ export class UserordersComponent implements OnInit {
       (orders) => {
         this.orders$ = orders
         this.orderslength = orders.length
-
+        console.log(orders)
       },
       (error) => {
         if (error) {
@@ -40,7 +41,7 @@ export class UserordersComponent implements OnInit {
 
   viewdetails(data) {
     var _id = data.orderid
-    
+
 
 window.open(
   'orderdetails/'+ _id,

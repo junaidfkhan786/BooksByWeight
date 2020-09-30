@@ -94,7 +94,9 @@ query:any
       var a = window.location.href
       var b = a.substring(a.lastIndexOf('=')+1)
       console.log(b)
-      if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/view-orders") {
+      if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/view-orders" ||
+      this.router.url === "/admin/dashboard/view-orders?page="+b
+      ) {
 
       }
       else if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/view-users" ||

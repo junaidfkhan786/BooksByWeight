@@ -89,7 +89,7 @@ export class UseraddressComponent implements OnInit, OnDestroy  {
       this.spinner.hide();
       if (this.address1.address.length == 0) {
         this.div = !this.div
-        this.but = !this.but       
+        this.but = !this.but
       }
 
     }, (error) => {
@@ -133,6 +133,7 @@ export class UseraddressComponent implements OnInit, OnDestroy  {
     this.div = true
     this.addform.setValue({
       fullName: add.fullName,
+      email: add.email,
       mobileNumber: add.mobileNumber,
       alternatePhoneNumber: add.alternatePhoneNumber,
       address: add.address,

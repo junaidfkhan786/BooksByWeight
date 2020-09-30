@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FLOAT, float } from 'html2canvas/dist/types/css/property-descriptors/float';
 import { ModalManager } from 'ngb-modal';
 import { Product } from 'src/app/models/product.model';
 import { AdminLoginService } from 'src/app/services/admin-login.service';
 import { CategoryService } from 'src/app/services/category.service';
+import { SaveSingleBookService } from 'src/app/services/save-single-book.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 @Component({
   selector: 'app-addbook',
@@ -10,6 +12,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
   styleUrls: ['./addbook.component.css']
 })
 export class AddbookComponent implements OnInit {
+
   @ViewChild('myModal') myModal;
   private modalRef;
   opened: boolean
@@ -18,10 +21,13 @@ export class AddbookComponent implements OnInit {
   allcategories:any
   catname:string
   subcatname:string
+  show:boolean = false
+  i:number
   constructor(
     private toggle: AdminLoginService,
     private cat: CategoryService,
-    private modalService: ModalManager
+    private modalService: ModalManager,
+    private singelbook: SaveSingleBookService,
   ) {
     this.product = new Product()
     this.toggle.opensidebar.subscribe((toggle) => {
@@ -31,7 +37,7 @@ export class AddbookComponent implements OnInit {
 
   ngOnInit() {
     this.loadcat()
-    this.loadsubcat()
+
   }
   pages
   onPageChange(page: number = 1) {
@@ -43,7 +49,7 @@ export class AddbookComponent implements OnInit {
     this.catname = name
     this.product.categories = catid
     this.closeModal()
-console.log(this.product.categories)
+
   }
   selectsubcat(catname,subcatname,catid,subcatid){
     this.catname = catname
@@ -51,12 +57,12 @@ console.log(this.product.categories)
     this.product.categories = catid
     this.product.subcategory = subcatid
     this.closeModal()
-    console.log(this.product.categories,this.product.subcategory)
+
   }
   openModal(){
 
     this.modalRef = this.modalService.open(this.myModal, {
-      "title": "Your Custom Modal",
+      "title": "Cat & SubCat Selection",
       "size": "lg",
       "modalClass": "",
       "hideCloseButton": false,
@@ -77,14 +83,12 @@ closeModal(){
 
     this.cat.getCategory().subscribe((categories) => {
       this.allcategories = categories
-      console.log(this.allcategories)
+
     })
 
   }
 
-  loadsubcat() {
 
-  }
   onFileChange(event) {
     try {
       if (!this.validateFile(event.target.files[0].name)) {
@@ -130,24 +134,60 @@ closeModal(){
 
   }
 calculate(
-  mrp_dollar,mpr_euro,mrp_aus_dollar,mrp_pound,
-  Goc_dollar,Goc_euro,Goc_Aus_dollar,Goc_pound,
-  rate,weight,final_price,sale_price,sale_rate,
-  discount_rs,discount_per,sale_disc_inr,sale_disc_per
+  mrp_dollar:number,mpr_euro:number,mrp_aus_dollar:number,mrp_pound:number,
+  Goc_dollar:number,Goc_euro:number,Goc_aus_dollar:number,Goc_pound:number,
+  rate:number,weight:number,final_price:number,sale_price:number,sale_rate:number,
+  discount_rs:number,discount_per:number,sale_disc_inr:number,sale_disc_per:number,
+  no_Of_pages,quantity:number
   ){
-    // this.product.mrp_dollar  = mrp_dollar
-    // this.product.mrp_euro  = mpr_euro
-    // this.product.mrp_aus_dollar  = mrp_aus_dollar
-    // this.product.mrp_pound  = mrp_pound
-    // this.product.rate = rate
-    // this.product.weight = weight
-    // this.product.final_price = final_price
-    // this.product.sale_price = sale_price
-    // this.product.sale_rate = sale_rate
-    // this.product.discount_rs = discount_rs
-    // this.product.discount_per = discount_per
-    // this.product.sale_disc_inr = sale_disc_inr
-    // this.product.sale_disc_per = sale_disc_per
+    this.product.no_Of_pages = no_Of_pages
+    this.product.quantity = Number(quantity)
+    this.product.mrp_dollar  = Number(mrp_dollar)
+    this.product.mrp_euro  = Number(mpr_euro)
+    this.product.mrp_aus_dollar  = Number(mrp_aus_dollar)
+    this.product.mrp_pound  = Number(mrp_pound)
+    this.product.rate = Math.floor(rate)
+    this.product.weight = Math.floor(weight)
+    this.product.sale_rate = Math.floor(sale_rate)
+
+    this.product.final_price = Math.floor(this.product.rate * this.product.weight / 1000)
+    if(this.product.mrp_dollar != 0 && Math.floor(Goc_dollar)!=null && Math.floor(Goc_dollar)!=0 ){
+      this.product.mrp_inr = this.product.mrp_dollar * Math.floor(Goc_dollar)
+      this.product.mrp_euro = 0
+      this.product.mrp_aus_dollar = 0
+      this.product.mrp_pound = 0
+    }else if(this.product.mrp_euro != 0 && Math.floor(Goc_euro)!=null && Math.floor(Goc_euro)!=0 ){
+      this.product.mrp_inr = Number(this.product.mrp_euro) * Math.floor(Goc_euro)
+      this.product.mrp_dollar = 0
+      this.product.mrp_aus_dollar = 0
+      this.product.mrp_pound = 0
+    }else if(this.product.mrp_aus_dollar != 0 && Math.floor(Goc_aus_dollar)!=null && Math.floor(Goc_aus_dollar)!=0 ){
+      this.product.mrp_inr = this.product.mrp_aus_dollar * Math.floor(Goc_aus_dollar)
+      this.product.mrp_dollar = 0
+      this.product.mrp_euro = 0
+      this.product.mrp_pound = 0
+    }else if(this.product.mrp_pound != 0 && Math.floor(Goc_pound)!=null && Math.floor(Goc_pound)!=0 ){
+      this.product.mrp_inr = this.product.mrp_pound * Math.floor(Goc_pound)
+      this.product.mrp_dollar = 0
+      this.product.mrp_euro = 0
+      this.product.mrp_aus_dollar = 0
+    }else{
+      this.product.mrp_inr = Math.floor(this.product.final_price)
+      this.product.mrp_dollar = 0
+      this.product.mrp_euro = 0
+      this.product.mrp_aus_dollar = 0
+      this.product.mrp_pound = 0
+    }
+
+    this.product.discount_rs = Math.floor(this.product.mrp_inr) - Math.floor(this.product.final_price)
+    this.product.discount_per = Number(Math.floor(this.product.discount_rs) / Math.floor(this.product.mrp_inr) * 100)
+    if(this.product.sale_rate != 0 && this.product.sale_rate != null){
+      this.product.sale_price = Math.floor(sale_rate) * Math.floor(this.product.weight) / 1000
+      this.product.sale_disc_inr = Math.floor(this.product.mrp_inr) - Math.floor(this.product.sale_price)
+      this.product.sale_disc_per = Number(Math.floor(this.product.sale_disc_inr) / Math.floor(this.product.mrp_inr) * 100)
+    }
+    this.show = true
+
 
 console.log(this.product)
 }
@@ -165,29 +205,52 @@ console.log(this.product)
     }
   }
 
-  // selectfiles(event) {
-  //   this.urls.splice(0, this.urls.length)
+  submitbook(
+    no_Of_pages,quantity:number
+  ){
+    this.product.no_Of_pages = no_Of_pages
+    this.product.quantity = Number(quantity)
+    console.log(this.product)
+    const form = new FormData();
+    for (const key in this.product) {
+      if (this.product.hasOwnProperty(key)) {
+        if (key === 'book_img') {
+      for (let i = 0; i < this.product.book_img.length; i++) {
+        form.append(
+          'book_img',
+          this.product.book_img[i],
+        );
 
+      }
+    }else{
+      form.append(key, this.product[key]);
+    }
+  }
+}
 
-  //   if (event.target.files) {
-  //     if (event.target.files.length > 0) {
-  //       this.product.book_img = event.target.files;
-  //     }
-  //     console.log(this.product.book_img)
-
-  //     for (let i = 0; i <= event.target.files; i++) {
-
-  //       var reader = new FileReader();
-  //       reader.readAsDataURL(event.target.files[i]);
-  //       reader.onload = (event: any) => {
-  //         this.urls.push(event.target.result)
-  //       }
-  //     }
-
-  //   }
-
-
-
-  // }
+    console.log(this.product)
+    console.log(form)
+    let resp = this.singelbook.savesinglebook(form)
+    resp.subscribe((data) => {
+      Swal.fire({
+        title: 'Your Book Has Been Created Successfully?',
+        icon: 'success',
+        showCancelButton: false,
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Done'
+      }).then((result) => {
+        if (result.value) {
+          window.location.assign('/admin/dashboard/view-products')
+          // this.ngZone.run(() => this.router.navigate(['/books'])).then();
+        }
+      })
+    },(error)=>{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Please Fill All Feild Properly',
+      })
+    })
+  }
 
 }

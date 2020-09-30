@@ -17,6 +17,10 @@ export class OrdersService {
 shiprocketUrl:any = "https://apiv2.shiprocket.in/v1/external/orders/create/adhoc";
 
   constructor(private _http: HttpClient) { }
+ public getshiprockettoken():Observable<any>{
+   return this._http.get<any>(`${API_LIVE}` + '/order/shiprocket-token',httpOptions)
+ }
+
   public postorder(amount,id):Observable<any>{
 
     if (localStorage.getItem('User') != null) {
@@ -28,24 +32,24 @@ shiprocketUrl:any = "https://apiv2.shiprocket.in/v1/external/orders/create/adhoc
 
   public verifypayment(orderid,paymentid,paymentsignature, ordermodel : Orders):Observable<any>{
     const httpOptionsauth = {
-     
+
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'Authorization': 'Bearer ' + localStorage.getItem('User').slice(1,-1)
-  
+
       })
     }
-    
+
    return this._http.post(`${API_LIVE}` + "/order/verify?razorpay_order_id=" + orderid + "&razorpay_payment_id="+ paymentid + "&razorpay_signature="+paymentsignature,ordermodel,httpOptionsauth)
 
   }
   public shiprocketorder(shiprocket: ShipRocketOrders):Observable<any>{
     const httpOptionsauth = {
-     
+
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'Authorization': 'Bearer ' + localStorage.getItem('shiprocket')
-  
+
       })
     }
    return this._http.post<any>("https://apiv2.shiprocket.in/v1/external/orders/create/adhoc",shiprocket,httpOptionsauth)
@@ -54,23 +58,23 @@ shiprocketUrl:any = "https://apiv2.shiprocket.in/v1/external/orders/create/adhoc
       this.orderload.next();
     })
   );
-  
+
 
 
   }
 
   public GetOrderById(orderid):Observable<any>{
     // const httpOptionsauth = {
-     
+
     //   headers: new HttpHeaders({
     //     'Content-Type':  'application/json',
     //     'Authorization': 'Bearer ' + localStorage.getItem('User').slice(1,-1);
-  
+
     //   })
     // }
-    
+
    return this._http.get<any>(`${API_LIVE}` + '/order/getorderbyid/'+orderid,httpOptions)
-  
+
   }
   public shiprocketresponse(userid,orderid,shippingid,shiporderid):Observable<any>{
    return this._http.post(
@@ -80,12 +84,12 @@ shiprocketUrl:any = "https://apiv2.shiprocket.in/v1/external/orders/create/adhoc
         this.orderload.next();
       })
     );
-    
-  
+
+
 
 
   }
- 
+
   public getorderbyuser():Observable<any>{
 
     const httpOptionsauth = {

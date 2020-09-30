@@ -13,57 +13,57 @@
         <div class="row mt-2">
           <div class="col-sm-3">
             Book Name: <br>
-            <input type="text" class="form-control" #book_name name="book_name">
+            <input type="text" [(ngModel)]="product.book_name" class="form-control" #book_name name="book_name">
           </div>
           <div class="col-sm-3">
             Author Name: <br>
-            <input type="text" class="form-control" #author_name name="author_name">
+            <input type="text" [(ngModel)]="product.author_name" class="form-control" #author_name name="author_name">
           </div>
           <div class="col-sm-3">
             Publisher: <br>
-            <input type="text" class="form-control" #publisher name="publisher">
+            <input type="text" [(ngModel)]="product.publisher" class="form-control" #publisher name="publisher">
           </div>
           <div class="col-sm-3">
             Condition: <br>
-            <input type="text" class="form-control" #condition name="condition">
+            <input type="text" [(ngModel)]="product.condition" class="form-control" #condition name="condition">
           </div>
         </div>
         <div class="row mt-2">
           <div class="col-sm-3">
             Isbn no: <br>
-            <input type="text" class="form-control" #Isbn_no name="Isbn_no">
+            <input type="text" [(ngModel)]="product.Isbn_no" class="form-control" #Isbn_no name="Isbn_no">
           </div>
           <div class="col-sm-3">
             Language: <br>
-            <input type="text" class="form-control" #language name="language">
+            <input type="text" [(ngModel)]="product.language" class="form-control" #language name="language">
           </div>
           <div class="col-sm-3">
             Print Format: <br>
-            <input type="text" class="form-control" #print_format name="print_format">
+            <input type="text" [(ngModel)]="product.print_format" class="form-control" #print_format name="print_format">
           </div>
           <div class="col-sm-3">
             Dimensions: <br>
-            <input type="text" class="form-control" #dimensions name="dimensions">
+            <input type="text" [(ngModel)]="product.dimensions" class="form-control" #dimensions name="dimensions">
           </div>
         </div>
 
         <div class="row mt-2">
           <div class="col-sm-3">
             Publication Year: <br>
-            <input type="date" class="form-control" #publication_year name="publication_year">
+            <input type="date" [(ngModel)]="product.publication_year" class="form-control" #publication_year name="publication_year">
           </div>
           <div class="col-sm-3">
             no_Of_pages: <br>
-            <input type="text" class="form-control" #no_Of_pages name="no_Of_pages">
+            <input type="text"  class="form-control" #no_Of_pages name="no_Of_pages">
           </div>
 
           <div class="col-sm-3">
             Quantity: <br>
-            <input type="text" class="form-control" #quantity name="quantity">
+            <input type="text"  class="form-control" #quantity name="quantity">
           </div>
           <div class="col-sm-3">
             Sku: <br>
-            <input type="text" class="form-control" #sku name="sku">
+            <input type="text" [(ngModel)]="product.sku" class="form-control" #sku name="sku">
           </div>
         </div>
         <div class="row mt-2">
@@ -157,7 +157,7 @@
          </div>
           <div class="col-sm-6">
             Discription: <br>
-            <textarea type="text" class="form-control" #description name="description"></textarea>
+            <textarea type="text" [(ngModel)]="product.description" class="form-control" #description name="description"></textarea>
 
           </div>
         </div>
@@ -201,50 +201,63 @@
   <div class="row mt-2">
     <div class="col-sm-3">
       Mrp Inr: <br>
-      <input type="text" class="form-control" #mrp_inr name="mrp_inr">
+      <input type="text" class="form-control" [value]="product.mrp_inr" #mrp_inr name="mrp_inr">
     </div>
     <div class="col-sm-3">
       Final Price: <br>
-      <input type="text" class="form-control" #final_price name="final_price">
+      <input type="text" class="form-control" [value]="product.final_price" #final_price name="final_price">
     </div>
     <div class="col-sm-3">
       Sale Price: <br>
-      <input type="text" class="form-control" #sale_price name="sale_price">
+      <input type="text" class="form-control" [value]="product.sale_price" #sale_price name="sale_price">
     </div>
     <div class="col-sm-3">
       Sale Rate: <br>
-      <input type="text" class="form-control" #sale_rate name="sale_rate">
+      <input type="text" class="form-control" [value]="product.sale_rate" #sale_rate name="sale_rate">
     </div>
   </div>
   <div class="row mt-2">
     <div class="col-sm-3">
       Discount Rs: <br>
-      <input type="text" class="form-control" #discount_rs name="discount_rs">
+      <input type="text" class="form-control" [value]="product.discount_rs" #discount_rs name="discount_rs">
     </div>
     <div class="col-sm-3">
       Discount Per: <br>
-      <input type="text" class="form-control" #discount_per name="discount_per">
+      <input type="text" class="form-control" [value]="product.discount_per" #discount_per name="discount_per">
     </div>
     <div class="col-sm-3">
       Sale Disc Inr: <br>
-      <input type="text" class="form-control" #sale_disc_inr name="sale_disc_inr">
+      <input type="text" class="form-control" [value]="product.sale_disc_inr" #sale_disc_inr name="sale_disc_inr">
     </div>
     <div class="col-sm-3">
       Sale Disc Per: <br>
-      <input type="text" class="form-control" #sale_disc_per name="sale_disc_per">
+      <input type="text" class="form-control" [value]="product.sale_disc_per" #sale_disc_per name="sale_disc_per">
     </div>
   </div>
 
-<div class="d-flex justify-content-center mt-3">
-  <button (click)="calculate(
-    mrp_dollar.value,mrp_euro.value,mrp_Aus_dollar.value,mrp_pound.value,
-    Goc_dollar.value,Goc_euro.value,Goc_Aus_dollar.value,Goc_pound.value,
-    rate.value,weight.value,final_price.value,sale_price.value,sale_rate.value,
-    discount_rs.value,discount_per.value,sale_disc_inr.value,sale_disc_per.value
-    )"
-     class="btn btn-success btn-sm w-50 ">
-      Calculate
-    </button>
+<div class="d-flex justify-content-center">
+  <div class="mt-3 w-50">
+    <div>
+      <button (click)="calculate(
+        mrp_dollar.value,mrp_euro.value,mrp_Aus_dollar.value,mrp_pound.value,
+        Goc_dollar.value,Goc_euro.value,Goc_Aus_dollar.value,Goc_pound.value,
+        rate.value,weight.value,final_price.value,sale_price.value,sale_rate.value,
+        discount_rs.value,discount_per.value,sale_disc_inr.value,sale_disc_per.value,
+        no_Of_pages.value,quantity.value
+        )"
+         class="btn btn-success btn-sm w-100">
+          Calculate
+        </button>
+    </div>
+        <div [hidden]="!show" class="mt-3" >
+          <button (click)="submitbook(
+            no_Of_pages.value,quantity.value
+          )"
+           class="btn btn-success btn-sm w-100 ">
+            Submit Book
+          </button>
+        </div>
+    </div>
 </div>
 
 </div>

@@ -20,7 +20,7 @@ export class SaveSingleBookService {
   public savesinglebook(book):Observable<any>{
 
 
-   return this.http.post<any>('https://bbw-backend.herokuapp.com/api/book/singleBook/',book).pipe(
+   return this.http.post<any>(`${API_LIVE}`+'/book/singleBook/',book).pipe(
     tap(() => {
       this.bookload.next();
     })
@@ -29,6 +29,18 @@ export class SaveSingleBookService {
 
 
   }
+  public editbook(id,book):Observable<any>{
+
+
+    return this.http.put<any>(`${API_LIVE}`+'/book/editBook/'+id,book).pipe(
+     tap(() => {
+       this.bookload.next();
+     })
+   );
+
+
+
+   }
 
   public deletebook(id):Observable<any>{
     console.log(id)
@@ -60,4 +72,14 @@ export class SaveSingleBookService {
       return this.http.request(req);
 
    }
+
+   public editgoc(book):Observable<any>{
+
+     return this.http.put<any>(`${API_LIVE}` + '/book/updategoc/',book,httpOptions).pipe(
+      tap(() => {
+        this.bookload.next();
+      })
+    );
+  }
+
 }

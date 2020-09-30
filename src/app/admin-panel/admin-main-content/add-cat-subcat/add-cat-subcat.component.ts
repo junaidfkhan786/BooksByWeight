@@ -77,7 +77,7 @@ this.spinner.show();
         timeOut: 2000,
       });
     })
-    
+
 
   })
 }else{
@@ -94,6 +94,17 @@ delsubcattocat(catids,value){
     console.log(data)
     this.spinner.hide()
     this.toastr.success("SubCategory Deleted From Category Successfuly", 'BooksByWeight', {
+      timeOut: 2000,
+    });
+  })
+}
+delcat(catids){
+  this.spinner.show();
+
+  this.allcat.delcat(catids).subscribe((data)=>{
+    console.log(data)
+    this.spinner.hide()
+    this.toastr.success("Category Deleted Successfuly", 'BooksByWeight', {
       timeOut: 2000,
     });
   })
@@ -175,7 +186,7 @@ delsubcattocat(catids,value){
       $('.subcat').val(null)
       this.buttondisabled()
     } else {
-     
+
       $(this).closest('form').find("input[type=text], textarea").val("");
       $('.subcat').val(null)
       this.allcat.postsubcategory(this.subcats).subscribe((data) => {

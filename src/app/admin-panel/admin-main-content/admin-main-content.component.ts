@@ -17,6 +17,7 @@ import * as jwt_decode from 'jwt-decode';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { FormControl, FormGroup } from '@angular/forms';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { single } from 'rxjs/operators';
 @Component({
   selector: 'app-admin-main-content',
   templateUrl: './admin-main-content.component.html',
@@ -110,7 +111,7 @@ export class AdminMainContentComponent implements OnInit {
         throw { multiple: "Cannot use multiple files" };
       } else {
         this.filename = target.files[0].name
-        // this.spinner.show();
+        this.spinner.show();
         const reader: FileReader = new FileReader();
         reader.onload = (e: any) => {
           const bstr: string = e.target.result;
@@ -187,6 +188,37 @@ export class AdminMainContentComponent implements OnInit {
     console.log(this.goc_euro)
     console.log(this.goc_pound)
     console.log(this.goc_aus_dollar)
+  }
+
+
+  gocedit() {
+    this.spinner.show()
+    this.goc_dollar = Math.floor(this.gocform.value.goc_dollar)
+    this.goc_euro = Math.floor(this.gocform.value.goc_euro)
+    this.goc_aus_dollar = Math.floor(this.gocform.value.goc_aus_dollar)
+    this.goc_pound = Math.floor(this.gocform.value.goc_pound)
+    var  goc = {
+      goc_dollar:this.goc_dollar,
+      goc_euro:this.goc_euro,
+      goc_aus_dollar:this.goc_aus_dollar,
+      goc_pound:this.goc_pound
+
+    }
+    console.log(goc)
+    this.bulkbook.editgoc(goc).subscribe((result)=>{
+      this.spinner.hide()
+      Swal.fire({
+        icon: 'success',
+        title: result,
+        text: 'Please Wait For 15 Mins To Effect Goc Rate On Books ',
+      })
+    },(error)=>{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Sorry Cant Update',
+      })
+    })
   }
   Allcategories: any = []
   ConvertJsonToExcel(data) {

@@ -14,7 +14,7 @@ export class Product{
     mrp_euro : number = 0;
     mrp_aus_dollar: number = 0;
     mrp_pound : number = 0;
-    no_Of_pages: number;
+    no_Of_pages: string;
     print_format : string;
     publication_year : Date;
     publisher : string;
@@ -27,7 +27,7 @@ export class Product{
     discount_rs:number = 0;
     sale_disc_per:number = 0;
     sale_disc_inr:number = 0;
-    weight : string ;
+    weight : number ;
     rate:number;
     sku:string;
     categories: string;

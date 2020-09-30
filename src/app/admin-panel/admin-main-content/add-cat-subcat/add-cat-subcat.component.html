@@ -51,7 +51,7 @@
                                 <option *ngFor="let allsub of sub;let i = index" [value]="allsub._id" >{{i+1}})&nbsp;{{allsub.name}}</option>
                             </select>
                         </div>
-                        
+
         <div class="row mt-2" >
             <div class="col">
                 <button  class="btn btn-success sub w-100" id="sub" (click)="addcat(cats.value,icon.value)">ADD
@@ -111,13 +111,13 @@
             SubCategories Names
         </div>
         <div class="col">
-           
+
                 <div class="input-group ">
                     <span class="input-group-text" style="background-color: #212529; color: white;">Search : </span>
                     <input type="text" [(ngModel)]="categoriessearch" aria-label="Search" class="form-control">
-            
+
                 </div>
-           
+
         </div>
     </div>
 </div>
@@ -127,15 +127,20 @@
         <div class="row">
             <div class="col-1">
 
-                {{ 5 * (pages - 1) + i + 1 }}
+                {{ 5 * (pages - 1) + i + 1 }})
+                <span (click)="delcat(allcat._id)" class="material-icons" style="color: red;">
+                  delete_forever
+              </span>
             </div>
             <div class="col-md-4">
                 <span class="material-icons">{{allcat.icon_name}}</span> {{allcat.category}}
+
             </div>
+
             <div class="col-md-7">
                 Subcategories:
                 <div class="row">
-                   
+
                     <div class="col-4 " *ngFor="let SubCategories of allcat.subcategory; let i = index">
                         <div class="row g-1">
                             <div class="col">
@@ -146,23 +151,27 @@
                                     delete_forever
                                 </span>
                             </div>
-                        </div> 
+                        </div>
                     </div>
-                    <button class="btn btn-outline-success" style="width: 10%;" [hidden]='btnsubadd' (click)="showsub()"><span class="material-icons">add</span></button>
-                    <button class="btn btn-outline-danger" style="width: 10%;" [hidden]='!btnsubadd' (click)="showsub()"><span class="material-icons">remove</span></button>
+                    <div>
+                      <button class="btn btn-outline-success btn-sm" style="width: 10%;" [hidden]='btnsubadd' (click)="showsub()"><span class="material-icons">add</span></button>
+                    <button class="btn btn-outline-danger btn-sm" style="width: 10%;" [hidden]='!btnsubadd' (click)="showsub()"><span class="material-icons">remove</span></button>
+                    <div [hidden]='!btnsubadd'>
+                      <div class="d-flex flex-row-reverse bd-highlight" >
+                          <div class="p-2 bd-highlight">
+                              <button class="btn btn-success btn-sm" (click)="submitsub(allcat._id,addsub.value)" >Submit</button>
+
+                          </div>
+                          <div class="p-2 bd-highlight">
+                              <input type="text" class="form-control btn-sm" #addsub>
+                          </div>
+                        </div>
+                     </div>
+
+                  </div>
                 </div>
             </div>
-           <div [hidden]='!btnsubadd'> 
-            <div class="d-flex flex-row-reverse bd-highlight" >
-                <div class="p-2 bd-highlight">
-                    <button class="btn btn-success btn-sm" (click)="submitsub(allcat._id,addsub.value)" >Submit</button>
 
-                </div>
-                <div class="p-2 bd-highlight">
-                    <input type="text" class="form-control btn-sm" #addsub> 
-                </div>
-              </div>
-           </div>
         </div>
     </div>
 </div>
@@ -185,7 +194,7 @@
           </button>
         </h2>
       </div>
-  
+
       <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
         <div class="card-body">
             <div class="row" *ngFor="let SubCategories of allcat.subcategory; let i = index">

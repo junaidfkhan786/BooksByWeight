@@ -49,10 +49,9 @@ opened:boolean
    this.button = true
     this.spinner.show()
     this.user.getrefresuser().subscribe(() => {
-      this.loaduser();
       this.spinner.hide();
     })
-    this.loaduser();
+ this.load()
   }
   togglesidebar() {
     this.opened = !this.opened
@@ -83,8 +82,21 @@ opened:boolean
       window.location.reload()
     })
   }
-  loaduser() {
-    this.user.getUsers(1)
+
+  load(){
+    if (this.router.url == '/admin/dashboard/view-users' ||
+    this.router.url == '/admin/dashboard/view-users?page=' + this.config.currentPage) {
+    if (this.router.url == '/admin/dashboard/view-users') {
+      console.log('loading all books')
+      this.loaduser(1);
+    } else {
+      this.loaduser(this.config.currentPage);
+    }
+
+  }
+  }
+  loaduser(page) {
+    this.user.getUsers(page)
     .pipe(
       map((data)=>{
 
@@ -149,8 +161,11 @@ opened:boolean
   }
 
 
-  onPageChange(page: number = 1) {
-    this.pages = page;
+  onPageChange(page: number) {
+    if (this.router.url == '/admin/dashboard/view-users' || this.router.url == '/admin/dashboard/view-users?page=' + this.config.currentPage) {
+      this.router.navigate(['admin/dashboard/view-users/'], { queryParams: { page: page } });
+      this.loaduser(page)
+    }
     window.scrollTo(0, 60);
   }
   role: string

@@ -40,18 +40,12 @@
 
   </div>
 
-  <div *ngIf="router.url === '/admin/dashboard/view-users'">
-    <app-view-users></app-view-users>
-  </div>
-  <div *ngIf="router.url === '/admin/dashboard/view-orders'">
-    <app-view-orders></app-view-orders>
-  </div>
   <div *ngIf="router.url === '/admin/dashboard/add-bulk-products'">
 
     <div class="mt-5">
       <div class="d-flex justify-content-center">
         <div class="card p-2 w-75 btc">
-          <span class="font-weight-bolder org text-center" style="font-size: large;">Excel Upload
+          <span class="font-weight-bolder org text-center" style="font-size: large;">Excel Convert && JSON Upload
           </span>
         </div>
       </div>
@@ -62,7 +56,7 @@
             <div class="w-100">
               <div class="p-2">
                 <span style="font-size: 1rem; color: red;">
-                 First Enter Goc Then Press Submit, Then After Upload Excel  : <br> <br>
+                 First Enter Goc Then Press Submit, Then After Upload JSON  : <br> <br>
                 </span>
                 <form [formGroup]="gocform">
                   <div class="row g-2">
@@ -127,6 +121,50 @@
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-5">
+      <div class="d-flex justify-content-center">
+        <div class="card p-2 w-75 btc">
+          <span class="font-weight-bolder org text-center" style="font-size: large;">Goc Update Of All Book
+          </span>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center mt-1">
+
+        <div class="card p-2  w-75" style="background-color: #212529; color: white; height: 100%;">
+          <div class="d-flex justify-content-center">
+            <div class="w-100">
+              <div class="p-2">
+                <form [formGroup]="gocform">
+                  <div class="row g-2">
+                    <div class="col-md-2 text-center">
+                      Goc Dollar <br>
+                      <input formControlName="goc_dollar" name="goc_dollar"   type="text" style="width: 100%;"  class="p-1">
+                    </div>
+                    <div class="col-md-2 text-center">
+                      Goc Euro <br>
+                      <input  formControlName="goc_euro" name="goc_euro" type="text"style="width: 100%;" class="p-1">
+                    </div>
+                    <div class="col-md-2 text-center">
+                      Goc Aus Dollar <br>
+                      <input  formControlName="goc_aus_dollar" name="goc_aus_dollar" type="text"style="width: 100%;"  class="p-1">
+                    </div>
+                    <div class="col-md-2 text-center">
+                      Goc Pound <br>
+                      <input  formControlName="goc_pound" name="goc_pound" type="text" style="width: 100%;" class="p-1">
+                    </div>
+                    <div class="col-2 text-center"><br>
+                      <button (click)="gocedit()" class="btn btn-success"> Submit </button>
+                    </div>
+                  </div>
+                </form>
+
+              </div>
+
             </div>
           </div>
         </div>
