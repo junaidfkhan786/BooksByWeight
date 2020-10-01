@@ -4,7 +4,7 @@
         <div class="content">
           <div class="content-overlay" style=" cursor: pointer; " (click)="productHome(popularitem._id)"></div>
           <img class="card-img-top" height="340px"
-          height="350px" style=" cursor: pointer; " (click)="productHome(popularitem._id)"
+          height="300px" style=" cursor: pointer; " (click)="productHome(popularitem._id)"
           src="{{popularitem.book_img[0]}}" onerror="this.src='assets/images/altimg.png';" alt=" BOOKS ">
           <div class="content-details fadeIn-bottom">
 
@@ -57,15 +57,15 @@
             {{popularitem.mrp_inr}}
           </s> &nbsp;
           <span *ngIf="popularitem.sale_price == null || popularitem.sale_price == 0;else final" style="color:red">&#8377;
-            {{popularitem.final_price}}Rs
+            {{popularitem.final_price}}
           </span>
           <ng-template #final >
             <span *ngIf="popularitem.sale_price != null && popularitem.sale_price != 0;" style="color:red">&#8377;
-              <s>{{popularitem.final_price}}Rs</s>
+              <s>{{popularitem.final_price}}</s>
             </span>
           </ng-template> <br>
           <span *ngIf="popularitem.sale_price != null && popularitem.sale_price != 0;" style="color:blue">
-            sale price: &#8377;{{popularitem.sale_price}}Rs
+            sale price: &#8377;{{popularitem.sale_price}}
           </span>
         </div>
       </div>

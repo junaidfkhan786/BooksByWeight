@@ -55,15 +55,15 @@
       {{productItem.mrp_inr}}
     </s> &nbsp;
     <span *ngIf="productItem.sale_price == null || productItem.sale_price == 0;else final" style="color:red">&#8377;
-      {{productItem.final_price}}Rs
+      {{productItem.final_price}}
     </span>
     <ng-template #final >
       <span *ngIf="productItem.sale_price != null && productItem.sale_price != 0;" style="color:red">&#8377;
-        <s>{{productItem.final_price}}Rs</s>
+        <s>{{productItem.final_price}}</s>
       </span>
     </ng-template> <br>
     <span *ngIf="productItem.sale_price != null && productItem.sale_price != 0;" style="color:blue">
-      sale price: &#8377;{{productItem.sale_price}}Rs
+      sale price: &#8377;{{productItem.sale_price}}
     </span>
   </div>
 </div>

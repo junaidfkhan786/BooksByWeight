@@ -6,29 +6,29 @@
           <ng-template [ngIf]="bookimg.length > 0">
             <div id="product-imgs">
               <div *ngFor="let t of bookimg" class="product-preview p-2">
-                <img [src]="t" height="130px" onerror="this.src='assets/images/altimg.png';" alt="">
+                <img [src]="t" height="130px" (error)='delimg($event)' alt="">
               </div>
             </div>
           </ng-template>
           <ng-template [ngIf]="bookimg.length === 0">
             <div id="product-imgs">
               <div class="product-preview">
-                <img src="../../../assets/images/1.jpeg" onerror="this.src='assets/images/altimg.png';" alt="">
+                <img src="assets/images/altimg.png"  onerror="this.src='assets/images/altimg.png';" alt="">
               </div>
             </div>
           </ng-template>
         </div>
       </div>
-      <div class="col-md-9 p-1 ">
+      <div class="col-md-8 p-1 ">
         <div id="product-main-img">
           <ng-template [ngIf]="bookimg.length === 0">
             <div class="product-preview">
-              <img src="../../../assets/images/1.jpeg"  onerror="this.src='assets/images/altimg.png';" alt="">
+              <img src="assets/images/altimg.png" height="500"   onerror="this.src='assets/images/altimg.png';" alt="">
             </div>
           </ng-template>
           <ng-template [ngIf]="bookimg.length > 0">
             <div class="product-preview" *ngFor="let t of bookimg">
-              <img [src]="t" height="600px" onerror="this.src='assets/images/altimg.png';" alt="">
+              <img [src]="t" height="500"  onerror="this.src='assets/images/altimg.png';" alt="">
             </div>
           </ng-template>
         </div>
@@ -47,7 +47,8 @@
         <br />
         <div class="color"><b>ISBN:</b> {{ details.Isbn_no }}</div>
 
-        <div class="color"><b>Publisher: </b> {{ details.publisher }}</div>
+        <div class="gotoauthor color"
+        (click)="gotopublishersearch(details.publisher)"><b>Publisher: </b> {{ details.publisher }}</div>
         <br />
         <div class="color" style="padding-bottom: 10px;">
           <b>Condition:</b> <b> ( {{details.condition}} )</b>
@@ -66,16 +67,16 @@
         </div>
         <div class="color" *ngIf="details.mrp_inr !=0 && details.mrp_inr !=null ">
           <b>MRP:</b> <s>
-            <span *ngIf="details.mrp_dollar !='' ">
+            <span *ngIf="details.mrp_dollar !=0 ">
               {{ details.mrp_dollar | currency:'USD' }}
             </span>
-            <span *ngIf="details.mrp_euro !='' ">
+            <span *ngIf="details.mrp_euro !=0 ">
               {{ details.mrp_euro | currency:'EUR' }}
             </span>
-            <span *ngIf="details.mrp_aus_dollar !='' ">
+            <span *ngIf="details.mrp_aus_dollar !=0 ">
               {{ details.mrp_aus_dollar | currency:'AUS' }}
             </span>
-            <span *ngIf="details.mrp_pound !='' ">
+            <span *ngIf="details.mrp_pound !=0 ">
               {{ details.mrp_pound | currency:'GBP' }}
             </span>
             <span style=" font-size: 1rem;">({{ details.mrp_inr | currency:'INR' }})</span> </s>

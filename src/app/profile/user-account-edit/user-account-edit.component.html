@@ -19,8 +19,8 @@
         <div *ngIf="phone" class="input-group">
             <input [(ngModel)]="user.phonenumber" type="text" name="phonenumber" class="form-control"
                 placeholder="Enter Phone-Number"
-                onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;" autocomplete="off"
-                maxlength="10" #phonenumber >
+                digitOnly autocomplete="off"
+                maxlength="10" minlength="10" #phonenumber >
         </div>
         <br>
         <div class="input-group">

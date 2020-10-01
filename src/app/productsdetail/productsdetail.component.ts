@@ -1,11 +1,13 @@
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { BooksService } from '../services/books.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { WishlistService } from '../services/wishlist.service';
 import { NgxSpinnerService } from 'ngx-spinner'
 import { CartService } from '../services/cart.service';
+import {Location} from '@angular/common';
+import { UrlService } from '../services/url.service';
 declare var $: any;
 @Component({
   selector: 'app-productsdetail',
@@ -26,6 +28,8 @@ export class ProductsdetailComponent implements OnInit {
   cartquantity: any = [];
   cartpid: any = {};
   cartpid1: any[] = [];
+  previousUrl: string = null;
+  currentUrl: string = null;
   constructor(
     private toastr: ToastrService,
     private router: Router,
@@ -34,10 +38,16 @@ export class ProductsdetailComponent implements OnInit {
     private route: ActivatedRoute,
     private spinner: NgxSpinnerService,
     private cart: CartService,
+    private location:Location,
+    private urlservice : UrlService
+    ) {
 
-  ) { }
 
-  ngOnInit(): void {
+
+
+   }
+
+  ngOnInit() {
     this.spinner.show();
     if (localStorage.getItem('User') != null) {
       this.wish.getwishlistload().subscribe(() => {
@@ -57,7 +67,10 @@ export class ProductsdetailComponent implements OnInit {
   }
 
   jquery_code() { }
-
+goback(){
+  window.scroll(0,0)
+  this.location.back()
+}
   loaddetails() {
     this.newService
       .getDetailPackage(this.route.snapshot.params._id).pipe(
@@ -76,6 +89,8 @@ export class ProductsdetailComponent implements OnInit {
         })
       )
       .subscribe((res) => {
+        this.previousUrl = this.urlservice.getPreviousUrl()
+      console.log(this.previousUrl)
         this.books$ = res;
         console.log(this.books$)
         this.book = this.books$.books;

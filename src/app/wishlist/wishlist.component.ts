@@ -17,6 +17,11 @@ export class WishlistComponent implements OnInit {
   Error = false;
   message: any;
   length: any;
+  cartitem: any = [];
+  cartquantity: any = [];
+  cartquantity1: any = [];
+  cartpid: any = {};
+  cartpid1: any[] = [];
   constructor(
     private toastr: ToastrService,
     private wish: WishlistService,
@@ -30,7 +35,12 @@ export class WishlistComponent implements OnInit {
     this.spinner.show();
     this.wish.getwishlistload().subscribe(() => {
       this.loadwish();
+
     })
+    this.cart.getcartload().subscribe(()=>{
+      this.loadcart();
+    })
+    this.loadcart();
     this.loadwish();
     this.jquery_code();
 
@@ -42,7 +52,27 @@ export class WishlistComponent implements OnInit {
 
     });
   }
+  loadcart() {
+    if (localStorage.getItem('User') != null) {
+      this.cart.getCart().subscribe((data) => {
+        this.book$ = data;
+        if (this.book$.cartItems.length > 0) {
 
+          this.cartitem = this.book$.cartItems[0].cart;
+          this.length = this.cartitem.length;
+        }
+        if (this.book$.cartItems.length > 0) {
+          this.cartquantity = this.book$.cartItems[0].cart;
+
+          for (var { book: books } of this.cartquantity) {
+            this.cartpid = books;
+            const size3 = books._id;
+            this.cartpid1.push(size3);
+          }
+        }
+      });
+    }
+  }
   loadwish() {
     if (localStorage.getItem('User')) {
       this.wish.getwish().subscribe(data => {
@@ -81,11 +111,17 @@ export class WishlistComponent implements OnInit {
     });
   }
 
-  addCart(_id, selling_price, weight) {
+  addCart(_id, final_price,sale_price, weight) {
+    var price:any
+    if(sale_price > 0){
+      price = sale_price
+    }else{
+      price = final_price
+    }
     this.spinner.show();
     if (localStorage.getItem('User') != null) {
 
-      this.cart.postProduct(_id, selling_price, weight).subscribe(() => {
+      this.cart.postProduct(_id, price, weight).subscribe(() => {
         this.spinner.hide();
         this.toastr.success('Product Successfully Added to cart', 'BooksByWeight', {
           timeOut: 1000,

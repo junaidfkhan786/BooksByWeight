@@ -74,12 +74,17 @@
 
       <div class="bg-image" style="position: relative;
           text-align: center;">
+                    <div class="d-flex justify-content-start">
+                      <button  class="btn btn-outline-success">
+                        <span class="material-icons" (click)="goback()">arrow_back</span>
+                      </button>
+                    </div>
         <div style="  position: absolute;
               top: 50%;
               left: 50%;
-              transform: translate(-50%, -50%); font-size: xx-large;" class="org">
+              transform: translate(-50%, -50%); font-size: xx-large;">
           BOOKS <br><br>
-          Home / Books
+          <a href="/" class="org" style="text-decoration: none; color: #000;">Home</a> / <span class="org">Books</span>
 
         </div>
 

@@ -53,15 +53,15 @@
       {{searchItem.mrp_inr}}
     </s> &nbsp;
     <span *ngIf="searchItem.sale_price == null || searchItem.sale_price == 0;else final" style="color:red">&#8377;
-      {{searchItem.final_price}}Rs
+      {{searchItem.final_price}}
     </span>
     <ng-template #final >
       <span *ngIf="searchItem.sale_price != null && searchItem.sale_price != 0;" style="color:red">&#8377;
-        <s>{{searchItem.final_price}}Rs</s>
+        <s>{{searchItem.final_price}}</s>
       </span>
     </ng-template><br>
     <span *ngIf="searchItem.sale_price != null && searchItem.sale_price != 0;" style="color:blue">
-      sale price: &#8377;{{searchItem.sale_price}}Rs
+      sale price: &#8377;{{searchItem.sale_price}}
     </span>
   </div>
 </div>

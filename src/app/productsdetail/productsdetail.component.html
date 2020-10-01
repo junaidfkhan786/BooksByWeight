@@ -8,12 +8,17 @@
     <app-header></app-header>
     <div class="bg-image" style="position: relative;
           text-align: center;">
+          <div class="d-flex justify-content-start">
+            <button  class="btn btn-outline-success">
+              <span class="material-icons" (click)="goback()">arrow_back</span>
+            </button>
+          </div>
       <div style="  position: absolute;
               top: 50%;
               left: 50%;
-              transform: translate(-50%, -50%); font-size: xx-large;" class="org">
-        BOOK DETAILS <br><br>
-        Home / Details
+              transform: translate(-50%, -50%); font-size: xx-large;">
+       BOOK DETAILS <br><br>
+       <a href="/" style="text-decoration: none; color: #000;" class="org"> Home</a> / <span class="org">Details</span>
       </div>
     </div>
 
@@ -30,7 +35,7 @@
         <span class="card" style=" border-top: none;
      border-left: none;
      border-right: none;
-     border-bottom: 2px solid #ff4136 ; 
+     border-bottom: 2px solid #ff4136 ;
      font-size: 1.5rem; color: rgb(92, 88, 88);"> Description </span>
       </span>
 
@@ -40,34 +45,34 @@
         text-justify: inter-word; ">
           {{book.description}}
         </p>
-        <br>
+
         <ul>
-          <li class="org" *ngIf="book.publication_year !=''" style="list-style-type: none;">
+          <li class="org p-2" *ngIf="book.publication_year !=''" style="list-style-type: none;">
             <span class="material-icons">
               play_circle_filled
             </span>
             <b>Publication Year:</b> {{book.publication_year | date}}</li>
-          <br>
-          <li *ngIf="book.no_Of_pages !=''" class="org" style="list-style-type: none;">
+
+          <li *ngIf="book.no_Of_pages !='' && book.no_Of_pages !=0" class="org p-2" style="list-style-type: none;">
             <span class="material-icons">
               play_circle_filled
             </span>
             <b>No of Pages:</b>{{book.no_Of_pages}}</li>
-          <br>
-          <li *ngIf="book.language !=''" class="org" style="list-style-type: none;">
+
+          <li *ngIf="book.language !=''" class="org p-2" style="list-style-type: none;">
             <span class="material-icons">
               play_circle_filled
             </span>
 
             <b>Language: </b>{{book.language}}</li>
-          <br>
-          <li *ngIf="book.dimensions !=''" class="org" style="list-style-type: none;">
+
+          <li *ngIf="book.dimensions !=''" class="org p-2" style="list-style-type: none;">
             <span class="material-icons">
               play_circle_filled
             </span>
             <b>Dimensions: </b>{{book.dimensions}}</li>
-          <br>
-          <li *ngIf="book.weight !=null && book.weight !=0 " class="org" style="list-style-type: none;">
+
+          <li *ngIf="book.weight !=null && book.weight !=0 " class="org p-2" style="list-style-type: none;">
             <span class="material-icons">
               play_circle_filled
             </span>

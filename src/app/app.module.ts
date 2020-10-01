@@ -78,6 +78,7 @@ import { BooksearchComponent } from './admin-panel/admin-main-content/booksearch
 import { EditbookComponent } from './admin-panel/admin-main-content/editbook/editbook.component';
 import { AddbookComponent } from './admin-panel/admin-main-content/addbook/addbook.component';
 import { ModalModule } from 'ngb-modal';
+import { WishlistitemComponent } from './wishlist/wishlistitem/wishlistitem.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -133,7 +134,8 @@ import { ModalModule } from 'ngb-modal';
     CountcardsComponent,
     BooksearchComponent,
     EditbookComponent,
-    AddbookComponent
+    AddbookComponent,
+    WishlistitemComponent
 
 
 

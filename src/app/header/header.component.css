@@ -39,7 +39,7 @@ nav{
   z-index: 21;
   top: 0;
   left: 0;
-background: #cfcfcd none repeat scroll 0 0;
+  background: #cfcfcd transparent none repeat scroll 0 0;
 }
 
 .overlay-content {

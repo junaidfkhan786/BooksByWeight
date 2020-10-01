@@ -6,6 +6,7 @@ import { FilterService } from '../services/filter.service';
 import { WishlistService } from '../services/wishlist.service';
 import { map } from 'rxjs/operators';
 import { CartService } from '../services/cart.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 declare var $: any;
 @Component({
   selector: 'app-search',
@@ -175,6 +176,22 @@ export class SearchComponent implements OnInit, UrlSerializer {
       this.message = this.books.count;
       this.config.totalItems = this.books.totalBooks
       this.count = this.books.totalBooks
+      if(this.count == 0){
+        Swal.fire({
+          title: 'No Result Found?',
+          text: '',
+          icon: 'info',
+          showCancelButton: false,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Click Here!',
+          cancelButtonText: 'No, Your Wish!'
+        }).then((result) => {
+          if (result.value) {
+            window.location.assign('/books')
+          }
+        })
+      }
       this.Spinner.hide()
 
     })

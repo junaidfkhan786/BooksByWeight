@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { API_URL, API_LIVE, httpOptions } from '../models/api.model';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BooksService {
+
+
   private postsUpdated = new Subject<any>();
   constructor(private _http : HttpClient) { }
   public  getBooks(page):Observable<any> {
-
     return this._http.get<any[]>(`${API_LIVE}`+"/book/?page="+page);
 
 

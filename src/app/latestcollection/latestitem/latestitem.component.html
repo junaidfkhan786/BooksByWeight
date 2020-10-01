@@ -6,7 +6,7 @@
         <img    (click)="productHome(latestitem._id)"
           class="card-img-top altimg"
           src="{{ latestitem.book_img[0] }}"
-          height="350px"
+          height="300px"
           alt="" onerror="this.src='assets/images/altimg.png';"
         />
 
@@ -57,16 +57,16 @@
     <s style="color: rgba(107, 105, 105, 0.61);">&#8377;
       {{latestitem.mrp_inr}}
     </s> &nbsp;
-    <span *ngIf="latestitem.sale_price == null || latestitem.sale_price == 0;else final" style="color:red">&#8377;
-      {{latestitem.final_price}}Rs
+    <span *ngIf="latestitem.sale_price == null || latestitem.sale_price == 0;else final" style="color:red">
+      &#8377;{{latestitem.final_price}}
     </span>
     <ng-template #final >
       <span *ngIf="latestitem.sale_price != null && latestitem.sale_price != 0;" style="color:red">&#8377;
-        <s>{{latestitem.final_price}}Rs</s>
+        <s>{{latestitem.final_price}}</s>
       </span>
     </ng-template> <br>
     <span *ngIf="latestitem.sale_price != null && latestitem.sale_price != 0;" style="color:blue">
-      sale price: &#8377;{{latestitem.sale_price}}Rs
+      sale price: &#8377;{{latestitem.sale_price}}
     </span>
   </div>
 </div>

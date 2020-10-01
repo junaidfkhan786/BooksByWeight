@@ -36,13 +36,23 @@ export class DetailsComponent implements OnInit, AfterViewInit {
     // this.loadbook();
     this.loadimg();
   }
+delimg(event){
+  var currentimage:any = event.originalTarget.currentSrc
+  console.log(event.originalTarget.currentSrc)
+  for (let i = 0; i < this.bookimg.length; i++) {
 
+    if (this.bookimg[i] == currentimage) {
+      this.bookimg.splice(i, 1); i--;
+    }
+  }
+}
 jequery_code(){
   $(window).on("load", function(){
     $('[data-toggle="tooltip"]').tooltip().mouseover();
     setTimeout(function(){ $('[data-toggle="tooltip"]').tooltip('hide'); }, 3000);
 });
 }
+
 
   ngAfterViewInit() {
     setTimeout(() => {
@@ -180,7 +190,7 @@ notify(){
    document.body.removeChild(selBox);
    alert(
     'Link Copied!'+ ' ' +
-    'You Can Share It To You Friend!'
+    'You Can Share It With Your Friend!'
   )
   window.open('https://mail.google.com')
   }
@@ -200,7 +210,7 @@ notify(){
     document.body.removeChild(selBox);
     alert(
       'Link Copied!'+ ' ' +
-      'You Can Share It To You Friend!'
+      'You Can Share It With Your Friend!'
     )
     window.open('https://www.instagram.com')
    }
@@ -220,7 +230,7 @@ notify(){
     document.body.removeChild(selBox);
     alert(
       'Link Copied!'+ ' ' +
-      'You Can Share It To You Friend!'
+      'You Can Share It With Your Friend!'
     )
     window.open('https://www.facebook.com')
    }
@@ -240,7 +250,7 @@ notify(){
     document.body.removeChild(selBox);
     alert(
       'Link Copied!'+ ' ' +
-      'You Can Share It To You Friend!'
+      'You Can Share It With Your Friend!'
     )
     window.open('https://twitter.com')
    }
@@ -308,6 +318,10 @@ notify(){
   }
   gotoauthorsearch(authorname){
     var _id = authorname + "&author_name=1";
+    this.router.navigate(['search/'+ _id]);
+  }
+  gotopublishersearch(publishername){
+    var _id = publishername + "&publisher=1";
     this.router.navigate(['search/'+ _id]);
   }
   gotocart() {

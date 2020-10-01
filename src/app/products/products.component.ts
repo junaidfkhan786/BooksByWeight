@@ -11,6 +11,8 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner'
 import { CartService } from '../services/cart.service';
 import { BooksService } from '../services/books.service';
+import { UrlService } from '../services/url.service';
+import {Location} from '@angular/common'
 declare var $: any;
 @Component({
   selector: 'app-products',
@@ -64,6 +66,8 @@ export class ProductsComponent implements OnInit {
     private cart: CartService,
     private activatedRoute: ActivatedRoute,
     private ngZone: NgZone,
+    private location:Location,
+    private urlservice:UrlService
   ) {
     this.config = {
       currentPage: 1,
@@ -74,6 +78,7 @@ export class ProductsComponent implements OnInit {
       params => this.config.currentPage = params['page'] ? params['page'] : 1);
   }
   ngOnInit() {
+
     window.scrollTo(0, 200);
     this.spinner.show()
     this.activatedRoute.params.subscribe(res => {
@@ -103,6 +108,10 @@ export class ProductsComponent implements OnInit {
 
   }
   jquery_code() { }
+  goback(){
+    window.scroll(0,0)
+    this.location.back()
+  }
   onPageChange(page: number) {
     this.spinner.show();
     console.log(this.router.url)
@@ -212,11 +221,11 @@ export class ProductsComponent implements OnInit {
 
   loadcat(id,page) {
     if (this.route.snapshot.params._id != undefined) {
-
       this.CatService.getCategory().subscribe((data) => {
         var cat: any = data;
         // var id =  JSON.stringify(this.route.snapshot.params._id);
         console.log(this.route.snapshot.params._id)
+
         for (let i = 0; i < cat.length; i++) {
           if (cat[i]['_id'] == this.route.snapshot.params._id) {
             console.log('found')
@@ -312,6 +321,7 @@ export class ProductsComponent implements OnInit {
 
       this.CatService.getallsub().subscribe((data) => {
         var subcat: any = data
+
         for (let i = 0; i < subcat.length; i++) {
           if (subcat[i]['_id'] == this.route.snapshot.params._id) {
             console.log('found')

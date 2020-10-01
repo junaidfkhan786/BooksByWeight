@@ -377,6 +377,11 @@ var a = this.formatDate(new Date)
     this.coupons._id = null
     this.coupons.percentage = null
     this.couponhide = true
+    this.coupontransfer.coupon_code.next(null)
+    this.coupontransfer.coupon_amount.next(null)
+    this.coupontransfer.couponid.next(null)
+    this.coupontransfer.expiry_date.next(null)
+    this.coupontransfer.percentage.next(null)
 
 
   }
