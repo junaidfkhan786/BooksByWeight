@@ -66,7 +66,10 @@ this.spinner.show()
 
     });
   }
+  public price0() {
 
+    this.router.navigate(['books/sortBy0/100'])
+  }
   public price() {
 
     this.router.navigate(['books/sortBy100/200'])

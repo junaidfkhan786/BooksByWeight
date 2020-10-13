@@ -12,7 +12,7 @@ import { NgxSpinnerService } from 'ngx-spinner'
 import { CartService } from '../services/cart.service';
 import { BooksService } from '../services/books.service';
 import { UrlService } from '../services/url.service';
-import {Location} from '@angular/common'
+import { Location } from '@angular/common'
 declare var $: any;
 @Component({
   selector: 'app-products',
@@ -20,6 +20,7 @@ declare var $: any;
   styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent implements OnInit {
+  zero: any = '0/100';
   first: any = '100/200';
   second: any = '200/300';
   third: any = '300/400';
@@ -66,8 +67,8 @@ export class ProductsComponent implements OnInit {
     private cart: CartService,
     private activatedRoute: ActivatedRoute,
     private ngZone: NgZone,
-    private location:Location,
-    private urlservice:UrlService
+    private location: Location,
+    private urlservice: UrlService
   ) {
     this.config = {
       currentPage: 1,
@@ -110,8 +111,8 @@ export class ProductsComponent implements OnInit {
 
   }
   jquery_code() { }
-  goback(){
-    window.scroll(0,0)
+  goback() {
+    window.scroll(0, 0)
     this.location.back()
   }
   onPageChange(page: number) {
@@ -120,6 +121,12 @@ export class ProductsComponent implements OnInit {
     if (this.router.url == '/books' || this.router.url == '/books?page=' + this.config.currentPage) {
       this.router.navigate(['books/'], { queryParams: { page: page } });
       this.loadbook(page)
+    } else if (this.router.url == '/books/sortBy' + this.zero ||
+      this.router.url == '/books/sortBy' + this.zero + '?page=' + this.config.currentPage) {
+      console.log('first block')
+      this.router.navigate(['books/sortBy' + this.zero], { queryParams: { page: page } });
+      this.filters(this.zero, page)
+
     } else if (this.router.url == '/books/sortBy' + this.first ||
       this.router.url == '/books/sortBy' + this.first + '?page=' + this.config.currentPage) {
       console.log('first block')
@@ -156,12 +163,12 @@ export class ProductsComponent implements OnInit {
       console.log('seventh block')
       this.router.navigate(['books/sortBydesc'], { queryParams: { page: page } });
       this.filtersSort(this.variant, page)
-    }else if(this.router.url == '/books/'+this.route.snapshot.params._id ||
-    this.router.url == '/books/'+this.route.snapshot.params._id+'?page='+this.config.currentPage){
+    } else if (this.router.url == '/books/' + this.route.snapshot.params._id ||
+      this.router.url == '/books/' + this.route.snapshot.params._id + '?page=' + this.config.currentPage) {
       console.log('eight block')
-      this.router.navigate(['books/'+this.route.snapshot.params._id], { queryParams: { page: page } });
-      this.loadcat(this.route.snapshot.params._id,page)
-      this.loadsubcat(this.route.snapshot.params._id,page)
+      this.router.navigate(['books/' + this.route.snapshot.params._id], { queryParams: { page: page } });
+      this.loadcat(this.route.snapshot.params._id, page)
+      this.loadsubcat(this.route.snapshot.params._id, page)
     } else {
       alert('not found')
     }
@@ -175,25 +182,25 @@ export class ProductsComponent implements OnInit {
     this.newService.getBooks(p).pipe(
       map((resp) => {
         var book = resp.books
-       var newbooks = [];
-       var uniqueObject = {};
+        var newbooks = [];
+        var uniqueObject = {};
 
 
-              for (let i in book) {
+        for (let i in book) {
 
-               let objTitle = book[i]['Isbn_no'];
-
-
-                uniqueObject[objTitle] = book[i];
-            }
+          let objTitle = book[i]['Isbn_no'];
 
 
-            for (let i in uniqueObject) {
-                newbooks.push(uniqueObject[i]);
-            }
-            var total = 20 - newbooks.length
-            resp['totalBooks'] = resp.totalBooks - total
-            resp['books'] = newbooks
+          uniqueObject[objTitle] = book[i];
+        }
+
+
+        for (let i in uniqueObject) {
+          newbooks.push(uniqueObject[i]);
+        }
+        var total = 20 - newbooks.length
+        resp['totalBooks'] = resp.totalBooks - total
+        resp['books'] = newbooks
         for (let i = 0; i < book.length; i++) {
           book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
           book[i]['rate'] = Math.floor(book[i]['rate'])
@@ -221,7 +228,7 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  loadcat(id,page) {
+  loadcat(id, page) {
     if (this.route.snapshot.params._id != undefined) {
       this.CatService.getCategory().subscribe((data) => {
         var cat: any = data;
@@ -232,28 +239,28 @@ export class ProductsComponent implements OnInit {
           if (cat[i]['_id'] == this.route.snapshot.params._id) {
             console.log('found')
 
-            this.CatService.getCategoryById(id,page).pipe(
+            this.CatService.getCategoryById(id, page).pipe(
               map((resp) => {
                 var book = resp.books
-               var newbooks = [];
-               var uniqueObject = {};
+                var newbooks = [];
+                var uniqueObject = {};
 
 
-                      for (let i in book) {
+                for (let i in book) {
 
-                       let objTitle = book[i]['Isbn_no'];
-
-
-                        uniqueObject[objTitle] = book[i];
-                    }
+                  let objTitle = book[i]['Isbn_no'];
 
 
-                    for (let i in uniqueObject) {
-                        newbooks.push(uniqueObject[i]);
-                    }
-                    // var total = 20 - newbooks.length
-                    // resp['totalBooks'] = resp.totalBooks - total
-                    resp['books'] = newbooks
+                  uniqueObject[objTitle] = book[i];
+                }
+
+
+                for (let i in uniqueObject) {
+                  newbooks.push(uniqueObject[i]);
+                }
+                // var total = 20 - newbooks.length
+                // resp['totalBooks'] = resp.totalBooks - total
+                resp['books'] = newbooks
                 for (let i = 0; i < book.length; i++) {
                   book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
                   book[i]['rate'] = Math.floor(book[i]['rate'])
@@ -318,7 +325,7 @@ export class ProductsComponent implements OnInit {
 
     }
   }
-  loadsubcat(id,page) {
+  loadsubcat(id, page) {
     if (this.route.snapshot.params._id != undefined) {
 
       this.CatService.getallsub().subscribe((data) => {
@@ -328,28 +335,28 @@ export class ProductsComponent implements OnInit {
           if (subcat[i]['_id'] == this.route.snapshot.params._id) {
             console.log('found')
 
-            this.CatService.getSubCatById(id,page).pipe(
+            this.CatService.getSubCatById(id, page).pipe(
               map((resp) => {
                 var book = resp.books
-               var newbooks = [];
-               var uniqueObject = {};
+                var newbooks = [];
+                var uniqueObject = {};
 
 
-                      for (let i in book) {
+                for (let i in book) {
 
-                       let objTitle = book[i]['Isbn_no'];
-
-
-                        uniqueObject[objTitle] = book[i];
-                    }
+                  let objTitle = book[i]['Isbn_no'];
 
 
-                    for (let i in uniqueObject) {
-                        newbooks.push(uniqueObject[i]);
-                    }
-                    // var total = 20 - newbooks.length
-                    // resp['totalBooks'] = resp.totalBooks - total
-                    resp['books'] = newbooks
+                  uniqueObject[objTitle] = book[i];
+                }
+
+
+                for (let i in uniqueObject) {
+                  newbooks.push(uniqueObject[i]);
+                }
+                // var total = 20 - newbooks.length
+                // resp['totalBooks'] = resp.totalBooks - total
+                resp['books'] = newbooks
                 for (let i = 0; i < book.length; i++) {
                   book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
                   book[i]['rate'] = Math.floor(book[i]['rate'])
@@ -484,11 +491,18 @@ export class ProductsComponent implements OnInit {
       var b = a.substring(a.lastIndexOf('=') + 1);
       console.log(b)
       if (this.router.url == '/books') {
-
+        this.router.navigate(['/books'], { queryParams: { page: this.config.currentPage } })
         this.loadbook(1)
-
       } else {
         this.loadbook(this.config.currentPage)
+      }
+
+    } else if (this.router.url == '/books/sortBy' + this.zero ||
+      this.router.url == '/books/sortBy' + this.zero + '?page=' + this.config.currentPage) {
+      if (this.router.url == '/books/sortBy' + this.zero) {
+        this.filters(this.zero, 1);
+      } else {
+        this.filters(this.zero, this.config.currentPage);
       }
 
     } else if (this.router.url == '/books/sortBy' + this.first ||
@@ -545,22 +559,25 @@ export class ProductsComponent implements OnInit {
       } else {
         this.filtersSort(this.variant, this.config.currentPage);
       }
-    }else if(this.router.url == '/books/'+this.route.snapshot.params._id ||
-    this.router.url == '/books/'+this.route.snapshot.params._id+'?page='+this.config.currentPage){
+    } else if (this.router.url == '/books/' + this.route.snapshot.params._id ||
+      this.router.url == '/books/' + this.route.snapshot.params._id + '?page=' + this.config.currentPage) {
       var id = this.route.snapshot.params._id
-      if(this.router.url == '/books/'+this.route.snapshot.params._id){
+      if (this.router.url == '/books/' + this.route.snapshot.params._id) {
         console.log(id)
-        this.loadcat(id,1)
-        this.loadsubcat(id,1)
-      }else{
+        this.loadcat(id, 1)
+        this.loadsubcat(id, 1)
+      } else {
         var a = window.location.href
         var b = a.substring(a.lastIndexOf('=') + 1);
         console.log(b)
-        this.loadcat(id,b);
-        this.loadsubcat(id,b);
+        this.loadcat(id, b);
+        this.loadsubcat(id, b);
       }
 
     }
+  }
+  public price0() {
+    this.router.navigate(['books/sortBy0/100']);
   }
   public price() {
     this.router.navigate(['books/sortBy100/200']);

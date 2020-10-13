@@ -62,6 +62,10 @@ const routes: Routes = [
     component: ProductsComponent
   },
   {
+    path: 'books/sortBy0/100',
+    component: ProductsComponent
+  },
+  {
     path: 'books/sortBy100/200',
     component: ProductsComponent
   },
@@ -211,6 +215,10 @@ const routes: Routes = [
     component: NewbooksComponent
   },
   {
+    path: 'newbooks/sortBy0/100',
+    component: NewbooksComponent
+  },
+  {
     path: 'newbooks/sortBy100/200',
     component: NewbooksComponent
   },
@@ -240,6 +248,10 @@ const routes: Routes = [
   },
   {
     path: 'prebooks',
+    component: PrebooksComponent
+  },
+  {
+    path: 'prebooks/sortBy0/100',
     component: PrebooksComponent
   },
   {

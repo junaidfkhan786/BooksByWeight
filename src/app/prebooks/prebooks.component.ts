@@ -15,6 +15,7 @@ declare var $: any;
   styleUrls: ['./prebooks.component.css']
 })
 export class PrebooksComponent implements OnInit {
+  zero: any = '0/100';
   first: any = '100/200';
   second: any = '200/300';
   third: any = '300/400';
@@ -45,7 +46,7 @@ export class PrebooksComponent implements OnInit {
   cartquantity1: any = [];
   cartpid: any = {};
   cartpid1: number[] = [];
-  config:any
+  config: any
   constructor(
     private toastr: ToastrService,
     private router: Router,
@@ -55,16 +56,16 @@ export class PrebooksComponent implements OnInit {
     private wish: WishlistService,
     private spinner: NgxSpinnerService,
     private cart: CartService,
-    private location:Location
+    private location: Location
   ) {
     this.config = {
       currentPage: 1,
       itemsPerPage: 20,
-      totalItems:''
-      };
-      route.queryParams.subscribe(
-      params => this.config.currentPage= params['page']?params['page']:1 );
-   }
+      totalItems: ''
+    };
+    route.queryParams.subscribe(
+      params => this.config.currentPage = params['page'] ? params['page'] : 1);
+  }
   ngOnInit(): void {
     window.scrollTo(0, 200);
     this.spinner.show();
@@ -78,8 +79,8 @@ export class PrebooksComponent implements OnInit {
     this.jquery_code();
     this.loadfilter();
   }
-  goback(){
-    window.scroll(0,0)
+  goback() {
+    window.scroll(0, 0)
     this.location.back()
   }
   loadcart() {
@@ -112,6 +113,12 @@ export class PrebooksComponent implements OnInit {
     if (this.router.url == '/prebooks' || this.router.url == '/prebooks?page=' + this.config.currentPage) {
       this.router.navigate(['prebooks/'], { queryParams: { page: page } });
       this.loadbook(page)
+    } else if (this.router.url == '/prebooks/sortBy' + this.zero ||
+      this.router.url == '/prebooks/sortBy' + this.zero + '?page=' + this.config.currentPage) {
+      console.log('first block')
+      this.router.navigate(['prebooks/sortBy' + this.zero], { queryParams: { page: page } });
+      this.filters(this.zero, page)
+
     } else if (this.router.url == '/prebooks/sortBy' + this.first ||
       this.router.url == '/prebooks/sortBy' + this.first + '?page=' + this.config.currentPage) {
       console.log('first block')
@@ -166,35 +173,35 @@ export class PrebooksComponent implements OnInit {
         var uniqueObject = {};
 
 
-               for (let i in book) {
+        for (let i in book) {
 
-                let objTitle = book[i]['Isbn_no'];
-
-
-                 uniqueObject[objTitle] = book[i];
-             }
+          let objTitle = book[i]['Isbn_no'];
 
 
-             for (let i in uniqueObject) {
-                 newbooks.push(uniqueObject[i]);
-             }
-             var total = 20 - newbooks.length
-             resp['totalBooks'] = resp.totalBooks - total
-             resp['books'] = newbooks
-          for (let i = 0; i < book.length; i++) {
-            book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
-            book[i]['rate'] = Math.floor(book[i]['rate'])
-            book[i]['weight'] = Math.floor(book[i]['weight'])
-            book[i]['sale_disc_inr'] = Math.floor(book[i]['sale_disc_inr'])
-            book[i]['sale_disc_per'] = Math.floor(book[i]['sale_disc_per'])
-            book[i]['discount_per'] = Math.floor(book[i]['discount_per'])
-            book[i]['discount_rs'] = Math.floor(book[i]['discount_rs'])
-            book[i]['final_price'] = Math.floor(book[i]['final_price'])
-            book[i]['sale_rate'] = Math.floor(book[i]['sale_rate'])
-            book[i]['sale_price'] = Math.floor(book[i]['sale_price'])
-          }
-          return resp
-        })
+          uniqueObject[objTitle] = book[i];
+        }
+
+
+        for (let i in uniqueObject) {
+          newbooks.push(uniqueObject[i]);
+        }
+        var total = 20 - newbooks.length
+        resp['totalBooks'] = resp.totalBooks - total
+        resp['books'] = newbooks
+        for (let i = 0; i < book.length; i++) {
+          book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
+          book[i]['rate'] = Math.floor(book[i]['rate'])
+          book[i]['weight'] = Math.floor(book[i]['weight'])
+          book[i]['sale_disc_inr'] = Math.floor(book[i]['sale_disc_inr'])
+          book[i]['sale_disc_per'] = Math.floor(book[i]['sale_disc_per'])
+          book[i]['discount_per'] = Math.floor(book[i]['discount_per'])
+          book[i]['discount_rs'] = Math.floor(book[i]['discount_rs'])
+          book[i]['final_price'] = Math.floor(book[i]['final_price'])
+          book[i]['sale_rate'] = Math.floor(book[i]['sale_rate'])
+          book[i]['sale_price'] = Math.floor(book[i]['sale_price'])
+        }
+        return resp
+      })
     ).subscribe((data) => {
       this.books$ = data;
       const pid = data.books;
@@ -279,9 +286,18 @@ export class PrebooksComponent implements OnInit {
       var b = a.substring(a.lastIndexOf('=') + 1);
       console.log(b)
       if (this.router.url == '/prebooks') {
+        this.router.navigate(['/prebooks'], { queryParams: { page: this.config.currentPage } })
         this.loadbook(1)
       } else {
         this.loadbook(this.config.currentPage)
+      }
+
+    } else if (this.router.url == '/prebooks/sortBy' + this.zero ||
+      this.router.url == '/prebooks/sortBy' + this.zero + '?page=' + this.config.currentPage) {
+      if (this.router.url == '/prebooks/sortBy' + this.zero) {
+        this.filters(this.zero, 1);
+      } else {
+        this.filters(this.zero, this.config.currentPage);
       }
 
     } else if (this.router.url == '/prebooks/sortBy' + this.first ||
@@ -339,6 +355,9 @@ export class PrebooksComponent implements OnInit {
         this.filtersSort(this.variant, this.config.currentPage);
       }
     }
+  }
+  public price0() {
+    this.router.navigate(['prebooks/sortBy0/100']);
   }
   public price() {
     this.router.navigate(['prebooks/sortBy100/200']);
