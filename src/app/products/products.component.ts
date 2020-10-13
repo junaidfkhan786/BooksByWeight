@@ -499,6 +499,7 @@ export class ProductsComponent implements OnInit {
 
     } else if (this.router.url == '/books/sortBy' + this.zero ||
       this.router.url == '/books/sortBy' + this.zero + '?page=' + this.config.currentPage) {
+        this.router.navigate(['books/sortBy' + this.zero], { queryParams: { page:  this.config.currentPage } });
       if (this.router.url == '/books/sortBy' + this.zero) {
         this.filters(this.zero, 1);
       } else {
@@ -508,6 +509,7 @@ export class ProductsComponent implements OnInit {
     } else if (this.router.url == '/books/sortBy' + this.first ||
       this.router.url == '/books/sortBy' + this.first + '?page=' + this.config.currentPage) {
       if (this.router.url == '/books/sortBy' + this.first) {
+        this.router.navigate(['books/sortBy' + this.first], { queryParams: { page:  this.config.currentPage } });
         this.filters(this.first, 1);
       } else {
         this.filters(this.first, this.config.currentPage);
@@ -516,6 +518,7 @@ export class ProductsComponent implements OnInit {
     } else if (this.router.url == '/books/sortBy' + this.second ||
       this.router.url == '/books/sortBy' + this.second + '?page=' + this.config.currentPage) {
       if (this.router.url == '/books/sortBy' + this.second) {
+        this.router.navigate(['books/sortBy' + this.second], { queryParams: { page:  this.config.currentPage } });
         this.filters(this.second, 1);
       } else {
         this.filters(this.second, this.config.currentPage);
@@ -524,6 +527,7 @@ export class ProductsComponent implements OnInit {
     } else if (this.router.url == '/books/sortBy' + this.third ||
       this.router.url == '/books/sortBy' + this.third + '?page=' + this.config.currentPage) {
       if (this.router.url == '/books/sortBy' + this.third) {
+        this.router.navigate(['books/sortBy' + this.third], { queryParams: { page:  this.config.currentPage } });
         this.filters(this.third, 1);
       } else {
         this.filters(this.third, this.config.currentPage);
@@ -532,6 +536,7 @@ export class ProductsComponent implements OnInit {
     } else if (this.router.url == '/books/sortBy' + this.fourth ||
       this.router.url == '/books/sortBy' + this.fourth + '?page=' + this.config.currentPage) {
       if (this.router.url == '/books/sortBy' + this.fourth) {
+        this.router.navigate(['books/sortBy' + this.fourth], { queryParams: { page:  this.config.currentPage } });
         this.filters(this.fourth, 1);
       } else {
         this.filters(this.fourth, this.config.currentPage);
@@ -540,6 +545,7 @@ export class ProductsComponent implements OnInit {
     } else if (this.router.url == '/books/sortBy500' ||
       this.router.url == '/books/sortBy500' + '?page=' + this.config.currentPage) {
       if (this.router.url == '/books/sortBy500') {
+        this.router.navigate(['books/sortBy500'], { queryParams: { page:  this.config.currentPage } });
         this.filters(this.fifth, 1);
       } else {
         this.filters(this.fifth, this.config.currentPage);
@@ -548,6 +554,7 @@ export class ProductsComponent implements OnInit {
     } else if (this.router.url == '/books/sortByasc' ||
       this.router.url == '/books/sortByasc' + '?page=' + this.config.currentPage) {
       if (this.router.url == '/books/sortByasc') {
+        this.router.navigate(['books/sortBy' + this.variant1], { queryParams: { page:  this.config.currentPage } });
         this.filtersSort(this.variant1, 1);
       } else {
         this.filtersSort(this.variant1, this.config.currentPage);
@@ -555,25 +562,13 @@ export class ProductsComponent implements OnInit {
     } else if (this.router.url == '/books/sortBydesc' ||
       this.router.url == '/books/sortBydesc' + '?page=' + this.config.currentPage) {
       if (this.router.url == '/books/sortBydesc') {
+        this.router.navigate(['books/sortBy' + this.variant], { queryParams: { page:  this.config.currentPage } });
         this.filtersSort(this.variant, 1);
       } else {
         this.filtersSort(this.variant, this.config.currentPage);
       }
-    } else if (this.router.url == '/books/' + this.route.snapshot.params._id ||
-      this.router.url == '/books/' + this.route.snapshot.params._id + '?page=' + this.config.currentPage) {
-      var id = this.route.snapshot.params._id
-      if (this.router.url == '/books/' + this.route.snapshot.params._id) {
-        console.log(id)
-        this.loadcat(id, 1)
-        this.loadsubcat(id, 1)
-      } else {
-        var a = window.location.href
-        var b = a.substring(a.lastIndexOf('=') + 1);
-        console.log(b)
-        this.loadcat(id, b);
-        this.loadsubcat(id, b);
-      }
-
+    } else{
+      console.log('Url Not Found')
     }
   }
   public price0() {

@@ -38,7 +38,7 @@ export class FilterService {
     console.log(modal,page,catid)
     return this._http.get<any>(`${API_LIVE}` + '/search/cats/priceDefined/'+modal+'?page='+page+'&catId='+catid );
   }
-  public sortBycat(catid,page,variant):Observable<any>{
+  public sortBycat(catid,variant,page):Observable<any>{
     console.log(catid,variant,page)
     return this._http.get<any>(`${API_LIVE}`+ '/search/filter/cats?catId='+catid+'?page='+page+'&sortBy='+variant);
   }

@@ -277,6 +277,7 @@ export class NewbooksComponent implements OnInit {
     } else if (this.router.url == '/newbooks/sortBy' + this.zero ||
       this.router.url == '/newbooks/sortBy' + this.zero + '?page=' + this.config.currentPage) {
       if (this.router.url == '/newbooks/sortBy' + this.zero) {
+        this.router.navigate(['/newbooks/sortBy'+ this.zero], { queryParams: { page: this.config.currentPage } })
         this.filters(this.zero, 1);
       } else {
         this.filters(this.zero, this.config.currentPage);
@@ -285,6 +286,7 @@ export class NewbooksComponent implements OnInit {
     } else if (this.router.url == '/newbooks/sortBy' + this.first ||
       this.router.url == '/newbooks/sortBy' + this.first + '?page=' + this.config.currentPage) {
       if (this.router.url == '/newbooks/sortBy' + this.first) {
+        this.router.navigate(['/newbooks/sortBy'+ this.first], { queryParams: { page: this.config.currentPage } })
         this.filters(this.first, 1);
       } else {
         this.filters(this.first, this.config.currentPage);
@@ -293,6 +295,7 @@ export class NewbooksComponent implements OnInit {
     } else if (this.router.url == '/newbooks/sortBy' + this.second ||
       this.router.url == '/newbooks/sortBy' + this.second + '?page=' + this.config.currentPage) {
       if (this.router.url == '/newbooks/sortBy' + this.second) {
+        this.router.navigate(['/newbooks/sortBy'+ this.second], { queryParams: { page: this.config.currentPage } })
         this.filters(this.second, 1);
       } else {
         this.filters(this.second, this.config.currentPage);
@@ -301,6 +304,7 @@ export class NewbooksComponent implements OnInit {
     } else if (this.router.url == '/newbooks/sortBy' + this.third ||
       this.router.url == '/newbooks/sortBy' + this.third + '?page=' + this.config.currentPage) {
       if (this.router.url == '/newbooks/sortBy' + this.third) {
+        this.router.navigate(['/newbooks/sortBy'+ this.third], { queryParams: { page: this.config.currentPage } })
         this.filters(this.third, 1);
       } else {
         this.filters(this.third, this.config.currentPage);
@@ -309,6 +313,7 @@ export class NewbooksComponent implements OnInit {
     } else if (this.router.url == '/newbooks/sortBy' + this.fourth ||
       this.router.url == '/newbooks/sortBy' + this.fourth + '?page=' + this.config.currentPage) {
       if (this.router.url == '/newbooks/sortBy' + this.fourth) {
+        this.router.navigate(['/newbooks/sortBy'+ this.fourth], { queryParams: { page: this.config.currentPage } })
         this.filters(this.fourth, 1);
       } else {
         this.filters(this.fourth, this.config.currentPage);
@@ -317,6 +322,7 @@ export class NewbooksComponent implements OnInit {
     } else if (this.router.url == '/newbooks/sortBy500' ||
       this.router.url == '/newbooks/sortBy500' + '?page=' + this.config.currentPage) {
       if (this.router.url == '/newbooks/sortBy500') {
+        this.router.navigate(['/newbooks/sortBy'+ this.fifth], { queryParams: { page: this.config.currentPage } })
         this.filters(this.fifth, 1);
       } else {
         this.filters(this.fifth, this.config.currentPage);
@@ -325,6 +331,7 @@ export class NewbooksComponent implements OnInit {
     } else if (this.router.url == '/newbooks/sortByasc' ||
       this.router.url == '/newbooks/sortByasc' + '?page=' + this.config.currentPage) {
       if (this.router.url == '/newbooks/sortByasc') {
+        this.router.navigate(['/newbooks/sortBy'+ this.variant1], { queryParams: { page: this.config.currentPage } })
         this.filtersSort(this.variant1, 1);
       } else {
         this.filtersSort(this.variant1, this.config.currentPage);
@@ -332,6 +339,7 @@ export class NewbooksComponent implements OnInit {
     } else if (this.router.url == '/newbooks/sortBydesc' ||
       this.router.url == '/newbooks/sortBydesc' + '?page=' + this.config.currentPage) {
       if (this.router.url == '/newbooks/sortBydesc') {
+        this.router.navigate(['/newbooks/sortBy'+ this.variant], { queryParams: { page: this.config.currentPage } })
         this.filtersSort(this.variant, 1);
       } else {
         this.filtersSort(this.variant, this.config.currentPage);

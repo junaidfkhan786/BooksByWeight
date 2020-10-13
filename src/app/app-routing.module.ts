@@ -107,6 +107,10 @@ const routes: Routes = [
     component: CategoriesComponent
   },
   {
+    path: 'categories/sortBy0/100',
+    component: CategoriesComponent
+  },
+  {
     path: 'categories/sortBy100/200',
     component: CategoriesComponent
   },

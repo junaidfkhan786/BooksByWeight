@@ -117,7 +117,7 @@ export class CategoriesComponent implements OnInit {
     } else if (this.router.url == '/categories/sortBy' + this.zero + ';query=' + this.categoryid ||
       this.router.url == '/categories/sortBy' + this.zero + ';query=' + this.categoryid + '?page=' + this.config.currentPage) {
       console.log('first block')
-      this.router.navigate(['categories/sortBy100/200', { query: this.categoryid }], { queryParams: { page: page } });
+      this.router.navigate(['categories/sortBy0/100', { query: this.categoryid }], { queryParams: { page: page } });
       this.filters(this.zero, page, this.categoryid)
 
     } else if (this.router.url == '/categories/sortBy' + this.first + ';query=' + this.categoryid ||
@@ -134,19 +134,24 @@ export class CategoriesComponent implements OnInit {
     } else if (this.router.url == '/categories/sortBy' + this.third + ';query=' + this.categoryid ||
       this.router.url == '/categories/sortBy' + this.third + ';query=' + this.categoryid + '?page=' + this.config.currentPage) {
       console.log('second block')
-      this.router.navigate(['categories/sortBy200/300', { query: this.categoryid }], { queryParams: { page: page } });
+      this.router.navigate(['categories/sortBy300/400', { query: this.categoryid }], { queryParams: { page: page } });
       this.filters(this.third, page, this.categoryid)
     } else if (this.router.url == '/categories/sortBy' + this.fourth + ';query=' + this.categoryid ||
       this.router.url == '/categories/sortBy' + this.fourth + ';query=' + this.categoryid + '?page=' + this.config.currentPage) {
       console.log('second block')
-      this.router.navigate(['categories/sortBy200/300', { query: this.categoryid }], { queryParams: { page: page } });
+      this.router.navigate(['categories/sortBy400/500', { query: this.categoryid }], { queryParams: { page: page } });
       this.filters(this.fourth, page, this.categoryid)
-    } else if (this.router.url == '/categories/sortBy' + this.fifth + ';query=' + this.categoryid ||
-      this.router.url == '/categories/sortBy' + this.fifth + ';query=' + this.categoryid + '?page=' + this.config.currentPage) {
+    } else if (this.router.url == '/categories/sortBy500' + ';query=' + this.categoryid ||
+      this.router.url == '/categories/sortBy500' + ';query=' + this.categoryid + '?page=' + this.config.currentPage) {
       console.log('second block')
-      this.router.navigate(['categories/sortBy200/300', { query: this.categoryid }], { queryParams: { page: page } });
+      this.router.navigate(['categories/sortBy500', { query: this.categoryid }], { queryParams: { page: page } });
       this.filters(this.fifth, page, this.categoryid)
-    }
+    } else if (this.router.url == '/categories/sortBy'+ this.variant1 + ';query=' + this.categoryid ||
+    this.router.url == '/categories/sortBy' +this.variant1+ ';query=' + this.categoryid + '?page=' + this.config.currentPage) {
+    console.log('second block')
+    this.router.navigate(['categories/sortBy'+this.variant1, { query: this.categoryid }], { queryParams: { page: page } });
+    this.filtersSort(this.categoryid,this.variant1, page )
+  }
     // else if (this.router.url == '/categories/sortBy' + this.third ||
     //   this.router.url == '/categories/sortBy' + this.third + '?page=' + this.config.currentPage) {
     //   console.log('third block')
@@ -320,8 +325,8 @@ export class CategoriesComponent implements OnInit {
       if (this.books$.totalBooks != 0) { this.spinner.hide() }
     });
   }
-  filtersSort(variant: String, page) {
-    this.filter.sortBy(variant, page).pipe(
+  filtersSort(catid:string,variant: String, page) {
+    this.filter.sortBycat(catid,variant, page).pipe(
       map((resp) => {
         var book = resp.books
         for (let i = 0; i < book.length; i++) {
@@ -405,15 +410,24 @@ export class CategoriesComponent implements OnInit {
         this.filters(this.fourth, this.config.currentPage, this.categoryid);
       }
 
-    } else if (this.router.url == '/categories/sortBy' + this.fifth + ';query=' + this.categoryid ||
-      this.router.url == '/categories/sortBy' + this.fifth + ';query=' + this.categoryid + '?page=' + this.config.currentPage) {
-      if (this.router.url == '/categories/sortBy' + this.fifth + ';query=' + this.categoryid) {
+    } else if (this.router.url == '/categories/sortBy500'+ ';query=' + this.categoryid ||
+      this.router.url == '/categories/sortBy500'+';query=' + this.categoryid + '?page=' + this.config.currentPage) {
+      if (this.router.url == '/categories/sortBy500' + ';query=' + this.categoryid) {
         this.filters(this.fifth, 1, this.categoryid);
       } else {
         this.filters(this.fifth, this.config.currentPage, this.categoryid);
       }
 
+    }else if (this.router.url == '/categories/sortBy'+this.variant1+ ';query=' + this.categoryid ||
+    this.router.url == '/categories/sortBy'+this.variant1 + ';query=' + this.categoryid + '?page=' + this.config.currentPage) {
+    if (this.router.url == '/categories/sortBy' + ';query=' + this.categoryid) {
+      console.log('filtersort')
+      this.filtersSort(this.categoryid,this.variant1,1 );
+    } else {
+      this.filtersSort(this.categoryid,this.variant1, this.config.currentPage);
     }
+
+  }
 
     // }
     // else if (this.router.url == '/categories/sortByasc' ||
@@ -451,10 +465,10 @@ export class CategoriesComponent implements OnInit {
     this.router.navigate(['categories/sortBy500', { query: this.categoryid }]);
   }
   public lowTohigh() {
-    this.router.navigate(['categories/sortByasc']);
+    this.router.navigate(['categories/sortByasc',{ query: this.categoryid }]);
   }
   public highTolow() {
-    this.router.navigate(['categories/sortBydesc']);
+    this.router.navigate(['categories/sortBydesc',{ query: this.categoryid }]);
   }
   loadwish() {
     if (localStorage.getItem('User') != null) {
