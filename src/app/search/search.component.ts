@@ -7,6 +7,7 @@ import { WishlistService } from '../services/wishlist.service';
 import { map } from 'rxjs/operators';
 import { CartService } from '../services/cart.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { Location } from '@angular/common';
 declare var $: any;
 @Component({
   selector: 'app-search',
@@ -39,6 +40,7 @@ export class SearchComponent implements OnInit, UrlSerializer {
   book$: any = [];
   length: any;
   cartitem: any = [];
+  searchname:any
   constructor(
     private search: SearchService,
     private Spinner: NgxSpinnerService,
@@ -46,7 +48,8 @@ export class SearchComponent implements OnInit, UrlSerializer {
     private route: ActivatedRoute,
     private filter: FilterService,
     private wish: WishlistService,
-    private cart:CartService
+    private cart:CartService,
+    private location:Location
   ) {
 
     this.config = {
@@ -86,6 +89,10 @@ export class SearchComponent implements OnInit, UrlSerializer {
     this.loadcart()
     // this.loadfilter();
   }
+  goback(){
+    window.scroll(0,0)
+    this.location.back()
+  }
   loadcart() {
     if (localStorage.getItem('User') != null) {
       this.cart.getCart().subscribe((data) => {
@@ -119,6 +126,21 @@ export class SearchComponent implements OnInit, UrlSerializer {
     var s: any
     console.log(b)
     console.log(c)
+    var pattern = "&";
+    if(c.indexOf(pattern)>=0) //if a pattern is not present in the source string indexOf method returns -1
+    {
+      //to truncate everything before the pattern
+       //outputs "efgh"
+    //   this.searchname = c.substr(c.indexOf(pattern)+pattern.length, c.length);
+    // console.log("str2: "+c);
+
+      // if you want to truncate everything after the pattern & pattern itself
+      //outputs "a"
+      this.searchname = c.substr(0, c.indexOf(pattern));
+      this.searchname=this.searchname.replace(/%20/gi, ' ')
+      console.log("str3: "+this.searchname);
+    }
+    console.log(this.searchname)
     if(a == '/search/'+this.query  ){
       this.getbooks(this.query,1)
     }else{
@@ -153,8 +175,8 @@ export class SearchComponent implements OnInit, UrlSerializer {
              for (let i in uniqueObject) {
                  newbooks.push(uniqueObject[i]);
              }
-             var total = 20 - newbooks.length
-             resp['totalBooks'] = resp.totalBooks - total
+            //  var total = 20 - newbooks.length
+            //  resp['totalBooks'] = resp.totalBooks - total
              resp['books'] = newbooks
         for (let i = 0; i < book.length; i++) {
           book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
@@ -176,6 +198,7 @@ export class SearchComponent implements OnInit, UrlSerializer {
       this.message = this.books.count;
       this.config.totalItems = this.books.totalBooks
       this.count = this.books.totalBooks
+      console.log(this.count)
       if(this.count == 0){
         Swal.fire({
           title: 'No Result Found?',

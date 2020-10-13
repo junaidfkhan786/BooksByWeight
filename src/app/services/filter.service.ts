@@ -34,7 +34,22 @@ export class FilterService {
     console.log(variant,page)
     return this._http.get<any>(`${API_LIVE}`+ '/search/filter/preowned?sortBy='+variant+'&page='+page);
   }
-
+  public priceDefinecat(modal,page,catid):Observable<any> {
+    console.log(modal,page,catid)
+    return this._http.get<any>(`${API_LIVE}` + '/search/cats/priceDefined/'+modal+'?page='+page+'&catId='+catid );
+  }
+  public sortBycat(catid,page,variant):Observable<any>{
+    console.log(catid,variant,page)
+    return this._http.get<any>(`${API_LIVE}`+ '/search/filter/cats?catId='+catid+'?page='+page+'&sortBy='+variant);
+  }
+  // public priceDefinesubcat(modal,page):Observable<any> {
+  //   console.log(modal,page)
+  //   return this._http.get<any>(`${API_LIVE}` + '/search/priceDefined/'+modal+"?condition=pre"+'&page='+page );
+  // }
+  // public sortBysubcat(variant,page):Observable<any>{
+  //   console.log(variant,page)
+  //   return this._http.get<any>(`${API_LIVE}`+ '/search/filter/preowned?sortBy='+variant+'&page='+page);
+  // }
 
 
 

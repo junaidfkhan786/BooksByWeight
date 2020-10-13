@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import * as jwt_decode from 'jwt-decode';
+import { Location } from '@angular/common';
 declare var $: any;
 @Component({
   selector: 'app-cart',
@@ -26,6 +27,7 @@ export class CartComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private activatedRoute: ActivatedRoute,
     private ngZone: NgZone,
+    private location:Location
   ) { }
 
   ngOnInit() {
@@ -41,6 +43,10 @@ export class CartComponent implements OnInit {
   }
   jquery_code() {
     /* Jquery here */
+  }
+  goback(){
+    window.scroll(0,0)
+    this.location.back()
   }
   loadroute() {
     this.activatedRoute.params.subscribe(res => {

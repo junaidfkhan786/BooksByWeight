@@ -153,7 +153,7 @@ export class CartItemsComponent implements OnInit {
     this.spinner.show();
     this.cart.deleteProduct(_id).subscribe(() => {
       window.scrollTo(0, 10);
-      this.toastr.error('Product Has Been Remove', 'BooksByWeight', {
+      this.toastr.error('Product Has Been Removed', 'BooksByWeight', {
         timeOut: 1000,
       });
     });

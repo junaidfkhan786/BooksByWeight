@@ -34,7 +34,7 @@ export class WishlistitemComponent implements OnInit {
   public deletePro(WishlistId) {
     this.spinner.show();
     this.wish.deleteProduct(WishlistId).subscribe(res => {
-      this.toastr.error('Product Has Been Remove', 'BooksByWeight', { timeOut: 2000 });
+      this.toastr.error('Product Has Been Removed', 'BooksByWeight', { timeOut: 2000 });
 
     });
   }

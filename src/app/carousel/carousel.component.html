@@ -46,10 +46,10 @@
   <ng-template carouselSlide *ngIf="book1!=undefined">
     <div class="slide">
       <div class="row">
-        <div class="col-sm-6">
-          <img src="{{book1.book_img[0]}}" height="500" onerror="this.src='assets/images/altimg.png';" alt="BOOK_IMG">
+        <div class="col-sm-4">
+          <img src="{{book1.book_img[0]}}" width="200" height="340" onerror="this.src='assets/images/altimg.png';" alt="BOOK_IMG">
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-8">
           <div class="text-center animate__animated animate__fadeInUpBig" >
             <h1 style="font-weight: bolder;">
               Pre-Owned
@@ -68,10 +68,7 @@
 <ng-template carouselSlide *ngIf="book2!=undefined">
   <div class="slide">
     <div class="row">
-      <div class="col-sm-6">
-        <img src="{{book2.book_img[0]}}" height="500" onerror="this.src='assets/images/altimg.png';" alt="BOOK_IMG">
-      </div>
-      <div class="col-sm-6">
+      <div class="col-sm-8">
         <div class="text-center animate__animated animate__fadeInUpBig" >
           <h1 style="font-weight: bolder;">
             Pre-Owned
@@ -83,6 +80,10 @@
             <a (click)="productHome(book2._id)" >Shop-Now</a>
           </h1>
         </div>
+
+      </div>
+      <div class="col-sm-4">
+        <img src="{{book2.book_img[0]}}" height="340" onerror="this.src='assets/images/altimg.png';" alt="BOOK_IMG">
       </div>
     </div>
   </div>

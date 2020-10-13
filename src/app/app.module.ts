@@ -79,6 +79,10 @@ import { EditbookComponent } from './admin-panel/admin-main-content/editbook/edi
 import { AddbookComponent } from './admin-panel/admin-main-content/addbook/addbook.component';
 import { ModalModule } from 'ngb-modal';
 import { WishlistitemComponent } from './wishlist/wishlistitem/wishlistitem.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { CategoriesitemComponent } from './categories/categoriesitem/categoriesitem.component';
+import { SubcategoriesComponent } from './subcategories/subcategories.component';
+import { SubcategoriesitemComponent } from './subcategories/subcategoriesitem/subcategoriesitem.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -135,7 +139,11 @@ import { WishlistitemComponent } from './wishlist/wishlistitem/wishlistitem.comp
     BooksearchComponent,
     EditbookComponent,
     AddbookComponent,
-    WishlistitemComponent
+    WishlistitemComponent,
+    CategoriesComponent,
+    CategoriesitemComponent,
+    SubcategoriesComponent,
+    SubcategoriesitemComponent
 
 
 

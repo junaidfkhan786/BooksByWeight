@@ -18,6 +18,7 @@ export class DetailsComponent implements OnInit, AfterViewInit {
   @Input() addedToWishlist: boolean;
   @Input() cartbutton: boolean;
   bookimg: any[] = [];
+
   constructor(
     private toastr: ToastrService,
     private router: Router,
@@ -33,7 +34,7 @@ export class DetailsComponent implements OnInit, AfterViewInit {
   selected: any;
   conditions: any = []
   ngOnInit() {
-    // this.loadbook();
+    this.loadbook();
     this.loadimg();
   }
 delimg(event){
@@ -102,28 +103,28 @@ jequery_code(){
     window.location.assign('details/' + id)
     // this.router.navigate(['details/' + id]);
   }
-  // loadbook() {
+  loadbook() {
 
-  //   this.book.getBooks().pipe(
-  //     map((resp) => {
-  //       var samebook: any = []
-  //       var book = resp.books
-  //       for (let i = 0; i < book.length; i++) {
+    this.book.getBooks(1).pipe(
+      map((resp) => {
+        var samebook: any = []
+        var book = resp.books
+        for (let i = 0; i < book.length; i++) {
 
-  //         if (book[i].Isbn_no == this.details.Isbn_no) {
-  //           samebook.push(book[i])
-  //         }
+          if (book[i].Isbn_no == this.details.Isbn_no) {
+            samebook.push(book[i])
+          }
 
-  //       }
-  //       return samebook
-  //     })
-  //   ).subscribe((data) => {
+        }
+        return samebook
+      })
+    ).subscribe((data) => {
 
-  //     this.conditions = data
-  //     this.spinner.hide();
-  //   })
+      this.conditions = data
+      this.spinner.hide();
+    })
 
-  // }
+  }
 notify(){
   Swal.fire(
     'Sorry This Book Is Book Is Out Of Stock!',
@@ -154,6 +155,7 @@ notify(){
 
 }
   loadimg() {
+
     this.bookimg = this.details.book_img
     var img: any = []
     for (let i = 0; i < this.bookimg.length; i++) {

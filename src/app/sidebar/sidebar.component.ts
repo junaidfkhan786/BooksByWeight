@@ -91,11 +91,11 @@ this.spinner.show()
     this.router.navigate(['books/sortByasc'])
   }
   public highTolow() {
-
+    this.router.navigate(['books/sortBydesc'])
   }
   public productCat(_id) {
 
-    this.router.navigate(['books/' + _id])
+    this.router.navigate(['categories/' + _id])
 
   }
 

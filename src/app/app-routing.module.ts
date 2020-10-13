@@ -29,6 +29,7 @@ import { ViewOrdersComponent } from './admin-panel/admin-main-content/view-order
 import { BooksearchComponent } from './admin-panel/admin-main-content/booksearch/booksearch.component';
 import { AddbookComponent } from './admin-panel/admin-main-content/addbook/addbook.component';
 import { EditbookComponent } from './admin-panel/admin-main-content/editbook/editbook.component';
+import { CategoriesComponent } from './categories/categories.component';
 const routes: Routes = [
   {
     path: '',
@@ -98,8 +99,28 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'books/:_id',
-    component: ProductsComponent
+    path: 'categories/:_id',
+    component: CategoriesComponent
+  },
+  {
+    path: 'categories/sortBy100/200',
+    component: CategoriesComponent
+  },
+  {
+    path: 'categories/sortBy200/300',
+    component: CategoriesComponent
+  },
+  {
+    path: 'categories/sortBy400/500',
+    component: CategoriesComponent
+  },
+  {
+    path: 'categories/sortBy300/400',
+    component: CategoriesComponent
+  },
+  {
+    path: 'categories/sortBy500',
+    component: CategoriesComponent
   },
   {
     path: 'wish',

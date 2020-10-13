@@ -1,6 +1,7 @@
 <nav class=" navbar navbar-expand-lg navbar-light navbar-fixed sticky-top bg-white">
   <div class="container-fluid">
-    <a [routerLink]="[ '/' ]" routerLinkActive="active"><img src="../../assets/images/logo.png" alt=""></a>
+    <a [routerLink]="[ '/' ]" routerLinkActive="active"><img height="100" width="170"
+        src="../../assets/images/bookbyweight.png" alt=""></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -16,22 +17,21 @@
           </div>
           <div class="col-md">
             <li class="dropdown" style="list-style-type: none;">
-              <a class="nav-link active" style="color: black;" [routerLink]="['/newbooks']"
+              <a class="nav-link active" style="color: black;" (click)="gotonewbooks()"
                 routerLinkActive="router-link-active">New Books</a>
             </li>
           </div>
           <div class="col-md-3">
 
             <li class="dropdown" style="list-style-type: none;">
-              <a class="nav-link active" style="color: black;" [routerLink]="['/prebooks']"
+              <a class="nav-link active" style="color: black;" (click)="gotoprebooks()"
                 routerLinkActive="router-link-active">Pre-Owned Books</a>
             </li>
           </div>
           <div class="col-md">
             <li class="dropdown" style="list-style-type: none;">
-              <a [routerLink]="['/books']" style="color: black;" routerLinkActive="router-link-active"
-                class="nav-link active ">
-               All Books
+              <a (click)="gotobooks()"  style="color: black;" routerLinkActive="router-link-active" class="nav-link active ">
+                All Books
               </a>
             </li>
           </div>
@@ -52,9 +52,22 @@
             </li>
           </div>
           <div class="col-md">
-            <li class="dropdown" style="list-style-type: none;">
-              <a href="#" class="nav-link  active" style="color: black;">Contact</a>
+            <li class="dropdown" data-toggle="dropdown" style="list-style-type: none;">
+              <a class="nav-link dropdown active" style="color: black;">Categories</a>
+
             </li>
+            <div style=" margin-left: -100px; padding: 10px;width: 600px; height: 500px; overflow: scroll; "
+              class="dropdown-menu  animate__animated animate__fadeInUp animate__faster">
+              <div class="row g-2">
+
+                <div class="col-6" *ngFor="let cat of category">
+                  <a class=" nav-link active org " (click)="gotocat(cat._id)" style="color: black; cursor: pointer;">
+                    {{cat.category}}
+                  </a>
+                </div>
+
+              </div>
+            </div>
           </div>
         </div>
       </div>

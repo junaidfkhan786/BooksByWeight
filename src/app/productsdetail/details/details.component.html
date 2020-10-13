@@ -51,12 +51,16 @@
         (click)="gotopublishersearch(details.publisher)"><b>Publisher: </b> {{ details.publisher }}</div>
         <br />
         <div class="color" style="padding-bottom: 10px;">
-          <b>Condition:</b> <b> ( {{details.condition}} )</b>
+          <b>Condition:</b>
+           <b> ( {{details.condition}} )</b>
         </div>
         <div class="col-xs-12 col-lg-8">
           <!-- <select style="border-radius: 0px !important;" class="form-select" aria-label="Default select example"
             name="selected">
-            <option *ngFor="let condition of conditions" (click)="bookchange(condition._id)">{{condition.condition}}
+            <option *ngFor="let condition of conditions" (click)="bookchange(condition._id)">
+              <span>{{details.condition}}</span>
+              <span>{{condition.condition}}</span>
+
             </option>
 
           </select>
@@ -127,7 +131,7 @@
              <b>Sale Price: &#8377;{{ details.sale_price}} </b>
             </span>
              <span class="color">
-               <b>({{details.weight}}gms X {{details.sale_price}}/Kg.)</b>
+               <b>({{details.weight}}gms X {{details.sale_rate}}/Kg.)</b>
              </span>
            </div>
            <div class="color mt-1"

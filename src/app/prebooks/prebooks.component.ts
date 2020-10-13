@@ -7,6 +7,7 @@ import { FilterService } from '../services/filter.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CartService } from '../services/cart.service';
 import { map } from 'rxjs/operators';
+import { Location } from '@angular/common';
 declare var $: any;
 @Component({
   selector: 'app-prebooks',
@@ -53,7 +54,8 @@ export class PrebooksComponent implements OnInit {
     private filter: FilterService,
     private wish: WishlistService,
     private spinner: NgxSpinnerService,
-    private cart: CartService
+    private cart: CartService,
+    private location:Location
   ) {
     this.config = {
       currentPage: 1,
@@ -76,7 +78,10 @@ export class PrebooksComponent implements OnInit {
     this.jquery_code();
     this.loadfilter();
   }
-
+  goback(){
+    window.scroll(0,0)
+    this.location.back()
+  }
   loadcart() {
     if (localStorage.getItem('User') != null) {
       this.cart.getCart().subscribe((data) => {

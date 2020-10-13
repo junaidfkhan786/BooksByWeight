@@ -5,6 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../services/cart.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Location } from '@angular/common';
 declare var $: any;
 @Component({
   selector: 'app-wishlist',
@@ -28,7 +29,8 @@ export class WishlistComponent implements OnInit {
     private router: Router,
     private cart: CartService,
     private sanitizer: DomSanitizer,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private location:Location
   ) { }
 
   ngOnInit(): void {
@@ -37,10 +39,7 @@ export class WishlistComponent implements OnInit {
       this.loadwish();
 
     })
-    this.cart.getcartload().subscribe(()=>{
-      this.loadcart();
-    })
-    this.loadcart();
+
     this.loadwish();
     this.jquery_code();
 
@@ -52,26 +51,9 @@ export class WishlistComponent implements OnInit {
 
     });
   }
-  loadcart() {
-    if (localStorage.getItem('User') != null) {
-      this.cart.getCart().subscribe((data) => {
-        this.book$ = data;
-        if (this.book$.cartItems.length > 0) {
-
-          this.cartitem = this.book$.cartItems[0].cart;
-          this.length = this.cartitem.length;
-        }
-        if (this.book$.cartItems.length > 0) {
-          this.cartquantity = this.book$.cartItems[0].cart;
-
-          for (var { book: books } of this.cartquantity) {
-            this.cartpid = books;
-            const size3 = books._id;
-            this.cartpid1.push(size3);
-          }
-        }
-      });
-    }
+  goback(){
+    window.scroll(0,0)
+    this.location.back()
   }
   loadwish() {
     if (localStorage.getItem('User')) {
@@ -106,7 +88,7 @@ export class WishlistComponent implements OnInit {
   public deletePro(WishlistId) {
     this.spinner.show();
     this.wish.deleteProduct(WishlistId).subscribe(res => {
-      this.toastr.error('Product Has Been Remove', 'BooksByWeight', { timeOut: 2000 });
+      this.toastr.error('Product Has Been Removeed', 'BooksByWeight', { timeOut: 2000 });
 
     });
   }

@@ -306,7 +306,7 @@
       </div>
       <div class="col-sm-6" style="text-align: right;">
         <div class="cart-totals">
-          <h2>CART TOTALS</h2>
+          <h4>CART TOTALS</h4>
           <div class="row g-0">
             <div class="col" style="font-weight: bolder;">
               <span>SUBTOTAL WITHOUT SHIPPING</span>
@@ -319,7 +319,7 @@
                 Coupon Applied
                 <br /><br />
               </span>
-              <span style="font-size: 2em;">TOTAL WITH SHIPPING</span>
+              <span style="font-size: 1em;">TOTAL WITH SHIPPING</span>
             </div>
             <div class="col" style="font-weight: bolder;">
               <span>
@@ -338,8 +338,8 @@
                 {{coupons.coupon_code}}
                 <br /><br />
               </span>
-              <span style="font-size: 2rem;">
-                <span style="color: red; font-size: 1rem;" *ngIf="this.coupons.coupon_code !==null">
+              <span style="font-size: 1rem;">
+                <span style="color: red;" *ngIf="this.coupons.coupon_code !==null">
                   <s>{{t |currency:'INR'}}</s>
                 </span> &nbsp;&nbsp;
                 {{ total | currency:'INR' }} </span>

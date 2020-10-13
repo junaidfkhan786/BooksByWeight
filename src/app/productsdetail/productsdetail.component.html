@@ -9,16 +9,18 @@
     <div class="bg-image" style="position: relative;
           text-align: center;">
           <div class="d-flex justify-content-start">
-            <button  class="btn btn-outline-success">
+            <button  class="btn btn-outline-danger">
               <span class="material-icons" (click)="goback()">arrow_back</span>
             </button>
           </div>
       <div style="  position: absolute;
               top: 50%;
               left: 50%;
-              transform: translate(-50%, -50%); font-size: xx-large;">
-       BOOK DETAILS <br><br>
+              transform: translate(-50%, -50%); font-size: large;">
+       BOOK DETAILS <br>
        <a href="/" style="text-decoration: none; color: #000;" class="org"> Home</a> / <span class="org">Details</span>
+       <a *ngIf="category" (click)="gotocat(category._id)" style="text-decoration: none; color: #000;" class="org"> / {{category.category}}</a>
+       <span *ngIf="subcategory" (click)="gotosubcat()" class="org"> > {{subcategory.name}}</span>
       </div>
     </div>
 
@@ -77,6 +79,11 @@
               play_circle_filled
             </span>
             <b>Weight:</b> {{book.weight | number}} g </li>
+            <li *ngIf="book.country_origin!='' " class="org p-2" style="list-style-type: none;">
+              <span class="material-icons">
+                play_circle_filled
+              </span>
+              <b>Country Of Origin:</b> {{book.country_origin }} </li>
         </ul>
 
         <br>

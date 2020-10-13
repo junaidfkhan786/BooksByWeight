@@ -73,17 +73,21 @@
       <app-header></app-header>
 
       <div class="bg-image" style="position: relative;
-            text-align: center;">
-        <div style="  position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%); font-size: xx-large;">
-          BOOKS <br><br>
-         <a href="/" style="text-decoration: none;" class="org">Home</a> / <span class="org"> Search</span>
-
-        </div>
-
+      text-align: center;">
+      <div class="d-flex justify-content-start">
+        <button  class="btn btn-outline-danger">
+          <span class="material-icons" (click)="goback()">arrow_back</span>
+        </button>
       </div>
+  <div style="  position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%); font-size: large;">
+   BOOK <br>
+   <a href="/" style="text-decoration: none; color: #000;" class="org"> Home</a> / <span class="org">{{searchname}}</span>
+  </div>
+</div>
+
 
 
       <div style="padding: 5px 10px 0px 10px;">
@@ -126,14 +130,14 @@
         </pagination-controls>
 
       </div>
-      <div class="row  d-flex justify-content-center" style="height: 200px;" *ngIf="count == 0">
+      <!-- <div class="row  d-flex justify-content-center" style="height: 200px;" *ngIf="count == 0">
         <div style="width: 50%; height: 50%; top: 0px; background-color: #212529; color: white; "
           class="card shadow-box align-middle">
           <h5 style="margin-top: 3%;" class="text-center card-title"><span style="font-size: 3rem;">{{message}}</span>
           </h5>
 
         </div>
-      </div>
+      </div> -->
 
       <br><br><br>
     </div>

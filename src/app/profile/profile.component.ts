@@ -13,7 +13,7 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-  this.loadtoken();
+  // this.loadtoken();
   }
 
   loadtoken(){

@@ -13,6 +13,14 @@
 a{
   cursor: pointer;
 }
+.bg-image{
+  background-image: url('./assets/images/5.jpg');
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100px !important;
+}
 
 textarea:focus,
 select:focus,
@@ -31,26 +39,27 @@ input[type="url"]:focus,
 input[type="search"]:focus,
 input[type="tel"]:focus,
 input[type="color"]:focus,
-.uneditable-input:focus {   
+.uneditable-input:focus {
   border-color: none;
   box-shadow: none;
   outline: 0 none;
 }
-.uneditable-textarea:focus {   
+.uneditable-textarea:focus {
   border-color: none;
   box-shadow: none;
   outline: 0 none;
 }
-.uneditable-select:focus {   
+.uneditable-select:focus {
   border-color: none;
   box-shadow: none;
   outline: 0 none;
 }
-active {   
+active {
   border-color: none;
   box-shadow: none;
   outline: 0 none;
 }
+
 
 textarea,
 select,
@@ -167,7 +176,7 @@ box-shadow: 0 0 5px 5px #888;
 body{
 
   font-family: 'Poppins', sans-serif !important;
- 
+
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;

@@ -11,6 +11,10 @@ import { Observable } from 'rxjs';
 import { CartService } from '../services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { UserEditService } from '../services/user-edit.service';
+import { map } from 'rxjs/operators';
+import { BooksService } from '../services/books.service';
+import { CategoryService } from '../services/category.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-header',
@@ -32,6 +36,8 @@ export class HeaderComponent implements OnInit {
   selected: any;
   Searchinput: any;
   length1: any;
+  category:any
+  category$: any;
   constructor(
     private wish: WishlistService,
     private cart: CartService,
@@ -39,9 +45,11 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private Searching: SearchService,
     private useredit: UserEditService,
+    private bookservice:CategoryService,
+    private spinner:NgxSpinnerService
   ) { }
   ngOnInit() {
-
+this.loadcat()
     this.selection();
     if (localStorage.getItem('User') != null) {
       this.cart.getcartload().subscribe(() => {
@@ -58,6 +66,31 @@ export class HeaderComponent implements OnInit {
     }
     this.jquery_code();
 
+  }
+  gotocat(_id){
+    this.router.navigate(['categories/' + _id])
+  }
+  loadcat(){
+    this.bookservice.getCategory().pipe(
+      map((data)=>{
+        var cat:any = []
+        cat = data
+        for (let i = 0; i < cat.length; i++) {
+        if(cat[i].icon){
+          cat[i]['icon_name'] = cat[i]['icon']
+          delete cat[i]['icon']
+        }
+        }
+        return data
+      } )
+    )
+      .subscribe((data) =>{
+        this.spinner.hide();
+        this.category$ = data
+        this.category = this.category$;
+
+      }
+      );
   }
   loadwish() {
     this.wish.getwish().subscribe((data) => {
@@ -161,5 +194,15 @@ export class HeaderComponent implements OnInit {
   }
 window(){
   window.scrollTo(0, 10);
+}
+
+gotonewbooks(){
+window.location.assign('newbooks')
+}
+gotoprebooks(){
+  window.location.assign('prebooks')
+}
+gotobooks(){
+  window.location.assign('books')
 }
 }

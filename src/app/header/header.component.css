@@ -1,50 +1,48 @@
-nav{
+nav {
   background-color: #f6f6f6 !important;
   opacity: 0.8;
   font-weight: bolder;
 }
 
-.navbar, .nav-tabs{
+.navbar,
+.nav-tabs {
   margin-bottom: 0;
 }
 
-.nav-link:hover{
+.nav-link:hover {
   color: orangered !important;
 }
 
-
-
-
 @keyframes fadeInUp {
   from {
-      transform: translate3d(0,15px,0)
+    transform: translate3d(0, 15px, 0);
   }
-
 }
 
 @-webkit-keyframes fadeInUp {
   from {
-      transform: translate3d(0,15px,0)
+    transform: translate3d(0, 15px, 0);
   }
 }
 
-
-
+.dropdown-menu:hover {
+  display: block;
+}
 .overlay {
   padding: 0;
-  height: 30%;
+  height: 10%;
   width: 100%;
   display: none;
   position: fixed;
   z-index: 21;
   top: 0;
   left: 0;
-  background: #cfcfcd transparent none repeat scroll 0 0;
+  background: white none repeat scroll 0 0;
 }
 
 .overlay-content {
   position: relative;
-  top: 30%;
+  top: 10%;
 
   width: 100%;
   text-align: center;
@@ -52,7 +50,7 @@ nav{
   margin: auto;
 }
 
- .closebtn:hover {
+.closebtn:hover {
   transition: all 1s;
   color: #ff4136;
   -ms-transform: rotate(360deg); /* IE 9 */

@@ -8,6 +8,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { BooksService } from '../services/books.service';
 import { CartService } from '../services/cart.service';
 import { map } from 'rxjs/operators';
+import { Location } from '@angular/common';
 declare var $: any
 @Component({
   selector: 'app-newbooks',
@@ -55,6 +56,7 @@ config:any
     private wish: WishlistService,
     private spinner: NgxSpinnerService,
     private cart: CartService,
+    private location:Location
   )  {
     this.config = {
       currentPage: 1,
@@ -81,6 +83,10 @@ config:any
     this.loadfilter();
   }
   jquery_code() { }
+  goback(){
+    window.scroll(0,0)
+    this.location.back()
+  }
   onPageChange(page: number) {
     this.spinner.show();
     console.log(this.router.url)

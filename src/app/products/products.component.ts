@@ -78,7 +78,9 @@ export class ProductsComponent implements OnInit {
       params => this.config.currentPage = params['page'] ? params['page'] : 1);
   }
   ngOnInit() {
-
+    this.route.params.subscribe(routeParams => {
+      this.loadfilter()
+    });
     window.scrollTo(0, 200);
     this.spinner.show()
     this.activatedRoute.params.subscribe(res => {
@@ -482,7 +484,9 @@ export class ProductsComponent implements OnInit {
       var b = a.substring(a.lastIndexOf('=') + 1);
       console.log(b)
       if (this.router.url == '/books') {
+
         this.loadbook(1)
+
       } else {
         this.loadbook(this.config.currentPage)
       }

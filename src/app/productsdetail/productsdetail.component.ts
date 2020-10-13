@@ -16,6 +16,8 @@ declare var $: any;
 })
 export class ProductsdetailComponent implements OnInit {
 
+  category:any
+  subcategory:any
   wid: any = [];
   wid1: any = [];
   wish$: any = [];
@@ -92,14 +94,23 @@ goback(){
         this.previousUrl = this.urlservice.getPreviousUrl()
       console.log(this.previousUrl)
         this.books$ = res;
-        console.log(this.books$)
-        this.book = this.books$.books;
 
+        this.book = this.books$.books;
+        console.log(this.book)
+        this.category = this.book[0].categories
+        this.subcategory = this.book[0].subcategory
+        console.log(this.category,this.subcategory)
         for (var { _id: id } of this.book) {
           this.pid.push(id);
         }
 
       });
+  }
+  gotocat(_id){
+    this.router.navigate(['categories/' + _id])
+  }
+  gotosubcat(){
+
   }
   loadwish() {
     if (localStorage.getItem('User') != null) {

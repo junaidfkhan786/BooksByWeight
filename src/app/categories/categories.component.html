@@ -84,7 +84,9 @@
           left: 50%;
           transform: translate(-50%, -50%); font-size: large;">
           BOOK <br>
-          <a href="/" style="text-decoration: none; color: #000;" class="org"> Home</a> / <span class="org">Books</span>
+          <a href="/" style="text-decoration: none; color: #000;" class="org"> Home</a>
+          / <span class="org">Categories</span>
+          <span *ngIf="categoryname"> / {{categoryname.category}}</span>
         </div>
       </div>
 
@@ -105,7 +107,7 @@
             </div>
           </div>
 
-          <!--
+<!--
           <div class=" px-1 py-1">
             <div class="row">
 
@@ -124,8 +126,7 @@
           <div class="col-xs-12 col-sm-4 col-md-3 p-2" *ngFor="let books of books$.books | paginate:config;">
 
 
-            <app-product-item [productItem]="books" [cartbutton]="cartpid1.indexOf(books._id) >= 0"
-              [addedToWishlist]="wid1.indexOf(books._id) >= 0 ">
+            <app-product-item [productItem]="books" [cartbutton]="cartpid1.indexOf(books._id) >= 0" [addedToWishlist]="wid1.indexOf(books._id) >= 0 ">
             </app-product-item>
 
 

@@ -47,7 +47,7 @@ spinner : boolean = true;
         items: 2,
       },
       740: {
-        items: 4,
+        items: 3,
       },
     },
     nav: false,
