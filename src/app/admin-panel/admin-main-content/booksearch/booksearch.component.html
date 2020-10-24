@@ -80,7 +80,7 @@
           </tbody>
 
         </table>
-        <pagination-controls class="d-flex justify-content-center" directionLinks="true"
+        <pagination-controls *ngIf="book1 === 0" class="d-flex justify-content-center" directionLinks="true"
           (pageChange)="onPageChange($event)" autoHide="true" responsive="true" previousLabel="Previous"
           nextLabel="Next">
         </pagination-controls>
@@ -90,14 +90,12 @@
 
 
       <div class="row  d-flex justify-content-center" style="height: 500px;" *ngIf="book1 == 0">
-        <div style="width: 50%; height: 50%; top: 80px; background-color: #212529; color: white; "
+        <div style="width: 40%; height: 30%; top: 80px; background-color: #212529; color: white; "
           class="card shadow-bottom align-middle">
-          <h5 style="margin-top: 15%;" class="text-center card-title">YOU HAVE NO PRODUCT ADDED</h5>
-          <a style="text-decoration: none; color: white; cursor: pointer;" class="d-flex justify-content-center org ">
-            CLick Here To Add It </a>
-          <span class="material-icons d-flex justify-content-center">
-            touch_app
-          </span>
+          <h5 style="margin-top: 15%;" class="text-center card-title">Result Not Found</h5>
+          <a href="/admin/dashboard/view-products" style="text-decoration: none; color: white; cursor: pointer;" class="d-flex justify-content-center org ">
+            All Books </a>
+          
         </div>
       </div>
 

@@ -36,7 +36,10 @@ export class BooksService {
 
 
   }
+  public  getcollectiblesBooks():Observable<any> {
 
+    return this._http.get<any>(`${API_LIVE}`+"/book/collectibles/5f68900289f56d001842d994");
+  }
   public getNewBooks(page):Observable<any>{
     return this._http.get<any>(`${API_LIVE}`+"/search/filter/new?sortBy=asc&page="+page);
   }

@@ -1,7 +1,7 @@
 <nav class=" navbar navbar-expand-lg navbar-light navbar-fixed sticky-top bg-white">
   <div class="container-fluid">
-    <a [routerLink]="[ '/' ]" routerLinkActive="active"><img height="100" width="170"
-        src="../../assets/images/bookbyweight.png" alt=""></a>
+    <a [routerLink]="[ '/' ]" routerLinkActive="active"><img height="70" width="150"
+        src="../../assets/images/logo.png" alt=""></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -61,7 +61,7 @@
               <div class="row g-2">
 
                 <div class="col-6" *ngFor="let cat of category">
-                  <a class=" nav-link active org " (click)="gotocat(cat._id)" style="color: black; cursor: pointer;">
+                  <a href="/categories/{{cat._id}}" class=" nav-link active org "  style="color: black; cursor: pointer;">
                     {{cat.category}}
                   </a>
                 </div>

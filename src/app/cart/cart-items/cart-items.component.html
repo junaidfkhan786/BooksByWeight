@@ -138,11 +138,11 @@
               </td>
               <td style="border-width: 1px;">
                 <span style="font-size: 14px; color: #6f6f6f; font-weight: 700;">{{
-            item.price
+            item.price | number:'1.0-0'
           }}</span>
               </td>
               <td style="border-width: 1px;">
-                <span>{{ item.weight | number }} g </span>
+                <span>{{ item.weight | number:'1.0-0' }} g </span>
               </td>
               <td style="border-width: 1px;">
                 <div class="row d-flex justify-content-center" style="padding-top: 20px;">
@@ -315,7 +315,9 @@
               <br /><br />
               <span>SHIPPING</span>
               <br /><br /><br />
-              <span *ngIf="this.coupons.coupon_code !==null">
+              <span *ngIf="total<=500">TOTAL SHIPPING COST</span>
+              <br *ngIf="total<=500"/><br *ngIf="total<=500"/>
+              <span *ngIf="this.coupons.coupon_code !==null" >
                 Coupon Applied
                 <br /><br />
               </span>
@@ -324,25 +326,27 @@
             <div class="col" style="font-weight: bolder;">
               <span>
                 <span style="color: red;" *ngIf="this.coupons.coupon_code !==null">
-                  <s> {{s | currency : 'INR'}}</s>
+                  <s> {{s | number:'1.0-0' | currency : 'INR' }}</s>
                 </span> &nbsp;&nbsp;
-                {{ subtotal | currency:'INR' }}</span>
+                {{ subtotal | number:'1.0-0' | currency:'INR'  }}</span>
               <br /><br />
-              <span>{{ totalweight | number }} g</span>
+              <span>{{ totalweight | number:'1.0-0' }} g</span>
               <br /><br />
               <span>FLAT RATE: &#8377;50.00/ BOOK<br />
                 Free Shipping Above &#8377;500
               </span>
               <br /><br />
+              <span *ngIf="total<=500">{{totalitems}}(Total Books)&nbsp;  X &nbsp;50(Shipping) + {{subtotal | number:'1.0-0'}}</span>
+              <br *ngIf="total<=500"/><br *ngIf="total<=500"/>
               <span *ngIf="this.coupons.coupon_code !==null">
                 {{coupons.coupon_code}}
                 <br /><br />
               </span>
               <span style="font-size: 1rem;">
                 <span style="color: red;" *ngIf="this.coupons.coupon_code !==null">
-                  <s>{{t |currency:'INR'}}</s>
+                  <s>{{t | number:'1.0-0' |currency:'INR' }}</s>
                 </span> &nbsp;&nbsp;
-                {{ total | currency:'INR' }} </span>
+                {{ total | number:'1.0-0' | currency:'INR' }} </span>
             </div>
           </div>
           <br>

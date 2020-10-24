@@ -83,6 +83,8 @@ import { CategoriesComponent } from './categories/categories.component';
 import { CategoriesitemComponent } from './categories/categoriesitem/categoriesitem.component';
 import { SubcategoriesComponent } from './subcategories/subcategories.component';
 import { SubcategoriesitemComponent } from './subcategories/subcategoriesitem/subcategoriesitem.component';
+import { CollectiblesComponent } from './collectibles/collectibles.component';
+import { CollectiblesListComponent } from './collectibles/collectibles-list/collectibles-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -143,7 +145,9 @@ import { SubcategoriesitemComponent } from './subcategories/subcategoriesitem/su
     CategoriesComponent,
     CategoriesitemComponent,
     SubcategoriesComponent,
-    SubcategoriesitemComponent
+    SubcategoriesitemComponent,
+    CollectiblesComponent,
+    CollectiblesListComponent
 
 
 

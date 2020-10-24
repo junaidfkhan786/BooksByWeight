@@ -94,7 +94,8 @@
           left: 50%;
           transform: translate(-50%, -50%); font-size: large;">
           BOOK <br>
-          <a href="/" style="text-decoration: none; color: #000;" class="org"> Home</a> / <span class="org">Books</span>
+          <a href="/" style="text-decoration: none; color: #000;" class="org"> Home</a> / <span class="org">All Books</span>
+          <span *ngIf="name"> / {{name}}</span>
         </div>
       </div>
 

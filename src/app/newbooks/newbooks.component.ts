@@ -82,11 +82,24 @@ export class NewbooksComponent implements OnInit {
     }
     this.jquery_code();
     this.loadfilter();
+    window.scroll(0,0)
   }
   jquery_code() { }
   goback() {
     window.scroll(0, 0)
-    this.location.back()
+    
+    // this.location.back();
+    window.scroll(0, 0)
+  
+    if(this.router.url === '/newbooks'){
+      this.router.navigate(['/'])
+    }else if(this.router.url === '/newbooks?page=1'){
+      this.router.navigate(['/'])
+    }else if(this.router.url === '/newbooks?page=77'){
+      this.router.navigate(['/'])
+    }else{
+      this.router.navigate(['/'])
+    }
   }
   onPageChange(page: number) {
     this.spinner.show();
@@ -214,6 +227,25 @@ export class NewbooksComponent implements OnInit {
     this.filter.priceDefinenew(modal, page).pipe(
       map((resp) => {
         var book = resp.books
+        var newbooks = [];
+        var uniqueObject = {};
+
+
+        for (let i in book) {
+
+          let objTitle = book[i]['Isbn_no'];
+
+
+          uniqueObject[objTitle] = book[i];
+        }
+
+
+        for (let i in uniqueObject) {
+          newbooks.push(uniqueObject[i]);
+        }
+        var total = 20 - newbooks.length
+        resp['totalBooks'] = resp.totalBooks - total
+        resp['books'] = newbooks
         for (let i = 0; i < book.length; i++) {
           book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
           book[i]['rate'] = Math.floor(book[i]['rate'])
@@ -239,6 +271,25 @@ export class NewbooksComponent implements OnInit {
     this.filter.sortBynew(variant, page).pipe(
       map((resp) => {
         var book = resp.books
+        var newbooks = [];
+        var uniqueObject = {};
+
+
+        for (let i in book) {
+
+          let objTitle = book[i]['Isbn_no'];
+
+
+          uniqueObject[objTitle] = book[i];
+        }
+
+
+        for (let i in uniqueObject) {
+          newbooks.push(uniqueObject[i]);
+        }
+        var total = 20 - newbooks.length
+        resp['totalBooks'] = resp.totalBooks - total
+        resp['books'] = newbooks
         for (let i = 0; i < book.length; i++) {
           book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
           book[i]['rate'] = Math.floor(book[i]['rate'])

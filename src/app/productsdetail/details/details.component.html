@@ -6,11 +6,11 @@
           <ng-template [ngIf]="bookimg.length > 0">
             <div id="product-imgs">
               <div *ngFor="let t of bookimg" class="product-preview p-2">
-                <img [src]="t" height="130px" (error)='delimg($event)' alt="">
+                <img [src]="t" height="100px"   (error)='delimg($event)' alt="">
               </div>
             </div>
           </ng-template>
-          <ng-template [ngIf]="bookimg.length === 0">
+          <ng-template [ngIf]="bookimg.length === 0" >
             <div id="product-imgs">
               <div class="product-preview">
                 <img src="assets/images/altimg.png"  onerror="this.src='assets/images/altimg.png';" alt="">
@@ -23,12 +23,12 @@
         <div id="product-main-img">
           <ng-template [ngIf]="bookimg.length === 0">
             <div class="product-preview">
-              <img src="assets/images/altimg.png" height="500"   onerror="this.src='assets/images/altimg.png';" alt="">
+              <img src="assets/images/altimg.png" height="440" width="90"  onerror="this.src='assets/images/altimg.png';" alt="">
             </div>
           </ng-template>
-          <ng-template [ngIf]="bookimg.length > 0">
+          <ng-template [ngIf]="bookimg.length > 0" >
             <div class="product-preview" *ngFor="let t of bookimg">
-              <img [src]="t" height="500"  onerror="this.src='assets/images/altimg.png';" alt="">
+              <img [src]="t" height="440"  width="90" onerror="this.src='assets/images/altimg.png';" alt="">
             </div>
           </ng-template>
         </div>
@@ -42,12 +42,12 @@
         <h5>
           {{ details.book_name }}
         </h5>
-        <div class="gotoauthor"
+        <div class="gotoauthor org"
           (click)="gotoauthorsearch(details.author_name)">by {{ details.author_name }}</div>
         <br />
         <div class="color"><b>ISBN:</b> {{ details.Isbn_no }}</div>
 
-        <div class="gotoauthor color"
+        <div class="gotoauthor color org"
         (click)="gotopublishersearch(details.publisher)"><b>Publisher: </b> {{ details.publisher }}</div>
         <br />
         <div class="color" style="padding-bottom: 10px;">
@@ -181,7 +181,7 @@
        </div>
         </div>
 
-        <div style="margin-top: 10px;">
+        <!-- <div style="margin-top: 10px;">
           <li class="list-group-item" style="border: none;">
             <span style="margin-right: 10px; text-decoration: none; color: #666666;">Share:</span>
             <a (click)="copyfacebook()" class="round" style="margin-right: 10px;"><img src="../../assets/icons/facebook.png"
@@ -193,7 +193,7 @@
             <a (click)="copygoogle()"  class="round" style="margin-right: 10px;"><img src="../../assets/icons/google.png" height="30px"
                 width="30px" alt="" /></a>
           </li>
-        </div>
+        </div> -->
       </div>
 
   </div>

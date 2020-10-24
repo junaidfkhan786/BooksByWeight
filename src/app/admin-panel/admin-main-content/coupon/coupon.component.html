@@ -92,7 +92,7 @@
                     {{coupon.expiry_date}}
                 </td>
                 <td>
-                    <button class="btn btn-outline-danger"> <span class="material-icons"
+                    <button class="btn btn-outline-danger"> <span (click)="delcoupon(coupon._id)" class="material-icons"
                             style="font-size: 3rem; cursor: pointer;">
                             delete_forever
                         </span> </button>

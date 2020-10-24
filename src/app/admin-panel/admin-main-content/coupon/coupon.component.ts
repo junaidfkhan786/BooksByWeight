@@ -87,6 +87,21 @@ getallcoupons(){
         this.allcoupons = data
   })
 }
+delcoupon(id){
+  this.couponservice.delcoupon(id).subscribe((data) => {
+    console.log(data)
+    if (data) {
+      this.toastr.error('Coupon Was Deleted', 'BooksByWeight', {
+        timeOut: 1000,
+      });
+      window.location.reload()
+    } else {
+      this.toastr.error('Cant Delete Coupon', 'BooksByWeight', {
+        timeOut: 1000,
+      });
+    }
+  })
+}
 
 
 }

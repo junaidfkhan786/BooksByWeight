@@ -30,6 +30,7 @@ import { BooksearchComponent } from './admin-panel/admin-main-content/booksearch
 import { AddbookComponent } from './admin-panel/admin-main-content/addbook/addbook.component';
 import { EditbookComponent } from './admin-panel/admin-main-content/editbook/editbook.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { SubcategoriesComponent } from './subcategories/subcategories.component';
 const routes: Routes = [
   {
     path: '',
@@ -129,6 +130,35 @@ const routes: Routes = [
   {
     path: 'categories/sortBy500',
     component: CategoriesComponent
+  },
+
+  {
+    path: 'subcategory/:_id',
+    component: SubcategoriesComponent
+  },
+  {
+    path: 'subcategory/sortBy0/100',
+    component: SubcategoriesComponent
+  },
+  {
+    path: 'subcategory/sortBy100/200',
+    component: SubcategoriesComponent
+  },
+  {
+    path: 'subcategory/sortBy200/300',
+    component: SubcategoriesComponent
+  },
+  {
+    path: 'subcategory/sortBy400/500',
+    component: SubcategoriesComponent
+  },
+  {
+    path: 'subcategory/sortBy300/400',
+    component: SubcategoriesComponent
+  },
+  {
+    path: 'subcategory/sortBy500',
+    component: SubcategoriesComponent
   },
   {
     path: 'wish',

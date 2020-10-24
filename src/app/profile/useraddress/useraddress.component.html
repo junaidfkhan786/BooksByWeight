@@ -14,19 +14,19 @@
             <form #addform="ngForm" id="address">
                 <div class="input-group">
                     <input [(ngModel)]="add.fullName" name="fullName" type="text" class="form-control"
-                        placeholder="Enter Full Name" #fullName required>
+                        placeholder="Enter Full Name*" #fullName required>
                 </div>
                 <br>
                 <div class="input-group">
                   <input [(ngModel)]="add.email" name="email" type="text"
-                      class="form-control" placeholder="Enter email" #email required>
+                      class="form-control" placeholder="Enter email*" #email required>
               </div>
               <br>
                 <div class="row g-2">
                     <div class="col-md-12">
                         <div class="input-group">
                             <input  [(ngModel)]="add.mobileNumber" type="text" name="mobileNumber" class="form-control"
-                                placeholder="Enter Phone-Number"
+                                placeholder="Enter Phone-Number*"
                                 numbersOnly
                                 autocomplete="off" maxlength="10" #mobileNumber required>
                         </div>
@@ -35,42 +35,42 @@
                     <div class="col-md-12">
                         <div class="input-group">
                             <input [(ngModel)]="add.alternatePhoneNumber" name="alternatePhoneNumber" type="text"
-                                class="form-control" placeholder="Enter Alternate Phone-Number"
+                                class="form-control" placeholder="Enter Alternate Phone-Number(Optional)"
                                 aria-label="mobile-number"
                                 numbersOnly
-                                autocomplete="off" maxlength="10" #alternatePhoneNumber required>
+                                autocomplete="off" maxlength="10" #alternatePhoneNumber>
                         </div>
                     </div>
                 </div>
                 <br>
                 <div class="input-group">
                     <textarea [(ngModel)]="add.address" name="address" type="text" class="form-control"
-                        placeholder="Enter Address" #address required></textarea>
+                        placeholder="Enter Address*" #address required></textarea>
                 </div>
                 <br>
                 <div class="row g-2">
                     <div class="col">
                         <div class="input-group">
                             <input [(ngModel)]="add.state" name="state" type="text" class="form-control"
-                                placeholder="Enter State" #state required>
+                                placeholder="Enter State*" #state required>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
                             <input [(ngModel)]="add.city" name="city" type="text" class="form-control"
-                                placeholder="Enter City" #city required>
+                                placeholder="Enter City*" #city required>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
                             <input [(ngModel)]="add.landmark" name="landmark" type="text" class="form-control"
-                                placeholder="Enter Landmark" #landmark required>
+                                placeholder="Enter Landmark*" #landmark required>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
                             <input [(ngModel)]="add.pinCode" numbersOnly name="pinCode" type="text" class="form-control"
-                                placeholder="Enter Pin-Code" #pinCode required>
+                                placeholder="Enter Pin-Code*" #pinCode required>
                         </div>
                     </div>
                 </div>

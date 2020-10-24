@@ -78,10 +78,24 @@ export class PrebooksComponent implements OnInit {
 
     this.jquery_code();
     this.loadfilter();
+    window.scroll(0,0)
   }
   goback() {
     window.scroll(0, 0)
-    this.location.back()
+    
+    // this.location.back();
+    window.scroll(0, 0)
+  
+    if(this.router.url === '/prebooks'){
+      this.router.navigate(['/'])
+    }else if(this.router.url === '/prebooks?page=1' || this.router.url === '/prebooks?page=2'){
+      this.router.navigate(['/'])
+    }else if(this.router.url === '/prebooks?page=1243'){
+      this.router.navigate(['/'])
+    }else{
+      this.router.navigate(['/'])
+    }
+    // window.location.reload()
   }
   loadcart() {
     if (localStorage.getItem('User') != null) {
@@ -232,6 +246,25 @@ export class PrebooksComponent implements OnInit {
     this.filter.priceDefinepre(modal, page).pipe(
       map((resp) => {
         var book = resp.books
+        var newbooks = [];
+        var uniqueObject = {};
+
+
+        for (let i in book) {
+
+          let objTitle = book[i]['Isbn_no'];
+
+
+          uniqueObject[objTitle] = book[i];
+        }
+
+
+        for (let i in uniqueObject) {
+          newbooks.push(uniqueObject[i]);
+        }
+        var total = 20 - newbooks.length
+        resp['totalBooks'] = resp.totalBooks - total
+        resp['books'] = newbooks
         for (let i = 0; i < book.length; i++) {
           book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
           book[i]['rate'] = Math.floor(book[i]['rate'])
@@ -257,6 +290,25 @@ export class PrebooksComponent implements OnInit {
     this.filter.sortBypre(variant, page).pipe(
       map((resp) => {
         var book = resp.books
+        var newbooks = [];
+        var uniqueObject = {};
+
+
+        for (let i in book) {
+
+          let objTitle = book[i]['Isbn_no'];
+
+
+          uniqueObject[objTitle] = book[i];
+        }
+
+
+        for (let i in uniqueObject) {
+          newbooks.push(uniqueObject[i]);
+        }
+        var total = 20 - newbooks.length
+        resp['totalBooks'] = resp.totalBooks - total
+        resp['books'] = newbooks
         for (let i = 0; i < book.length; i++) {
           book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
           book[i]['rate'] = Math.floor(book[i]['rate'])

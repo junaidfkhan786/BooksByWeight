@@ -97,13 +97,10 @@ this.spinner.show()
     this.router.navigate(['books/sortBydesc'])
   }
   public productCat(_id) {
-
     this.router.navigate(['categories/' + _id])
-
   }
 
   public productSubCat(_id) {
-    this.router.navigate(['books/' + _id])
-
+    this.router.navigate(['subcategory/' + _id])
   }
 }

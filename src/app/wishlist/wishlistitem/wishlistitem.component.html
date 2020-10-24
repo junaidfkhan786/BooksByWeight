@@ -32,7 +32,7 @@
               </span>
             </ng-template> <br>
             <span *ngIf="wish.book.sale_price != null && wish.book.sale_price != 0;" style="color:blue">
-              sale price: &#8377;{{wish.book.sale_price}}
+              sale price: &#8377;{{wish.book.sale_price | number:'1.0-0' }}
             </span>
 
           </td>

@@ -40,16 +40,16 @@ export class FilterService {
   }
   public sortBycat(catid,variant,page):Observable<any>{
     console.log(catid,variant,page)
-    return this._http.get<any>(`${API_LIVE}`+ '/search/filter/cats?catId='+catid+'?page='+page+'&sortBy='+variant);
+    return this._http.get<any>(`${API_LIVE}`+ '/search/filter/cats?catId='+catid+'&page='+page+'&sortBy='+variant);
   }
-  // public priceDefinesubcat(modal,page):Observable<any> {
-  //   console.log(modal,page)
-  //   return this._http.get<any>(`${API_LIVE}` + '/search/priceDefined/'+modal+"?condition=pre"+'&page='+page );
-  // }
-  // public sortBysubcat(variant,page):Observable<any>{
-  //   console.log(variant,page)
-  //   return this._http.get<any>(`${API_LIVE}`+ '/search/filter/preowned?sortBy='+variant+'&page='+page);
-  // }
+  public priceDefinesubcat(modal,page,catId):Observable<any> {
+    console.log(modal,page)
+    return this._http.get<any>(`${API_LIVE}` + '/search/cats/priceDefined/'+modal+'?page='+page+ '&subCatId=' + catId );
+  }
+  public sortBysubcat(catId,variant, page):Observable<any>{
+    console.log(variant,page)
+    return this._http.get<any>(`${API_LIVE}`+ '/search/filter/cats?subCatId='+catId+ '&page='+page +'&sortBy='+variant);
+  }
 
 
 

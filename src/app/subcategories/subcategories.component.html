@@ -1,1 +1,165 @@
-<p>subcategories works!</p>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="line-scale-pulse-out" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+  </ngx-spinner>
+  
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" style="left: 0;" class="closebtn" (click)="off()" (click)="closeNav()">&times;</a>
+  
+    <br><br>
+  
+    <ul class="list-group " style="cursor: pointer;">
+      <li class="list-group-item " aria-current="true" style="font-size: 2rem;">
+        BOOKS BY PRICE
+      </li>
+      <li class="list-group-item" aria-current="true">
+  
+        <span (click)="price0()">
+          &#8377;0 - &#8377;100
+  
+        </span>
+  
+  
+  
+      </li>
+      <li class="list-group-item" aria-current="true">
+  
+        <span (click)="price()">
+          &#8377;100 - &#8377;200
+  
+        </span>
+  
+  
+  
+      </li>
+      <li class="list-group-item" aria-current="true">
+        <span (click)="price1()">
+          &#8377;200 - &#8377;300
+        </span>
+  
+      </li>
+      <li class="list-group-item" aria-current="true">
+        <span (click)="price2()">
+          &#8377;300 - &#8377;400
+        </span>
+  
+      </li>
+      <li class="list-group-item" aria-current="true">
+        <span (click)="price3()">
+          &#8377;400 - &#8377;500
+        </span>
+  
+      </li>
+      <li class="list-group-item" aria-current="true">
+        <span (click)="price4()">
+          &#8377;500 Onwards
+        </span>
+  
+      </li>
+      <li class="list-group-item" aria-current="true">
+        <span style="font-weight: bolder;" (click)="lowTohigh()">
+          Price Low To High
+        </span>
+  
+      </li>
+  
+      <li class="list-group-item" aria-current="true">
+        <span style="font-weight: bolder;" (click)="highTolow()">
+          Price High To Low
+        </span>
+  
+      </li>
+  
+  
+    </ul>
+  
+  </div>
+  
+  
+  <div id="main">
+    <div id="overlay" (click)="closeNav()" (click)="off()"></div>
+    <div class="p-2">
+      <div class="section1">
+  
+        <app-header></app-header>
+  
+        <div class="bg-image" style="position: relative;
+        text-align: center;">
+          <div class="d-flex justify-content-start">
+            <button class="btn btn-outline-danger">
+              <span class="material-icons" (click)="goback()">arrow_back</span>
+            </button>
+          </div>
+          <div style="  position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); font-size: large;">
+            BOOK <br>
+            <a href="/" style="text-decoration: none; color: #000;" class="org"> Home</a>
+            / <span class="org">Categories</span>
+            <span *ngIf="categoryname"> / {{categoryname.category}}</span>
+          </div>
+        </div>
+  
+  
+        <div style="padding: 5px 10px 0px 10px;">
+  
+          <div class="row">
+            <div class="row justify-content-between">
+              <div class="col-4">
+                <h3 class="text-left">
+                  <a style="text-decoration: none;" class="org" href="/books">Get All Books</a></h3>
+              </div>
+              <div class="col-4">
+                <h3 class="text-right">
+                  <a style="text-decoration: none; cursor: pointer;" class=" org" (click)="on()"
+                    (click)="openNav()">Filters</a>
+                </h3>
+              </div>
+            </div>
+  
+  <!--
+            <div class=" px-1 py-1">
+              <div class="row">
+  
+                <div class="col-xs-12 col-sm-3 col-md-2" style="margin-left:3%;" *ngFor="let books of books$.books |
+                paginate: {  itemsPerPage: 20, currentPage: pages, totalItems: totalBooks} ">
+  
+  
+                     <app-product-item [productItem]="books" [cartbutton]="cartpid1.indexOf(books._id) >= 0" [addedToWishlist]="wid1.indexOf(books._id) >= 0 ">
+                     </app-product-item>
+  
+  
+                   </div>
+              </div>
+          </div>
+   -->
+            <div class="col-xs-12 col-sm-4 col-md-3 p-2" *ngFor="let books of books$.books | paginate:config;">
+  
+  
+              <app-product-item [productItem]="books" [cartbutton]="cartpid1.indexOf(books._id) >= 0" [addedToWishlist]="wid1.indexOf(books._id) >= 0 ">
+              </app-product-item>
+  
+  
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="card p-3 btc" *ngIf="config.totalItems">
+  
+          <pagination-controls class="d-flex justify-content-center" directionLinks="true"
+            (pageChange)="onPageChange($event)" autoHide="true" responsive="true" previousLabel="Previous"
+            nextLabel="Next">
+          </pagination-controls>
+          <!-- <input type="text" class="form-control" style="width: 200px;" #p > <button (click)="onPageChange(p.value)">
+            click
+          </button> -->
+        </div>
+  
+        <br><br><br>
+      </div>
+    </div>
+    <div class="stickyfooter">
+      <app-footer></app-footer>
+    </div>
+  </div>
+  

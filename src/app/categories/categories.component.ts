@@ -97,13 +97,17 @@ export class CategoriesComponent implements OnInit {
     this.loadcart();
     this.loadwish();
     this.jquery_code();
-
+    window.scroll(0,0)
 
   }
   jquery_code() { }
   goback() {
     window.scroll(0, 0)
-    this.location.back()
+    
+    // this.location.back();
+    window.scroll(0, 0)
+  this.router.navigate(['/'])
+    
   }
   onPageChange(page: number) {
     this.spinner.show();
@@ -426,9 +430,16 @@ export class CategoriesComponent implements OnInit {
     } else {
       this.filtersSort(this.categoryid,this.variant1, this.config.currentPage);
     }
-
+    
+  }else if (this.router.url == '/categories/sortBy'+this.variant+ ';query=' + this.categoryid ||
+  this.router.url == '/categories/sortBy'+this.variant + ';query=' + this.categoryid + '?page=' + this.config.currentPage) {
+  if (this.router.url == '/categories/sortBy' + ';query=' + this.categoryid) {
+    console.log('filtersort')
+    this.filtersSort(this.categoryid,this.variant,1 );
+  } else {
+    this.filtersSort(this.categoryid,this.variant, this.config.currentPage);
   }
-
+  }
     // }
     // else if (this.router.url == '/categories/sortByasc' ||
     //   this.router.url == '/categories/sortByasc' + '?page=' + this.config.currentPage) {

@@ -69,6 +69,7 @@ this.loadcat()
   }
   gotocat(_id){
     this.router.navigate(['categories/' + _id])
+    window.location.reload()
   }
   loadcat(){
     this.bookservice.getCategory().pipe(

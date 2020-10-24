@@ -33,4 +33,7 @@ totalcoupons = new BehaviorSubject<any>("loading...")
     return this.http.get<any>(`${API_LIVE}`+'/coupon/getAll', httpOptions)
   }
 
+public delcoupon(id):Observable<any>{
+    return this.http.delete<any>(`${API_LIVE}`+'/coupon/' + id , httpOptions)
+  }
 }

@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <div class="container">
+    <div class="container" style="margin-top: -70px;">
       <span style="border-bottom: rgb(197, 197, 197) solid 1px;" class="d-flex justify-content-center">
         <span class="card" style=" border-top: none;
      border-left: none;
@@ -43,43 +43,43 @@
 
       <div *ngFor="let book of books$.books">
         <br>
-        <p *ngIf="book.desxription !=''" style="color: rgb(131, 128, 128); text-align: justify;
+        <p *ngIf="book.description !=''" style="color: rgb(131, 128, 128); text-align: justify;
         text-justify: inter-word; ">
           {{book.description}}
         </p>
 
         <ul>
-          <li class="org p-2" *ngIf="book.publication_year !=''" style="list-style-type: none;">
+          <li class="org p-2" *ngIf="book.publication_year" style="list-style-type: none;">
             <span class="material-icons">
               play_circle_filled
             </span>
             <b>Publication Year:</b> {{book.publication_year | date}}</li>
 
-          <li *ngIf="book.no_Of_pages !='' && book.no_Of_pages !=0" class="org p-2" style="list-style-type: none;">
+          <li *ngIf="book.no_Of_pages" class="org p-2" style="list-style-type: none;">
             <span class="material-icons">
               play_circle_filled
             </span>
             <b>No of Pages:</b>{{book.no_Of_pages}}</li>
 
-          <li *ngIf="book.language !=''" class="org p-2" style="list-style-type: none;">
+          <li *ngIf="book.language" class="org p-2" style="list-style-type: none;">
             <span class="material-icons">
               play_circle_filled
             </span>
 
             <b>Language: </b>{{book.language}}</li>
 
-          <li *ngIf="book.dimensions !=''" class="org p-2" style="list-style-type: none;">
+          <li *ngIf="book.dimensions" class="org p-2" style="list-style-type: none;">
             <span class="material-icons">
               play_circle_filled
             </span>
             <b>Dimensions: </b>{{book.dimensions}}</li>
 
-          <li *ngIf="book.weight !=null && book.weight !=0 " class="org p-2" style="list-style-type: none;">
+          <li *ngIf="book.weight" class="org p-2" style="list-style-type: none;">
             <span class="material-icons">
               play_circle_filled
             </span>
             <b>Weight:</b> {{book.weight | number}} g </li>
-            <li *ngIf="book.country_origin!='' " class="org p-2" style="list-style-type: none;">
+            <li *ngIf="book.country_origin" class="org p-2" style="list-style-type: none;">
               <span class="material-icons">
                 play_circle_filled
               </span>

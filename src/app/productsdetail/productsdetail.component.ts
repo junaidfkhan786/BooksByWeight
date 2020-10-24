@@ -66,6 +66,7 @@ export class ProductsdetailComponent implements OnInit {
     this.loaddetails();
 
     this.jquery_code();
+    window.scroll(0,0)
   }
 
   jquery_code() { }

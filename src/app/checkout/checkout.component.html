@@ -256,10 +256,10 @@
                                     </span>Items: {{totalitems}}</a></li>
                             <li class="pay"><a><span class="material-icons">
                                         play_circle_filled
-                                    </span>Sub Total Without Shipping: {{subtotal}}</a></li>
+                                    </span>Sub Total Without Shipping: {{subtotal | number:'1.0-0'}}</a></li>
                             <li class="pay"><a><span class="material-icons">
                                         play_circle_filled
-                                    </span>Total Weight: {{totalweight}}g</a></li>
+                                    </span>Total Weight: {{totalweight | number:'1.0-0'}}g</a></li>
                             <li class="pay" *ngIf="coupons.coupon_code !== null"><a><span class="material-icons">
                                         play_circle_filled
                                     </span><b>Coupon Applied: <span class="important-note__prizes">
@@ -273,7 +273,7 @@
                             <li class="pay"><a><span class="material-icons">
                                         play_circle_filled
                                     </span><b>Amount Payable With Shipping: <span class="important-note__prizes">₹
-                                            {{amountpayable}}
+                                            {{amountpayable | number:'1.0-0'}}
                                         </span></b></a></li>
                         </ul>
                         <div class="puick-contact-area mt--60">

@@ -54,7 +54,7 @@ export class ProductsComponent implements OnInit {
   token: string
   config: any
   i: number
-
+  name : string;
   constructor(
     private toastr: ToastrService,
     private CatService: CategoryService,
@@ -108,12 +108,25 @@ export class ProductsComponent implements OnInit {
     this.loadwish();
     this.jquery_code();
 
-
+    window.scroll(0,0)
   }
   jquery_code() { }
   goback() {
     window.scroll(0, 0)
-    this.location.back()
+    
+    // this.location.back();
+    window.scroll(0, 0)
+  
+    if(this.router.url === '/books'){
+      this.router.navigate(['/'])
+    }else if(this.router.url === '/books?page=1'){
+      this.router.navigate(['/'])
+    }else if(this.router.url === '/books?page=1498'){
+      this.router.navigate(['/'])
+    }else{
+      this.router.navigate(['/'])
+    }
+    // window.location.reload()
   }
   onPageChange(page: number) {
     this.spinner.show();
@@ -124,33 +137,40 @@ export class ProductsComponent implements OnInit {
     } else if (this.router.url == '/books/sortBy' + this.zero ||
       this.router.url == '/books/sortBy' + this.zero + '?page=' + this.config.currentPage) {
       console.log('first block')
+        this.name = "this.zero";
       this.router.navigate(['books/sortBy' + this.zero], { queryParams: { page: page } });
       this.filters(this.zero, page)
 
     } else if (this.router.url == '/books/sortBy' + this.first ||
       this.router.url == '/books/sortBy' + this.first + '?page=' + this.config.currentPage) {
       console.log('first block')
+      this.name = this.first;
       this.router.navigate(['books/sortBy' + this.first], { queryParams: { page: page } });
       this.filters(this.first, page)
 
     } else if (this.router.url == '/books/sortBy' + this.second ||
       this.router.url == '/books/sortBy' + this.second + '?page=' + this.config.currentPage) {
       console.log('second block')
+      this.name = this.second;
       this.router.navigate(['books/sortBy' + this.second], { queryParams: { page: page } });
       this.filters(this.second, page)
     } else if (this.router.url == '/books/sortBy' + this.third ||
       this.router.url == '/books/sortBy' + this.third + '?page=' + this.config.currentPage) {
       console.log('third block')
+      this.name = this.third;
       this.router.navigate(['books/sortBy' + this.third], { queryParams: { page: page } });
       this.filters(this.third, page)
     } else if (this.router.url == '/books/sortBy' + this.fourth ||
       this.router.url == '/books/sortBy' + this.fourth + '?page=' + this.config.currentPage) {
       console.log('fourth block')
+      this.name = this.fourth;
+      console.log(this.name)
       this.router.navigate(['books/sortBy' + this.fourth], { queryParams: { page: page } });
       this.filters(this.fourth, page)
     } else if (this.router.url == '/books/sortBy500' ||
       this.router.url == '/books/sortBy500' + '?page=' + this.config.currentPage) {
       console.log('fifth block')
+      this.name = this.fifth;
       this.router.navigate(['books/sortBy500'], { queryParams: { page: page } });
       this.filters(this.fifth, page)
     } else if (this.router.url == '/books/sortByasc' ||
@@ -172,9 +192,6 @@ export class ProductsComponent implements OnInit {
     } else {
       alert('not found')
     }
-
-
-
     window.scrollTo(0, 200);
   }
   loadbook(p) {
@@ -437,6 +454,25 @@ export class ProductsComponent implements OnInit {
     this.filter.priceDefine(modal, page).pipe(
       map((resp) => {
         var book = resp.books
+        var newbooks = [];
+        var uniqueObject = {};
+
+
+        for (let i in book) {
+
+          let objTitle = book[i]['Isbn_no'];
+
+
+          uniqueObject[objTitle] = book[i];
+        }
+
+
+        for (let i in uniqueObject) {
+          newbooks.push(uniqueObject[i]);
+        }
+        // var total = 20 - newbooks.length
+        // resp['totalBooks'] = resp.totalBooks - total
+        resp['books'] = newbooks
         for (let i = 0; i < book.length; i++) {
           book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
           book[i]['rate'] = Math.floor(book[i]['rate'])
@@ -462,6 +498,25 @@ export class ProductsComponent implements OnInit {
     this.filter.sortBy(variant, page).pipe(
       map((resp) => {
         var book = resp.books
+        var newbooks = [];
+        var uniqueObject = {};
+
+
+        for (let i in book) {
+
+          let objTitle = book[i]['Isbn_no'];
+
+
+          uniqueObject[objTitle] = book[i];
+        }
+
+
+        for (let i in uniqueObject) {
+          newbooks.push(uniqueObject[i]);
+        }
+        // var total = 20 - newbooks.length
+        // resp['totalBooks'] = resp.totalBooks - total
+        resp['books'] = newbooks
         for (let i = 0; i < book.length; i++) {
           book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
           book[i]['rate'] = Math.floor(book[i]['rate'])

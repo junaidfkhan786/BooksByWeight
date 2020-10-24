@@ -46,6 +46,7 @@
   </div>
 
 <div style=" cursor: pointer; " (click)="productHome(productItem._id)">
+  <br>
   <div  class="text-center" style="margin-top: -20px !important; text-align: center; padding: 0px 20px 0px 20px; white-space: nowrap;overflow: hidden; text-overflow: ellipsis;">
     {{productItem.book_name}}
     <br>
@@ -63,7 +64,7 @@
       </span>
     </ng-template> <br>
     <span *ngIf="productItem.sale_price != null && productItem.sale_price != 0;" style="color:blue">
-      sale price: &#8377;{{productItem.sale_price}}
+      sale price: &#8377;&nbsp;{{productItem.sale_price}}
     </span>
   </div>
 

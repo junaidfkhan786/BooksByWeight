@@ -1,1 +1,71 @@
-<p>subcategoriesitem works!</p>
+<div class="s nopadding" data-aos="zoom-in">
+    <div class="content" style="height:340px">
+      <div class="content-overlay" style=" cursor: pointer; " (click)="productHome(productItem._id)"></div>
+      <img class="card-img-top" height="300px" (click)="productHome(productItem._id)" src="{{productItem.book_img[0]}}"
+      onerror="this.src='assets/images/altimg.png';" style=" cursor: pointer; " alt=" BOOKS ">
+      <div class="content-details fadeIn-bottom">
+  
+        <h3 class="content-title"  >
+          <a style="color: black; cursor: pointer;" (click)="productHome(productItem._id)">
+            <span class="material-icons org">
+              add &nbsp;
+            </span>
+          </a>
+  
+          <a *ngIf="!cartbutton">
+              <span  (click)="addCart(productItem,productItem._id,productItem.final_price,productItem.weight)" class="material-icons org wish">
+                add_shopping_cart &nbsp;
+              </span>
+             </a>
+  
+          <a *ngIf="cartbutton" >
+            <span (click)="gotocart()" class="material-icons org wish">
+              add_shopping_cart &nbsp;
+            </span>
+           </a>
+           <a *ngIf="productItem.quantity == 0" >
+            <span (click)="notify()" class="material-icons org wish">
+              add_shopping_cart &nbsp;
+            </span>
+           </a>
+        <a  *ngIf="!addedToWishlist" >
+          <span (click)=" addWish(productItem._id)" class="material-icons org wish">
+            favorite_border
+          </span>
+        </a>
+  
+        <a *ngIf="addedToWishlist"><span (click)="deletePro(productItem._id)" class="material-icons org wish">
+            favorite
+          </span>
+        </a>
+        </h3>
+  
+      </div>
+  
+    </div>
+  </div>
+  
+  <div style=" cursor: pointer; " (click)="productHome(productItem._id)">
+  <div  class="text-center" style="margin-top: -20px !important; text-align: center; padding: 0px 20px 0px 20px; white-space: nowrap;overflow: hidden; text-overflow: ellipsis;">
+    {{productItem.book_name}}
+    <br>
+  </div>
+  <div class="text-center">
+    <s style="color: rgba(107, 105, 105, 0.61);">&#8377;
+      {{productItem.mrp_inr | number}}
+    </s> &nbsp;
+    <span *ngIf="productItem.sale_price == null || productItem.sale_price == 0;else final" style="color:red">&#8377;
+      {{productItem.final_price}}
+    </span>
+    <ng-template #final >
+      <span *ngIf="productItem.sale_price != null && productItem.sale_price != 0;" style="color:red">&#8377;
+        <s>{{productItem.final_price}}</s>
+      </span>
+    </ng-template> <br>
+    <span *ngIf="productItem.sale_price != null && productItem.sale_price != 0;" style="color:blue">
+      sale price: &#8377;{{productItem.sale_price}}
+    </span>
+  </div>
+  
+  </div>
+  

@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../services/cart.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Location } from '@angular/common';
+import { map } from 'rxjs/operators';
 declare var $: any;
 @Component({
   selector: 'app-wishlist',

@@ -63,6 +63,10 @@ export class BooksearchComponent implements OnInit {
     this.route.params.subscribe(routeParams => {
       this.loadroute()
     });
+    this.singelbook.getbookload().subscribe(() => {
+      this.loadroute()
+    })
+    this.loadroute()
   }
   parse(url: any): UrlTree { let dus = new DefaultUrlSerializer(); return dus.parse(url); }
   serialize(tree: UrlTree): any {
@@ -78,6 +82,7 @@ export class BooksearchComponent implements OnInit {
       .replace(/%3F/gi, '?')
       .replace(/%2F/gi, '/')
   }
+
 
   loadroute() {
 
@@ -164,8 +169,10 @@ edit(books){
     this.spinner.show();
     this.singelbook.deletebook(id).subscribe((data) => {
       console.log(data)
+      this.spinner.hide();
       this.toastr.error(data.message, 'BooksByWeight', {
         timeOut: 1000,
+        
       });
 
     })

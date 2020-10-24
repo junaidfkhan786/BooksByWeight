@@ -194,7 +194,7 @@ notify(){
     'Link Copied!'+ ' ' +
     'You Can Share It With Your Friend!'
   )
-  window.open('https://mail.google.com')
+  window.open('https://mail.google.com/mail/u/0/#inbox?compose=new')
   }
   copyinsta(){
     var a:string = window.location.href
@@ -325,6 +325,7 @@ notify(){
   gotopublishersearch(publishername){
     var _id = publishername + "&publisher=1";
     this.router.navigate(['search/'+ _id]);
+
   }
   gotocart() {
 

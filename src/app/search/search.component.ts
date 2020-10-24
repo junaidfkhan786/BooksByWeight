@@ -90,8 +90,17 @@ export class SearchComponent implements OnInit, UrlSerializer {
     // this.loadfilter();
   }
   goback(){
-    window.scroll(0,0)
-    this.location.back()
+    window.scroll(0, 0)
+    
+    // this.location.back();
+    window.scroll(0, 0)
+  
+    if(this.router.url === '/books'){
+      this.router.navigate(['/'])
+    }else{
+      this.router.navigate(['/'])
+    }
+    // window.location.reload()
   }
   loadcart() {
     if (localStorage.getItem('User') != null) {
