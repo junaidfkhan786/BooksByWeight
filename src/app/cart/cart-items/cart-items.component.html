@@ -30,7 +30,7 @@
                   </div>
                   <div class="col">
                     <span class="align-middle">
-                      {{item.price | currency:'INR'}}
+                      {{item.price }}
                     </span>
                   </div>
                 </div>
@@ -94,7 +94,7 @@
                   </div>
                   <div class="col">
                     <span class="align-middle">
-                      {{item.total | currency:'INR'}}
+                      {{item.total}}
                     </span>
                   </div>
                 </div>
@@ -326,9 +326,9 @@
             <div class="col" style="font-weight: bolder;">
               <span>
                 <span style="color: red;" *ngIf="this.coupons.coupon_code !==null">
-                  <s> {{s | number:'1.0-0' | currency : 'INR' }}</s>
+                  <s> {{s | number:'1.0-0' }}</s>
                 </span> &nbsp;&nbsp;
-                {{ subtotal | number:'1.0-0' | currency:'INR'  }}</span>
+                {{ subtotal | number:'1.0-0'  }}</span>
               <br /><br />
               <span>{{ totalweight | number:'1.0-0' }} g</span>
               <br /><br />
@@ -344,9 +344,9 @@
               </span>
               <span style="font-size: 1rem;">
                 <span style="color: red;" *ngIf="this.coupons.coupon_code !==null">
-                  <s>{{t | number:'1.0-0' |currency:'INR' }}</s>
+                  <s>{{t | number:'1.0-0'  }}</s>
                 </span> &nbsp;&nbsp;
-                {{ total | number:'1.0-0' | currency:'INR' }} </span>
+                {{ total | number:'1.0-0'  }} </span>
             </div>
           </div>
           <br>
