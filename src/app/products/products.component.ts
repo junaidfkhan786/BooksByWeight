@@ -187,8 +187,8 @@ export class ProductsComponent implements OnInit {
       this.router.url == '/books/' + this.route.snapshot.params._id + '?page=' + this.config.currentPage) {
       console.log('eight block')
       this.router.navigate(['books/' + this.route.snapshot.params._id], { queryParams: { page: page } });
-      this.loadcat(this.route.snapshot.params._id, page)
-      this.loadsubcat(this.route.snapshot.params._id, page)
+      // this.loadcat(this.route.snapshot.params._id, page)
+      // this.loadsubcat(this.route.snapshot.params._id, page)
     } else {
       alert('not found')
     }
@@ -245,197 +245,197 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  loadcat(id, page) {
-    if (this.route.snapshot.params._id != undefined) {
-      this.CatService.getCategory().subscribe((data) => {
-        var cat: any = data;
-        // var id =  JSON.stringify(this.route.snapshot.params._id);
-        console.log(this.route.snapshot.params._id)
+  // loadcat(id, page) {
+  //   if (this.route.snapshot.params._id != undefined) {
+  //     this.CatService.getCategory().subscribe((data) => {
+  //       var cat: any = data;
+  //       // var id =  JSON.stringify(this.route.snapshot.params._id);
+  //       console.log(this.route.snapshot.params._id)
 
-        for (let i = 0; i < cat.length; i++) {
-          if (cat[i]['_id'] == this.route.snapshot.params._id) {
-            console.log('found')
+  //       for (let i = 0; i < cat.length; i++) {
+  //         if (cat[i]['_id'] == this.route.snapshot.params._id) {
+  //           console.log('found')
 
-            this.CatService.getCategoryById(id, page).pipe(
-              map((resp) => {
-                var book = resp.books
-                var newbooks = [];
-                var uniqueObject = {};
-
-
-                for (let i in book) {
-
-                  let objTitle = book[i]['Isbn_no'];
+  //           this.CatService.getCategoryById(id, page).pipe(
+  //             map((resp) => {
+  //               var book = resp.books
+  //               var newbooks = [];
+  //               var uniqueObject = {};
 
 
-                  uniqueObject[objTitle] = book[i];
-                }
+  //               for (let i in book) {
+
+  //                 let objTitle = book[i]['condition'];
 
 
-                for (let i in uniqueObject) {
-                  newbooks.push(uniqueObject[i]);
-                }
-                // var total = 20 - newbooks.length
-                // resp['totalBooks'] = resp.totalBooks - total
-                resp['books'] = newbooks
-                for (let i = 0; i < book.length; i++) {
-                  book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
-                  book[i]['rate'] = Math.floor(book[i]['rate'])
-                  book[i]['weight'] = Math.floor(book[i]['weight'])
-                  book[i]['sale_disc_inr'] = Math.floor(book[i]['sale_disc_inr'])
-                  book[i]['sale_disc_per'] = Math.floor(book[i]['sale_disc_per'])
-                  book[i]['discount_per'] = Math.floor(book[i]['discount_per'])
-                  book[i]['discount_rs'] = Math.floor(book[i]['discount_rs'])
-                  book[i]['final_price'] = Math.floor(book[i]['final_price'])
-                  book[i]['sale_rate'] = Math.floor(book[i]['sale_rate'])
-                  book[i]['sale_price'] = Math.floor(book[i]['sale_price'])
-                }
-                return resp
-              })
-            ).subscribe((data) => {
-              this.books$ = data;
-              this.config.totalItems = this.books$.totalBooks;
-              console.log(data)
-              this.spinner.hide();
-              if (this.books$.totalBooks == 0) {
-                Swal.fire({
-                  title: 'No Books Are Available On This Category?',
-                  text: '',
-                  icon: 'info',
-                  showCancelButton: false,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  confirmButtonText: 'Click Here!',
-                  cancelButtonText: 'No, Your Wish!'
-                }).then((result) => {
-                  if (result.value) {
-                    window.location.assign('/')
-                  }
-                })
-
-              }
-            }, (error) => {
-              if (error) {
-                Swal.fire({
-                  title: 'Error Fething Category Books?',
-                  text: '',
-                  icon: 'error',
-                  showCancelButton: false,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  confirmButtonText: 'Click Here!',
-                  cancelButtonText: 'No, Your Wish!'
-                }).then((result) => {
-                  if (result.value) {
-                    window.location.assign('/')
-                  }
-                })
-              }
-            })
-
-            break;
-          }
-
-        }
-
-      })
-
-    }
-  }
-  loadsubcat(id, page) {
-    if (this.route.snapshot.params._id != undefined) {
-
-      this.CatService.getallsub().subscribe((data) => {
-        var subcat: any = data
-
-        for (let i = 0; i < subcat.length; i++) {
-          if (subcat[i]['_id'] == this.route.snapshot.params._id) {
-            console.log('found')
-
-            this.CatService.getSubCatById(id, page).pipe(
-              map((resp) => {
-                var book = resp.books
-                var newbooks = [];
-                var uniqueObject = {};
+  //                 uniqueObject[objTitle] = book[i];
+  //               }
 
 
-                for (let i in book) {
+  //               for (let i in uniqueObject) {
+  //                 newbooks.push(uniqueObject[i]);
+  //               }
+  //               // var total = 20 - newbooks.length
+  //               // resp['totalBooks'] = resp.totalBooks - total
+  //               resp['books'] = newbooks
+  //               for (let i = 0; i < book.length; i++) {
+  //                 book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
+  //                 book[i]['rate'] = Math.floor(book[i]['rate'])
+  //                 book[i]['weight'] = Math.floor(book[i]['weight'])
+  //                 book[i]['sale_disc_inr'] = Math.floor(book[i]['sale_disc_inr'])
+  //                 book[i]['sale_disc_per'] = Math.floor(book[i]['sale_disc_per'])
+  //                 book[i]['discount_per'] = Math.floor(book[i]['discount_per'])
+  //                 book[i]['discount_rs'] = Math.floor(book[i]['discount_rs'])
+  //                 book[i]['final_price'] = Math.floor(book[i]['final_price'])
+  //                 book[i]['sale_rate'] = Math.floor(book[i]['sale_rate'])
+  //                 book[i]['sale_price'] = Math.floor(book[i]['sale_price'])
+  //               }
+  //               return resp
+  //             })
+  //           ).subscribe((data) => {
+  //             this.books$ = data;
+  //             this.config.totalItems = this.books$.totalBooks;
+  //             console.log(data)
+  //             this.spinner.hide();
+  //             if (this.books$.totalBooks == 0) {
+  //               Swal.fire({
+  //                 title: 'No Books Are Available On This Category?',
+  //                 text: '',
+  //                 icon: 'info',
+  //                 showCancelButton: false,
+  //                 confirmButtonColor: '#3085d6',
+  //                 cancelButtonColor: '#d33',
+  //                 confirmButtonText: 'Click Here!',
+  //                 cancelButtonText: 'No, Your Wish!'
+  //               }).then((result) => {
+  //                 if (result.value) {
+  //                   window.location.assign('/')
+  //                 }
+  //               })
 
-                  let objTitle = book[i]['Isbn_no'];
+  //             }
+  //           }, (error) => {
+  //             if (error) {
+  //               Swal.fire({
+  //                 title: 'Error Fething Category Books?',
+  //                 text: '',
+  //                 icon: 'error',
+  //                 showCancelButton: false,
+  //                 confirmButtonColor: '#3085d6',
+  //                 cancelButtonColor: '#d33',
+  //                 confirmButtonText: 'Click Here!',
+  //                 cancelButtonText: 'No, Your Wish!'
+  //               }).then((result) => {
+  //                 if (result.value) {
+  //                   window.location.assign('/')
+  //                 }
+  //               })
+  //             }
+  //           })
+
+  //           break;
+  //         }
+
+  //       }
+
+  //     })
+
+  //   }
+  // }
+  // loadsubcat(id, page) {
+  //   if (this.route.snapshot.params._id != undefined) {
+
+  //     this.CatService.getallsub().subscribe((data) => {
+  //       var subcat: any = data
+
+  //       for (let i = 0; i < subcat.length; i++) {
+  //         if (subcat[i]['_id'] == this.route.snapshot.params._id) {
+  //           console.log('found')
+
+  //           this.CatService.getSubCatById(id, page).pipe(
+  //             map((resp) => {
+  //               var book = resp.books
+  //               var newbooks = [];
+  //               var uniqueObject = {};
 
 
-                  uniqueObject[objTitle] = book[i];
-                }
+  //               for (let i in book) {
+
+  //                 let objTitle = book[i]['Isbn_no'];
 
 
-                for (let i in uniqueObject) {
-                  newbooks.push(uniqueObject[i]);
-                }
-                // var total = 20 - newbooks.length
-                // resp['totalBooks'] = resp.totalBooks - total
-                resp['books'] = newbooks
-                for (let i = 0; i < book.length; i++) {
-                  book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
-                  book[i]['rate'] = Math.floor(book[i]['rate'])
-                  book[i]['weight'] = Math.floor(book[i]['weight'])
-                  book[i]['sale_disc_inr'] = Math.floor(book[i]['sale_disc_inr'])
-                  book[i]['sale_disc_per'] = Math.floor(book[i]['sale_disc_per'])
-                  book[i]['discount_per'] = Math.floor(book[i]['discount_per'])
-                  book[i]['discount_rs'] = Math.floor(book[i]['discount_rs'])
-                  book[i]['final_price'] = Math.floor(book[i]['final_price'])
-                  book[i]['sale_rate'] = Math.floor(book[i]['sale_rate'])
-                  book[i]['sale_price'] = Math.floor(book[i]['sale_price'])
-                }
-                return resp
-              })
-            ).subscribe((data) => {
-              this.books$ = data;
-              this.config.totalItems = this.books$.totalBooks;
-              this.spinner.hide();
-              if (this.books$.totalBooks == 0) {
-                Swal.fire({
-                  title: 'No Books Are Available On This SubCategory?',
-                  text: '',
-                  icon: 'info',
-                  showCancelButton: false,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  confirmButtonText: 'Click Here!',
-                  cancelButtonText: 'No, Your Wish!'
-                }).then((result) => {
-                  if (result.value) {
-                    window.location.assign('/')
-                  }
-                })
+  //                 uniqueObject[objTitle] = book[i];
+  //               }
 
-              }
-            }, (error) => {
-              if (error) {
-                Swal.fire({
-                  title: 'Error Fething SubCategory Books?',
-                  text: '',
-                  icon: 'error',
-                  showCancelButton: false,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  confirmButtonText: 'Click Here!',
-                  cancelButtonText: 'No, Your Wish!'
-                }).then((result) => {
-                  if (result.value) {
-                    window.location.assign('/')
-                  }
-                })
-              }
-            })
 
-            break
-          }
-        }
-      })
+  //               for (let i in uniqueObject) {
+  //                 newbooks.push(uniqueObject[i]);
+  //               }
+  //               // var total = 20 - newbooks.length
+  //               // resp['totalBooks'] = resp.totalBooks - total
+  //               resp['books'] = newbooks
+  //               for (let i = 0; i < book.length; i++) {
+  //                 book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
+  //                 book[i]['rate'] = Math.floor(book[i]['rate'])
+  //                 book[i]['weight'] = Math.floor(book[i]['weight'])
+  //                 book[i]['sale_disc_inr'] = Math.floor(book[i]['sale_disc_inr'])
+  //                 book[i]['sale_disc_per'] = Math.floor(book[i]['sale_disc_per'])
+  //                 book[i]['discount_per'] = Math.floor(book[i]['discount_per'])
+  //                 book[i]['discount_rs'] = Math.floor(book[i]['discount_rs'])
+  //                 book[i]['final_price'] = Math.floor(book[i]['final_price'])
+  //                 book[i]['sale_rate'] = Math.floor(book[i]['sale_rate'])
+  //                 book[i]['sale_price'] = Math.floor(book[i]['sale_price'])
+  //               }
+  //               return resp
+  //             })
+  //           ).subscribe((data) => {
+  //             this.books$ = data;
+  //             this.config.totalItems = this.books$.totalBooks;
+  //             this.spinner.hide();
+  //             if (this.books$.totalBooks == 0) {
+  //               Swal.fire({
+  //                 title: 'No Books Are Available On This SubCategory?',
+  //                 text: '',
+  //                 icon: 'info',
+  //                 showCancelButton: false,
+  //                 confirmButtonColor: '#3085d6',
+  //                 cancelButtonColor: '#d33',
+  //                 confirmButtonText: 'Click Here!',
+  //                 cancelButtonText: 'No, Your Wish!'
+  //               }).then((result) => {
+  //                 if (result.value) {
+  //                   window.location.assign('/')
+  //                 }
+  //               })
 
-    }
+  //             }
+  //           }, (error) => {
+  //             if (error) {
+  //               Swal.fire({
+  //                 title: 'Error Fething SubCategory Books?',
+  //                 text: '',
+  //                 icon: 'error',
+  //                 showCancelButton: false,
+  //                 confirmButtonColor: '#3085d6',
+  //                 cancelButtonColor: '#d33',
+  //                 confirmButtonText: 'Click Here!',
+  //                 cancelButtonText: 'No, Your Wish!'
+  //               }).then((result) => {
+  //                 if (result.value) {
+  //                   window.location.assign('/')
+  //                 }
+  //               })
+  //             }
+  //           })
 
-  }
+  //           break
+  //         }
+  //       }
+  //     })
+
+  //   }
+
+  // }
   /* Set the width of the side navigation to 250px */
   public openNav() {
     $('#mySidenav').css('width', '400px');

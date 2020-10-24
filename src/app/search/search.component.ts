@@ -41,6 +41,8 @@ export class SearchComponent implements OnInit, UrlSerializer {
   length: any;
   cartitem: any = [];
   searchname:any
+  check:any
+  name:string
   constructor(
     private search: SearchService,
     private Spinner: NgxSpinnerService,
@@ -135,6 +137,15 @@ export class SearchComponent implements OnInit, UrlSerializer {
     var s: any
     console.log(b)
     console.log(c)
+    if(c.includes('author_name')){
+      this.name = 'Author Name'
+    }else if(c.includes('publisher')){
+      this.name = 'Publisher'
+    }else if(c.includes('book_name')){
+      this.name = 'Book Name'
+    }else if(c.includes('isbn')){
+      this.name = 'Isbn'
+    }
     var pattern = "&";
     if(c.indexOf(pattern)>=0) //if a pattern is not present in the source string indexOf method returns -1
     {

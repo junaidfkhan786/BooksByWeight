@@ -188,10 +188,7 @@ body{
   z-index: 20 !important;
 }
 
-.dropdown:hover .dropdown-menu,
-.btn-group:hover .dropdown-menu {
-  display: block;
-}
+
 
 .dropdown-menu {
   margin-top: 0;

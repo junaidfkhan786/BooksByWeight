@@ -58,7 +58,7 @@
       {{latestitem.mrp_inr}}
     </s> &nbsp;
     <span *ngIf="latestitem.sale_price == null || latestitem.sale_price == 0;else final" style="color:red">
-      &#8377;&nbsp;{{latestitem.final_price}}
+      &#8377;{{latestitem.final_price}}
     </span>
     <ng-template #final >
       <span *ngIf="latestitem.sale_price != null && latestitem.sale_price != 0;" style="color:red">&#8377;
@@ -66,7 +66,7 @@
       </span>
     </ng-template> <br>
     <span *ngIf="latestitem.sale_price != null && latestitem.sale_price != 0;" style="color:blue">
-      sale price: &#8377;&nbsp;{{latestitem.sale_price}}
+      sale price: &#8377;{{latestitem.sale_price}}
     </span>
   </div>
 </div>
