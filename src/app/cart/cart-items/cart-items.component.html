@@ -336,7 +336,7 @@
                 Free Shipping Above &#8377;500
               </span>
               <br /><br />
-              <span *ngIf="total<=500">{{totalitems}}(Total Books)&nbsp;  X &nbsp;50(Shipping) + {{subtotal | number:'1.0-0'}}</span>
+              <span *ngIf="total<=500">{{totalitems}}(Total Books)&nbsp;  X &nbsp;50(Shipping) =  {{50 * totalitems}}</span>
               <br *ngIf="total<=500"/><br *ngIf="total<=500"/>
               <span *ngIf="this.coupons.coupon_code !==null">
                 {{coupons.coupon_code}}

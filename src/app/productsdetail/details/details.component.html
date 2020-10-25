@@ -91,7 +91,7 @@
             <b>Selling Price:</b>
             <span style="color: #ff4136; font-size: 30px;">
               {{ details.final_price | currency:'INR' }}
-            </span><span><b>({{details.weight}}gms X {{details.rate}}/Kg.)</b></span>
+            </span><span *ngIf="category.category!='Collectibles'"><b>({{details.weight}}gms X {{details.rate}}/Kg.)</b></span>
           </div>
 
           <div class="color mt-1"

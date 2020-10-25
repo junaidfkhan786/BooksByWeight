@@ -26,6 +26,12 @@ export class BooksService {
 
 
   }
+  public  getBannerBooks():Observable<any> {
+
+    return this._http.get<any>(`${API_LIVE}`+"/book/banner");
+
+
+  }
   public getDetailPackage(_id: number): Observable<any> {
     return this._http.get<any>(`${API_LIVE}`+"/book/"+ _id);
   }

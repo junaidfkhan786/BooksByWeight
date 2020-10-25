@@ -54,6 +54,7 @@ export class ProductsComponent implements OnInit {
   token: string
   config: any
   i: number
+  PriceName:any
   name : string;
   constructor(
     private toastr: ToastrService,
@@ -114,18 +115,18 @@ export class ProductsComponent implements OnInit {
   goback() {
     window.scroll(0, 0)
     
-    // this.location.back();
+    this.location.back();
     window.scroll(0, 0)
   
-    if(this.router.url === '/books'){
-      this.router.navigate(['/'])
-    }else if(this.router.url === '/books?page=1'){
-      this.router.navigate(['/'])
-    }else if(this.router.url === '/books?page=1498'){
-      this.router.navigate(['/'])
-    }else{
-      this.router.navigate(['/'])
-    }
+    // if(this.router.url === '/books'){
+    //   this.router.navigate(['/'])
+    // }else if(this.router.url === '/books?page=1'){
+    //   this.router.navigate(['/'])
+    // }else if(this.router.url === '/books?page=1498'){
+    //   this.router.navigate(['/'])
+    // }else{
+    //   this.router.navigate(['/'])
+    // }
     // window.location.reload()
   }
   onPageChange(page: number) {
@@ -453,6 +454,7 @@ export class ProductsComponent implements OnInit {
   filters(modal: String, page) {
     this.filter.priceDefine(modal, page).pipe(
       map((resp) => {
+
         var book = resp.books
         var newbooks = [];
         var uniqueObject = {};
@@ -490,7 +492,20 @@ export class ProductsComponent implements OnInit {
     ).subscribe((res) => {
       this.books$ = res
       this.config.totalItems = this.books$.totalBooks
-      console.log(res)
+      console.log(this.router.url)
+      if(this.router.url.includes('0/100')){
+        this.PriceName = 'Price / 0/100'
+      }else if(this.router.url.includes('100/200')){
+        this.PriceName = 'Price / 100/200'
+      }else if(this.router.url.includes('200/300')){
+        this.PriceName = 'Price / 200/300'
+      }else if(this.router.url.includes('300/400')){
+        this.PriceName = 'Price / 400/500'
+      }else if(this.router.url.includes('500')){
+        this.PriceName = 'Price / 500 OnWards'
+      }
+      
+      console.log(this.router.url)
       if (this.books$.totalBooks != 0) { this.spinner.hide() }
     });
   }
@@ -535,6 +550,11 @@ export class ProductsComponent implements OnInit {
       this.books$ = res
       this.config.totalItems = this.books$.totalBooks
       console.log(res)
+      if(this.router.url.includes('asc')){
+        this.PriceName = 'Low To High'
+      }else{
+        this.PriceName = 'High To Low'
+      }
       if (this.books$.totalBooks != 0) { this.spinner.hide() }
     });
   }

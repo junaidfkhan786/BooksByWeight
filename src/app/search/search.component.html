@@ -74,11 +74,11 @@
 
       <div class="bg-image" style="position: relative;
       text-align: center;">
-      <div class="d-flex justify-content-start">
+      <!-- <div class="d-flex justify-content-start">
         <button  class="btn btn-outline-danger">
           <span class="material-icons" (click)="goback()">arrow_back</span>
         </button>
-      </div>
+      </div> -->
   <div style="  position: absolute;
           top: 50%;
           left: 50%;
@@ -96,11 +96,11 @@
           <div class="row justify-content-between">
             <div class="col-6">
               <h3 class="text-left">
-                <a style="text-decoration: none;" class="org" href="/books">Get All Books</a></h3>
+                <a style="text-decoration: none; font-size: large;" class="org" href="/books">Get All Books</a></h3>
             </div>
             <div class="col-6" *ngIf="count > 0">
               <h3 class="text-right">
-                <a style="text-decoration: none;" class="org">{{books.books.length}} result found</a></h3>
+                <a style="text-decoration: none; font-size: large;" class="org">{{books.books.length}} result found</a></h3>
             </div>
             <!-- <div class="col-4">
               <h3 class="text-right" *ngIf="count > 0">

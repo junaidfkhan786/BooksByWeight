@@ -48,6 +48,7 @@ export class NewbooksComponent implements OnInit {
   cartquantity1: any = [];
   cartpid: any = {};
   cartpid1: number[] = [];
+  PriceName:any
   constructor(
     private toastr: ToastrService,
     private router: Router,
@@ -264,6 +265,17 @@ export class NewbooksComponent implements OnInit {
       this.books$ = res
       this.config.totalItems = this.books$.totalBooks
       console.log(res)
+          if(this.router.url.includes('0/100')){
+        this.PriceName = 'Price / 0/100'
+      }else if(this.router.url.includes('100/200')){
+        this.PriceName = 'Price / 100/200'
+      }else if(this.router.url.includes('200/300')){
+        this.PriceName = 'Price / 200/300'
+      }else if(this.router.url.includes('300/400')){
+        this.PriceName = 'Price / 400/500'
+      }else if(this.router.url.includes('500')){
+        this.PriceName = 'Price / 500 OnWards'
+      }
       if (this.books$.totalBooks != 0) { this.spinner.hide() }
     });
   }
@@ -307,7 +319,12 @@ export class NewbooksComponent implements OnInit {
     ).subscribe((res) => {
       this.books$ = res
       this.config.totalItems = this.books$.totalBooks
-      console.log(res)
+      console.log(res)  
+      if(this.router.url.includes('asc')){
+        this.PriceName = 'Low To High'
+      }else{
+        this.PriceName = 'High To Low'
+      }
       if (this.books$.totalBooks != 0) { this.spinner.hide() }
     });
   }

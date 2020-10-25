@@ -32,18 +32,18 @@
                                 <form #addform="ngForm" id="address">
                                     <div class="input-group">
                                         <input [(ngModel)]="add.fullName" name="fullName" type="text"
-                                            class="form-control" placeholder="Enter Full Name" #fullName required>
+                                            class="form-control" placeholder="Enter Full Name*" #fullName required>
                                     </div>
                                     <div class="input-group">
                                       <input [(ngModel)]="add.email" name="email" type="text"
-                                          class="form-control" placeholder="Enter email" #email required>
+                                          class="form-control" placeholder="Enter email*" #email required>
                                   </div>
 
                                     <div class="row g-2">
                                         <div class="col-md-12">
                                             <div class="input-group">
                                                 <input [(ngModel)]="add.mobileNumber" type="text" name="mobileNumber"
-                                                    class="form-control" placeholder="Enter Phone-Number"
+                                                    class="form-control" placeholder="Enter Phone-Number*"
                                                     onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
                                                     autocomplete="off" minlength="10" maxlength="10" #mobileNumber
                                                     required>
@@ -53,18 +53,18 @@
                                             <div class="input-group">
                                                 <input [(ngModel)]="add.alternatePhoneNumber"
                                                     name="alternatePhoneNumber" type="text" class="form-control"
-                                                    placeholder="Enter Alternate Phone-Number"
+                                                    placeholder="Enter Alternate Phone-Number (Optional)"
                                                     aria-label="mobile-number"
                                                     onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
                                                     autocomplete="off" minlength="10" maxlength="10"
-                                                    #alternatePhoneNumber required>
+                                                    #alternatePhoneNumber>
                                             </div>
                                         </div>
                                     </div>
                                     <br>
                                     <div class="input-group">
                                         <textarea [(ngModel)]="add.address" name="address" type="text"
-                                            class="form-control" placeholder="Enter Address" #addresss
+                                            class="form-control" placeholder="Enter Address*" #addresss
                                             required></textarea>
                                     </div>
                                     <br>
@@ -78,13 +78,13 @@
                                         <div class="col-md-4">
                                             <div class="input-group">
                                                 <input [(ngModel)]="add.city" name="city" type="text"
-                                                    class="form-control" placeholder="Enter City" #city required>
+                                                    class="form-control" placeholder="Enter City*" #city required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="input-group">
                                                 <input [(ngModel)]="add.landmark" name="landmark" type="text"
-                                                    class="form-control" placeholder="Enter Landmark" #landmark
+                                                    class="form-control" placeholder="Enter Landmark*" #landmark
                                                     required>
                                             </div>
                                         </div>
@@ -93,7 +93,7 @@
                                                 <input [(ngModel)]="add.pinCode"
                                                     onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
                                                     name="pinCode" type="text" class="form-control"
-                                                    placeholder="Enter Pin-Code" #pinCode required>
+                                                    placeholder="Enter Pin-Code*" #pinCode required>
                                             </div>
                                         </div>
                                     </div>
@@ -318,18 +318,18 @@
                         <form #addform="ngForm" id="address">
                             <div class="input-group">
                                 <input [(ngModel)]="add.fullName" name="fullName" type="text"
-                                    class="form-control" placeholder="Enter Full Name" #fullName required>
+                                    class="form-control" placeholder="Enter Full Name*" #fullName required>
                             </div>
                             <div class="input-group">
                               <input [(ngModel)]="add.email" name="email" type="text"
-                                  class="form-control" placeholder="Enter email" #email required>
+                                  class="form-control" placeholder="Enter email*" #email required>
                           </div>
 
                             <div class="row g-2">
                                 <div class="col-md-12">
                                     <div class="input-group">
                                         <input [(ngModel)]="add.mobileNumber" type="text" name="mobileNumber"
-                                            class="form-control" placeholder="Enter Phone-Number"
+                                            class="form-control" placeholder="Enter Phone-Number*"
                                             onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
                                             autocomplete="off" minlength="10" maxlength="10" #mobileNumber
                                             required>
@@ -339,18 +339,18 @@
                                     <div class="input-group">
                                         <input [(ngModel)]="add.alternatePhoneNumber"
                                             name="alternatePhoneNumber" type="text" class="form-control"
-                                            placeholder="Enter Alternate Phone-Number"
+                                            placeholder="Enter Alternate Phone-Number (Optional)"
                                             aria-label="mobile-number"
                                             onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
                                             autocomplete="off" minlength="10" maxlength="10"
-                                            #alternatePhoneNumber required>
+                                            #alternatePhoneNumber >
                                     </div>
                                 </div>
                             </div>
                             <br>
                             <div class="input-group">
                                 <textarea [(ngModel)]="add.address" name="address" type="text"
-                                    class="form-control" placeholder="Enter Address" #addresss
+                                    class="form-control" placeholder="Enter Address*" #addresss
                                     required></textarea>
                             </div>
                             <br>
@@ -358,19 +358,19 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <input [(ngModel)]="add.state" name="state" type="text"
-                                            class="form-control" placeholder="Enter State" #state required>
+                                            class="form-control" placeholder="Enter State*" #state required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="input-group">
                                         <input [(ngModel)]="add.city" name="city" type="text"
-                                            class="form-control" placeholder="Enter City" #city required>
+                                            class="form-control" placeholder="Enter City*" #city required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="input-group">
                                         <input [(ngModel)]="add.landmark" name="landmark" type="text"
-                                            class="form-control" placeholder="Enter Landmark" #landmark
+                                            class="form-control" placeholder="Enter Landmark*" #landmark
                                             required>
                                     </div>
                                 </div>
@@ -379,7 +379,7 @@
                                         <input [(ngModel)]="add.pinCode"
                                             onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
                                             name="pinCode" type="text" class="form-control"
-                                            placeholder="Enter Pin-Code" #pinCode required>
+                                            placeholder="Enter Pin-Code*" #pinCode required>
                                     </div>
                                 </div>
                             </div>

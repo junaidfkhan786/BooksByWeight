@@ -18,6 +18,8 @@ export class DetailsComponent implements OnInit, AfterViewInit {
   @Input() addedToWishlist: boolean;
   @Input() cartbutton: boolean;
   bookimg: any[] = [];
+  @Input() category:any;
+  @Input() subcategory:any;
 
   constructor(
     private toastr: ToastrService,
@@ -38,14 +40,18 @@ export class DetailsComponent implements OnInit, AfterViewInit {
     this.loadimg();
   }
 delimg(event){
-  var currentimage:any = event.originalTarget.currentSrc
-  console.log(event.originalTarget.currentSrc)
-  for (let i = 0; i < this.bookimg.length; i++) {
-
-    if (this.bookimg[i] == currentimage) {
-      this.bookimg.splice(i, 1); i--;
+  console.log(event.srcElement)
+  if(event.srcElement.currentSrc != undefined){
+    var currentimage:any = event.srcElement.currentSrc
+    
+    for (let i = 0; i < this.bookimg.length; i++) {
+  
+      if (this.bookimg[i] == currentimage) {
+        this.bookimg.splice(i, 1); i--;
+      }
     }
   }
+  
 }
 jequery_code(){
   $(window).on("load", function(){
@@ -105,24 +111,7 @@ jequery_code(){
   }
   loadbook() {
 
-    this.book.getBooks(1).pipe(
-      map((resp) => {
-        var samebook: any = []
-        var book = resp.books
-        for (let i = 0; i < book.length; i++) {
-
-          if (book[i].Isbn_no == this.details.Isbn_no) {
-            samebook.push(book[i])
-          }
-
-        }
-        return samebook
-      })
-    ).subscribe((data) => {
-
-      this.conditions = data
-      this.spinner.hide();
-    })
+   
 
   }
 notify(){

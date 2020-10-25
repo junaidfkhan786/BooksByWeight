@@ -88,6 +88,30 @@
     </div>
   </div>
 </ng-template>
+<ng-template carouselSlide *ngIf="book3!=undefined">
+  <div class="slide">
+    <div class="row">
+      <div class="col-sm-4">
+        <img src="{{book3.book_img[0]}}" height="340" onerror="this.src='assets/images/altimg.png';" alt="BOOK_IMG">
+ 
+
+      </div>
+      <div class="col-sm-8">
+        <div class="text-center animate__animated animate__fadeInUpBig" >
+          <h1 style="font-weight: bolder;">
+            Pre-Owned
+          </h1>
+          <h1 style="color: red; font-weight: bold;">
+            Collection
+          </h1>
+          <h1 style=" font-weight: bold; margin-top: 100px;" class="org">
+            <a (click)="productHome(book3._id)" >Shop-Now</a>
+          </h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
 
   </owl-carousel-o>
 

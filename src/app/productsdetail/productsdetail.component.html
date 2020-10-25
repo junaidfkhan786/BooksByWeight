@@ -8,11 +8,11 @@
     <app-header></app-header>
     <div class="bg-image" style="position: relative;
           text-align: center;">
-          <div class="d-flex justify-content-start">
+          <!-- <div class="d-flex justify-content-start">
             <button  class="btn btn-outline-danger">
               <span class="material-icons" (click)="goback()">arrow_back</span>
             </button>
-          </div>
+          </div> -->
       <div style="  position: absolute;
               top: 50%;
               left: 50%;
@@ -28,20 +28,21 @@
     <div style="margin-left: 50px; margin-right: 50px;">
       <div class="row g-0" *ngFor="let book of books$.books">
 
-       <app-details [details] = "book" [cartbutton]="cartpid1.indexOf(book._id) >= 0" [addedToWishlist]="wid1.indexOf(book._id) >= 0" ></app-details>
+       <app-details [category]="category" [subcategory]="subcategory" [details] = "book" [cartbutton]="cartpid1.indexOf(book._id) >= 0" [addedToWishlist]="wid1.indexOf(book._id) >= 0" ></app-details>
       </div>
     </div>
 
     <div class="container" style="margin-top: -70px;">
-      <span style="border-bottom: rgb(197, 197, 197) solid 1px;" class="d-flex justify-content-center">
-        <span class="card" style=" border-top: none;
-     border-left: none;
-     border-right: none;
-     border-bottom: 2px solid #ff4136 ;
-     font-size: 1.5rem; color: rgb(92, 88, 88);"> Description </span>
-      </span>
 
       <div *ngFor="let book of books$.books">
+        <span *ngIf="book.description !=''" style="border-bottom: rgb(197, 197, 197) solid 1px;" class="d-flex justify-content-center">
+          <span class="card" style=" border-top: none;
+       border-left: none;
+       border-right: none;
+       border-bottom: 2px solid #ff4136 ;
+       font-size: 1.5rem; color: rgb(92, 88, 88);"> Description </span>
+        </span>
+  
         <br>
         <p *ngIf="book.description !=''" style="color: rgb(131, 128, 128); text-align: justify;
         text-justify: inter-word; ">
