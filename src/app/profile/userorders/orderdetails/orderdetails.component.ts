@@ -87,9 +87,9 @@ total:any
           // console.log(this.coupon_code,this.coupon_amount,this.coupon_percentage);
 
           this.spinner.hide();
-          setTimeout(() => {
-            this.generatePDF();
-          }, 4000);
+          // setTimeout(() => {
+          //   this.generatePDF();
+          // }, 4000);
         }
       }
     );

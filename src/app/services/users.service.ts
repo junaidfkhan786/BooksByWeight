@@ -18,7 +18,7 @@ export class UsersService {
 
   public  getUsers(page):Observable<any> {
 
-    return this._http.get<any[]>(`${API_LIVE}`+"/user?page="+page);
+    return this._http.get<any[]>(`${API_LIVE}`+"/user");
 
 
   }

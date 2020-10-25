@@ -336,7 +336,7 @@ export class CheckoutComponent implements OnInit {
     this.shiprocketmodel.billing_customer_name = orders[0].address.fullname
     this.shiprocketmodel.billing_phone = orders[0].address.mobilenumber
     this.shiprocketmodel.order_items = orders[0].order_items
-    this.shiprocketmodel.weight = this.totalweight
+    this.shiprocketmodel.weight = this.totalweight/1000
     this.order.shiprocketorder(this.shiprocketmodel).subscribe(
       (data) => {
         console.log(data)

@@ -29,7 +29,7 @@
                 <ng-container >
                     <tr *ngFor="let orders of orders$| paginate: {  itemsPerPage: 10, currentPage: pages, totalItems: i}; let i = index;" >
                         <td >
-                            {{i + 1}}
+                            {{ 10 * (pages - 1) + i + 1 }}
                         </td>
                         <td *ngIf="orders.address ">
                             {{orders.address.fullname}}

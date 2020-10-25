@@ -102,4 +102,19 @@ shiprocketUrl:any = "https://apiv2.shiprocket.in/v1/external/orders/create/adhoc
     return this._http.get<any>(`${API_LIVE}`+ '/order/getorders',httpOptionsauth)
   }
 
+  getorderstatus(shiporderid):Observable<any>{
+    const httpOptionsauth = {
+
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + localStorage.getItem('shiptoken')
+      })
+    }
+    return this._http.get<any>(`https://apiv2.shiprocket.in/v1/external/orders/show/${shiporderid}`,httpOptionsauth)
+  }
+  
+  setorderstatus(orderid,orderStatus):Observable<any>{
+    return this._http.post(
+      `${API_LIVE}` + '/order/updateorderstatus/'+ orderid +'?orderStatus='+ orderStatus,httpOptions)
+  }
+
 }

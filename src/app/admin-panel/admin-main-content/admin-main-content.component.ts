@@ -516,4 +516,11 @@ export class AdminMainContentComponent implements OnInit {
       console.log(this.role)
     }
   }
+  ExportToExcel(){
+    this.bulkbook.Exportexcel().subscribe((data)=>{
+      console.log(data)
+    },(error)=>{
+      console.log(error)
+    })
+  }
 }

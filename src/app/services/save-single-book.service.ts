@@ -82,4 +82,8 @@ export class SaveSingleBookService {
     );
   }
 
+  public Exportexcel():Observable<any>{
+    return this.http.get<any[]>(`${API_LIVE}`+"/book/export");
+  }
+
 }

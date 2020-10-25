@@ -41,8 +41,7 @@ opened:boolean
       itemsPerPage: 20,
       totalItems: ''
     };
-    route.queryParams.subscribe(
-      params => this.config.currentPage = params['page'] ? params['page'] : 1);
+
   }
   ngOnInit() {
     this.getadmin();
@@ -160,14 +159,11 @@ opened:boolean
     })
   }
 
-
-  onPageChange(page: number) {
-    if (this.router.url == '/admin/dashboard/view-users' || this.router.url == '/admin/dashboard/view-users?page=' + this.config.currentPage) {
-      this.router.navigate(['admin/dashboard/view-users/'], { queryParams: { page: page } });
-      this.loaduser(page)
-    }
+  onPageChange(page: number = 1) {
+    this.config.currentPage = page;
     window.scrollTo(0, 60);
   }
+
   role: string
   getadmin() {
     if (localStorage.getItem('SuperAdmin')) {

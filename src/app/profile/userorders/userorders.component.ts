@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { OrdersService } from 'src/app/services/orders.service';
-
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 @Component({
   selector: 'app-userorders',
   templateUrl: './userorders.component.html',
@@ -14,6 +14,11 @@ export class UserordersComponent implements OnInit {
   pages: number = 1
   i:number
   shiporderid:any
+  shiprocketData:any
+  awbCode:any
+  orderid:any
+  orderstatus:any
+
   constructor(
     private order: OrdersService,
     private route: ActivatedRoute,
@@ -51,6 +56,30 @@ window.open(
   }
   cancelorder(id) {
     console.log(id)
+  }
+  getstatus(order){
+    this.shiporderid = order.shiporderid
+    this.order.getorderstatus(this.shiporderid).subscribe((data)=>{
+      console.log(data.data)
+      this.shiprocketData = data.data
+      this.awbCode =this.shiprocketData.awb_data.awb
+      this.orderstatus = this.shiprocketData.status
+      this.orderid = order.orderid
+      if(this.awbCode != null && this.awbCode != undefined && this.awbCode != "" ){
+        this.order.setorderstatus(this.orderid,this.orderstatus).subscribe((status)=>{
+          window.open('https://shiprocket.co/tracking/'+ this.awbCode)
+          console.log(status)
+        })
+      }else{
+        Swal.fire(
+          'Not Yet Shipped!',
+          'Please Try After Some Time',
+          'info'
+        )
+      }
+
+    })
+    console.log(order)
   }
   onPageChange(page: number = 1) {
     this.pages = page;

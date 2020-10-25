@@ -13,14 +13,21 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-  // this.loadtoken();
+  this.loadtoken();
   }
 
   loadtoken(){
-    this.token.getshiprockettoken().subscribe((token)=>{
-      localStorage.setItem('shiptoken',token.token)
-    })
-
+    var Ship_Rocket_Token = localStorage.getItem('shiptoken')
+    if(!Ship_Rocket_Token){
+      this.token.getshiprockettoken().subscribe((token)=>{
+        console.log(token)
+        localStorage.setItem('shiptoken',token.token)
+      },(error)=>{
+        console.log(error)
+      })
+  
+    }
+    
   }
 
 }

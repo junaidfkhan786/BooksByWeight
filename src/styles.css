@@ -194,7 +194,7 @@ body{
   margin-top: 0;
 }
 
-.dropright:hover .dropdown-menu {
+.dropright:hover {
   display: block;
 }
 

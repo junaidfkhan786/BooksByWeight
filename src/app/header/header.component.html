@@ -1,7 +1,7 @@
 <nav class=" navbar navbar-expand-lg navbar-light navbar-fixed sticky-top bg-white">
   <div class="container-fluid">
-    <a [routerLink]="[ '/' ]" routerLinkActive="active"><img height="70" width="150" src="../../assets/images/logo.png"
-        alt=""></a>
+    <a [routerLink]="[ '/' ]" routerLinkActive="active"><img height="100" width="170"
+        src="../../assets/images/bookbyweight.png" alt=""></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -43,16 +43,16 @@
               </a>
               <ul class="dropdown-menu animate__animated animate__fadeInUp animate__faster">
                 <li><a class="dropdown-item" (click)="about()">About</a></li>
-                <li><a class="dropdown-item" href="#" (click)="Terms()">Terms & Conditions</a></li>
-                <li><a class="dropdown-item" href="#" (click)="Return()">Return & Exchange</a></li>
-                <li><a class="dropdown-item" href="#" (click)="Shipping()">Shipping & Delivery</a></li>
-                <li><a class="dropdown-item" href="#" (click)="Copyright()">CopyRight Policy</a></li>
-                <li><a class="dropdown-item" href="#" (click)="Privacy()">Privacy Policy</a></li>
-                <li><a class="dropdown-item" href="#" (click)="Payment()">Payment</a></li>
+                <li><a class="dropdown-item" (click)="Terms()">Terms & Conditions</a></li>
+                <li><a class="dropdown-item" (click)="Return()">Return & Exchange</a></li>
+                <li><a class="dropdown-item" (click)="Shipping()">Shipping & Delivery</a></li>
+                <li><a class="dropdown-item" (click)="Copyright()">CopyRight Policy</a></li>
+                <li><a class="dropdown-item" (click)="Privacy()">Privacy Policy</a></li>
+                <li><a class="dropdown-item" (click)="Payment()">Payment</a></li>
               </ul>
             </li>
           </div>
-          <div class="col-md">
+          <!-- <div class="col-md">
             <li class="dropdown" data-toggle="dropdown" style="list-style-type: none;">
               <a class="nav-link dropdown active" style="color: black;">Categories</a>
 
@@ -62,63 +62,54 @@
               <div class="row g-2">
 
                 <div class="col-6" *ngFor="let cat of category">
-                
-                    <a href="categories/{{cat._id}}" class="  nav-link active org "
-                    style="color: black; cursor: pointer;">
+                  <a class=" nav-link active org " (click)="gotocat(cat._id)" style="color: black; cursor: pointer;">
                     {{cat.category}}
                   </a>
-
-
-                 
                 </div>
 
               </div>
             </div>
+          </div> -->
+          <div class="col-md">
+            <ul class="top-level-menu">
+              <li><a style="color: black; cursor: pointer;" >Categories</a>
+                  <ul class="second-level-menu">
+                      <li *ngFor="let cat of category">
+                        <a  class=" nav-link active org " (click)="gotocat(cat._id)" style="color: black; cursor: pointer;">
+                          {{cat.category}}
+                        </a>
+                          <ul class="third-level-menu">
+                              <li *ngFor="let subcat of cat.subcategory"><a style="color: black; cursor: pointer;" >{{subcat.name}}</a></li>
+                            
+                          </ul>
+                      </li>
+                     
+                  </ul>
+              </li>
+             
+          </ul>
           </div>
-          <!-- <div class="col-md">
-            <div  data-toggle="dropdown" class="dropdown">
-              <a class="nav-link dropdown active" style="color: black;">Categories</a>
-              <ul style="width: 300px; height: 500px; overflow: auto; "
-              class="dropdown-menu  animate__animated animate__fadeInUp animate__faster" >
-                <li class="dropdown-submenu col-6" tabindex="-1"  style="width: 300px;" *ngFor="let cat of category">
-                    <a  class="test nav-link active org "
-                    style="color: black; cursor: pointer;">
+          <div class="col-md">
+            <div class="btn-group dropleft">
+              <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropleft
+              </button>
+              <div class="dropdown-menu">
+                <div
+              class="animate__animated animate__fadeInUp animate__faster">
+              <div class="row g-2">
+
+                <div class="col-6 dropdown-item" *ngFor="let cat of category">
+                  <a class=" nav-link active org " (click)="gotocat(cat._id)" style="color: black; cursor: pointer;">
                     {{cat.category}}
                   </a>
-                  <ul class="dropdown-menu" style="position:relative; z-index: 10000;">
-                    <li  tabindex="-1"  style="width: 300px;" *ngFor="let subcat of cat.subcategory">
-                      <a  class="nav-link active org "
-                      style="color: black; cursor: pointer;">
-                      {{subcat.name}}
-                    </a>
-                   
-                    </ul>
-                </li>
-              </ul>
+                </div>
+
+              </div>
+              </div>
+              </div>
             </div>
-          </div> -->
-        <!-- <div class="col-md">
-          <div class="dropdown">
-            <a id="dLabel" data-toggle="dropdown" >
-                Dropdown <span class="caret"></span>
-            </a>
-    		<ul  class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-              <li *ngFor="let cat of category" class="dropdown-submenu">
-                <a tabindex="-1" class="  nav-link active org "
-                style="color: black; cursor: pointer;">
-                {{cat.category}}
-              </a>
-                
-                <ul class="dropdown-menu">
-                  <li><a tabindex="-1" *ngFor="let subcat of cat.subcategory" >
-                    {{subcat.name}}
-                  </a></li>
-               
-                </ul>
-              </li>
-            </ul>
-        </div>
-        </div> -->
+          </div>
         </div>
       </div>
       <!-- <ul class="navbar-nav nav nav-fill mr-auto mb- mb-lg-0">
@@ -190,7 +181,7 @@
               <span class="material-icons">
                 favorite_border
               </span>
-              <span *ngIf="length1 >= 0 " class="badge rounded-pill bg-danger float-right">{{length1}}</span>
+              <span *ngIf="length1 > 0 " class="badge rounded-pill bg-danger float-right">{{length1}}</span>
             </a>
           </li>
           <li>
@@ -199,7 +190,7 @@
               <span class="material-icons">
                 add_shopping_cart
               </span>
-              <span *ngIf="cartlen >= 0" class="badge rounded-pill bg-danger float-right">{{cartlen}}</span>
+              <span *ngIf="cartlen > 0" class="badge rounded-pill bg-danger float-right">{{cartlen}}</span>
             </a>
           </li>
 

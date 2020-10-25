@@ -13,6 +13,7 @@
               <th scope="col">Payment Done </th>
               <th scope="col">Order Status</th>
               <th scope="col">View Details</th>
+              <th scope="col">Get Status</th>
 
           </tr>
       </thead>
@@ -37,17 +38,19 @@
                   <td *ngIf="orders.isPaymentCompleted == false">
                       Payment Not Completed
                   </td>
-                  <td *ngIf="orders.isOrderComleted == true">
-                      Order Completed
-                  </td>
-                  <td *ngIf="orders.isOrderComleted == false">
-                      Processing
+                  <td *ngIf="orders.orderStatus">
+                     {{orders.orderStatus}} 
                   </td>
                   <td>
                       <button (click)="viewdetails(orders)" class="btn btn-success btn-sm" style="border-radius: 0;">
                          Create Invoice
                       </button>
                   </td>
+                  <td>
+                    <button (click)="getstatus(orders)" class="btn btn-success btn-sm" style="border-radius: 0;">
+                       Track Order
+                    </button>
+                </td>
 
 
               </tr>

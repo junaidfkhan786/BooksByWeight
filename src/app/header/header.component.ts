@@ -69,7 +69,6 @@ this.loadcat()
   }
   gotocat(_id){
     this.router.navigate(['categories/' + _id])
-    window.location.reload()
   }
   loadcat(){
     this.bookservice.getCategory().pipe(
@@ -89,7 +88,7 @@ this.loadcat()
         this.spinner.hide();
         this.category$ = data
         this.category = this.category$;
-        console.log(this.category)
+
       }
       );
   }
@@ -127,12 +126,8 @@ this.loadcat()
     });
   }
   jquery_code() {
-    $(document).ready(function(){
-      $('.dropdown-submenu a.test').on("click", function(e){
-        $(this).next('ul').toggle();
-        e.stopPropagation();
-        e.preventDefault();
-      });
+    $(document).ready(function () {
+
     });
   }
   isLogin() {
