@@ -52,6 +52,10 @@ opened:boolean
     })
  this.load()
   }
+
+  viewDetails(user){
+    console.log(user)
+  }
   togglesidebar() {
     this.opened = !this.opened
     console.log(this.opened)

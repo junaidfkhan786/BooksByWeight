@@ -84,11 +84,11 @@
   
         <div class="bg-image" style="position: relative;
         text-align: center;">
-          <div class="d-flex justify-content-start">
+          <!-- <div class="d-flex justify-content-start">
             <button class="btn btn-outline-danger">
               <span class="material-icons" (click)="goback()">arrow_back</span>
             </button>
-          </div>
+          </div> -->
           <div style="  position: absolute;
             top: 50%;
             left: 50%;
@@ -97,6 +97,7 @@
             <a href="/" style="text-decoration: none; color: #000;" class="org"> Home</a>
             / <span class="org">Categories</span>
             <span *ngIf="categoryname"> / {{categoryname.category}}</span>
+            <span *ngIf="subcatname"> > {{subcatname}}</span>
           </div>
         </div>
   

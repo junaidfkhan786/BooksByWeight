@@ -46,11 +46,8 @@
                         <td *ngIf="orders.isPaymentCompleted == false">
                             Payment Not Completed
                         </td>
-                        <td *ngIf="orders.isOrderComleted == true">
-                            Order Completed
-                        </td>
-                        <td *ngIf="orders.isOrderComleted == false">
-                            Processing
+                        <td *ngIf="orders.orderStatus">
+                            {{orders.orderStatus}}
                         </td>
                         <td>
                             <button  (click)="viewdetails(orders)" class="btn btn-success" style="border-radius: 0;">

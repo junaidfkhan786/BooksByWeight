@@ -31,6 +31,7 @@ import { AddbookComponent } from './admin-panel/admin-main-content/addbook/addbo
 import { EditbookComponent } from './admin-panel/admin-main-content/editbook/editbook.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { SubcategoriesComponent } from './subcategories/subcategories.component';
+import { AdminOrderDetailComponent } from './admin-panel/admin-main-content/view-orders/admin-order-detail/admin-order-detail.component';
 const routes: Routes = [
   {
     path: '',
@@ -321,6 +322,10 @@ const routes: Routes = [
     path: 'orderdetails/:_id',
     component: OrderdetailsComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'admin/dashboard/view-orders/AdminOrderDetails/:_id',
+    component: AdminOrderDetailComponent,
   },
   {
     path: '**',

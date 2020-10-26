@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit, Pipe, NgZone } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, Pipe, NgZone, OnDestroy } from '@angular/core';
 import { WishlistService } from 'src/app/services/wishlist.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BooksService } from 'src/app/services/books.service';
@@ -13,14 +13,14 @@ declare let $: any;
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css'],
 })
-export class DetailsComponent implements OnInit, AfterViewInit {
+export class DetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() details: any;
   @Input() addedToWishlist: boolean;
   @Input() cartbutton: boolean;
   bookimg: any[] = [];
-  @Input() category:any;
-  @Input() subcategory:any;
-
+  @Input() category: any;
+  @Input() subcategory: any;
+  unique: any
   constructor(
     private toastr: ToastrService,
     private router: Router,
@@ -38,29 +38,70 @@ export class DetailsComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.loadbook();
     this.loadimg();
+    this.load_condition_array()
   }
-delimg(event){
-  console.log(event.srcElement)
-  if(event.srcElement.currentSrc != undefined){
-    var currentimage:any = event.srcElement.currentSrc
-    
-    for (let i = 0; i < this.bookimg.length; i++) {
-  
-      if (this.bookimg[i] == currentimage) {
-        this.bookimg.splice(i, 1); i--;
+  delimg(event) {
+    console.log(event.srcElement)
+    if (event.srcElement.currentSrc != undefined) {
+      var currentimage: any = event.srcElement.currentSrc
+
+      for (let i = 0; i < this.bookimg.length; i++) {
+
+        if (this.bookimg[i] == currentimage) {
+          this.bookimg.splice(i, 1); i--;
+        }
       }
     }
+
   }
-  
-}
-jequery_code(){
-  $(window).on("load", function(){
-    $('[data-toggle="tooltip"]').tooltip().mouseover();
-    setTimeout(function(){ $('[data-toggle="tooltip"]').tooltip('hide'); }, 3000);
-});
-}
+  jequery_code() {
+    $(window).on("load", function () {
+      $('[data-toggle="tooltip"]').tooltip().mouseover();
+      setTimeout(function () { $('[data-toggle="tooltip"]').tooltip('hide'); }, 3000);
+    });
+  }
+  load_condition_array() {
 
+    let localarray = JSON.parse(localStorage.getItem('allbooks'))
+    console.log(localarray)
+    for (let i = 0; i < localarray.length; i++) {
+      if (localarray[i]['Isbn_no'] == this.details.Isbn_no) {
+        this.conditions.push(localarray[i])
+        console.log('found')
+      }
+      if (i == localarray.length - 1) {
+        console.log('last item')
+        this.Del_Same_Condition()
+      }
+    }
 
+    console.log(this.conditions)
+  }
+  Del_Same_Condition() {
+    console.log('same condition')
+    let mymap = new Map();
+    this.unique = this.conditions.filter(el => {
+      const val = mymap.get(el.condition);
+      if (val) {
+        if (el.id < val) {
+          mymap.delete(el.condition);
+          mymap.set(el.condition, el._id);
+          return true;
+        } else {
+          return false;
+        }
+      }
+      mymap.set(el.condition, el._id);
+      return true;
+    });
+    this.selected = this.details.condition
+console.log(this.unique)
+  }
+
+  ngOnDestroy(): void {
+localStorage.removeItem('allbooks')
+    
+  }
   ngAfterViewInit() {
     setTimeout(() => {
       // Product Main img Slick
@@ -71,7 +112,7 @@ jequery_code(){
         dots: false,
         arrows: false,
         fade: true,
-        adaptiveHeight:false,
+        adaptiveHeight: false,
         asNavFor: '#product-imgs',
       });
       // $('#product-imgs').match_height().parent('#product-imgs').slick({
@@ -79,7 +120,7 @@ jequery_code(){
       // });
       // Product imgs Slick
       $('#product-imgs').slick({
-        adaptiveHeight:false,
+        adaptiveHeight: false,
         mobileFirst: true,
         slidesToShow: 5,
         slidesToScroll: 1,
@@ -105,44 +146,44 @@ jequery_code(){
     }, 2000);
 
   }
-  bookchange(id){
+  bookchange(id) {
     window.location.assign('details/' + id)
     // this.router.navigate(['details/' + id]);
   }
   loadbook() {
 
-   
+
 
   }
-notify(){
-  Swal.fire(
-    'Sorry This Book Is Book Is Out Of Stock!',
-    'Try Again After SomeTimes',
-    'success'
-  )
-  // Swal.fire({
-  //   title: 'Want To Get Notified When Book Is Available?',
-  //   text: '',
-  //   icon: 'info',
-  //   showCancelButton: true,
-  //   confirmButtonColor: '#3085d6',
-  //   cancelButtonColor: '#d33',
-  //   confirmButtonText: 'Yes, Click Here!',
-  //   cancelButtonText: 'No, Your Wish!'
-  // }).then((result) => {
-  //   if (result.value) {
-  //     this.ngZone.run(
-  //       () => this.router.navigate(['/books'])
-  //     ).then();
-  //     Swal.fire(
-  //       'Wait For Email!',
-  //       'An Email Has Been Sent When Book is Available',
-  //       'success'
-  //     )
-  //   }
-  // })
+  notify() {
+    Swal.fire(
+      'Sorry This Book Is Book Is Out Of Stock!',
+      'Try Again After SomeTimes',
+      'success'
+    )
+    // Swal.fire({
+    //   title: 'Want To Get Notified When Book Is Available?',
+    //   text: '',
+    //   icon: 'info',
+    //   showCancelButton: true,
+    //   confirmButtonColor: '#3085d6',
+    //   cancelButtonColor: '#d33',
+    //   confirmButtonText: 'Yes, Click Here!',
+    //   cancelButtonText: 'No, Your Wish!'
+    // }).then((result) => {
+    //   if (result.value) {
+    //     this.ngZone.run(
+    //       () => this.router.navigate(['/books'])
+    //     ).then();
+    //     Swal.fire(
+    //       'Wait For Email!',
+    //       'An Email Has Been Sent When Book is Available',
+    //       'success'
+    //     )
+    //   }
+    // })
 
-}
+  }
   loadimg() {
 
     this.bookimg = this.details.book_img
@@ -165,28 +206,8 @@ notify(){
     // console.log(this.bookimg)
 
   }
-  copygoogle(){
-   var a:string = window.location.href
-   console.log(a)
-   let selBox = document.createElement('textarea');
-   selBox.style.position = 'fixed';
-   selBox.style.left = '0';
-   selBox.style.top = '0';
-   selBox.style.opacity = '0';
-   selBox.value = a;
-   document.body.appendChild(selBox);
-   selBox.focus();
-   selBox.select();
-   document.execCommand('copy');
-   document.body.removeChild(selBox);
-   alert(
-    'Link Copied!'+ ' ' +
-    'You Can Share It With Your Friend!'
-  )
-  window.open('https://mail.google.com/mail/u/0/#inbox?compose=new')
-  }
-  copyinsta(){
-    var a:string = window.location.href
+  copygoogle() {
+    var a: string = window.location.href
     console.log(a)
     let selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
@@ -200,13 +221,33 @@ notify(){
     document.execCommand('copy');
     document.body.removeChild(selBox);
     alert(
-      'Link Copied!'+ ' ' +
+      'Link Copied!' + ' ' +
+      'You Can Share It With Your Friend!'
+    )
+    window.open('https://mail.google.com/mail/u/0/#inbox?compose=new')
+  }
+  copyinsta() {
+    var a: string = window.location.href
+    console.log(a)
+    let selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = a;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+    alert(
+      'Link Copied!' + ' ' +
       'You Can Share It With Your Friend!'
     )
     window.open('https://www.instagram.com')
-   }
-   copyfacebook(){
-    var a:string = window.location.href
+  }
+  copyfacebook() {
+    var a: string = window.location.href
     console.log(a)
     let selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
@@ -220,13 +261,13 @@ notify(){
     document.execCommand('copy');
     document.body.removeChild(selBox);
     alert(
-      'Link Copied!'+ ' ' +
+      'Link Copied!' + ' ' +
       'You Can Share It With Your Friend!'
     )
     window.open('https://www.facebook.com')
-   }
-   copytwitter(){
-    var a:string = window.location.href
+  }
+  copytwitter() {
+    var a: string = window.location.href
     console.log(a)
     let selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
@@ -240,11 +281,11 @@ notify(){
     document.execCommand('copy');
     document.body.removeChild(selBox);
     alert(
-      'Link Copied!'+ ' ' +
+      'Link Copied!' + ' ' +
       'You Can Share It With Your Friend!'
     )
     window.open('https://twitter.com')
-   }
+  }
 
   addWish(_id) {
     if (localStorage.getItem('User')) {
@@ -281,12 +322,12 @@ notify(){
 
     });
   }
-  addCart(details,_id, selling_price, weight) {
+  addCart(details, _id, selling_price, weight) {
 
 
     this.spinner.show();
     if (localStorage.getItem('User') != null) {
-      if(details.sale_price !=0 && details.sale_price !=null  ){
+      if (details.sale_price != 0 && details.sale_price != null) {
         selling_price = details.sale_price
       }
       this.cart.postProduct(_id, selling_price, weight).subscribe(() => {
@@ -307,13 +348,13 @@ notify(){
 
 
   }
-  gotoauthorsearch(authorname){
+  gotoauthorsearch(authorname) {
     var _id = authorname + "&author_name=1";
-    this.router.navigate(['search/'+ _id]);
+    this.router.navigate(['search/' + _id]);
   }
-  gotopublishersearch(publishername){
+  gotopublishersearch(publishername) {
     var _id = publishername + "&publisher=1";
-    this.router.navigate(['search/'+ _id]);
+    this.router.navigate(['search/' + _id]);
 
   }
   gotocart() {

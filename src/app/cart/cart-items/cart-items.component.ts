@@ -354,6 +354,14 @@ export class CartItemsComponent implements OnInit {
                 this.t = this.total
                 this.subtotal -= this.coupons.coupon_amount
                 this.total -= this.coupons.coupon_amount
+                if (this.total <= 500) {
+                    var cal = 50 * this.totalitems
+                    this.total += cal
+                } 
+                if (this.subtotal <= 500) {
+                    var cal = 50 * this.totalitems
+                    this.subtotal += cal
+                } 
             }
 
         } else {
@@ -367,6 +375,14 @@ export class CartItemsComponent implements OnInit {
                 this.t = this.total
                 this.subtotal -= this.subtotal / 100 * this.coupons.coupon_amount
                 this.total -= this.total / 100 * this.coupons.coupon_amount
+                if (this.total <= 500) {
+                    var cal = 50 * this.totalitems
+                    this.total += cal
+                } 
+                if (this.subtotal <= 500) {
+                    var cal = 50 * this.totalitems
+                    this.subtotal += cal
+                } 
             }
         }
         // }

@@ -1,0 +1,16 @@
+.page {
+    display: table;
+    width: 100%;
+
+  }
+
+  .page-content{
+  display: table-cell;
+}
+
+
+#wrapper {
+	border: 1px solid #000;
+	width: 1100px;
+	margin: auto;
+}

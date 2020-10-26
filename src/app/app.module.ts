@@ -85,6 +85,7 @@ import { SubcategoriesComponent } from './subcategories/subcategories.component'
 import { SubcategoriesitemComponent } from './subcategories/subcategoriesitem/subcategoriesitem.component';
 import { CollectiblesComponent } from './collectibles/collectibles.component';
 import { CollectiblesListComponent } from './collectibles/collectibles-list/collectibles-list.component';
+import { AdminOrderDetailComponent } from './admin-panel/admin-main-content/view-orders/admin-order-detail/admin-order-detail.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -147,7 +148,8 @@ import { CollectiblesListComponent } from './collectibles/collectibles-list/coll
     SubcategoriesComponent,
     SubcategoriesitemComponent,
     CollectiblesComponent,
-    CollectiblesListComponent
+    CollectiblesListComponent,
+    AdminOrderDetailComponent
 
 
 

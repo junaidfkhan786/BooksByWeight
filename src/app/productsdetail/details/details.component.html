@@ -50,21 +50,19 @@
         <div class="gotoauthor color org"
         (click)="gotopublishersearch(details.publisher)"><b>Publisher: </b> {{ details.publisher }}</div>
         <br />
-        <div class="color" style="padding-bottom: 10px;">
+        <div *ngIf="unique.length == 0" class="color" style="padding-bottom: 10px;">
           <b>Condition:</b>
            <b> ( {{details.condition}} )</b>
         </div>
         <div class="col-xs-12 col-lg-8">
-          <!-- <select style="border-radius: 0px !important;" class="form-select" aria-label="Default select example"
+          <select [(ngModel)]="selected" *ngIf="unique.length != 0" style="border-radius: 0px !important;" class="form-select" aria-label="Default select example"
             name="selected">
-            <option *ngFor="let condition of conditions" (click)="bookchange(condition._id)">
-              <span>{{details.condition}}</span>
-              <span>{{condition.condition}}</span>
-
+            <option *ngFor="let condition of unique" (click)="bookchange(condition._id)"> 
+              {{condition.condition}}
             </option>
 
           </select>
-          <br /> -->
+          <br />
           <div class="color" style="padding-bottom: 10px;">
             <b>Print Type:</b> {{details.print_format}}
           </div>

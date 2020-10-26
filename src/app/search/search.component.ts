@@ -179,25 +179,24 @@ export class SearchComponent implements OnInit, UrlSerializer {
     res.pipe(
       map((resp) => {
         var book = resp.books
-        // var newbooks = [];
-        // var uniqueObject = {};
+        var newbooks = [];
+        var uniqueObject = {};
 
 
-        //        for (let i in book) {
+        for (let i in book) {
 
-        //         let objTitle = book[i]['Isbn_no'];
-
-
-        //          uniqueObject[objTitle] = book[i];
-        //      }
+          let objTitle = book[i]['Isbn_no'];
 
 
-        //      for (let i in uniqueObject) {
-        //          newbooks.push(uniqueObject[i]);
-        //      }
-            //  var total = 20 - newbooks.length
-            //  resp['totalBooks'] = resp.totalBooks - total
-            //  resp['books'] = newbooks
+          uniqueObject[objTitle] = book[i];
+        }
+
+
+        for (let i in uniqueObject) {
+          newbooks.push(uniqueObject[i]);
+        }
+
+        resp['books'] = newbooks
         for (let i = 0; i < book.length; i++) {
           book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
           book[i]['rate'] = Math.floor(book[i]['rate'])
@@ -221,7 +220,7 @@ export class SearchComponent implements OnInit, UrlSerializer {
       console.log(this.count)
       if(this.count == 0){
         Swal.fire({
-          title: 'No Result Found?',
+          title: 'Not Found?',
           text: '',
           icon: 'info',
           showCancelButton: false,

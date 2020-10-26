@@ -55,6 +55,8 @@ export class SubcategoriesComponent implements OnInit {
   i: number
   categoryname: any
   categoryid: any
+  subcatname:any
+  PriceName:any
   constructor(
     private toastr: ToastrService,
     private CatService: CategoryService,
@@ -212,25 +214,25 @@ export class SubcategoriesComponent implements OnInit {
             this.CatService.getSubCatById(id, page).pipe(
               map((resp) => {
                 var book = resp.books
-                // var newbooks = [];
-                // var uniqueObject = {};
-
-
-                // for (let i in book) {
-
-                //   let objTitle = book[i]['Isbn_no'];
-
-
-                //   uniqueObject[objTitle] = book[i];
-                // }
-
-
-                // for (let i in uniqueObject) {
-                //   newbooks.push(uniqueObject[i]);
-                // }
-                // var total = 20 - newbooks.length
-                // resp['totalBooks'] = resp.totalBooks - total
-                // resp['books'] = newbooks
+                var book = resp.books
+                var newbooks = [];
+                var uniqueObject = {};
+        
+        
+                for (let i in book) {
+        
+                  let objTitle = book[i]['Isbn_no'];
+        
+        
+                  uniqueObject[objTitle] = book[i];
+                }
+        
+        
+                for (let i in uniqueObject) {
+                  newbooks.push(uniqueObject[i]);
+                }
+        
+                resp['books'] = newbooks
                 for (let i = 0; i < book.length; i++) {
                   book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
                   book[i]['rate'] = Math.floor(book[i]['rate'])
@@ -250,6 +252,13 @@ export class SubcategoriesComponent implements OnInit {
               this.config.totalItems = this.books$.totalBooks;
               console.log(data)
               this.categoryname = this.books$.message
+              var subcat = this.categoryname.subcategory
+              for (let i = 0; i < subcat.length; i++) {
+                if(this.categoryid == subcat[i]['_id']){
+                  this.subcatname = subcat[i]['name']
+                }
+                
+              }
               this.spinner.hide();
               if (this.books$.totalBooks == 0) {
                 Swal.fire({
@@ -331,8 +340,7 @@ export class SubcategoriesComponent implements OnInit {
         for (let i in uniqueObject) {
           newbooks.push(uniqueObject[i]);
         }
-        // var total = 20 - newbooks.length
-        // resp['totalBooks'] = resp.totalBooks - total
+
         resp['books'] = newbooks
         for (let i = 0; i < book.length; i++) {
           book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
@@ -352,6 +360,19 @@ export class SubcategoriesComponent implements OnInit {
     ).subscribe((res) => {
       this.books$ = res
       this.config.totalItems = this.books$.totalBooks
+      if(this.router.url.includes('0/100')){
+        this.PriceName = 'Price / 0/100'
+      }else if(this.router.url.includes('100/200')){
+        this.PriceName = 'Price / 100/200'
+      }else if(this.router.url.includes('200/300')){
+        this.PriceName = 'Price / 200/300'
+      }else if(this.router.url.includes('300/400')){
+        this.PriceName = 'Price / 300/400'
+      }else if(this.router.url.includes('400/500')){
+        this.PriceName = 'Price / 400/500'
+      }else if(this.router.url.includes('500')){
+        this.PriceName = 'Price / 500 OnWards'
+      }
       console.log(res)
       if (this.books$.totalBooks != 0) { this.spinner.hide() }
     });
@@ -376,8 +397,7 @@ export class SubcategoriesComponent implements OnInit {
         for (let i in uniqueObject) {
           newbooks.push(uniqueObject[i]);
         }
-        // var total = 20 - newbooks.length
-        // resp['totalBooks'] = resp.totalBooks - total
+
         resp['books'] = newbooks
         for (let i = 0; i < book.length; i++) {
           book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
@@ -396,6 +416,11 @@ export class SubcategoriesComponent implements OnInit {
     ).subscribe((res) => {
       this.books$ = res
       this.config.totalItems = this.books$.totalBooks
+            if (this.router.url.includes('asc')) {
+        this.PriceName = 'Low To High'
+      } else {
+        this.PriceName = 'High To Low'
+      }
       console.log(res)
       if (this.books$.totalBooks != 0) { this.spinner.hide() }
     });

@@ -55,6 +55,7 @@ export class CategoriesComponent implements OnInit {
   i: number
   categoryname: any
   categoryid: any
+  PriceName:any
   constructor(
     private toastr: ToastrService,
     private CatService: CategoryService,
@@ -210,25 +211,25 @@ export class CategoriesComponent implements OnInit {
             this.CatService.getCategoryById(id, page).pipe(
               map((resp) => {
                 var book = resp.books
-                // var newbooks = [];
-                // var uniqueObject = {};
-
-
-                // for (let i in book) {
-
-                //   let objTitle = book[i]['Isbn_no'];
-
-
-                //   uniqueObject[objTitle] = book[i];
-                // }
-
-
-                // for (let i in uniqueObject) {
-                //   newbooks.push(uniqueObject[i]);
-                // }
-                // var total = 20 - newbooks.length
-                // resp['totalBooks'] = resp.totalBooks - total
-                // resp['books'] = newbooks
+                var book = resp.books
+                var newbooks = [];
+                var uniqueObject = {};
+        
+        
+                for (let i in book) {
+        
+                  let objTitle = book[i]['Isbn_no'];
+        
+        
+                  uniqueObject[objTitle] = book[i];
+                }
+        
+        
+                for (let i in uniqueObject) {
+                  newbooks.push(uniqueObject[i]);
+                }
+        
+                resp['books'] = newbooks
                 for (let i = 0; i < book.length; i++) {
                   book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
                   book[i]['rate'] = Math.floor(book[i]['rate'])
@@ -246,6 +247,7 @@ export class CategoriesComponent implements OnInit {
             ).subscribe((data) => {
               this.books$ = data;
               this.config.totalItems = this.books$.totalBooks;
+
               console.log(data)
               this.categoryname = this.books$.message
               this.spinner.hide();
@@ -313,6 +315,24 @@ export class CategoriesComponent implements OnInit {
     this.filter.priceDefinecat(modal, page, catid).pipe(
       map((resp) => {
         var book = resp.books
+        var newbooks = [];
+        var uniqueObject = {};
+
+
+        for (let i in book) {
+
+          let objTitle = book[i]['Isbn_no'];
+
+
+          uniqueObject[objTitle] = book[i];
+        }
+
+
+        for (let i in uniqueObject) {
+          newbooks.push(uniqueObject[i]);
+        }
+
+        resp['books'] = newbooks
         for (let i = 0; i < book.length; i++) {
           book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
           book[i]['rate'] = Math.floor(book[i]['rate'])
@@ -330,6 +350,19 @@ export class CategoriesComponent implements OnInit {
     ).subscribe((res) => {
       this.books$ = res
       this.config.totalItems = this.books$.totalBooks
+            if(this.router.url.includes('0/100')){
+        this.PriceName = 'Price / 0/100'
+      }else if(this.router.url.includes('100/200')){
+        this.PriceName = 'Price / 100/200'
+      }else if(this.router.url.includes('200/300')){
+        this.PriceName = 'Price / 200/300'
+      }else if(this.router.url.includes('300/400')){
+        this.PriceName = 'Price / 300/400'
+      }else if(this.router.url.includes('400/500')){
+        this.PriceName = 'Price / 400/500'
+      }else if(this.router.url.includes('500')){
+        this.PriceName = 'Price / 500 OnWards'
+      }
       console.log(res)
       if (this.books$.totalBooks != 0) { this.spinner.hide() }
     });
@@ -338,6 +371,24 @@ export class CategoriesComponent implements OnInit {
     this.filter.sortBycat(catid,variant, page).pipe(
       map((resp) => {
         var book = resp.books
+        var newbooks = [];
+        var uniqueObject = {};
+
+
+        for (let i in book) {
+
+          let objTitle = book[i]['Isbn_no'];
+
+
+          uniqueObject[objTitle] = book[i];
+        }
+
+
+        for (let i in uniqueObject) {
+          newbooks.push(uniqueObject[i]);
+        }
+
+        resp['books'] = newbooks
         for (let i = 0; i < book.length; i++) {
           book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
           book[i]['rate'] = Math.floor(book[i]['rate'])
@@ -355,6 +406,11 @@ export class CategoriesComponent implements OnInit {
     ).subscribe((res) => {
       this.books$ = res
       this.config.totalItems = this.books$.totalBooks
+      if (this.router.url.includes('asc')) {
+        this.PriceName = 'Low To High'
+      } else {
+        this.PriceName = 'High To Low'
+      }
       console.log(res)
       if (this.books$.totalBooks != 0) { this.spinner.hide() }
     });

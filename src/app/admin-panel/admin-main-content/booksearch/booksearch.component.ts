@@ -122,6 +122,7 @@ export class BooksearchComponent implements OnInit {
     $(document).ready(function () {
     });
   }
+
   getbooks(query, page) {
     let res = this.searchs.searched(query, page);
     res.pipe(
@@ -149,6 +150,7 @@ export class BooksearchComponent implements OnInit {
       this.book1 = data.totalBooks
       this.config.totalItems = data.totalBooks;
       this.totalbook1.emit(this.totalBooks)
+      this.spinner.hide();
     })
   }
   onPageChange(page: number) {

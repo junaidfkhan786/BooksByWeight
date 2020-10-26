@@ -1,0 +1,119 @@
+
+
+<app-admin-header></app-admin-header>
+<div class="row g-0">
+    <div class="col-lg-3" [hidden]="opened">
+        <app-admin-sidebar></app-admin-sidebar>
+    </div>
+    <div class="col">
+      
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="line-scale-pulse-out" [fullScreen]="true">
+    <p style="color: white"> Please Wait We Are Generating Invoice... </p>
+</ngx-spinner>
+<div class="d-flex justify-content-center">
+  <button (click)="generatePDF()" class="btn org">
+    Click Here To Download Invoice
+     <!-- If Not Generated Properly -->
+    <span class="material-icons">
+      get_app
+    </span>
+  </button>
+</div>
+<div class="page mt-2" id="wrapper">
+  <div class="page-content">
+    <div class="ml-5 mr-5" id="contentToConvert">
+        <div class="d-flex justify-content-center">
+            <h1 class="mt-5" style="font-size: 3rem;">@ButterflyBooks</h1>
+        </div>
+        <hr style="border:2px solid">
+        <div class="d-flex justify-content-center">
+            <h1 style="font-size: 2rem;">BooksByWeight</h1>
+        </div>
+        <hr style="border:2px solid">
+        <div class="row">
+            <div class="col">
+                <b> <span>SHIPPING ADDRESS:</span></b>
+            </div>
+            <div class="col">
+                <b><span>SOLD BY:</span></b>
+            </div>
+            <div class="col">
+                <b><span>INVOICE DETAILS:</span></b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+
+                <span>{{address.fullname}}</span> <br>
+                <span>{{address.city}}</span> <br>
+                <span>{{address.state}}</span> <br>
+                <span>{{address.pincode}}</span> <br>
+                PH: &nbsp;<span>{{address.mobilenumber}}</span> <br>
+
+            </div>
+            <div class="col">
+                <span>BooksByWeight</span> <br>
+                <span>83/C, Hansraj Pragji building, <br>
+                       LN Pappan Marg
+                </span> <br>
+                <span>Worli, Mumbai 400018</span> <br>
+                <span>Maharashtra</span> <br>
+                <span>Email: info@booksbyweight.com</span>
+            </div>
+            <div class="col">
+                <B>INVOICE DATE:</B> &nbsp; {{orderdate | date}} <br>
+                <B>ORDER NUMBER:</B> &nbsp; {{orderid}} <br>
+                <B>ORDER DATE:</B> &nbsp; {{orderdate | date}} <br>
+                <B>PAYMENT ID:</B> &nbsp; {{paymentid}} <br>
+                <span *ngIf="paymentmethod == true"><B>PAYMENT METHOD:</B> &nbsp; PREPAID </span><br>
+                <span *ngIf="paymentmethod == false"><B>PAYMENT METHOD:</B> &nbsp; COD</span> <br>
+
+            </div>
+        </div> <br>
+        <hr style="border:2px solid">
+        <table class="table mt-2">
+            <thead>
+                <tr>
+                    <th scope="col">Sr No</th>
+                    <th scope="col">BOOK NAME</th>
+                    <th scope="col">QTY </th>
+                    <th scope="col">UNIT PRICE</th>
+                    <th scope="col">TOTAL WITH GST </th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let order of order_items;let i = index">
+                <td>
+                    {{i+1}}
+                </td>
+                <td>
+                    {{order.name | truncate:60}}
+                </td>
+                <td>
+                    {{order.units}}
+                </td>
+                <td>
+                    {{order.selling_price | number}}
+                </td>
+                <td>
+                  {{order.units * order.selling_price | number}}
+                </td>
+              </tr>
+
+
+            </tbody>
+        </table>
+    <div class="d-flex justify-content-center">
+        <span>
+            <span *ngIf="coupon_code !=null" style="color: red;">( Code Applied {{coupon_code}} )</span> NET TOTAL( IN VALUE ) <span *ngIf="coupon_amount!=null" style="color: red;"><s>Rs.{{total}}</s></span> Rs. {{amount|number}}
+        </span>
+    </div>
+    <hr>
+
+    </div>
+  </div>
+</div>
+
+    </div>
+</div>
+

@@ -13,7 +13,7 @@ export class AdminSidebarComponent implements OnInit {
 
   constructor(
     public router: Router,
-    public route:ActivatedRoute
+    public route: ActivatedRoute
   ) {
 
   }
@@ -80,7 +80,7 @@ export class AdminSidebarComponent implements OnInit {
       .replace(/%3F/gi, '?')
       .replace(/%2F/gi, '/')
   }
-query:any
+  query: any
   getadmin() {
     if (localStorage.getItem('SuperAdmin')) {
       this.query = this.route.snapshot.params._id
@@ -91,16 +91,17 @@ query:any
       var token = localStorage.getItem('SuperAdmin');
       var decode = jwt_decode(token);
       this.role = decode.role
+      console.log(this.role)
       var a = window.location.href
-      var b = a.substring(a.lastIndexOf('=')+1)
+      var b = a.substring(a.lastIndexOf('=') + 1)
       console.log(b)
       if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/view-orders" ||
-      this.router.url === "/admin/dashboard/view-orders?page="+b
+        this.router.url === "/admin/dashboard/view-orders?page=" + b
       ) {
 
       }
       else if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/view-users" ||
-      this.router.url === "/admin/dashboard/view-users?page="+b) {
+        this.router.url === "/admin/dashboard/view-users?page=" + b) {
 
       }
       else if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/Admin") {
@@ -114,18 +115,20 @@ query:any
 
       } else if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/addbook") {
 
-      } else if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/editbook/"+this.query) {
+      } else if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/editbook/" + this.query) {
+        
+      } else if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/view-orders/AdminOrderDetails/" + this.query) {
 
-      } else if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/view-products"||
-      this.router.url === "/admin/dashboard/view-products?page="+b
+      } else if (this.role === "SuperAdmin" && this.router.url === "/admin/dashboard/view-products" ||
+        this.router.url === "/admin/dashboard/view-products?page=" + b
       ) {
 
       } else if (this.role === "SuperAdmin" &&
-      r === "/admin/dashboard/booksearch/"+c||
-      r === "/admin/dashboard/booksearch/"+c+"?page="+b
+        r === "/admin/dashboard/booksearch/" + c ||
+        r === "/admin/dashboard/booksearch/" + c + "?page=" + b
       ) {
 
-      }else {
+      } else {
         console.log('sidebar id not found')
         this.router.navigate(['/admin/dashboard'])
       }
@@ -135,13 +138,13 @@ query:any
       var decode = jwt_decode(token);
       this.role = decode.role
       var a = window.location.href
-      var b = a.substring(a.lastIndexOf('=')+1)
+      var b = a.substring(a.lastIndexOf('=') + 1)
       console.log(b)
       if (this.role === "Admin" && this.router.url === "/admin/dashboard/view-orders") {
         this.router.navigate(['/admin/dashboard'])
       }
-      if (this.role === "Admin" && this.router.url === "/admin/dashboard/view-users"||
-      this.router.url === "/admin/dashboard/view-users?page="+b) {
+      if (this.role === "Admin" && this.router.url === "/admin/dashboard/view-users" ||
+        this.router.url === "/admin/dashboard/view-users?page=" + b) {
         this.router.navigate(['/admin/dashboard'])
       }
       if (this.role === "Admin" && this.router.url === "/admin/dashboard/Admin") {

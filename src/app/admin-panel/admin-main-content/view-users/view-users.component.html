@@ -27,6 +27,7 @@
                     <th scope="col">Registration Type</th>
                     <th scope="col">Email</th>
                     <th scope="col">PhoneNumber</th>
+                    <th scope="col">View Details</th>
                     <th scope="col">Delete</th>
                 </tr>
             </thead>
@@ -41,11 +42,15 @@
                         <td>{{user.methods}}</td>
                         <td >{{user.email}}</td>
                         <td>{{user.phonenumber}}</td>
-
-                        <td><button *ngIf="user.isActive" (click)="block(user._id)" class="btn btn-danger" style="border-radius: 0;">
+                        <th>
+                            <button (click)="viewDetails(user)" class="btn btn-success btn-sm">
+                                View Details
+                            </button>
+                        </th>
+                        <td><button *ngIf="user.isActive" (click)="block(user._id)" class="btn btn-danger btn-sm" style="border-radius: 0;">
                                 Block
                             </button>
-                            <button  *ngIf="!user.isActive"  (click)="unblock(user._id)" class="btn btn-danger" style="border-radius: 0;">
+                            <button  *ngIf="!user.isActive"  (click)="unblock(user._id)" class="btn btn-danger btn-sm" style="border-radius: 0;">
                                 UnBlock
                             </button>
                         </td>
