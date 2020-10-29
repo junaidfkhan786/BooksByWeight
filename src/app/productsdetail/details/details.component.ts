@@ -64,6 +64,7 @@ export class DetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     let localarray = JSON.parse(localStorage.getItem('allbooks'))
     console.log(localarray)
+  if(localarray != null && localarray !=undefined){
     for (let i = 0; i < localarray.length; i++) {
       if (localarray[i]['Isbn_no'] == this.details.Isbn_no) {
         this.conditions.push(localarray[i])
@@ -74,6 +75,7 @@ export class DetailsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.Del_Same_Condition()
       }
     }
+  }
 
     console.log(this.conditions)
   }
