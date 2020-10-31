@@ -55,8 +55,8 @@ export class SubcategoriesComponent implements OnInit {
   i: number
   categoryname: any
   categoryid: any
-  subcatname:any
-  PriceName:any
+  subcatname: any
+  PriceName: any
   constructor(
     private toastr: ToastrService,
     private CatService: CategoryService,
@@ -82,7 +82,7 @@ export class SubcategoriesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  
+
     window.scrollTo(0, 200);
     this.spinner.show()
     this.activatedRoute.params.subscribe(res => {
@@ -99,19 +99,19 @@ export class SubcategoriesComponent implements OnInit {
     this.loadcart();
     this.loadwish();
     this.jquery_code();
-    window.scroll(0,0)
+    window.scroll(0, 0)
 
   }
   jquery_code() { }
   goback() {
     window.scroll(0, 0)
-    
+
     // this.location.back();
     window.scroll(0, 0)
-  
-    
-      this.router.navigate(['/'])
-    
+
+
+    this.router.navigate(['/'])
+
   }
   onPageChange(page: number) {
     this.spinner.show();
@@ -154,17 +154,17 @@ export class SubcategoriesComponent implements OnInit {
       console.log('second block')
       this.router.navigate(['subcategory/sortBy500', { query: this.categoryid }], { queryParams: { page: page } });
       this.filters(this.fifth, page, this.categoryid)
-    } else if (this.router.url == '/subcategory/sortBy'+ this.variant1 + ';query=' + this.categoryid ||
-    this.router.url == '/subcategory/sortBy' +this.variant1+ ';query=' + this.categoryid + '?page=' + this.config.currentPage) {
-    console.log('second block')
-    this.router.navigate(['subcategory/sortBy'+this.variant1, { query: this.categoryid }], { queryParams: { page: page } });
-    this.filtersSort(this.categoryid,this.variant1, page )
-  }else if (this.router.url == '/subcategory/sortBy'+ this.variant + ';query=' + this.categoryid ||
-  this.router.url == '/subcategory/sortBy' +this.variant+ ';query=' + this.categoryid + '?page=' + this.config.currentPage) {
-  console.log('second block')
-  this.router.navigate(['subcategory/sortBy'+this.variant, { query: this.categoryid }], { queryParams: { page: page } });
-  this.filtersSort(this.categoryid,this.variant, page )
-}
+    } else if (this.router.url == '/subcategory/sortBy' + this.variant1 + ';query=' + this.categoryid ||
+      this.router.url == '/subcategory/sortBy' + this.variant1 + ';query=' + this.categoryid + '?page=' + this.config.currentPage) {
+      console.log('second block')
+      this.router.navigate(['subcategory/sortBy' + this.variant1, { query: this.categoryid }], { queryParams: { page: page } });
+      this.filtersSort(this.categoryid, this.variant1, page)
+    } else if (this.router.url == '/subcategory/sortBy' + this.variant + ';query=' + this.categoryid ||
+      this.router.url == '/subcategory/sortBy' + this.variant + ';query=' + this.categoryid + '?page=' + this.config.currentPage) {
+      console.log('second block')
+      this.router.navigate(['subcategory/sortBy' + this.variant, { query: this.categoryid }], { queryParams: { page: page } });
+      this.filtersSort(this.categoryid, this.variant, page)
+    }
     // else if (this.router.url == '/subcategory/sortBy' + this.third ||
     //   this.router.url == '/subcategory/sortBy' + this.third + '?page=' + this.config.currentPage) {
     //   console.log('third block')
@@ -217,21 +217,23 @@ export class SubcategoriesComponent implements OnInit {
                 var book = resp.books
                 var newbooks = [];
                 var uniqueObject = {};
-        
-        
+                var allbooks = []
+                allbooks = book
+                localStorage.setItem('allbooks', JSON.stringify(allbooks))
+
                 for (let i in book) {
-        
+
                   let objTitle = book[i]['Isbn_no'];
-        
-        
+
+
                   uniqueObject[objTitle] = book[i];
                 }
-        
-        
+
+
                 for (let i in uniqueObject) {
                   newbooks.push(uniqueObject[i]);
                 }
-        
+
                 resp['books'] = newbooks
                 for (let i = 0; i < book.length; i++) {
                   book[i]['mrp_inr'] = Math.floor(book[i]['mrp_inr'])
@@ -254,10 +256,10 @@ export class SubcategoriesComponent implements OnInit {
               this.categoryname = this.books$.message
               var subcat = this.categoryname.subcategory
               for (let i = 0; i < subcat.length; i++) {
-                if(this.categoryid == subcat[i]['_id']){
+                if (this.categoryid == subcat[i]['_id']) {
                   this.subcatname = subcat[i]['name']
                 }
-                
+
               }
               this.spinner.hide();
               if (this.books$.totalBooks == 0) {
@@ -327,7 +329,9 @@ export class SubcategoriesComponent implements OnInit {
         var newbooks = [];
         var uniqueObject = {};
 
-
+        var allbooks = []
+        allbooks = book
+        localStorage.setItem('allbooks',JSON.stringify(allbooks))
         for (let i in book) {
 
           let objTitle = book[i]['Isbn_no'];
@@ -355,36 +359,38 @@ export class SubcategoriesComponent implements OnInit {
           book[i]['sale_price'] = Math.floor(book[i]['sale_price'])
         }
         return resp
-       
+
       })
     ).subscribe((res) => {
       this.books$ = res
       this.config.totalItems = this.books$.totalBooks
-      if(this.router.url.includes('0/100')){
+      if (this.router.url.includes('0/100')) {
         this.PriceName = 'Price / 0/100'
-      }else if(this.router.url.includes('100/200')){
+      } else if (this.router.url.includes('100/200')) {
         this.PriceName = 'Price / 100/200'
-      }else if(this.router.url.includes('200/300')){
+      } else if (this.router.url.includes('200/300')) {
         this.PriceName = 'Price / 200/300'
-      }else if(this.router.url.includes('300/400')){
+      } else if (this.router.url.includes('300/400')) {
         this.PriceName = 'Price / 300/400'
-      }else if(this.router.url.includes('400/500')){
+      } else if (this.router.url.includes('400/500')) {
         this.PriceName = 'Price / 400/500'
-      }else if(this.router.url.includes('500')){
+      } else if (this.router.url.includes('500')) {
         this.PriceName = 'Price / 500 OnWards'
       }
       console.log(res)
       if (this.books$.totalBooks != 0) { this.spinner.hide() }
     });
   }
-  filtersSort(catid:string,variant: String, page) {
-    this.filter.sortBysubcat(catid,variant, page).pipe(
+  filtersSort(catid: string, variant: String, page) {
+    this.filter.sortBysubcat(catid, variant, page).pipe(
       map((resp) => {
         var book = resp.books
         var newbooks = [];
         var uniqueObject = {};
 
-
+        var allbooks = []
+        allbooks = book
+        localStorage.setItem('allbooks',JSON.stringify(allbooks))
         for (let i in book) {
 
           let objTitle = book[i]['Isbn_no'];
@@ -416,7 +422,7 @@ export class SubcategoriesComponent implements OnInit {
     ).subscribe((res) => {
       this.books$ = res
       this.config.totalItems = this.books$.totalBooks
-            if (this.router.url.includes('asc')) {
+      if (this.router.url.includes('asc')) {
         this.PriceName = 'Low To High'
       } else {
         this.PriceName = 'High To Low'
@@ -485,33 +491,33 @@ export class SubcategoriesComponent implements OnInit {
         this.filters(this.fourth, this.config.currentPage, this.categoryid);
       }
 
-    } else if (this.router.url == '/subcategory/sortBy500'+ ';query=' + this.categoryid ||
-      this.router.url == '/subcategory/sortBy500'+';query=' + this.categoryid + '?page=' + this.config.currentPage) {
+    } else if (this.router.url == '/subcategory/sortBy500' + ';query=' + this.categoryid ||
+      this.router.url == '/subcategory/sortBy500' + ';query=' + this.categoryid + '?page=' + this.config.currentPage) {
       if (this.router.url == '/subcategory/sortBy500' + ';query=' + this.categoryid) {
         this.filters(this.fifth, 1, this.categoryid);
       } else {
         this.filters(this.fifth, this.config.currentPage, this.categoryid);
       }
 
-    }else if (this.router.url == '/subcategory/sortBy'+this.variant1+ ';query=' + this.categoryid ||
-    this.router.url == '/subcategory/sortBy'+this.variant1 + ';query=' + this.categoryid + '?page=' + this.config.currentPage) {
-    if (this.router.url == '/subcategory/sortBy' + ';query=' + this.categoryid) {
-      console.log('filtersort')
-      this.filtersSort(this.categoryid,this.variant1,1 );
-    } else {
-      this.filtersSort(this.categoryid,this.variant1, this.config.currentPage);
+    } else if (this.router.url == '/subcategory/sortBy' + this.variant1 + ';query=' + this.categoryid ||
+      this.router.url == '/subcategory/sortBy' + this.variant1 + ';query=' + this.categoryid + '?page=' + this.config.currentPage) {
+      if (this.router.url == '/subcategory/sortBy' + ';query=' + this.categoryid) {
+        console.log('filtersort')
+        this.filtersSort(this.categoryid, this.variant1, 1);
+      } else {
+        this.filtersSort(this.categoryid, this.variant1, this.config.currentPage);
+      }
+
+    } else if (this.router.url == '/subcategory/sortBy' + this.variant + ';query=' + this.categoryid ||
+      this.router.url == '/subcategory/sortBy' + this.variant + ';query=' + this.categoryid + '?page=' + this.config.currentPage) {
+      if (this.router.url == '/subcategory/sortBy' + ';query=' + this.categoryid) {
+        console.log('filtersort')
+        this.filtersSort(this.categoryid, this.variant, 1);
+      } else {
+        this.filtersSort(this.categoryid, this.variant, this.config.currentPage);
+      }
+
     }
-
-  }else if (this.router.url == '/subcategory/sortBy'+this.variant+ ';query=' + this.categoryid ||
-  this.router.url == '/subcategory/sortBy'+this.variant + ';query=' + this.categoryid + '?page=' + this.config.currentPage) {
-  if (this.router.url == '/subcategory/sortBy' + ';query=' + this.categoryid) {
-    console.log('filtersort')
-    this.filtersSort(this.categoryid,this.variant,1 );
-  } else {
-    this.filtersSort(this.categoryid,this.variant, this.config.currentPage);
-  }
-
-}
 
     // }
     // else if (this.router.url == '/subcategory/sortByasc' ||
@@ -549,10 +555,10 @@ export class SubcategoriesComponent implements OnInit {
     this.router.navigate(['subcategory/sortBy500', { query: this.categoryid }]);
   }
   public lowTohigh() {
-    this.router.navigate(['subcategory/sortByasc',{ query: this.categoryid }]);
+    this.router.navigate(['subcategory/sortByasc', { query: this.categoryid }]);
   }
   public highTolow() {
-    this.router.navigate(['subcategory/sortBydesc',{ query: this.categoryid }]);
+    this.router.navigate(['subcategory/sortBydesc', { query: this.categoryid }]);
   }
   loadwish() {
     if (localStorage.getItem('User') != null) {

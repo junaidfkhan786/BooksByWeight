@@ -182,7 +182,9 @@ export class SearchComponent implements OnInit, UrlSerializer {
         var newbooks = [];
         var uniqueObject = {};
 
-
+        var allbooks = []
+        allbooks = book
+        localStorage.setItem('allbooks',JSON.stringify(allbooks))
         for (let i in book) {
 
           let objTitle = book[i]['Isbn_no'];

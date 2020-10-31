@@ -20,7 +20,7 @@ export class DetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   bookimg: any[] = [];
   @Input() category: any;
   @Input() subcategory: any;
-  unique: any
+  unique: any =[]
   constructor(
     private toastr: ToastrService,
     private router: Router,
@@ -62,7 +62,7 @@ export class DetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   load_condition_array() {
 
-    let localarray = JSON.parse(localStorage.getItem('allbooks'))
+    var localarray = JSON.parse(localStorage.getItem('allbooks'))
     console.log(localarray)
   if(localarray != null && localarray !=undefined){
     for (let i = 0; i < localarray.length; i++) {

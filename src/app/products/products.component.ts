@@ -204,7 +204,6 @@ export class ProductsComponent implements OnInit {
         var allbooks = []
         allbooks = book
         localStorage.setItem('allbooks',JSON.stringify(allbooks))
-        console.log(allbooks.length)
         var newbooks = [];
         var uniqueObject = {};
 

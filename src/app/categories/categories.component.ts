@@ -214,7 +214,9 @@ export class CategoriesComponent implements OnInit {
                 var book = resp.books
                 var newbooks = [];
                 var uniqueObject = {};
-        
+                var allbooks = []
+        allbooks = book
+        localStorage.setItem('allbooks',JSON.stringify(allbooks))
         
                 for (let i in book) {
         
@@ -318,7 +320,9 @@ export class CategoriesComponent implements OnInit {
         var newbooks = [];
         var uniqueObject = {};
 
-
+        var allbooks = []
+        allbooks = book
+        localStorage.setItem('allbooks',JSON.stringify(allbooks))
         for (let i in book) {
 
           let objTitle = book[i]['Isbn_no'];
@@ -373,7 +377,9 @@ export class CategoriesComponent implements OnInit {
         var book = resp.books
         var newbooks = [];
         var uniqueObject = {};
-
+        var allbooks = []
+        allbooks = book
+        localStorage.setItem('allbooks',JSON.stringify(allbooks))
 
         for (let i in book) {
 
