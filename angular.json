@@ -77,14 +77,14 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "sow:build"
+            "browserTarget": "sow:build",
+            "host": "0.0.0.0",
+            "port": 1738
           },
           "configurations": {
             "production": {
-              "browserTarget": "sow:build:production",
-              "host": "0.0.0.0",
-              "port": 1738,
-              "ssl": true
+              "browserTarget": "sow:build:production"
+
             }
           }
         },

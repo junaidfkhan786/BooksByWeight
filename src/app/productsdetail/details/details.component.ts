@@ -192,7 +192,7 @@ localStorage.removeItem('allbooks')
     var img: any = []
     for (let i = 0; i < this.bookimg.length; i++) {
 
-      if (this.bookimg[i] == "https://booksimg.s3.us-east-2.amazonaws.com/") {
+      if (this.bookimg[i] == "https://bbw.storage.fra1.digitaloceanspaces.com/") {
         this.bookimg.splice(i, 1); i--;
       }
     }

@@ -395,10 +395,10 @@ export class AdminMainContentComponent implements OnInit {
             var book_img3 = this.exceljson[i]['book_img3']
             var book_img4 = this.exceljson[i]['book_img4']
             this.exceljson[i]['book_img'] = [
-              'https://booksimg.s3.us-east-2.amazonaws.com/' + book_img1,
-              'https://booksimg.s3.us-east-2.amazonaws.com/' + book_img2,
-              'https://booksimg.s3.us-east-2.amazonaws.com/' + book_img3,
-              'https://booksimg.s3.us-east-2.amazonaws.com/' + book_img4
+              'https://bbw.storage.fra1.digitaloceanspaces.com/' + book_img1,
+              'https://bbw.storage.fra1.digitaloceanspaces.com/' + book_img2,
+              'https://bbw.storage.fra1.digitaloceanspaces.com/' + book_img3,
+              'https://bbw.storage.fra1.digitaloceanspaces.com/' + book_img4
             ]
           }
           delete this.exceljson[i]['book_img1']
@@ -442,25 +442,73 @@ export class AdminMainContentComponent implements OnInit {
 
   fileInfos: Observable<any>;
   addbulk(event) {
+  
+    try {
+      this.spinner.show()
+      if (!this.validateJsonFile(event.target.files[0].name)) {
+        throw { type: "please upload Json file" };
+      } else if (event.target.files.length !== 1) {
+        throw { multiple: "Cannot use multiple files" };
+      } else {
+        this.excel = event.target.files[0]
+        const form = new FormData()
+        form.append('excel_file',
+          this.excel)
+        this.bulkbook.bulkbook(form).subscribe(
+          
+          event => {
 
-    this.excel = event.target.files[0]
-    const form = new FormData()
-    form.append('excel_file',
-      this.excel)
-    this.bulkbook.bulkbook(form).subscribe(
-      event => {
-        if (event.type === HttpEventType.UploadProgress) {
-          this.progress = Math.round(100 * event.loaded / event.total);
-        } else if (event instanceof HttpResponse) {
-          this.message = event.body.message;
-        }
-      },
-      err => {
-        this.progress = 0;
-        this.messages = 'Could not upload the file!';
-
+            console.log(event)
+            if (event.type === HttpEventType.UploadProgress) {
+              this.progress = Math.round(100 * event.loaded / event.total);
+            } else if (event instanceof HttpResponse) {
+              this.spinner.hide()
+              this.message = event.body.Message;
+              Swal.fire({
+                title: `Books ${this.message} SuccessFully?`,
+                icon: 'success',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Done'
+              }).then((result) => {
+                if (result.value) {
+                  this.ngZone.run(() => this.router.navigate(['/admin/dashboard/view-products'])).then();
+                }
+              })
+            }
+          },
+          err => {
+            this.spinner.hide()
+            console.log(err)
+            this.messages = err.error.error.message
+            this.progress = 0;
+            this.excel = null
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: this.messages,
+            })
+            // this.messages = 'Could not upload the file!';
+    
+          }
+        )
       }
-    )
+    } catch (error) {
+      if (error.type) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.type,
+        })
+      } else if (error.multiple) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.multiple,
+        })
+      }
+    }
+   
     // (data) => {
     //   if (data) {
     //     Swal.fire({
@@ -481,6 +529,18 @@ export class AdminMainContentComponent implements OnInit {
     //     })
     //   }
     // }
+  }
+
+  validateJsonFile(name: String) {
+    var ext = name.substring(name.lastIndexOf('.') + 1);
+    if (ext.toLowerCase() == 'json') {
+      return true;
+    } else if (ext.toLowerCase() == 'json') {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
   getadmin() {
     if (localStorage.getItem('SuperAdmin')) {
@@ -518,9 +578,23 @@ export class AdminMainContentComponent implements OnInit {
   }
   ExportToExcel(){
     this.bulkbook.Exportexcel().subscribe((data)=>{
+     this.exportexcels(data.books)
       console.log(data)
     },(error)=>{
       console.log(error)
     })
+  }
+  exportexcels(exceljson) {
+    var date = new Date().toISOString();
+    // var name =
+    //   ("00" + (date.getMonth() + 1)).slice(-2)
+    //   + "/" + ("00" + date.getDate()).slice(-2)
+    //   + "/" + date.getFullYear() + " "
+    //   + ("00" + date.getHours()).slice(-2) + ":"
+    //   + ("00" + date.getMinutes()).slice(-2)
+    //   + ":" + ("00" + date.getSeconds()).slice(-2);
+    let filename = date + "BooksByWeight"
+    this.excelexp.exportExcel(exceljson, filename)
+    // this.excelexp.exportExcel(exceljson, filename);
   }
 }
