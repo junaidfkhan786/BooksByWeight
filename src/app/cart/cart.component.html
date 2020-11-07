@@ -8,11 +8,6 @@
       <app-header></app-header>
       <div class="bg-image" style="position: relative;
       text-align: center;">
-        <div class="d-flex justify-content-start">
-          <button class="btn btn-outline-danger">
-            <span class="material-icons" (click)="goback()">arrow_back</span>
-          </button>
-        </div>
         <div style="  position: absolute;
           top: 50%;
           left: 50%;
@@ -28,7 +23,9 @@
 
         </div>
       </div>
+      
 
+    <div class="container-fluid">
       <div class="row  d-flex justify-content-center" style="height: 200px;" *ngIf="cartitem.length == 0">
         <div style="width: 50%; height: 80%; top: 80px; background-color: #212529; color: white; "
           class="card shadow-bottom align-middle">
@@ -39,6 +36,7 @@
             class="d-flex justify-content-center org "> CLick Here To Add </a>
         </div>
       </div>
+    </div>
     </div>
     <div class="stickyfooter">
       <app-footer></app-footer>

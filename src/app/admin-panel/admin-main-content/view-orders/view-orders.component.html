@@ -4,88 +4,191 @@
         <app-admin-sidebar></app-admin-sidebar>
     </div>
     <div class="col p-2">
-      <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="line-scale-pulse-out" [fullScreen]="false">
-        <p style="color: white"> Loading... </p>
-      </ngx-spinner>
-
-
-        <table class="table  table-dark table-striped table-hover">
-            <thead class="table-dark">
-                <tr>
-                    <!-- <th scope="col">
-                    Select All &nbsp; <input class="form-check-input" type="checkbox" value="" >
-                    </th> -->
-                    <th scope="col">Sr No</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Mob Number</th>
-                    <th scope="col">Order Items </th>
-                    <th scope="col">Payment Done </th>
-                    <th scope="col">Order Status</th>
-                    <th scope="col">View Details</th>
-                    <th scope="col">Cancel</th>
-                </tr>
-            </thead>
-            <tbody class="align-middle">
-                <ng-container >
-                    <tr *ngFor="let orders of orders$| paginate: {  itemsPerPage: 10, currentPage: pages, totalItems: i}; let i = index;" >
-                        <td >
-                            {{ 10 * (pages - 1) + i + 1 }}
-                        </td>
-                        <td *ngIf="orders.address ">
-                            {{orders.address.fullname}}
-                        </td>
-                        <td *ngIf="orders.address ">
-                            {{orders.address.mobilenumber}}
-                        </td>
-                        <td>
-                           {{orders.order_items.length}}
-                        </td>
-                        <td *ngIf="orders.isPaymentCompleted == true">
-                            Payment Completed
-                        </td>
-                        <td *ngIf="orders.isPaymentCompleted == false">
-                            Payment Not Completed
-                        </td>
-                        <td *ngIf="orders.orderStatus">
-                            {{orders.orderStatus}}
-                        </td>
-                        <td>
-                            <button  (click)="viewdetails(orders)" class="btn btn-success" style="border-radius: 0;">
-                                View-Details
-                            </button>
-                        </td>
-                        <td>
-                            <button (click)="cancelorder(orders._id)" class="btn btn-danger" style="border-radius: 0;">
-                                Cancel
-                            </button>
-                        </td>
-
-                    </tr>
-                    <p class="mt-2"
-                     style="color: black; font-size: 3rem;" *ngIf="orderslength == 0">No Result Found</p>
-                </ng-container>
-
-            </tbody>
-        </table>
-
-    <pagination-controls class="d-flex justify-content-center" directionLinks="true"
-
-    (pageChange)="onPageChange($event)"
-        autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next">
-    </pagination-controls>
-
-
-
-    <div class="row  d-flex justify-content-center" style="height: 500px;" *ngIf="orderslength == 0">
-        <div style="width: 50%; height: 50%; top: 80px; background-color: #212529; color: white; " class="card shadow-bottom align-middle">
-            <h5 style="margin-top: 15%;"  class="text-center card-title">YOU HAVE NO PRODUCT ADDED</h5>
-            <a style="text-decoration: none; color: white; cursor: pointer;" class="d-flex justify-content-center org "> CLick Here To Add It </a>
-            <span class="material-icons d-flex justify-content-center">
-                touch_app
-                </span>
+        <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="line-scale-pulse-out"
+            [fullScreen]="false">
+            <p style="color: white"> Loading... </p>
+        </ngx-spinner>
+        <div class="card p-2 btc">
+            <div class="row w-50 m-auto text-center">
+                <span class="font-weight-bolder org" style="font-size: large;">ALL ORDERS</span>
+            </div>
         </div>
-    </div>
+        <div class="card m-3 p-3 bg-dark " style="color: white;">
+            <div class="row border p-2">
+                <div class="col">
+                    Sr No
+                </div>
+                <div class="col">
+                    Name
+                </div>
+                <div class="col">
+                    Mob Number
+                </div>
+                <div class="col">
+                    Order Items
+                </div>
+                <div class="col">
+                    Payment Done
+                </div>
+                <div class="col">
+                    Order Status
+                </div>
+                <div class="col">
+                    View Details
+                </div>
+                <div class="col">
+                    Cancel
+                </div>
+            </div>
+
+            <ng-container
+                *ngFor="let orders of orders$| paginate: {  itemsPerPage: 10, currentPage: pages, totalItems: i}; let i = index;">
+
+                <div class="row p-2">
+                    <div class="col">
+                        <div>
+                            {{ 10 * (pages - 1) + i + 1 }}
+                        </div>
+
+                    </div>
+                    <div class="col">
+                        <div *ngIf="orders.address ">
+                            {{orders.address.fullname}}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div *ngIf="orders.address ">
+                            {{orders.address.mobilenumber}}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div>
+                            {{orders.order_items.length}}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div *ngIf="orders.isPaymentCompleted == true">
+                            Payment Completed
+                        </div>
+                        <div *ngIf="orders.isPaymentCompleted == false">
+                            Payment Not Completed
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div *ngIf="orders.orderStatus">
+                            {{orders.orderStatus}}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <button (click)="viewdetails(orders)" class="btn btn-success btn-sm" style="border-radius: 0;">
+                            View-Details
+                        </button>
+                    </div>
+                    <div class="col">
+                        <button (click)="cancelorder(orders._id)" class="btn btn-danger btn-sm"
+                            style="border-radius: 0;">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+                <div class="row p-2 border">
+                    <div class="col">
+                        Sr No
+                    </div>
+                    <div class="col">
+                        Img
+                    </div>
+                    <div class="col">
+                        Book Name
+                    </div>
+                    <div class="col">
+                        condition
+                    </div>
+                    <div class="col">
+                        sku
+                    </div>
+                    <div class="col">
+                        weight
+                    </div>
+                    <div class="col">
+                        final price
+                    </div>
+                    <div class="col">
+                        sale price
+                    </div>
+                    <div class="col">
+                        Delete
+                    </div>
+                </div>
+                <ng-container *ngFor="let orderitem of orders.order_items;let i = index" >
+                    <div class="row p-2">
+                        <div class="col">
+                            {{i + 1}}
+                        </div>
+                        <div class="col">
+                            <img src="{{orderitem.bookdetail.book_img[0]}}" height="50" width="50" alt="Book_Img">
+                            
+                        </div>
+                        <div class="col">
+                            <div *ngIf="orderitem.bookdetail != null">
+                                {{orderitem.bookdetail.book_name | truncate :30}}
+                            </div>
+
+                        </div>
+                        <div class="col">
+                            <div *ngIf="orderitem.bookdetail != null">
+                                {{orderitem.bookdetail.condition}}
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div *ngIf="orderitem.bookdetail != null">
+                                {{orderitem.bookdetail.sku}}
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div *ngIf="orderitem.bookdetail != null">
+                                {{orderitem.bookdetail.weight}}
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div *ngIf="orderitem.bookdetail != null">
+                                {{orderitem.bookdetail.final_price}}
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div *ngIf="orderitem.bookdetail != null">
+                                {{orderitem.bookdetail.sale_price}}
+                            </div>
+                        </div>
+                        <div class="col">
+                            <button (click)="Bookdel(orderitem.bookdetail? orderitem.bookdetail._id:'null' )" class="btn btn-outline-danger btn-sm">
+                               <span class="material-icons">
+                                   delete
+                               </span>
+                            </button>
+                        </div>
+                    </div>
+                </ng-container>
+                <hr>
+
+
+            </ng-container>
+            <pagination-controls class="d-flex justify-content-center" directionLinks="true"
+            (pageChange)="onPageChange($event)" autoHide="true" responsive="true" previousLabel="Previous"
+            nextLabel="Next">
+        </pagination-controls>
+            <div class="row  d-flex justify-content-center" style="height: 500px;" *ngIf="orderslength == 0">
+                <div style="width: 50%; height: 50%; top: 80px; background-color: #212529; color: white; "
+                    class="card shadow-bottom align-middle">
+                    <h5 style="margin-top: 15%;" class="text-center card-title">YOU HAVE NO PRODUCT ADDED</h5>
+                    <a style="text-decoration: none; color: white; cursor: pointer;"
+                        class="d-flex justify-content-center org "> CLick Here To Add It </a>
+                    <span class="material-icons d-flex justify-content-center">
+                        touch_app
+                    </span>
+                </div>
+            </div>
+        </div>
 
     </div>
 </div>
-

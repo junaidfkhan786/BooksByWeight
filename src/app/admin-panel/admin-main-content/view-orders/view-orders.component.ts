@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminOrdersService } from 'src/app/services/admin-orders.service';
-import { error } from '@angular/compiler/src/util';
-import { Subject } from 'rxjs';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { AdminLoginService } from 'src/app/services/admin-login.service';
 @Component({
   selector: 'app-view-orders',
@@ -60,5 +59,15 @@ export class ViewOrdersComponent implements OnInit {
   onPageChange(page: number = 1) {
     this.pages = page;
     window.scrollTo(0, 60);
+  }
+
+  Bookdel(id){
+    Swal.fire(
+      'Working!',
+      'Working On This Module!',
+      'info'
+    )
+    
+    console.log(id)
   }
 }
