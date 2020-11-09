@@ -1,7 +1,7 @@
 import { HttpHeaders } from '@angular/common/http'
 
 export const API_URL = "http://localhost:5000/api"
-export const API_LIVE = "http://139.59.61.45:5000/api"
+export const API_LIVE = "https://api.booksbyweight.com/api"
 // export const API_LIVE = "http://localhost:5000/api"
 
 
