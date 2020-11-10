@@ -150,6 +150,7 @@ localStorage.removeItem('allbooks')
   }
   bookchange(condition) {
     console.log(condition._id)
+    // this.router.navigate(['details/'+ condition._id,])
     window.location.href = "details/"+ condition._id;
   }
   loadbook() {
