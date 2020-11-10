@@ -75,7 +75,7 @@
             </span>
             <b>Dimensions: </b>{{book.dimensions}}</li>
 
-          <li *ngIf="book.weight" class="org p-2" style="list-style-type: none;">
+          <li *ngIf="book.weight && category.category!='Collectibles'"class="org p-2" style="list-style-type: none;">
             <span class="material-icons">
               play_circle_filled
             </span>

@@ -57,7 +57,7 @@
         <div class="col-xs-12 col-lg-8">
           <select [(ngModel)]="selected" *ngIf="unique.length != 0" style="border-radius: 0px !important;" class="form-select" aria-label="Default select example"
             name="selected">
-            <option *ngFor="let condition of unique" (click)="bookchange(condition._id)"> 
+            <option *ngFor="let condition of unique" (click)="bookchange(condition)"> 
               {{condition.condition}}
             </option>
 
@@ -67,7 +67,7 @@
             <b>Print Type:</b> {{details.print_format}}
           </div>
         </div>
-        <div class="color" *ngIf="details.mrp_inr !=0 && details.mrp_inr !=null ">
+        <div class="color" *ngIf="details.mrp_inr !=0 && details.mrp_inr !=null && category.category!='Collectibles' ">
           <b>MRP:</b> <s>
             <span *ngIf="details.mrp_dollar !=0 ">
               {{ details.mrp_dollar | currency:'USD' }}

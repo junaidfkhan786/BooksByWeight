@@ -148,9 +148,9 @@ localStorage.removeItem('allbooks')
     }, 2000);
 
   }
-  bookchange(id) {
-    window.location.assign('details/' + id)
-    // this.router.navigate(['details/' + id]);
+  bookchange(condition) {
+    console.log(condition._id)
+    window.location.href = "details/"+ condition._id;
   }
   loadbook() {
 
