@@ -209,15 +209,15 @@ export class CheckoutComponent implements OnInit {
     this.formbutton = true
     this.div = true
     this.addform.setValue({
-      fullName: add.fullName,
+      fullname: add.fullname,
       email: add.email,
-      mobileNumber: add.mobileNumber,
-      alternatePhoneNumber: add.alternatePhoneNumber,
+      mobilenumber: add.mobilenumber,
+      alternatephonenumber: add.alternatephonenumber,
       address: add.address,
       state: add.state,
       city: add.city,
       landmark: add.landmark,
-      pinCode: add.pinCode
+      pincode: add.pincode
     })
     this.addid = add._id
   }
@@ -465,7 +465,7 @@ export class CheckoutComponent implements OnInit {
     this.selected = !this.selected;
     Swal.fire(
       'This Address Is Selected',
-      ' ' + adds.fullName + ' ' + adds.email + ' ' + adds.address + ' ' + adds.city + ' ' + adds.state + ' ' + adds.pinCode,
+      ' ' + adds.fullname + ' ' + adds.email + ' ' + adds.address + ' ' + adds.city + ' ' + adds.state + ' ' + adds.pincode,
       'success'
     )
     // this.toastr.success('This Address Is Selected' + ' ' + adds.fullName + ' ' + adds.address + ' ' + adds.city + ' ' + adds.state + ' ' + adds.pinCode, 'BooksByWeight', {

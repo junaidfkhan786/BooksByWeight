@@ -132,15 +132,15 @@ export class UseraddressComponent implements OnInit, OnDestroy  {
     this.formbutton = true
     this.div = true
     this.addform.setValue({
-      fullName: add.fullName,
+      fullname: add.fullname,
       email: add.email,
-      mobileNumber: add.mobileNumber,
-      alternatePhoneNumber: add.alternatePhoneNumber,
+      mobilenumber: add.mobilenumber,
+      alternatephonenumber: add.alternatephonenumber,
       address: add.address,
       state: add.state,
       city: add.city,
       landmark: add.landmark,
-      pinCode: add.pinCode
+      pincode: add.pincode
     })
     this.addid = add._id
   }

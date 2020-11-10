@@ -31,7 +31,7 @@
                                 <br>
                                 <form #addform="ngForm" id="address">
                                     <div class="input-group">
-                                        <input [(ngModel)]="add.fullName" name="fullName" type="text"
+                                        <input [(ngModel)]="add.fullname" name="fullname" type="text"
                                             class="form-control" placeholder="Enter Full Name*" #fullName required>
                                     </div>
                                     <div class="input-group">
@@ -42,7 +42,7 @@
                                     <div class="row g-2">
                                         <div class="col-md-12">
                                             <div class="input-group">
-                                                <input [(ngModel)]="add.mobileNumber" type="text" name="mobileNumber"
+                                                <input [(ngModel)]="add.mobilenumber" type="text" name="mobilenumber"
                                                     class="form-control" placeholder="Enter Phone-Number*"
                                                     onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
                                                     autocomplete="off" minlength="10" maxlength="10" #mobileNumber
@@ -51,8 +51,8 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="input-group">
-                                                <input [(ngModel)]="add.alternatePhoneNumber"
-                                                    name="alternatePhoneNumber" type="text" class="form-control"
+                                                <input [(ngModel)]="add.alternatephonenumber"
+                                                    name="alternatephonenumber" type="text" class="form-control"
                                                     placeholder="Enter Alternate Phone-Number (Optional)"
                                                     aria-label="mobile-number"
                                                     onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
@@ -90,9 +90,9 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="input-group">
-                                                <input [(ngModel)]="add.pinCode"
+                                                <input [(ngModel)]="add.pincode"
                                                     onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
-                                                    name="pinCode" type="text" class="form-control"
+                                                    name="pincode" type="text" class="form-control"
                                                     placeholder="Enter Pin-Code*" #pinCode required>
                                             </div>
                                         </div>
@@ -118,17 +118,17 @@
                                         <div class="col-10">
                                             <div>
                                                 <span>
-                                                    <b>Name :</b> {{add.fullName}}
+                                                    <b>Name :</b> {{add.fullname}}
                                                 </span>
                                             </div>
                                             <div>
                                                 <span>
-                                                    <b>Mob No:</b> {{add.mobileNumber}}
+                                                    <b>Mob No:</b> {{add.mobilenumber}}
                                                 </span>
                                             </div>
                                             <div>
                                                 <span>
-                                                    <b> Alt Mob No:</b> {{add.alternatePhoneNumber}}
+                                                    <b> Alt Mob No:</b> {{add.alternatephonenumber}}
                                                 </span>
                                             </div>
                                             <div>
@@ -138,7 +138,7 @@
                                                     {{add.landmark}}
                                                     {{add.city}}
                                                     {{add.state}}
-                                                    {{add.pinCode}}
+                                                    {{add.pincode}}
                                                 </span>
                                             </div>
                                         </div>
@@ -180,20 +180,20 @@
                                                 {{i + 1}}
                                             </td>
                                             <td>
-                                                {{add.fullName}}
+                                                {{add.fullname}}
                                             </td>
                                             <td>
-                                                {{add.mobileNumber}}
+                                                {{add.mobilenumber}}
                                             </td>
                                             <td>
-                                                {{add.alternatePhoneNumber}}
+                                                {{add.alternatephonenumber}}
                                             </td>
                                             <td>
                                                 {{add.address }}
                                                 {{add.landmark}}
                                                 {{add.city}}
                                                 {{add.state}}
-                                                {{add.pinCode}}
+                                                {{add.pincode}}
                                             </td>
                                             <td><button class="btn btn-success" style="border-radius: 0;"
                                                     (click)="getbillingadd(add)">
@@ -317,7 +317,7 @@
                         <br>
                         <form #addform="ngForm" id="address">
                             <div class="input-group">
-                                <input [(ngModel)]="add.fullName" name="fullName" type="text"
+                                <input [(ngModel)]="add.fullname" name="fullname" type="text"
                                     class="form-control" placeholder="Enter Full Name*" #fullName required>
                             </div>
                             <div class="input-group">
@@ -328,7 +328,7 @@
                             <div class="row g-2">
                                 <div class="col-md-12">
                                     <div class="input-group">
-                                        <input [(ngModel)]="add.mobileNumber" type="text" name="mobileNumber"
+                                        <input [(ngModel)]="add.mobilenumber" type="text" name="mobilenumber"
                                             class="form-control" placeholder="Enter Phone-Number*"
                                             onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
                                             autocomplete="off" minlength="10" maxlength="10" #mobileNumber
@@ -337,8 +337,8 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="input-group">
-                                        <input [(ngModel)]="add.alternatePhoneNumber"
-                                            name="alternatePhoneNumber" type="text" class="form-control"
+                                        <input [(ngModel)]="add.alternatephonenumber"
+                                            name="alternatephonenumber" type="text" class="form-control"
                                             placeholder="Enter Alternate Phone-Number (Optional)"
                                             aria-label="mobile-number"
                                             onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
@@ -376,9 +376,9 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="input-group">
-                                        <input [(ngModel)]="add.pinCode"
+                                        <input [(ngModel)]="add.pincode"
                                             onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
-                                            name="pinCode" type="text" class="form-control"
+                                            name="pincode" type="text" class="form-control"
                                             placeholder="Enter Pin-Code*" #pinCode required>
                                     </div>
                                 </div>
@@ -404,17 +404,17 @@
                                 <div class="col-10">
                                     <div>
                                         <span>
-                                            <b>Name :</b> {{add.fullName}}
+                                            <b>Name :</b> {{add.fullname}}
                                         </span>
                                     </div>
                                     <div>
                                         <span>
-                                            <b>Mob No:</b> {{add.mobileNumber}}
+                                            <b>Mob No:</b> {{add.mobilenumber}}
                                         </span>
                                     </div>
                                     <div>
                                         <span>
-                                            <b> Alt Mob No:</b> {{add.alternatePhoneNumber}}
+                                            <b> Alt Mob No:</b> {{add.alternatephonenumber}}
                                         </span>
                                     </div>
                                     <div>
@@ -424,7 +424,7 @@
                                             {{add.landmark}}
                                             {{add.city}}
                                             {{add.state}}
-                                            {{add.pinCode}}
+                                            {{add.pincode}}
                                         </span>
                                     </div>
                                 </div>
@@ -466,20 +466,20 @@
                                         {{i + 1}}
                                     </td>
                                     <td>
-                                        {{add.fullName}}
+                                        {{add.fullname}}
                                     </td>
                                     <td>
-                                        {{add.mobileNumber}}
+                                        {{add.mobilenumber}}
                                     </td>
                                     <td>
-                                        {{add.alternatePhoneNumber}}
+                                        {{add.alternatephonenumber}}
                                     </td>
                                     <td>
                                         {{add.address }}
                                         {{add.landmark}}
                                         {{add.city}}
                                         {{add.state}}
-                                        {{add.pinCode}}
+                                        {{add.pincode}}
                                     </td>
                                     <td><button class="btn btn-success" style="border-radius: 0;"
                                             (click)="getbillingadd(add)">

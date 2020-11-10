@@ -13,7 +13,7 @@
             <br>
             <form #addform="ngForm" id="address">
                 <div class="input-group">
-                    <input [(ngModel)]="add.fullName" name="fullName" type="text" class="form-control"
+                    <input [(ngModel)]="add.fullname" name="fullname" type="text" class="form-control"
                         placeholder="Enter Full Name*" #fullName required>
                 </div>
                 <br>
@@ -25,7 +25,7 @@
                 <div class="row g-2">
                     <div class="col-md-12">
                         <div class="input-group">
-                            <input  [(ngModel)]="add.mobileNumber" type="text" name="mobileNumber" class="form-control"
+                            <input  [(ngModel)]="add.mobilenumber" type="text" name="mobilenumber" class="form-control"
                                 placeholder="Enter Phone-Number*"
                                 numbersOnly
                                 autocomplete="off" maxlength="10" #mobileNumber required>
@@ -34,11 +34,11 @@
                     <br>
                     <div class="col-md-12">
                         <div class="input-group">
-                            <input [(ngModel)]="add.alternatePhoneNumber" name="alternatePhoneNumber" type="text"
+                            <input [(ngModel)]="add.alternatephonenumber" name="alternatephonenumber" type="text"
                                 class="form-control" placeholder="Enter Alternate Phone-Number(Optional)"
                                 aria-label="mobile-number"
                                 numbersOnly
-                                autocomplete="off" maxlength="10" #alternatePhoneNumber>
+                                autocomplete="off" maxlength="10" #alternatephonenumber>
                         </div>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <input [(ngModel)]="add.pinCode" numbersOnly name="pinCode" type="text" class="form-control"
+                            <input [(ngModel)]="add.pincode" numbersOnly name="pincode" type="text" class="form-control"
                                 placeholder="Enter Pin-Code*" #pinCode required>
                         </div>
                     </div>
@@ -105,20 +105,20 @@
                         {{i + 1}}
                     </td>
                     <td>
-                        {{add.fullName}}
+                        {{add.fullname}}
                     </td>
                     <td>
-                        {{add.mobileNumber}}
+                        {{add.mobilenumber}}
                     </td>
                     <td>
-                        {{add.mobileNumber}}
+                        {{add.alternatephonenumber}}
                     </td>
                     <td>
                         {{add.address }}
                         {{add.landmark}}
                         {{add.city}}
                         {{add.state}}
-                        {{add.pinCode}}
+                        {{add.pincode}}
                     </td>
                     <td><button class="btn btn-success" style="border-radius: 0;" (click)="edit(add)" >
                             Edit This

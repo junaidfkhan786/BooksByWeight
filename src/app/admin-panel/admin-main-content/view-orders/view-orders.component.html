@@ -161,7 +161,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <button (click)="Bookdel(orderitem.bookdetail? orderitem.bookdetail._id:'null' )" class="btn btn-outline-danger btn-sm">
+                            <button (click)="Bookdel(orderitem._id, orders.orderid )" class="btn btn-outline-danger btn-sm">
                                <span class="material-icons">
                                    delete
                                </span>

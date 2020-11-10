@@ -61,13 +61,14 @@ export class ViewOrdersComponent implements OnInit {
     window.scrollTo(0, 60);
   }
 
-  Bookdel(id){
+  Bookdel(id,orderid){
+    
     Swal.fire(
       'Working!',
       'Working On This Module!',
       'info'
     )
     
-    console.log(id)
+    console.log(id,orderid)
   }
 }
