@@ -395,10 +395,10 @@ export class AdminMainContentComponent implements OnInit {
             var book_img3 = this.exceljson[i]['book_img3']
             var book_img4 = this.exceljson[i]['book_img4']
             this.exceljson[i]['book_img'] = [
-              'https://bbw.storage.fra1.digitaloceanspaces.com/' + book_img1,
-              'https://bbw.storage.fra1.digitaloceanspaces.com/' + book_img2,
-              'https://bbw.storage.fra1.digitaloceanspaces.com/' + book_img3,
-              'https://bbw.storage.fra1.digitaloceanspaces.com/' + book_img4
+              'https://images-bbw.booksbyweight.com/' + book_img1,
+              'https://images-bbw.booksbyweight.com/' + book_img2,
+              'https://images-bbw.booksbyweight.com/' + book_img3,
+              'https://images-bbw.booksbyweight.com/' + book_img4
             ]
           }
           delete this.exceljson[i]['book_img1']
